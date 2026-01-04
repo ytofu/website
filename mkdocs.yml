@@ -48,3 +48,21 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
+  - AWS:
+    - Overview: aws/index.md
+    - Compute:
+      - Overview: aws/compute/index.md
+      - EC2 Instance: aws/compute/ec2-instance.md
+      - Lambda: aws/compute/lambda.md
+      - ECS: aws/compute/ecs.md
+      - EKS: aws/compute/eks.md
+      - Launch Template: aws/compute/launch-template.md
+      - Auto Scaling: aws/compute/autoscaling.md
+    - Networking:
+      - Overview: aws/networking/index.md
+      - VPC: aws/networking/vpc.md
+      - Security Groups: aws/networking/security-groups.md
+      - Internet Gateway: aws/networking/internet-gateway.md
+      - Load Balancer: aws/networking/load-balancer.md
+      - Route Tables: aws/networking/route-tables.md
+      - Route53: aws/networking/route53.md
