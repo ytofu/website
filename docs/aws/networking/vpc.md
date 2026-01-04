@@ -219,7 +219,7 @@ resource:
     public:
       vpc_id: ${aws_vpc.main.id}
       cidr_block: 10.0.1.0/24
-      ipv6_cidr_block: ${cidrsubnet(aws_vpc.main.ipv6_cidr_block, 8, 1)}
+      ipv6_cidr_block: 2600:1f18:1234:5600::/64
       assign_ipv6_address_on_creation: true
 ```
 

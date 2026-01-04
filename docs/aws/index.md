@@ -118,3 +118,30 @@ provider:
 
 - [Compute](compute/index.md) - EC2, Lambda, ECS, EKS
 - [Networking](networking/index.md) - VPC, Subnets, Security Groups, Load Balancers
+
+## Resource Index
+
+Quick reference to all documented AWS resources.
+
+### Compute
+
+| Resource | Type | Description |
+|----------|------|-------------|
+| [EC2 Instance](compute/ec2-instance.md) | `aws_instance` | Virtual servers |
+| [Lambda](compute/lambda.md) | `aws_lambda_function` | Serverless functions |
+| [ECS](compute/ecs.md) | `aws_ecs_cluster`, `aws_ecs_service` | Container orchestration |
+| [EKS](compute/eks.md) | `aws_eks_cluster` | Managed Kubernetes |
+| [Launch Template](compute/launch-template.md) | `aws_launch_template` | EC2 launch configuration |
+| [Auto Scaling](compute/autoscaling.md) | `aws_autoscaling_group` | Automatic scaling |
+
+### Networking
+
+| Resource | Type | Description |
+|----------|------|-------------|
+| [VPC](networking/vpc.md) | `aws_vpc`, `aws_subnet` | Virtual network |
+| [Security Groups](networking/security-groups.md) | `aws_security_group` | Firewall rules |
+| [Internet Gateway](networking/internet-gateway.md) | `aws_internet_gateway` | Public internet access |
+| [NAT Gateway](networking/nat-gateway.md) | `aws_nat_gateway` | Private subnet internet |
+| [Load Balancer](networking/load-balancer.md) | `aws_lb`, `aws_lb_listener` | Traffic distribution |
+| [Route Tables](networking/route-tables.md) | `aws_route_table` | Network routing |
+| [Route53](networking/route53.md) | `aws_route53_zone`, `aws_route53_record` | DNS management |

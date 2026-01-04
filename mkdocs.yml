@@ -26,10 +26,13 @@ theme:
     - navigation.sections
     - navigation.expand
     - navigation.top
+    - navigation.indexes
+    - navigation.path
     - search.suggest
     - search.highlight
     - content.code.copy
     - content.code.annotate
+    - toc.integrate
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -48,7 +51,22 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
-  - AWS:
+  - Concepts:
+    - Overview: concepts/index.md
+    - Configuration as Data: concepts/configuration-as-data.md
+    - YAML vs HCL: concepts/yaml-vs-hcl.md
+    - Resource Lifecycle: concepts/resource-lifecycle.md
+  - Tutorials:
+    - Overview: tutorials/index.md
+    - Your First VPC: tutorials/first-vpc.md
+    - Web Application Stack: tutorials/web-app-stack.md
+    - Container Deployment: tutorials/container-deployment.md
+  - Guides:
+    - Overview: guides/index.md
+    - Multi-AZ Deployment: guides/multi-az-deployment.md
+    - Private/Public Subnets: guides/private-public-subnets.md
+    - Blue/Green Deployment: guides/blue-green-deployment.md
+  - AWS Reference:
     - Overview: aws/index.md
     - Compute:
       - Overview: aws/compute/index.md
@@ -63,6 +81,10 @@ nav:
       - VPC: aws/networking/vpc.md
       - Security Groups: aws/networking/security-groups.md
       - Internet Gateway: aws/networking/internet-gateway.md
+      - NAT Gateway: aws/networking/nat-gateway.md
       - Load Balancer: aws/networking/load-balancer.md
       - Route Tables: aws/networking/route-tables.md
       - Route53: aws/networking/route53.md
+  - Troubleshooting:
+    - Overview: troubleshooting/index.md
+    - Common Errors: troubleshooting/common-errors.md
