@@ -20,7 +20,7 @@ sudo mv ytofu /usr/local/bin/
 ```bash
 git clone https://github.com/ytofu/ytofu.git
 cd ytofu
-go build -o ytofu ./cmd/ytofu
+go build -o ytofu ./cmd/tofu
 ```
 
 ## Your First Configuration

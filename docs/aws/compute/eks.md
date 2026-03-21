@@ -292,13 +292,13 @@ resource:
           "Statement": [{
             "Effect": "Allow",
             "Principal": {
-              "Federated": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${replace(aws_eks_cluster.main.identity[0].oidc[0].issuer, "https://", "")}"
+              "Federated": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/replaced-value"
             },
             "Action": "sts:AssumeRoleWithWebIdentity",
             "Condition": {
               "StringEquals": {
-                "${replace(aws_eks_cluster.main.identity[0].oidc[0].issuer, "https://", "")}:sub": "system:serviceaccount:default:my-app",
-                "${replace(aws_eks_cluster.main.identity[0].oidc[0].issuer, "https://", "")}:aud": "sts.amazonaws.com"
+                "replaced-value:sub": "system:serviceaccount:default:my-app",
+                "replaced-value:aud": "sts.amazonaws.com"
               }
             }
           }]

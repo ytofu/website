@@ -13,18 +13,20 @@ ytofu brings the Configuration as Data paradigm to Terraform, allowing you to de
 
 ## Configuration as Data
 
-ytofu embraces the **Configuration as Data** philosophy. Your infrastructure is defined as plain YAML data, not code:
+ytofu embraces the **Configuration as Data** philosophy for YAML files. Your infrastructure is defined as plain YAML data with minimal logic:
 
-| Traditional HCL | ytofu YAML |
-|-----------------|------------|
-| Variables, locals | Concrete values |
-| For loops, count | Explicit resources |
-| Conditionals | No conditionals |
-| Functions | No functions |
-| Dynamic blocks | Static definitions |
+| Feature | In YAML Files |
+|---------|---------------|
+| `variable` / `locals` blocks | Define in HCL, reference in YAML |
+| `for_each` / `count` | Not supported (use explicit resources) |
+| Conditionals | Not supported |
+| Functions | Not supported |
+| Variable references (`${var.name}`) | Supported |
+| Resource references (`${aws_instance.web.id}`) | Supported |
+| Operators (`+`, `-`, `==`, `&&`, etc.) | Supported |
 
-This means your configurations are:
-- **Readable** - Pure data, no logic to trace
+This means your YAML configurations are:
+- **Readable** - Pure data with minimal logic
 - **Auditable** - Easy to review and diff
 - **Generatable** - Simple to produce from external tools
 - **GitOps-ready** - Works naturally with Kubernetes-style workflows

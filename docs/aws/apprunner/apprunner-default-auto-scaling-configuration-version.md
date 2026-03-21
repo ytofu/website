@@ -1,0 +1,20 @@
+# Apprunner Default Auto Scaling Configuration Version
+
+Manage Apprunner Default Auto Scaling Configuration Version resources using ytofu YAML.
+
+## Basic Example
+
+```yaml
+resource:
+  aws_apprunner_auto_scaling_configuration_version:
+    example:
+      auto_scaling_configuration_name: example
+      max_concurrency: 50
+      max_size: 10
+      min_size: 2
+
+resource:
+  aws_apprunner_default_auto_scaling_configuration_version:
+    example:
+      auto_scaling_configuration_arn: ${aws_apprunner_auto_scaling_configuration_version.example.arn}
+```

@@ -1,0 +1,22 @@
+# Memorydb User
+
+Manage Memorydb User resources using ytofu YAML.
+
+## Basic Example
+
+```yaml
+resource:
+  random_password:
+    example:
+      length: 16
+
+resource:
+  aws_memorydb_user:
+    example:
+      user_name: my-user
+      access_string: "on ~* &* +@all"
+      authentication_mode:
+        type: password
+        passwords: 
+          - ${random_password.example.result}
+```

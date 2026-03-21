@@ -185,10 +185,7 @@ resource:
       target_tracking_configuration:
         predefined_metric_specification:
           predefined_metric_type: ALBRequestCountPerTarget
-          resource_label: ${join("/", [
-            aws_lb.main.arn_suffix,
-            aws_lb_target_group.app.arn_suffix
-          ])}
+          resource_label: 'example-joined-value'
         target_value: 1000
 ```
 

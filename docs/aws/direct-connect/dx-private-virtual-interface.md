@@ -1,0 +1,16 @@
+# DX Private Virtual Interface
+
+Manage DX Private Virtual Interface resources using ytofu YAML.
+
+## Basic Example
+
+```yaml
+resource:
+  aws_dx_private_virtual_interface:
+    foo:
+      connection_id: dxcon-zzzzzzzz
+      name: vif-foo
+      vlan: 4094
+      address_family: ipv4
+      bgp_asn: 65352
+```

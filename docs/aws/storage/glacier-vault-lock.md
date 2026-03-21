@@ -1,0 +1,44 @@
+# Glacier Vault Lock
+
+Manage Glacier Vault Lock resources using ytofu YAML.
+
+## Basic Example
+
+```yaml
+resource:
+  aws_glacier_vault:
+    example:
+      name: example
+
+data:
+  aws_iam_policy_document:
+    example:
+      statement:
+        actions: 
+          - "glacier:DeleteArchive"
+        effect: Deny
+        resources: 
+          - ${aws_glacier_vault.example.arn}
+        condition:
+          test: NumericLessThanEquals
+          values: 
+            - 365
+
+resource:
+  aws_glacier_vault_lock:
+    example:
+      complete_lock: false
+      policy: ${data.aws_iam_policy_document.example.json}
+      vault_name: ${aws_glacier_vault.example.name}
+```
+
+## Permanently Applying Glacier Vault Lock Policy
+
+```yaml
+resource:
+  aws_glacier_vault_lock:
+    example:
+      complete_lock: true
+      policy: ${data.aws_iam_policy_document.example.json}
+      vault_name: ${aws_glacier_vault.example.name}
+```

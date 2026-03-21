@@ -56,6 +56,11 @@ nav:
     - Configuration as Data: concepts/configuration-as-data.md
     - YAML vs HCL: concepts/yaml-vs-hcl.md
     - Resource Lifecycle: concepts/resource-lifecycle.md
+    - Encryption: concepts/encryption.md
+    - Ephemeral Values: concepts/ephemeral-values.md
+    - Testing: concepts/testing.md
+    - Enabled Meta-Argument: concepts/enabled.md
+    - Tracing: concepts/tracing.md
   - Tutorials:
     - Overview: tutorials/index.md
     - Your First VPC: tutorials/first-vpc.md
@@ -63,6 +68,7 @@ nav:
     - Container Deployment: tutorials/container-deployment.md
   - Guides:
     - Overview: guides/index.md
+    - Mixed Format Workflow: guides/mixed-format.md
     - Multi-AZ Deployment: guides/multi-az-deployment.md
     - Private/Public Subnets: guides/private-public-subnets.md
     - Blue/Green Deployment: guides/blue-green-deployment.md
@@ -70,21 +76,2011 @@ nav:
     - Overview: aws/index.md
     - Compute:
       - Overview: aws/compute/index.md
-      - EC2 Instance: aws/compute/ec2-instance.md
-      - Lambda: aws/compute/lambda.md
-      - ECS: aws/compute/ecs.md
-      - EKS: aws/compute/eks.md
-      - Launch Template: aws/compute/launch-template.md
+      - AMI Copy: aws/compute/ami-copy.md
+      - AMI From Instance: aws/compute/ami-from-instance.md
+      - AMI Launch Permission: aws/compute/ami-launch-permission.md
+      - AMI: aws/compute/ami.md
+      - Appautoscaling Policy: aws/compute/appautoscaling-policy.md
+      - Appautoscaling Scheduled Action: aws/compute/appautoscaling-scheduled-action.md
+      - Appautoscaling Target: aws/compute/appautoscaling-target.md
+      - Autoscaling Attachment: aws/compute/autoscaling-attachment.md
+      - Autoscaling Group Tag: aws/compute/autoscaling-group-tag.md
+      - Autoscaling Group: aws/compute/autoscaling-group.md
+      - Autoscaling Lifecycle Hook: aws/compute/autoscaling-lifecycle-hook.md
+      - Autoscaling Notification: aws/compute/autoscaling-notification.md
+      - Autoscaling Policy: aws/compute/autoscaling-policy.md
+      - Autoscaling Schedule: aws/compute/autoscaling-schedule.md
+      - Autoscaling Traffic Source Attachment: aws/compute/autoscaling-traffic-source-attachment.md
       - Auto Scaling: aws/compute/autoscaling.md
+      - Autoscalingplans Scaling Plan: aws/compute/autoscalingplans-scaling-plan.md
+      - EC2 Allowed Images Settings: aws/compute/ec2-allowed-images-settings.md
+      - EC2 Availability Zone Group: aws/compute/ec2-availability-zone-group.md
+      - EC2 Capacity Block Reservation: aws/compute/ec2-capacity-block-reservation.md
+      - EC2 Capacity Reservation: aws/compute/ec2-capacity-reservation.md
+      - EC2 Default Credit Specification: aws/compute/ec2-default-credit-specification.md
+      - EC2 Fleet: aws/compute/ec2-fleet.md
+      - EC2 Host: aws/compute/ec2-host.md
+      - EC2 Image Block Public Access: aws/compute/ec2-image-block-public-access.md
+      - EC2 Instance Connect Endpoint: aws/compute/ec2-instance-connect-endpoint.md
+      - EC2 Instance Metadata Defaults: aws/compute/ec2-instance-metadata-defaults.md
+      - EC2 Instance State: aws/compute/ec2-instance-state.md
+      - EC2 Instance: aws/compute/ec2-instance.md
+      - EC2 Secondary Network: aws/compute/ec2-secondary-network.md
+      - EC2 Secondary Subnet: aws/compute/ec2-secondary-subnet.md
+      - EC2 Serial Console Access: aws/compute/ec2-serial-console-access.md
+      - EC2 Tag: aws/compute/ec2-tag.md
+      - ECS Account Setting Default: aws/compute/ecs-account-setting-default.md
+      - ECS Capacity Provider: aws/compute/ecs-capacity-provider.md
+      - ECS Cluster Capacity Providers: aws/compute/ecs-cluster-capacity-providers.md
+      - ECS Cluster: aws/compute/ecs-cluster.md
+      - ECS Express Gateway Service: aws/compute/ecs-express-gateway-service.md
+      - ECS Service: aws/compute/ecs-service.md
+      - ECS Tag: aws/compute/ecs-tag.md
+      - ECS Task Definition: aws/compute/ecs-task-definition.md
+      - ECS Task Set: aws/compute/ecs-task-set.md
+      - ECS (Elastic Container Service): aws/compute/ecs.md
+      - EIP Association: aws/compute/eip-association.md
+      - EIP Domain Name: aws/compute/eip-domain-name.md
+      - EIP: aws/compute/eip.md
+      - EKS Access Entry: aws/compute/eks-access-entry.md
+      - EKS Access Policy Associattion: aws/compute/eks-access-policy-associattion.md
+      - EKS Addon: aws/compute/eks-addon.md
+      - EKS Capability: aws/compute/eks-capability.md
+      - EKS Cluster: aws/compute/eks-cluster.md
+      - EKS Fargate Profile: aws/compute/eks-fargate-profile.md
+      - EKS Identity Provider Config: aws/compute/eks-identity-provider-config.md
+      - EKS Node Group: aws/compute/eks-node-group.md
+      - EKS Pod Identity Association: aws/compute/eks-pod-identity-association.md
+      - EKS (Elastic Kubernetes Service): aws/compute/eks.md
+      - Elastic Beanstalk Application Version: aws/compute/elastic-beanstalk-application-version.md
+      - Elastic Beanstalk Application: aws/compute/elastic-beanstalk-application.md
+      - Elastic Beanstalk Configuration Template: aws/compute/elastic-beanstalk-configuration-template.md
+      - Elastic Beanstalk Environment: aws/compute/elastic-beanstalk-environment.md
+      - Instance: aws/compute/instance.md
+      - Key Pair: aws/compute/key-pair.md
+      - Lambda Alias: aws/compute/lambda-alias.md
+      - Lambda Capacity Provider: aws/compute/lambda-capacity-provider.md
+      - Lambda Code Signing Config: aws/compute/lambda-code-signing-config.md
+      - Lambda Event Source Mapping: aws/compute/lambda-event-source-mapping.md
+      - Lambda Function Event Invoke Config: aws/compute/lambda-function-event-invoke-config.md
+      - Lambda Function Recursion Config: aws/compute/lambda-function-recursion-config.md
+      - Lambda Function Url: aws/compute/lambda-function-url.md
+      - Lambda Function: aws/compute/lambda-function.md
+      - Lambda Invocation: aws/compute/lambda-invocation.md
+      - Lambda Layer Version Permission: aws/compute/lambda-layer-version-permission.md
+      - Lambda Layer Version: aws/compute/lambda-layer-version.md
+      - Lambda Permission: aws/compute/lambda-permission.md
+      - Lambda Provisioned Concurrency Config: aws/compute/lambda-provisioned-concurrency-config.md
+      - Lambda Runtime Management Config: aws/compute/lambda-runtime-management-config.md
+      - Lambda Function: aws/compute/lambda.md
+      - Launch Configuration: aws/compute/launch-configuration.md
+      - Launch Template: aws/compute/launch-template.md
+      - Placement Group: aws/compute/placement-group.md
+      - Spot Datafeed Subscription: aws/compute/spot-datafeed-subscription.md
+      - Spot Fleet Request: aws/compute/spot-fleet-request.md
+      - Spot Instance Request: aws/compute/spot-instance-request.md
     - Networking:
       - Overview: aws/networking/index.md
-      - VPC: aws/networking/vpc.md
-      - Security Groups: aws/networking/security-groups.md
+      - Customer Gateway: aws/networking/customer-gateway.md
+      - Default Network Acl: aws/networking/default-network-acl.md
+      - Default Route Table: aws/networking/default-route-table.md
+      - Default Security Group: aws/networking/default-security-group.md
+      - Default Subnet: aws/networking/default-subnet.md
+      - Default VPC Dhcp Options: aws/networking/default-vpc-dhcp-options.md
+      - Default VPC: aws/networking/default-vpc.md
+      - EC2 Carrier Gateway: aws/networking/ec2-carrier-gateway.md
+      - EC2 Client VPN Authorization Rule: aws/networking/ec2-client-vpn-authorization-rule.md
+      - EC2 Client VPN Endpoint: aws/networking/ec2-client-vpn-endpoint.md
+      - EC2 Client VPN Network Association: aws/networking/ec2-client-vpn-network-association.md
+      - EC2 Client VPN Route: aws/networking/ec2-client-vpn-route.md
+      - EC2 Managed Prefix List Entry: aws/networking/ec2-managed-prefix-list-entry.md
+      - EC2 Managed Prefix List: aws/networking/ec2-managed-prefix-list.md
+      - EC2 Network Insights Analysis: aws/networking/ec2-network-insights-analysis.md
+      - EC2 Network Insights Path: aws/networking/ec2-network-insights-path.md
+      - EC2 Subnet CIDR Reservation: aws/networking/ec2-subnet-cidr-reservation.md
+      - EC2 Traffic Mirror Filter Rule: aws/networking/ec2-traffic-mirror-filter-rule.md
+      - EC2 Traffic Mirror Filter: aws/networking/ec2-traffic-mirror-filter.md
+      - EC2 Traffic Mirror Session: aws/networking/ec2-traffic-mirror-session.md
+      - EC2 Traffic Mirror Target: aws/networking/ec2-traffic-mirror-target.md
+      - EC2 Transit Gateway Connect Peer: aws/networking/ec2-transit-gateway-connect-peer.md
+      - EC2 Transit Gateway Connect: aws/networking/ec2-transit-gateway-connect.md
+      - EC2 Transit Gateway Default Route Table Association: aws/networking/ec2-transit-gateway-default-route-table-association.md
+      - EC2 Transit Gateway Default Route Table Propagation: aws/networking/ec2-transit-gateway-default-route-table-propagation.md
+      - EC2 Transit Gateway Metering Policy Entry: aws/networking/ec2-transit-gateway-metering-policy-entry.md
+      - EC2 Transit Gateway Metering Policy: aws/networking/ec2-transit-gateway-metering-policy.md
+      - EC2 Transit Gateway Multicast Domain Association: aws/networking/ec2-transit-gateway-multicast-domain-association.md
+      - EC2 Transit Gateway Multicast Domain: aws/networking/ec2-transit-gateway-multicast-domain.md
+      - EC2 Transit Gateway Multicast Group Member: aws/networking/ec2-transit-gateway-multicast-group-member.md
+      - EC2 Transit Gateway Multicast Group Source: aws/networking/ec2-transit-gateway-multicast-group-source.md
+      - EC2 Transit Gateway Peering Attachment Accepter: aws/networking/ec2-transit-gateway-peering-attachment-accepter.md
+      - EC2 Transit Gateway Peering Attachment: aws/networking/ec2-transit-gateway-peering-attachment.md
+      - EC2 Transit Gateway Policy Table Association: aws/networking/ec2-transit-gateway-policy-table-association.md
+      - EC2 Transit Gateway Policy Table: aws/networking/ec2-transit-gateway-policy-table.md
+      - EC2 Transit Gateway Prefix List Reference: aws/networking/ec2-transit-gateway-prefix-list-reference.md
+      - EC2 Transit Gateway Route Table Association: aws/networking/ec2-transit-gateway-route-table-association.md
+      - EC2 Transit Gateway Route Table Propagation: aws/networking/ec2-transit-gateway-route-table-propagation.md
+      - EC2 Transit Gateway Route Table: aws/networking/ec2-transit-gateway-route-table.md
+      - EC2 Transit Gateway Route: aws/networking/ec2-transit-gateway-route.md
+      - EC2 Transit Gateway VPC Attachment Accepter: aws/networking/ec2-transit-gateway-vpc-attachment-accepter.md
+      - EC2 Transit Gateway VPC Attachment: aws/networking/ec2-transit-gateway-vpc-attachment.md
+      - EC2 Transit Gateway: aws/networking/ec2-transit-gateway.md
+      - Egress Only Internet Gateway: aws/networking/egress-only-internet-gateway.md
+      - Flow Log: aws/networking/flow-log.md
+      - Internet Gateway Attachment: aws/networking/internet-gateway-attachment.md
       - Internet Gateway: aws/networking/internet-gateway.md
-      - NAT Gateway: aws/networking/nat-gateway.md
       - Load Balancer: aws/networking/load-balancer.md
+      - Main Route Table Association: aws/networking/main-route-table-association.md
+      - NAT Gateway EIP Association: aws/networking/nat-gateway-eip-association.md
+      - NAT Gateway: aws/networking/nat-gateway.md
+      - Network Acl Association: aws/networking/network-acl-association.md
+      - Network Acl Rule: aws/networking/network-acl-rule.md
+      - Network Acl: aws/networking/network-acl.md
+      - Network Interface Attachment: aws/networking/network-interface-attachment.md
+      - Network Interface Permission: aws/networking/network-interface-permission.md
+      - Network Interface Sg Attachment: aws/networking/network-interface-sg-attachment.md
+      - Network Interface: aws/networking/network-interface.md
+      - Route Table Association: aws/networking/route-table-association.md
+      - Route Table: aws/networking/route-table.md
       - Route Tables: aws/networking/route-tables.md
+      - Route: aws/networking/route.md
       - Route53: aws/networking/route53.md
+      - Security Group Rule: aws/networking/security-group-rule.md
+      - Security Group: aws/networking/security-group.md
+      - Security Groups: aws/networking/security-groups.md
+      - Subnet: aws/networking/subnet.md
+      - VPC Block Public Access Exclusion: aws/networking/vpc-block-public-access-exclusion.md
+      - VPC Block Public Access Options: aws/networking/vpc-block-public-access-options.md
+      - VPC Dhcp Options Association: aws/networking/vpc-dhcp-options-association.md
+      - VPC Dhcp Options: aws/networking/vpc-dhcp-options.md
+      - VPC Encryption Control: aws/networking/vpc-encryption-control.md
+      - VPC Endpoint Connection Accepter: aws/networking/vpc-endpoint-connection-accepter.md
+      - VPC Endpoint Connection Notification: aws/networking/vpc-endpoint-connection-notification.md
+      - VPC Endpoint Policy: aws/networking/vpc-endpoint-policy.md
+      - VPC Endpoint Private DNS: aws/networking/vpc-endpoint-private-dns.md
+      - VPC Endpoint Route Table Association: aws/networking/vpc-endpoint-route-table-association.md
+      - VPC Endpoint Security Group Association: aws/networking/vpc-endpoint-security-group-association.md
+      - VPC Endpoint Service Allowed Principal: aws/networking/vpc-endpoint-service-allowed-principal.md
+      - VPC Endpoint Service Private DNS Verification: aws/networking/vpc-endpoint-service-private-dns-verification.md
+      - VPC Endpoint Service: aws/networking/vpc-endpoint-service.md
+      - VPC Endpoint Subnet Association: aws/networking/vpc-endpoint-subnet-association.md
+      - VPC Endpoint: aws/networking/vpc-endpoint.md
+      - VPC Ipam Organization Admin Account: aws/networking/vpc-ipam-organization-admin-account.md
+      - VPC Ipam Pool CIDR Allocation: aws/networking/vpc-ipam-pool-cidr-allocation.md
+      - VPC Ipam Pool CIDR: aws/networking/vpc-ipam-pool-cidr.md
+      - VPC Ipam Pool: aws/networking/vpc-ipam-pool.md
+      - VPC Ipam Preview Next CIDR: aws/networking/vpc-ipam-preview-next-cidr.md
+      - VPC Ipam Resource Discovery Association: aws/networking/vpc-ipam-resource-discovery-association.md
+      - VPC Ipam Resource Discovery: aws/networking/vpc-ipam-resource-discovery.md
+      - VPC Ipam Scope: aws/networking/vpc-ipam-scope.md
+      - VPC Ipam: aws/networking/vpc-ipam.md
+      - VPC IPV4 CIDR Block Association: aws/networking/vpc-ipv4-cidr-block-association.md
+      - VPC IPV6 CIDR Block Association: aws/networking/vpc-ipv6-cidr-block-association.md
+      - VPC Network Performance Metric Subscription: aws/networking/vpc-network-performance-metric-subscription.md
+      - VPC Peering Connection Accepter: aws/networking/vpc-peering-connection-accepter.md
+      - VPC Peering Connection Options: aws/networking/vpc-peering-connection-options.md
+      - VPC Peering Connection: aws/networking/vpc-peering-connection.md
+      - VPC Route Server Endpoint: aws/networking/vpc-route-server-endpoint.md
+      - VPC Route Server Peer: aws/networking/vpc-route-server-peer.md
+      - VPC Route Server Propagation: aws/networking/vpc-route-server-propagation.md
+      - VPC Route Server VPC Association: aws/networking/vpc-route-server-vpc-association.md
+      - VPC Route Server: aws/networking/vpc-route-server.md
+      - VPC Security Group Egress Rule: aws/networking/vpc-security-group-egress-rule.md
+      - VPC Security Group Ingress Rule: aws/networking/vpc-security-group-ingress-rule.md
+      - VPC Security Group Rules Exclusive: aws/networking/vpc-security-group-rules-exclusive.md
+      - VPC Security Group VPC Association: aws/networking/vpc-security-group-vpc-association.md
+      - VPC: aws/networking/vpc.md
+      - VPN Concentrator: aws/networking/vpn-concentrator.md
+      - VPN Connection Route: aws/networking/vpn-connection-route.md
+      - VPN Connection: aws/networking/vpn-connection.md
+      - VPN Gateway Attachment: aws/networking/vpn-gateway-attachment.md
+      - VPN Gateway Route Propagation: aws/networking/vpn-gateway-route-propagation.md
+      - VPN Gateway: aws/networking/vpn-gateway.md
+    - Storage:
+      - Overview: aws/storage/index.md
+      - Backup Framework: aws/storage/backup-framework.md
+      - Backup Global Settings: aws/storage/backup-global-settings.md
+      - Backup Logically Air Gapped Vault: aws/storage/backup-logically-air-gapped-vault.md
+      - Backup Plan: aws/storage/backup-plan.md
+      - Backup Region Settings: aws/storage/backup-region-settings.md
+      - Backup Report Plan: aws/storage/backup-report-plan.md
+      - Backup Restore Testing Plan: aws/storage/backup-restore-testing-plan.md
+      - Backup Restore Testing Selection: aws/storage/backup-restore-testing-selection.md
+      - Backup Selection: aws/storage/backup-selection.md
+      - Backup Vault Lock Configuration: aws/storage/backup-vault-lock-configuration.md
+      - Backup Vault Notifications: aws/storage/backup-vault-notifications.md
+      - Backup Vault Policy: aws/storage/backup-vault-policy.md
+      - Backup Vault: aws/storage/backup-vault.md
+      - AWS Backup: aws/storage/backup.md
+      - EFS Access Point: aws/storage/efs-access-point.md
+      - EFS Backup Policy: aws/storage/efs-backup-policy.md
+      - EFS File System Policy: aws/storage/efs-file-system-policy.md
+      - EFS File System: aws/storage/efs-file-system.md
+      - EFS Mount Target: aws/storage/efs-mount-target.md
+      - EFS Replication Configuration: aws/storage/efs-replication-configuration.md
+      - FSX Backup: aws/storage/fsx-backup.md
+      - FSX Data Repository Association: aws/storage/fsx-data-repository-association.md
+      - FSX File Cache: aws/storage/fsx-file-cache.md
+      - FSX Lustre File System: aws/storage/fsx-lustre-file-system.md
+      - FSX Ontap File System: aws/storage/fsx-ontap-file-system.md
+      - FSX Ontap Storage Virtual Machine: aws/storage/fsx-ontap-storage-virtual-machine.md
+      - FSX Ontap Volume: aws/storage/fsx-ontap-volume.md
+      - FSX Openzfs File System: aws/storage/fsx-openzfs-file-system.md
+      - FSX Openzfs Snapshot: aws/storage/fsx-openzfs-snapshot.md
+      - FSX Openzfs Volume: aws/storage/fsx-openzfs-volume.md
+      - FSX S3 Access Point Attachment: aws/storage/fsx-s3-access-point-attachment.md
+      - FSX Windows File System: aws/storage/fsx-windows-file-system.md
+      - Glacier Vault Lock: aws/storage/glacier-vault-lock.md
+      - Glacier Vault: aws/storage/glacier-vault.md
+      - S3 Access Point: aws/storage/s3-access-point.md
+      - S3 Account Public Access Block: aws/storage/s3-account-public-access-block.md
+      - S3 Bucket Abac: aws/storage/s3-bucket-abac.md
+      - S3 Bucket Accelerate Configuration: aws/storage/s3-bucket-accelerate-configuration.md
+      - S3 Bucket Accelerate Configuration: aws/storage/s3-bucket-accelerate.md
+      - S3 Bucket Acl: aws/storage/s3-bucket-acl.md
+      - S3 Bucket Analytics Configuration: aws/storage/s3-bucket-analytics-configuration.md
+      - S3 Bucket Cors Configuration: aws/storage/s3-bucket-cors-configuration.md
+      - S3 Bucket CORS Configuration: aws/storage/s3-bucket-cors.md
+      - S3 Bucket Server-Side Encryption: aws/storage/s3-bucket-encryption.md
+      - S3 Bucket Intelligent Tiering Configuration: aws/storage/s3-bucket-intelligent-tiering-configuration.md
+      - S3 Bucket Intelligent-Tiering: aws/storage/s3-bucket-intelligent-tiering.md
+      - S3 Bucket Inventory: aws/storage/s3-bucket-inventory.md
+      - S3 Bucket Lifecycle Configuration: aws/storage/s3-bucket-lifecycle-configuration.md
+      - S3 Bucket Lifecycle Configuration: aws/storage/s3-bucket-lifecycle.md
+      - S3 Bucket Logging: aws/storage/s3-bucket-logging.md
+      - S3 Bucket Metadata Configuration: aws/storage/s3-bucket-metadata-configuration.md
+      - S3 Bucket Metric: aws/storage/s3-bucket-metric.md
+      - S3 Bucket Metrics: aws/storage/s3-bucket-metrics.md
+      - S3 Bucket Notification: aws/storage/s3-bucket-notification.md
+      - S3 Bucket Object Lock Configuration: aws/storage/s3-bucket-object-lock-configuration.md
+      - S3 Bucket Object Lock: aws/storage/s3-bucket-object-lock.md
+      - S3 Bucket Object: aws/storage/s3-bucket-object.md
+      - S3 Bucket Ownership Controls: aws/storage/s3-bucket-ownership-controls.md
+      - S3 Bucket Ownership Controls: aws/storage/s3-bucket-ownership.md
+      - S3 Bucket Policy: aws/storage/s3-bucket-policy.md
+      - S3 Bucket Public Access Block: aws/storage/s3-bucket-public-access-block.md
+      - S3 Bucket Replication Configuration: aws/storage/s3-bucket-replication-configuration.md
+      - S3 Bucket Replication Configuration: aws/storage/s3-bucket-replication.md
+      - S3 Bucket Request Payment Configuration: aws/storage/s3-bucket-request-payment-configuration.md
+      - S3 Bucket Request Payment: aws/storage/s3-bucket-request-payment.md
+      - S3 Bucket Server Side Encryption Configuration: aws/storage/s3-bucket-server-side-encryption-configuration.md
+      - S3 Bucket Versioning: aws/storage/s3-bucket-versioning.md
+      - S3 Bucket Website Configuration: aws/storage/s3-bucket-website-configuration.md
+      - S3 Bucket Website Configuration: aws/storage/s3-bucket-website.md
+      - S3 Bucket: aws/storage/s3-bucket.md
+      - S3 Directory Bucket: aws/storage/s3-directory-bucket.md
+      - S3 Object Copy: aws/storage/s3-object-copy.md
+      - S3 Object: aws/storage/s3-object.md
+      - S3control Access Grant: aws/storage/s3control-access-grant.md
+      - S3control Access Grants Instance Resource Policy: aws/storage/s3control-access-grants-instance-resource-policy.md
+      - S3control Access Grants Instance: aws/storage/s3control-access-grants-instance.md
+      - S3control Access Grants Location: aws/storage/s3control-access-grants-location.md
+      - S3control Access Point Policy: aws/storage/s3control-access-point-policy.md
+      - S3control Bucket Lifecycle Configuration: aws/storage/s3control-bucket-lifecycle-configuration.md
+      - S3control Bucket Policy: aws/storage/s3control-bucket-policy.md
+      - S3control Bucket: aws/storage/s3control-bucket.md
+      - S3control Directory Bucket Access Point Scope: aws/storage/s3control-directory-bucket-access-point-scope.md
+      - S3control Multi Region Access Point Policy: aws/storage/s3control-multi-region-access-point-policy.md
+      - S3control Multi Region Access Point: aws/storage/s3control-multi-region-access-point.md
+      - S3control Object Lambda Access Point Policy: aws/storage/s3control-object-lambda-access-point-policy.md
+      - S3control Object Lambda Access Point: aws/storage/s3control-object-lambda-access-point.md
+      - S3control Storage Lens Configuration: aws/storage/s3control-storage-lens-configuration.md
+      - S3outposts Endpoint: aws/storage/s3outposts-endpoint.md
+      - S3tables Namespace: aws/storage/s3tables-namespace.md
+      - S3tables Table Bucket Policy: aws/storage/s3tables-table-bucket-policy.md
+      - S3tables Table Bucket Replication: aws/storage/s3tables-table-bucket-replication.md
+      - S3tables Table Bucket: aws/storage/s3tables-table-bucket.md
+      - S3tables Table Policy: aws/storage/s3tables-table-policy.md
+      - S3tables Table Replication: aws/storage/s3tables-table-replication.md
+      - S3tables Table: aws/storage/s3tables-table.md
+      - S3vectors Index: aws/storage/s3vectors-index.md
+      - S3vectors Vector Bucket Policy: aws/storage/s3vectors-vector-bucket-policy.md
+      - S3vectors Vector Bucket: aws/storage/s3vectors-vector-bucket.md
+      - Storagegateway Cache: aws/storage/storagegateway-cache.md
+      - Storagegateway Cached Iscsi Volume: aws/storage/storagegateway-cached-iscsi-volume.md
+      - Storagegateway File System Association: aws/storage/storagegateway-file-system-association.md
+      - Storagegateway Gateway: aws/storage/storagegateway-gateway.md
+      - Storagegateway Nfs File Share: aws/storage/storagegateway-nfs-file-share.md
+      - Storagegateway Smb File Share: aws/storage/storagegateway-smb-file-share.md
+      - Storagegateway Stored Iscsi Volume: aws/storage/storagegateway-stored-iscsi-volume.md
+      - Storagegateway Tape Pool: aws/storage/storagegateway-tape-pool.md
+      - Storagegateway Upload Buffer: aws/storage/storagegateway-upload-buffer.md
+      - Storagegateway Working Storage: aws/storage/storagegateway-working-storage.md
+    - Database:
+      - Overview: aws/database/index.md
+      - DB Cluster Snapshot: aws/database/db-cluster-snapshot.md
+      - DB Event Subscription: aws/database/db-event-subscription.md
+      - DB Instance Automated Backups Replication: aws/database/db-instance-automated-backups-replication.md
+      - DB Instance Role Association: aws/database/db-instance-role-association.md
+      - DB Instance: aws/database/db-instance.md
+      - DB Option Group: aws/database/db-option-group.md
+      - DB Parameter Group: aws/database/db-parameter-group.md
+      - DB Proxy Default Target Group: aws/database/db-proxy-default-target-group.md
+      - DB Proxy Endpoint: aws/database/db-proxy-endpoint.md
+      - DB Proxy Target: aws/database/db-proxy-target.md
+      - DB Proxy: aws/database/db-proxy.md
+      - DB Snapshot Copy: aws/database/db-snapshot-copy.md
+      - DB Snapshot: aws/database/db-snapshot.md
+      - DB Subnet Group: aws/database/db-subnet-group.md
+      - Docdb Cluster Instance: aws/database/docdb-cluster-instance.md
+      - Docdb Cluster Parameter Group: aws/database/docdb-cluster-parameter-group.md
+      - Docdb Cluster Snapshot: aws/database/docdb-cluster-snapshot.md
+      - Docdb Cluster: aws/database/docdb-cluster.md
+      - Docdb Event Subscription: aws/database/docdb-event-subscription.md
+      - Docdb Global Cluster: aws/database/docdb-global-cluster.md
+      - Docdb Subnet Group: aws/database/docdb-subnet-group.md
+      - Docdbelastic Cluster: aws/database/docdbelastic-cluster.md
+      - Dsql Cluster Peering: aws/database/dsql-cluster-peering.md
+      - Dsql Cluster: aws/database/dsql-cluster.md
+      - Dynamodb Contributor Insights: aws/database/dynamodb-contributor-insights.md
+      - Dynamodb Global Secondary Index: aws/database/dynamodb-global-secondary-index.md
+      - Dynamodb Global Table: aws/database/dynamodb-global-table.md
+      - Dynamodb Kinesis Streaming Destination: aws/database/dynamodb-kinesis-streaming-destination.md
+      - DynamoDB Kinesis Streaming Destination: aws/database/dynamodb-kinesis-streaming.md
+      - Dynamodb Resource Policy: aws/database/dynamodb-resource-policy.md
+      - Dynamodb Table Export: aws/database/dynamodb-table-export.md
+      - Dynamodb Table Item: aws/database/dynamodb-table-item.md
+      - Dynamodb Table Replica: aws/database/dynamodb-table-replica.md
+      - Dynamodb Table: aws/database/dynamodb-table.md
+      - Dynamodb Tag: aws/database/dynamodb-tag.md
+      - Elasticache Cluster: aws/database/elasticache-cluster.md
+      - Elasticache Global Replication Group: aws/database/elasticache-global-replication-group.md
+      - Elasticache Parameter Group: aws/database/elasticache-parameter-group.md
+      - Elasticache Replication Group: aws/database/elasticache-replication-group.md
+      - Elasticache Reserved Cache Node: aws/database/elasticache-reserved-cache-node.md
+      - Elasticache Serverless Cache: aws/database/elasticache-serverless-cache.md
+      - Elasticache Subnet Group: aws/database/elasticache-subnet-group.md
+      - Elasticache User Group Association: aws/database/elasticache-user-group-association.md
+      - Elasticache User Group: aws/database/elasticache-user-group.md
+      - Elasticache User: aws/database/elasticache-user.md
+      - Keyspaces Keyspace: aws/database/keyspaces-keyspace.md
+      - Keyspaces Table: aws/database/keyspaces-table.md
+      - Neptune Cluster Endpoint: aws/database/neptune-cluster-endpoint.md
+      - Neptune Cluster Instance: aws/database/neptune-cluster-instance.md
+      - Neptune Cluster Parameter Group: aws/database/neptune-cluster-parameter-group.md
+      - Neptune Cluster Snapshot: aws/database/neptune-cluster-snapshot.md
+      - Neptune Cluster: aws/database/neptune-cluster.md
+      - Neptune Event Subscription: aws/database/neptune-event-subscription.md
+      - Neptune Global Cluster: aws/database/neptune-global-cluster.md
+      - Neptune Parameter Group: aws/database/neptune-parameter-group.md
+      - Neptune Subnet Group: aws/database/neptune-subnet-group.md
+      - Qldb Ledger: aws/database/qldb-ledger.md
+      - Qldb Stream: aws/database/qldb-stream.md
+      - RDS Certificate: aws/database/rds-certificate.md
+      - RDS Cluster Activity Stream: aws/database/rds-cluster-activity-stream.md
+      - RDS Cluster Endpoint: aws/database/rds-cluster-endpoint.md
+      - RDS Cluster Instance: aws/database/rds-cluster-instance.md
+      - RDS Cluster Parameter Group: aws/database/rds-cluster-parameter-group.md
+      - RDS Cluster Role Association: aws/database/rds-cluster-role-association.md
+      - RDS Cluster Snapshot Copy: aws/database/rds-cluster-snapshot-copy.md
+      - RDS Cluster: aws/database/rds-cluster.md
+      - RDS Custom DB Engine Version: aws/database/rds-custom-db-engine-version.md
+      - RDS Event Subscription: aws/database/rds-event-subscription.md
+      - RDS Export Task: aws/database/rds-export-task.md
+      - RDS Global Cluster: aws/database/rds-global-cluster.md
+      - RDS Instance State: aws/database/rds-instance-state.md
+      - RDS DB Instance: aws/database/rds-instance.md
+      - RDS Integration: aws/database/rds-integration.md
+      - RDS Option Group: aws/database/rds-option-group.md
+      - RDS Parameter Group: aws/database/rds-parameter-group.md
+      - RDS Proxy: aws/database/rds-proxy.md
+      - RDS Reserved Instance: aws/database/rds-reserved-instance.md
+      - RDS Shard Group: aws/database/rds-shard-group.md
+      - RDS Snapshot: aws/database/rds-snapshot.md
+      - RDS Subnet Group: aws/database/rds-subnet-group.md
+      - Timestreaminfluxdb DB Cluster: aws/database/timestreaminfluxdb-db-cluster.md
+      - Timestreaminfluxdb DB Instance: aws/database/timestreaminfluxdb-db-instance.md
+      - Timestreamquery Scheduled Query: aws/database/timestreamquery-scheduled-query.md
+      - Timestreamwrite Database: aws/database/timestreamwrite-database.md
+      - Timestreamwrite Table: aws/database/timestreamwrite-table.md
+    - CDN (CloudFront):
+      - Overview: aws/cdn/index.md
+      - Cloudfront Anycast IP List: aws/cdn/cloudfront-anycast-ip-list.md
+      - Cloudfront Cache Policy: aws/cdn/cloudfront-cache-policy.md
+      - Cloudfront Connection Function: aws/cdn/cloudfront-connection-function.md
+      - Cloudfront Connection Group: aws/cdn/cloudfront-connection-group.md
+      - Cloudfront Continuous Deployment Policy: aws/cdn/cloudfront-continuous-deployment-policy.md
+      - Cloudfront Distribution Tenant: aws/cdn/cloudfront-distribution-tenant.md
+      - Cloudfront Distribution: aws/cdn/cloudfront-distribution.md
+      - Cloudfront Field Level Encryption Config: aws/cdn/cloudfront-field-level-encryption-config.md
+      - Cloudfront Field Level Encryption Profile: aws/cdn/cloudfront-field-level-encryption-profile.md
+      - Cloudfront Function: aws/cdn/cloudfront-function.md
+      - Cloudfront Key Group: aws/cdn/cloudfront-key-group.md
+      - Cloudfront Key Value Store: aws/cdn/cloudfront-key-value-store.md
+      - Cloudfront Monitoring Subscription: aws/cdn/cloudfront-monitoring-subscription.md
+      - CloudFront Monitoring Subscription: aws/cdn/cloudfront-monitoring.md
+      - Cloudfront Multitenant Distribution: aws/cdn/cloudfront-multitenant-distribution.md
+      - CloudFront Origin Access Control: aws/cdn/cloudfront-oac.md
+      - CloudFront Origin Access Identity: aws/cdn/cloudfront-oai.md
+      - Cloudfront Origin Access Control: aws/cdn/cloudfront-origin-access-control.md
+      - Cloudfront Origin Access Identity: aws/cdn/cloudfront-origin-access-identity.md
+      - Cloudfront Origin Request Policy: aws/cdn/cloudfront-origin-request-policy.md
+      - Cloudfront Public Key: aws/cdn/cloudfront-public-key.md
+      - Cloudfront Realtime Log Config: aws/cdn/cloudfront-realtime-log-config.md
+      - CloudFront Realtime Log Config: aws/cdn/cloudfront-realtime-log.md
+      - Cloudfront Response Headers Policy: aws/cdn/cloudfront-response-headers-policy.md
+      - Cloudfront Trust Store: aws/cdn/cloudfront-trust-store.md
+      - Cloudfront VPC Origin: aws/cdn/cloudfront-vpc-origin.md
+      - Cloudfrontkeyvaluestore Key: aws/cdn/cloudfrontkeyvaluestore-key.md
+      - Cloudfrontkeyvaluestore Keys Exclusive: aws/cdn/cloudfrontkeyvaluestore-keys-exclusive.md
+    - DNS (Route53):
+      - Overview: aws/dns/index.md
+      - Route53 CIDR Collection: aws/dns/route53-cidr-collection.md
+      - Route53 CIDR Location: aws/dns/route53-cidr-location.md
+      - Route53 CIDR Collection: aws/dns/route53-cidr.md
+      - Route53 Delegation Set: aws/dns/route53-delegation-set.md
+      - Route53 DNSSEC: aws/dns/route53-dnssec.md
+      - Route53 Health Check: aws/dns/route53-health-check.md
+      - Route53 Hosted Zone Dnssec: aws/dns/route53-hosted-zone-dnssec.md
+      - Route53 Key Signing Key: aws/dns/route53-key-signing-key.md
+      - Route53 Query Log: aws/dns/route53-query-log.md
+      - Route53 Record: aws/dns/route53-record.md
+      - Route53 Records Exclusive: aws/dns/route53-records-exclusive.md
+      - Route53 Resolver Config: aws/dns/route53-resolver-config.md
+      - Route53 Resolver Dnssec Config: aws/dns/route53-resolver-dnssec-config.md
+      - Route53 Resolver Endpoint: aws/dns/route53-resolver-endpoint.md
+      - Route53 Resolver Firewall Config: aws/dns/route53-resolver-firewall-config.md
+      - Route53 Resolver Firewall Domain List: aws/dns/route53-resolver-firewall-domain-list.md
+      - Route53 Resolver Firewall Rule Group Association: aws/dns/route53-resolver-firewall-rule-group-association.md
+      - Route53 Resolver Firewall Rule Group: aws/dns/route53-resolver-firewall-rule-group.md
+      - Route53 Resolver Firewall Rule: aws/dns/route53-resolver-firewall-rule.md
+      - Route53 Resolver Query Log Config Association: aws/dns/route53-resolver-query-log-config-association.md
+      - Route53 Resolver Query Log Config: aws/dns/route53-resolver-query-log-config.md
+      - Route53 Resolver Rule Association: aws/dns/route53-resolver-rule-association.md
+      - Route53 Resolver Rule: aws/dns/route53-resolver-rule.md
+      - Route53 Traffic Policy Instance: aws/dns/route53-traffic-policy-instance.md
+      - Route53 Traffic Policy: aws/dns/route53-traffic-policy.md
+      - Route53 VPC Association Authorization: aws/dns/route53-vpc-association-authorization.md
+      - Route53 Zone Association: aws/dns/route53-zone-association.md
+      - Route53 Zone: aws/dns/route53-zone.md
+      - Route53domains Delegation Signer Record: aws/dns/route53domains-delegation-signer-record.md
+      - Route53domains Domain: aws/dns/route53domains-domain.md
+      - Route53domains Registered Domain: aws/dns/route53domains-registered-domain.md
+      - Route53profiles Association: aws/dns/route53profiles-association.md
+      - Route53profiles Profile: aws/dns/route53profiles-profile.md
+      - Route53profiles Resource Association: aws/dns/route53profiles-resource-association.md
+      - Route53recoverycontrolconfig Cluster: aws/dns/route53recoverycontrolconfig-cluster.md
+      - Route53recoverycontrolconfig Control Panel: aws/dns/route53recoverycontrolconfig-control-panel.md
+      - Route53recoverycontrolconfig Routing Control: aws/dns/route53recoverycontrolconfig-routing-control.md
+      - Route53recoverycontrolconfig Safety Rule: aws/dns/route53recoverycontrolconfig-safety-rule.md
+      - Route53recoveryreadiness Cell: aws/dns/route53recoveryreadiness-cell.md
+      - Route53recoveryreadiness Readiness Check: aws/dns/route53recoveryreadiness-readiness-check.md
+      - Route53recoveryreadiness Recovery Group: aws/dns/route53recoveryreadiness-recovery-group.md
+      - Route53recoveryreadiness Resource Set: aws/dns/route53recoveryreadiness-resource-set.md
+    - IAM:
+      - Overview: aws/iam/index.md
+      - IAM Access Key: aws/iam/iam-access-key.md
+      - IAM Account Alias: aws/iam/iam-account-alias.md
+      - IAM Account Password Policy: aws/iam/iam-account-password-policy.md
+      - IAM Account Settings: aws/iam/iam-account-settings.md
+      - IAM Group Membership: aws/iam/iam-group-membership.md
+      - IAM Group Policies Exclusive: aws/iam/iam-group-policies-exclusive.md
+      - IAM Group Policy Attachment: aws/iam/iam-group-policy-attachment.md
+      - IAM Group Policy Attachments Exclusive: aws/iam/iam-group-policy-attachments-exclusive.md
+      - IAM Group Policy: aws/iam/iam-group-policy.md
+      - IAM Group: aws/iam/iam-group.md
+      - IAM Instance Profile: aws/iam/iam-instance-profile.md
+      - IAM OIDC Provider: aws/iam/iam-oidc-provider.md
+      - IAM Openid Connect Provider: aws/iam/iam-openid-connect-provider.md
+      - IAM Organizations Features: aws/iam/iam-organizations-features.md
+      - IAM Outbound Web Identity Federation: aws/iam/iam-outbound-web-identity-federation.md
+      - IAM Policy Attachment: aws/iam/iam-policy-attachment.md
+      - IAM Policy: aws/iam/iam-policy.md
+      - IAM Role Policies Exclusive: aws/iam/iam-role-policies-exclusive.md
+      - IAM Role Policy Attachment: aws/iam/iam-role-policy-attachment.md
+      - IAM Role Policy Attachments Exclusive: aws/iam/iam-role-policy-attachments-exclusive.md
+      - IAM Role Policy: aws/iam/iam-role-policy.md
+      - IAM Role: aws/iam/iam-role.md
+      - IAM SAML Provider: aws/iam/iam-saml-provider.md
+      - IAM Security Token Service Preferences: aws/iam/iam-security-token-service-preferences.md
+      - IAM Server Certificate: aws/iam/iam-server-certificate.md
+      - IAM Service Linked Role: aws/iam/iam-service-linked-role.md
+      - IAM Service Specific Credential: aws/iam/iam-service-specific-credential.md
+      - IAM Signing Certificate: aws/iam/iam-signing-certificate.md
+      - IAM User Group Membership: aws/iam/iam-user-group-membership.md
+      - IAM User Login Profile: aws/iam/iam-user-login-profile.md
+      - IAM User Policies Exclusive: aws/iam/iam-user-policies-exclusive.md
+      - IAM User Policy Attachment: aws/iam/iam-user-policy-attachment.md
+      - IAM User Policy Attachments Exclusive: aws/iam/iam-user-policy-attachments-exclusive.md
+      - IAM User Policy: aws/iam/iam-user-policy.md
+      - IAM User Ssh Key: aws/iam/iam-user-ssh-key.md
+      - IAM User: aws/iam/iam-user.md
+      - IAM Virtual MFA Device: aws/iam/iam-virtual-mfa-device.md
+    - Security:
+      - Overview: aws/security/index.md
+      - ACM Certificate Validation: aws/security/acm-certificate-validation.md
+      - ACM Certificate: aws/security/acm-certificate.md
+      - Acmpca Certificate Authority Certificate: aws/security/acmpca-certificate-authority-certificate.md
+      - Acmpca Certificate Authority: aws/security/acmpca-certificate-authority.md
+      - Acmpca Certificate: aws/security/acmpca-certificate.md
+      - Acmpca Permission: aws/security/acmpca-permission.md
+      - Acmpca Policy: aws/security/acmpca-policy.md
+      - Auditmanager Account Registration: aws/security/auditmanager-account-registration.md
+      - Auditmanager Assessment Delegation: aws/security/auditmanager-assessment-delegation.md
+      - Auditmanager Assessment Report: aws/security/auditmanager-assessment-report.md
+      - Auditmanager Assessment: aws/security/auditmanager-assessment.md
+      - Auditmanager Control: aws/security/auditmanager-control.md
+      - Auditmanager Framework Share: aws/security/auditmanager-framework-share.md
+      - Auditmanager Framework: aws/security/auditmanager-framework.md
+      - Auditmanager Organization Admin Account Registration: aws/security/auditmanager-organization-admin-account-registration.md
+      - Detective Graph: aws/security/detective-graph.md
+      - Detective Invitation Accepter: aws/security/detective-invitation-accepter.md
+      - Detective Member: aws/security/detective-member.md
+      - Detective Organization Admin Account: aws/security/detective-organization-admin-account.md
+      - Detective Organization Configuration: aws/security/detective-organization-configuration.md
+      - Guardduty Detector Feature: aws/security/guardduty-detector-feature.md
+      - Guardduty Detector: aws/security/guardduty-detector.md
+      - Guardduty Filter: aws/security/guardduty-filter.md
+      - Guardduty Invite Accepter: aws/security/guardduty-invite-accepter.md
+      - Guardduty Malware Protection Plan: aws/security/guardduty-malware-protection-plan.md
+      - Guardduty Member Detector Feature: aws/security/guardduty-member-detector-feature.md
+      - Guardduty Member: aws/security/guardduty-member.md
+      - Guardduty Organization Admin Account: aws/security/guardduty-organization-admin-account.md
+      - Guardduty Organization Configuration Feature: aws/security/guardduty-organization-configuration-feature.md
+      - Guardduty Organization Configuration: aws/security/guardduty-organization-configuration.md
+      - GuardDuty: aws/security/guardduty.md
+      - Inspector2 Delegated Admin Account: aws/security/inspector2-delegated-admin-account.md
+      - Inspector2 Enabler: aws/security/inspector2-enabler.md
+      - Inspector2 Filter: aws/security/inspector2-filter.md
+      - Inspector2 Member Association: aws/security/inspector2-member-association.md
+      - Inspector2 Organization Configuration: aws/security/inspector2-organization-configuration.md
+      - KMS Alias: aws/security/kms-alias.md
+      - KMS Ciphertext: aws/security/kms-ciphertext.md
+      - KMS Custom Key Store: aws/security/kms-custom-key-store.md
+      - KMS External Key: aws/security/kms-external-key.md
+      - KMS Grant: aws/security/kms-grant.md
+      - KMS Key Policy: aws/security/kms-key-policy.md
+      - KMS Key: aws/security/kms-key.md
+      - KMS Replica External Key: aws/security/kms-replica-external-key.md
+      - KMS Replica Key: aws/security/kms-replica-key.md
+      - Macie2 Account: aws/security/macie2-account.md
+      - Macie2 Classification Export Configuration: aws/security/macie2-classification-export-configuration.md
+      - Macie2 Classification Job: aws/security/macie2-classification-job.md
+      - Macie2 Custom Data Identifier: aws/security/macie2-custom-data-identifier.md
+      - Macie2 Findings Filter: aws/security/macie2-findings-filter.md
+      - Macie2 Invitation Accepter: aws/security/macie2-invitation-accepter.md
+      - Macie2 Member: aws/security/macie2-member.md
+      - Macie2 Organization Admin Account: aws/security/macie2-organization-admin-account.md
+      - Macie2 Organization Configuration: aws/security/macie2-organization-configuration.md
+      - Secrets Manager Secret Rotation: aws/security/secrets-manager-secret-rotation.md
+      - Secrets Manager Secret Version: aws/security/secrets-manager-secret-version.md
+      - Secrets Manager Secret: aws/security/secrets-manager-secret.md
+      - Secretsmanager Secret Policy: aws/security/secretsmanager-secret-policy.md
+      - Secretsmanager Secret Rotation: aws/security/secretsmanager-secret-rotation.md
+      - Secretsmanager Secret Version: aws/security/secretsmanager-secret-version.md
+      - Secretsmanager Secret: aws/security/secretsmanager-secret.md
+      - Secretsmanager Tag: aws/security/secretsmanager-tag.md
+      - Security Hub: aws/security/security-hub.md
+      - Securityhub Account: aws/security/securityhub-account.md
+      - Securityhub Action Target: aws/security/securityhub-action-target.md
+      - Securityhub Automation Rule: aws/security/securityhub-automation-rule.md
+      - Securityhub Configuration Policy Association: aws/security/securityhub-configuration-policy-association.md
+      - Securityhub Configuration Policy: aws/security/securityhub-configuration-policy.md
+      - Securityhub Finding Aggregator: aws/security/securityhub-finding-aggregator.md
+      - Securityhub Insight: aws/security/securityhub-insight.md
+      - Securityhub Invite Accepter: aws/security/securityhub-invite-accepter.md
+      - Securityhub Member: aws/security/securityhub-member.md
+      - Securityhub Organization Admin Account: aws/security/securityhub-organization-admin-account.md
+      - Securityhub Organization Configuration: aws/security/securityhub-organization-configuration.md
+      - Securityhub Product Subscription: aws/security/securityhub-product-subscription.md
+      - Securityhub Standards Control Association: aws/security/securityhub-standards-control-association.md
+      - Securityhub Standards Control: aws/security/securityhub-standards-control.md
+      - Securityhub Standards Subscription: aws/security/securityhub-standards-subscription.md
+      - Securitylake Aws Log Source: aws/security/securitylake-aws-log-source.md
+      - Securitylake Custom Log Source: aws/security/securitylake-custom-log-source.md
+      - Securitylake Data Lake: aws/security/securitylake-data-lake.md
+      - Securitylake Subscriber Notification: aws/security/securitylake-subscriber-notification.md
+      - Securitylake Subscriber: aws/security/securitylake-subscriber.md
+      - Shield Application Layer Automatic Response: aws/security/shield-application-layer-automatic-response.md
+      - Shield Drt Access Log Bucket Association: aws/security/shield-drt-access-log-bucket-association.md
+      - Shield Drt Access Role ARN Association: aws/security/shield-drt-access-role-arn-association.md
+      - Shield Proactive Engagement: aws/security/shield-proactive-engagement.md
+      - Shield Protection Group: aws/security/shield-protection-group.md
+      - Shield Protection Health Check Association: aws/security/shield-protection-health-check-association.md
+      - Shield Protection: aws/security/shield-protection.md
+      - Shield Subscription: aws/security/shield-subscription.md
+      - Verifiedaccess Endpoint: aws/security/verifiedaccess-endpoint.md
+      - Verifiedaccess Group: aws/security/verifiedaccess-group.md
+      - Verifiedaccess Instance Logging Configuration: aws/security/verifiedaccess-instance-logging-configuration.md
+      - Verifiedaccess Instance Trust Provider Attachment: aws/security/verifiedaccess-instance-trust-provider-attachment.md
+      - Verifiedaccess Instance: aws/security/verifiedaccess-instance.md
+      - Verifiedaccess Trust Provider: aws/security/verifiedaccess-trust-provider.md
+      - Verifiedpermissions Identity Source: aws/security/verifiedpermissions-identity-source.md
+      - Verifiedpermissions Policy Store: aws/security/verifiedpermissions-policy-store.md
+      - Verifiedpermissions Policy Template: aws/security/verifiedpermissions-policy-template.md
+      - Verifiedpermissions Policy: aws/security/verifiedpermissions-policy.md
+      - Verifiedpermissions Schema: aws/security/verifiedpermissions-schema.md
+      - WAF Byte Match Set: aws/security/waf-byte-match-set.md
+      - WAF Geo Match Set: aws/security/waf-geo-match-set.md
+      - WAF Ipset: aws/security/waf-ipset.md
+      - WAF Rate Based Rule: aws/security/waf-rate-based-rule.md
+      - WAF Regex Match Set: aws/security/waf-regex-match-set.md
+      - WAF Regex Pattern Set: aws/security/waf-regex-pattern-set.md
+      - WAF Rule Group: aws/security/waf-rule-group.md
+      - WAF Rule: aws/security/waf-rule.md
+      - WAF Size Constraint Set: aws/security/waf-size-constraint-set.md
+      - WAF Sql Injection Match Set: aws/security/waf-sql-injection-match-set.md
+      - WAF Web Acl: aws/security/waf-web-acl.md
+      - WAF Xss Match Set: aws/security/waf-xss-match-set.md
+      - Wafregional Byte Match Set: aws/security/wafregional-byte-match-set.md
+      - Wafregional Geo Match Set: aws/security/wafregional-geo-match-set.md
+      - Wafregional Ipset: aws/security/wafregional-ipset.md
+      - Wafregional Rate Based Rule: aws/security/wafregional-rate-based-rule.md
+      - Wafregional Regex Match Set: aws/security/wafregional-regex-match-set.md
+      - Wafregional Regex Pattern Set: aws/security/wafregional-regex-pattern-set.md
+      - Wafregional Rule Group: aws/security/wafregional-rule-group.md
+      - Wafregional Rule: aws/security/wafregional-rule.md
+      - Wafregional Size Constraint Set: aws/security/wafregional-size-constraint-set.md
+      - Wafregional Sql Injection Match Set: aws/security/wafregional-sql-injection-match-set.md
+      - Wafregional Web Acl Association: aws/security/wafregional-web-acl-association.md
+      - Wafregional Web Acl: aws/security/wafregional-web-acl.md
+      - Wafregional Xss Match Set: aws/security/wafregional-xss-match-set.md
+      - Wafv2 API Key: aws/security/wafv2-api-key.md
+      - Wafv2 IP Set: aws/security/wafv2-ip-set.md
+      - Wafv2 Regex Pattern Set: aws/security/wafv2-regex-pattern-set.md
+      - Wafv2 Rule Group: aws/security/wafv2-rule-group.md
+      - Wafv2 Web Acl Association: aws/security/wafv2-web-acl-association.md
+      - Wafv2 Web Acl Logging Configuration: aws/security/wafv2-web-acl-logging-configuration.md
+      - Wafv2 Web Acl Rule Group Association: aws/security/wafv2-web-acl-rule-group-association.md
+      - Wafv2 Web Acl Rule: aws/security/wafv2-web-acl-rule.md
+      - Wafv2 Web Acl: aws/security/wafv2-web-acl.md
+    - Monitoring:
+      - Overview: aws/monitoring/index.md
+      - Applicationinsights Application: aws/monitoring/applicationinsights-application.md
+      - Cloudtrail Event Data Store: aws/monitoring/cloudtrail-event-data-store.md
+      - Cloudtrail Organization Delegated Admin Account: aws/monitoring/cloudtrail-organization-delegated-admin-account.md
+      - Cloudtrail: aws/monitoring/cloudtrail.md
+      - Cloudwatch Composite Alarm: aws/monitoring/cloudwatch-composite-alarm.md
+      - Cloudwatch Contributor Insight Rule: aws/monitoring/cloudwatch-contributor-insight-rule.md
+      - Cloudwatch Contributor Managed Insight Rule: aws/monitoring/cloudwatch-contributor-managed-insight-rule.md
+      - Cloudwatch Dashboard: aws/monitoring/cloudwatch-dashboard.md
+      - CloudWatch Event Rule (EventBridge): aws/monitoring/cloudwatch-event-rule.md
+      - CloudWatch Event Target: aws/monitoring/cloudwatch-event-target.md
+      - Cloudwatch Log Account Policy: aws/monitoring/cloudwatch-log-account-policy.md
+      - Cloudwatch Log Anomaly Detector: aws/monitoring/cloudwatch-log-anomaly-detector.md
+      - Cloudwatch Log Data Protection Policy: aws/monitoring/cloudwatch-log-data-protection-policy.md
+      - Cloudwatch Log Delivery Destination Policy: aws/monitoring/cloudwatch-log-delivery-destination-policy.md
+      - Cloudwatch Log Delivery Destination: aws/monitoring/cloudwatch-log-delivery-destination.md
+      - Cloudwatch Log Delivery Source: aws/monitoring/cloudwatch-log-delivery-source.md
+      - Cloudwatch Log Delivery: aws/monitoring/cloudwatch-log-delivery.md
+      - Cloudwatch Log Destination Policy: aws/monitoring/cloudwatch-log-destination-policy.md
+      - Cloudwatch Log Destination: aws/monitoring/cloudwatch-log-destination.md
+      - Cloudwatch Log Group: aws/monitoring/cloudwatch-log-group.md
+      - Cloudwatch Log Index Policy: aws/monitoring/cloudwatch-log-index-policy.md
+      - Cloudwatch Log Metric Filter: aws/monitoring/cloudwatch-log-metric-filter.md
+      - Cloudwatch Log Resource Policy: aws/monitoring/cloudwatch-log-resource-policy.md
+      - Cloudwatch Log Stream: aws/monitoring/cloudwatch-log-stream.md
+      - Cloudwatch Log Subscription Filter: aws/monitoring/cloudwatch-log-subscription-filter.md
+      - Cloudwatch Log Transformer: aws/monitoring/cloudwatch-log-transformer.md
+      - Cloudwatch Metric Alarm: aws/monitoring/cloudwatch-metric-alarm.md
+      - Cloudwatch Metric Stream: aws/monitoring/cloudwatch-metric-stream.md
+      - Cloudwatch Query Definition: aws/monitoring/cloudwatch-query-definition.md
+      - Evidently Feature: aws/monitoring/evidently-feature.md
+      - Evidently Launch: aws/monitoring/evidently-launch.md
+      - Evidently Project: aws/monitoring/evidently-project.md
+      - Evidently Segment: aws/monitoring/evidently-segment.md
+      - Internetmonitor Monitor: aws/monitoring/internetmonitor-monitor.md
+      - Networkflowmonitor Monitor: aws/monitoring/networkflowmonitor-monitor.md
+      - Networkflowmonitor Scope: aws/monitoring/networkflowmonitor-scope.md
+      - Networkmonitor Monitor: aws/monitoring/networkmonitor-monitor.md
+      - Networkmonitor Probe: aws/monitoring/networkmonitor-probe.md
+      - Oam Link: aws/monitoring/oam-link.md
+      - Oam Sink Policy: aws/monitoring/oam-sink-policy.md
+      - Oam Sink: aws/monitoring/oam-sink.md
+      - Observabilityadmin Centralization Rule For Organization: aws/monitoring/observabilityadmin-centralization-rule-for-organization.md
+      - Observabilityadmin Telemetry Pipeline: aws/monitoring/observabilityadmin-telemetry-pipeline.md
+      - Rum App Monitor: aws/monitoring/rum-app-monitor.md
+      - Rum Metrics Destination: aws/monitoring/rum-metrics-destination.md
+      - Synthetics Canary: aws/monitoring/synthetics-canary.md
+      - Synthetics Group Association: aws/monitoring/synthetics-group-association.md
+      - Synthetics Group: aws/monitoring/synthetics-group.md
+      - Xray Encryption Config: aws/monitoring/xray-encryption-config.md
+      - Xray Group: aws/monitoring/xray-group.md
+      - Xray Resource Policy: aws/monitoring/xray-resource-policy.md
+      - Xray Sampling Rule: aws/monitoring/xray-sampling-rule.md
+    - CI/CD:
+      - Overview: aws/cicd/index.md
+      - Codeartifact Domain Permissions Policy: aws/cicd/codeartifact-domain-permissions-policy.md
+      - Codeartifact Domain: aws/cicd/codeartifact-domain.md
+      - Codeartifact Repository Permissions Policy: aws/cicd/codeartifact-repository-permissions-policy.md
+      - Codeartifact Repository: aws/cicd/codeartifact-repository.md
+      - Codebuild Fleet: aws/cicd/codebuild-fleet.md
+      - Codebuild Project: aws/cicd/codebuild-project.md
+      - Codebuild Report Group: aws/cicd/codebuild-report-group.md
+      - Codebuild Resource Policy: aws/cicd/codebuild-resource-policy.md
+      - Codebuild Source Credential: aws/cicd/codebuild-source-credential.md
+      - Codebuild Webhook: aws/cicd/codebuild-webhook.md
+      - Codecatalyst Dev Environment: aws/cicd/codecatalyst-dev-environment.md
+      - Codecatalyst Project: aws/cicd/codecatalyst-project.md
+      - Codecatalyst Source Repository: aws/cicd/codecatalyst-source-repository.md
+      - Codecommit Approval Rule Template Association: aws/cicd/codecommit-approval-rule-template-association.md
+      - Codecommit Approval Rule Template: aws/cicd/codecommit-approval-rule-template.md
+      - Codecommit Repository: aws/cicd/codecommit-repository.md
+      - Codecommit Trigger: aws/cicd/codecommit-trigger.md
+      - Codeconnections Connection: aws/cicd/codeconnections-connection.md
+      - Codeconnections Host: aws/cicd/codeconnections-host.md
+      - Codedeploy App: aws/cicd/codedeploy-app.md
+      - Codedeploy Deployment Config: aws/cicd/codedeploy-deployment-config.md
+      - Codedeploy Deployment Group: aws/cicd/codedeploy-deployment-group.md
+      - Codepipeline Custom Action Type: aws/cicd/codepipeline-custom-action-type.md
+      - Codepipeline Webhook: aws/cicd/codepipeline-webhook.md
+      - Codepipeline: aws/cicd/codepipeline.md
+      - Codestarconnections Connection: aws/cicd/codestarconnections-connection.md
+      - Codestarconnections Host: aws/cicd/codestarconnections-host.md
+      - Codestarnotifications Notification Rule: aws/cicd/codestarnotifications-notification-rule.md
+    - Systems Manager:
+      - Overview: aws/ssm/index.md
+      - SSM Activation: aws/ssm/ssm-activation.md
+      - SSM Association: aws/ssm/ssm-association.md
+      - SSM Default Patch Baseline: aws/ssm/ssm-default-patch-baseline.md
+      - SSM Document: aws/ssm/ssm-document.md
+      - SSM Maintenance Window Target: aws/ssm/ssm-maintenance-window-target.md
+      - SSM Maintenance Window Task: aws/ssm/ssm-maintenance-window-task.md
+      - SSM Maintenance Window: aws/ssm/ssm-maintenance-window.md
+      - SSM Parameter: aws/ssm/ssm-parameter.md
+      - SSM Patch Baseline: aws/ssm/ssm-patch-baseline.md
+      - SSM Patch Group: aws/ssm/ssm-patch-group.md
+      - SSM Resource Data Sync: aws/ssm/ssm-resource-data-sync.md
+      - SSM Service Setting: aws/ssm/ssm-service-setting.md
+      - Ssmcontacts Contact Channel: aws/ssm/ssmcontacts-contact-channel.md
+      - Ssmcontacts Contact: aws/ssm/ssmcontacts-contact.md
+      - Ssmcontacts Plan: aws/ssm/ssmcontacts-plan.md
+      - Ssmcontacts Rotation: aws/ssm/ssmcontacts-rotation.md
+      - Ssmincidents Replication Set: aws/ssm/ssmincidents-replication-set.md
+      - Ssmincidents Response Plan: aws/ssm/ssmincidents-response-plan.md
+      - Ssmquicksetup Configuration Manager: aws/ssm/ssmquicksetup-configuration-manager.md
+    - Cognito:
+      - Overview: aws/cognito/index.md
+      - Cognito Identity Pool Provider Principal Tag: aws/cognito/cognito-identity-pool-provider-principal-tag.md
+      - Cognito Identity Pool Roles Attachment: aws/cognito/cognito-identity-pool-roles-attachment.md
+      - Cognito Identity Pool: aws/cognito/cognito-identity-pool.md
+      - Cognito Identity Pool: aws/cognito/identity-pool.md
+      - Cognito Identity Provider: aws/cognito/identity-provider.md
+      - Cognito Resource Server: aws/cognito/resource-server.md
+      - Cognito User Group: aws/cognito/user-group.md
+      - Cognito User Pool Client: aws/cognito/user-pool-client.md
+      - Cognito User Pool Domain: aws/cognito/user-pool-domain.md
+      - Cognito User Pool: aws/cognito/user-pool.md
+    - Messaging:
+      - Overview: aws/messaging/index.md
+      - Kinesis Analytics Application: aws/messaging/kinesis-analytics-application.md
+      - Kinesis Firehose Delivery Stream: aws/messaging/kinesis-firehose.md
+      - Kinesis Resource Policy: aws/messaging/kinesis-resource-policy.md
+      - Kinesis Stream Consumer: aws/messaging/kinesis-stream-consumer.md
+      - Kinesis Stream: aws/messaging/kinesis-stream.md
+      - Kinesisanalyticsv2 Application Snapshot: aws/messaging/kinesisanalyticsv2-application-snapshot.md
+      - Kinesisanalyticsv2 Application: aws/messaging/kinesisanalyticsv2-application.md
+      - MQ Broker: aws/messaging/mq-broker.md
+      - MQ Configuration: aws/messaging/mq-configuration.md
+      - SFN Activity: aws/messaging/sfn-activity.md
+      - SFN Alias: aws/messaging/sfn-alias.md
+      - SFN State Machine: aws/messaging/sfn-state-machine.md
+      - SNS Platform Application: aws/messaging/sns-platform-application.md
+      - SNS Sms Preferences: aws/messaging/sns-sms-preferences.md
+      - SNS Topic Data Protection Policy: aws/messaging/sns-topic-data-protection-policy.md
+      - SNS Topic Policy: aws/messaging/sns-topic-policy.md
+      - SNS Topic Subscription: aws/messaging/sns-topic-subscription.md
+      - SNS Topic: aws/messaging/sns-topic.md
+      - SQS Queue Policy: aws/messaging/sqs-queue-policy.md
+      - SQS Queue Redrive Allow Policy: aws/messaging/sqs-queue-redrive-allow-policy.md
+      - SQS Queue Redrive Policy: aws/messaging/sqs-queue-redrive-policy.md
+      - SQS Queue: aws/messaging/sqs-queue.md
+    - Email (SES):
+      - Overview: aws/email/index.md
+      - SES Active Receipt Rule Set: aws/email/ses-active-receipt-rule-set.md
+      - SES Configuration Set: aws/email/ses-configuration-set.md
+      - SES Domain Dkim: aws/email/ses-domain-dkim.md
+      - SES Domain Identity Verification: aws/email/ses-domain-identity-verification.md
+      - SES Domain Identity: aws/email/ses-domain-identity.md
+      - SES Domain Mail From: aws/email/ses-domain-mail-from.md
+      - SES Email Identity: aws/email/ses-email-identity.md
+      - SES Event Destination: aws/email/ses-event-destination.md
+      - SES Identity Notification Topic: aws/email/ses-identity-notification-topic.md
+      - SES Identity Policy: aws/email/ses-identity-policy.md
+      - SES Receipt Filter: aws/email/ses-receipt-filter.md
+      - SES Receipt Rule Set: aws/email/ses-receipt-rule-set.md
+      - SES Receipt Rule: aws/email/ses-receipt-rule.md
+      - SES Template: aws/email/ses-template.md
+      - Sesv2 Account Suppression Attributes: aws/email/sesv2-account-suppression-attributes.md
+      - Sesv2 Account Vdm Attributes: aws/email/sesv2-account-vdm-attributes.md
+      - Sesv2 Configuration Set Event Destination: aws/email/sesv2-configuration-set-event-destination.md
+      - Sesv2 Configuration Set: aws/email/sesv2-configuration-set.md
+      - Sesv2 Contact List: aws/email/sesv2-contact-list.md
+      - Sesv2 Dedicated IP Assignment: aws/email/sesv2-dedicated-ip-assignment.md
+      - Sesv2 Dedicated IP Pool: aws/email/sesv2-dedicated-ip-pool.md
+      - Sesv2 Email Identity Feedback Attributes: aws/email/sesv2-email-identity-feedback-attributes.md
+      - Sesv2 Email Identity Mail From Attributes: aws/email/sesv2-email-identity-mail-from-attributes.md
+      - Sesv2 Email Identity Policy: aws/email/sesv2-email-identity-policy.md
+      - Sesv2 Email Identity: aws/email/sesv2-email-identity.md
+      - Sesv2 Tenant Resource Association: aws/email/sesv2-tenant-resource-association.md
+      - Sesv2 Tenant: aws/email/sesv2-tenant.md
+    - Analytics:
+      - Overview: aws/analytics/index.md
+      - Athena Capacity Reservation: aws/analytics/athena-capacity-reservation.md
+      - Athena Data Catalog: aws/analytics/athena-data-catalog.md
+      - Athena Database: aws/analytics/athena-database.md
+      - Athena Named Query: aws/analytics/athena-named-query.md
+      - Athena Prepared Statement: aws/analytics/athena-prepared-statement.md
+      - Athena Workgroup: aws/analytics/athena-workgroup.md
+      - Dataexchange Data Set: aws/analytics/dataexchange-data-set.md
+      - Dataexchange Event Action: aws/analytics/dataexchange-event-action.md
+      - Dataexchange Revision Assets: aws/analytics/dataexchange-revision-assets.md
+      - Dataexchange Revision: aws/analytics/dataexchange-revision.md
+      - Datapipeline Pipeline Definition: aws/analytics/datapipeline-pipeline-definition.md
+      - Datapipeline Pipeline: aws/analytics/datapipeline-pipeline.md
+      - Datazone Asset Type: aws/analytics/datazone-asset-type.md
+      - Datazone Domain: aws/analytics/datazone-domain.md
+      - Datazone Environment Blueprint Configuration: aws/analytics/datazone-environment-blueprint-configuration.md
+      - Datazone Environment Profile: aws/analytics/datazone-environment-profile.md
+      - Datazone Environment: aws/analytics/datazone-environment.md
+      - Datazone Form Type: aws/analytics/datazone-form-type.md
+      - Datazone Glossary Term: aws/analytics/datazone-glossary-term.md
+      - Datazone Glossary: aws/analytics/datazone-glossary.md
+      - Datazone Project: aws/analytics/datazone-project.md
+      - Datazone User Profile: aws/analytics/datazone-user-profile.md
+      - Glue Catalog Database: aws/analytics/glue-catalog-database.md
+      - Glue Catalog Table Optimizer: aws/analytics/glue-catalog-table-optimizer.md
+      - Glue Catalog Table: aws/analytics/glue-catalog-table.md
+      - Glue Classifier: aws/analytics/glue-classifier.md
+      - Glue Connection: aws/analytics/glue-connection.md
+      - Glue Crawler: aws/analytics/glue-crawler.md
+      - Glue Data Catalog Encryption Settings: aws/analytics/glue-data-catalog-encryption-settings.md
+      - Glue Data Quality Ruleset: aws/analytics/glue-data-quality-ruleset.md
+      - Glue Dev Endpoint: aws/analytics/glue-dev-endpoint.md
+      - Glue Job: aws/analytics/glue-job.md
+      - Glue Ml Transform: aws/analytics/glue-ml-transform.md
+      - Glue Partition Index: aws/analytics/glue-partition-index.md
+      - Glue Partition: aws/analytics/glue-partition.md
+      - Glue Registry: aws/analytics/glue-registry.md
+      - Glue Resource Policy: aws/analytics/glue-resource-policy.md
+      - Glue Schema: aws/analytics/glue-schema.md
+      - Glue Security Configuration: aws/analytics/glue-security-config.md
+      - Glue Security Configuration: aws/analytics/glue-security-configuration.md
+      - Glue Trigger: aws/analytics/glue-trigger.md
+      - Glue User Defined Function: aws/analytics/glue-user-defined-function.md
+      - Glue Workflow: aws/analytics/glue-workflow.md
+      - Lakeformation Data Cells Filter: aws/analytics/lakeformation-data-cells-filter.md
+      - Lakeformation Data Lake Settings: aws/analytics/lakeformation-data-lake-settings.md
+      - Lakeformation Identity Center Configuration: aws/analytics/lakeformation-identity-center-configuration.md
+      - Lakeformation Lf Tag Expression: aws/analytics/lakeformation-lf-tag-expression.md
+      - Lakeformation Lf Tag: aws/analytics/lakeformation-lf-tag.md
+      - Lakeformation Opt In: aws/analytics/lakeformation-opt-in.md
+      - Lakeformation Permissions: aws/analytics/lakeformation-permissions.md
+      - Lakeformation Resource Lf Tag: aws/analytics/lakeformation-resource-lf-tag.md
+      - Lakeformation Resource Lf Tags: aws/analytics/lakeformation-resource-lf-tags.md
+      - Lakeformation Resource: aws/analytics/lakeformation-resource.md
+      - Quicksight Account Settings: aws/analytics/quicksight-account-settings.md
+      - Quicksight Account Subscription: aws/analytics/quicksight-account-subscription.md
+      - Quicksight Analysis: aws/analytics/quicksight-analysis.md
+      - Quicksight Custom Permissions: aws/analytics/quicksight-custom-permissions.md
+      - Quicksight Dashboard: aws/analytics/quicksight-dashboard.md
+      - Quicksight Data Set: aws/analytics/quicksight-data-set.md
+      - Quicksight Data Source: aws/analytics/quicksight-data-source.md
+      - Quicksight Folder Membership: aws/analytics/quicksight-folder-membership.md
+      - Quicksight Folder: aws/analytics/quicksight-folder.md
+      - Quicksight Group Membership: aws/analytics/quicksight-group-membership.md
+      - Quicksight Group: aws/analytics/quicksight-group.md
+      - Quicksight IAM Policy Assignment: aws/analytics/quicksight-iam-policy-assignment.md
+      - Quicksight Ingestion: aws/analytics/quicksight-ingestion.md
+      - Quicksight IP Restriction: aws/analytics/quicksight-ip-restriction.md
+      - Quicksight Key Registration: aws/analytics/quicksight-key-registration.md
+      - Quicksight Namespace: aws/analytics/quicksight-namespace.md
+      - Quicksight Refresh Schedule: aws/analytics/quicksight-refresh-schedule.md
+      - Quicksight Role Custom Permission: aws/analytics/quicksight-role-custom-permission.md
+      - Quicksight Role Membership: aws/analytics/quicksight-role-membership.md
+      - Quicksight Template Alias: aws/analytics/quicksight-template-alias.md
+      - Quicksight Template: aws/analytics/quicksight-template.md
+      - Quicksight Theme: aws/analytics/quicksight-theme.md
+      - Quicksight User Custom Permission: aws/analytics/quicksight-user-custom-permission.md
+      - Quicksight User: aws/analytics/quicksight-user.md
+      - Quicksight VPC Connection: aws/analytics/quicksight-vpc-connection.md
+      - Redshift Authentication Profile: aws/analytics/redshift-authentication-profile.md
+      - Redshift Cluster IAM Roles: aws/analytics/redshift-cluster-iam-roles.md
+      - Redshift Cluster Snapshot: aws/analytics/redshift-cluster-snapshot.md
+      - Redshift Cluster: aws/analytics/redshift-cluster.md
+      - Redshift Data Share Authorization: aws/analytics/redshift-data-share-authorization.md
+      - Redshift Data Share Consumer Association: aws/analytics/redshift-data-share-consumer-association.md
+      - Redshift Endpoint Access: aws/analytics/redshift-endpoint-access.md
+      - Redshift Endpoint Authorization: aws/analytics/redshift-endpoint-authorization.md
+      - Redshift Event Subscription: aws/analytics/redshift-event-subscription.md
+      - Redshift Hsm Client Certificate: aws/analytics/redshift-hsm-client-certificate.md
+      - Redshift Hsm Configuration: aws/analytics/redshift-hsm-configuration.md
+      - Redshift Idc Application: aws/analytics/redshift-idc-application.md
+      - Redshift Integration: aws/analytics/redshift-integration.md
+      - Redshift Logging: aws/analytics/redshift-logging.md
+      - Redshift Parameter Group: aws/analytics/redshift-parameter-group.md
+      - Redshift Partner: aws/analytics/redshift-partner.md
+      - Redshift Resource Policy: aws/analytics/redshift-resource-policy.md
+      - Redshift Scheduled Action: aws/analytics/redshift-scheduled-action.md
+      - Redshift Snapshot Copy Grant: aws/analytics/redshift-snapshot-copy-grant.md
+      - Redshift Snapshot Copy: aws/analytics/redshift-snapshot-copy.md
+      - Redshift Snapshot Schedule Association: aws/analytics/redshift-snapshot-schedule-association.md
+      - Redshift Snapshot Schedule: aws/analytics/redshift-snapshot-schedule.md
+      - Redshift Subnet Group: aws/analytics/redshift-subnet-group.md
+      - Redshift Usage Limit: aws/analytics/redshift-usage-limit.md
+      - Redshiftdata Statement: aws/analytics/redshiftdata-statement.md
+      - Redshiftserverless Custom Domain Association: aws/analytics/redshiftserverless-custom-domain-association.md
+      - Redshiftserverless Endpoint Access: aws/analytics/redshiftserverless-endpoint-access.md
+      - Redshiftserverless Namespace: aws/analytics/redshiftserverless-namespace.md
+      - Redshiftserverless Resource Policy: aws/analytics/redshiftserverless-resource-policy.md
+      - Redshiftserverless Snapshot: aws/analytics/redshiftserverless-snapshot.md
+      - Redshiftserverless Usage Limit: aws/analytics/redshiftserverless-usage-limit.md
+      - Redshiftserverless Workgroup: aws/analytics/redshiftserverless-workgroup.md
+    - Governance:
+      - Overview: aws/governance/index.md
+      - Batch Compute Environment: aws/governance/batch-compute-environment.md
+      - Batch Job Definition: aws/governance/batch-job-definition.md
+      - Batch Job Queue: aws/governance/batch-job-queue.md
+      - Batch Scheduling Policy: aws/governance/batch-scheduling-policy.md
+      - Config Aggregate Authorization: aws/governance/config-aggregate-authorization.md
+      - AWS Config Aggregator: aws/governance/config-aggregator.md
+      - Config Config Rule: aws/governance/config-config-rule.md
+      - Config Configuration Aggregator: aws/governance/config-configuration-aggregator.md
+      - Config Configuration Recorder Status: aws/governance/config-configuration-recorder-status.md
+      - Config Configuration Recorder: aws/governance/config-configuration-recorder.md
+      - Config Conformance Pack: aws/governance/config-conformance-pack.md
+      - Config Delivery Channel: aws/governance/config-delivery-channel.md
+      - Config Organization Conformance Pack: aws/governance/config-organization-conformance-pack.md
+      - Config Organization Custom Policy Rule: aws/governance/config-organization-custom-policy-rule.md
+      - Config Organization Custom Rule: aws/governance/config-organization-custom-rule.md
+      - Config Organization Managed Rule: aws/governance/config-organization-managed-rule.md
+      - AWS Config Recorder: aws/governance/config-recorder.md
+      - Config Remediation Configuration: aws/governance/config-remediation-configuration.md
+      - AWS Config Remediation: aws/governance/config-remediation.md
+      - Config Retention Configuration: aws/governance/config-retention-configuration.md
+      - AWS Config Rule: aws/governance/config-rule.md
+    - API Gateway:
+      - Overview: aws/apigateway/index.md
+      - API Gateway Account: aws/apigateway/api-gateway-account.md
+      - API Gateway API Key: aws/apigateway/api-gateway-api-key.md
+      - API Gateway Authorizer: aws/apigateway/api-gateway-authorizer.md
+      - API Gateway Base Path Mapping: aws/apigateway/api-gateway-base-path-mapping.md
+      - API Gateway Client Certificate: aws/apigateway/api-gateway-client-certificate.md
+      - API Gateway Deployment: aws/apigateway/api-gateway-deployment.md
+      - API Gateway Documentation Part: aws/apigateway/api-gateway-documentation-part.md
+      - API Gateway Documentation Version: aws/apigateway/api-gateway-documentation-version.md
+      - API Gateway Domain Name Access Association: aws/apigateway/api-gateway-domain-name-access-association.md
+      - API Gateway Domain Name: aws/apigateway/api-gateway-domain-name.md
+      - API Gateway Gateway Response: aws/apigateway/api-gateway-gateway-response.md
+      - API Gateway Integration Response: aws/apigateway/api-gateway-integration-response.md
+      - API Gateway Integration: aws/apigateway/api-gateway-integration.md
+      - API Gateway Method Response: aws/apigateway/api-gateway-method-response.md
+      - API Gateway Method Settings: aws/apigateway/api-gateway-method-settings.md
+      - API Gateway Method: aws/apigateway/api-gateway-method.md
+      - API Gateway Model: aws/apigateway/api-gateway-model.md
+      - API Gateway Request Validator: aws/apigateway/api-gateway-request-validator.md
+      - API Gateway Resource: aws/apigateway/api-gateway-resource.md
+      - API Gateway Rest API Policy: aws/apigateway/api-gateway-rest-api-policy.md
+      - API Gateway Rest API Put: aws/apigateway/api-gateway-rest-api-put.md
+      - API Gateway Rest API: aws/apigateway/api-gateway-rest-api.md
+      - API Gateway Stage: aws/apigateway/api-gateway-stage.md
+      - API Gateway Usage Plan Key: aws/apigateway/api-gateway-usage-plan-key.md
+      - API Gateway Usage Plan: aws/apigateway/api-gateway-usage-plan.md
+      - API Gateway VPC Link: aws/apigateway/api-gateway-vpc-link.md
+      - API Gateway API Key: aws/apigateway/api-key.md
+      - Apigatewayv2 API Mapping: aws/apigateway/apigatewayv2-api-mapping.md
+      - Apigatewayv2 API: aws/apigateway/apigatewayv2-api.md
+      - Apigatewayv2 Authorizer: aws/apigateway/apigatewayv2-authorizer.md
+      - Apigatewayv2 Deployment: aws/apigateway/apigatewayv2-deployment.md
+      - Apigatewayv2 Domain Name: aws/apigateway/apigatewayv2-domain-name.md
+      - Apigatewayv2 Integration Response: aws/apigateway/apigatewayv2-integration-response.md
+      - Apigatewayv2 Integration: aws/apigateway/apigatewayv2-integration.md
+      - Apigatewayv2 Model: aws/apigateway/apigatewayv2-model.md
+      - Apigatewayv2 Route Response: aws/apigateway/apigatewayv2-route-response.md
+      - Apigatewayv2 Route: aws/apigateway/apigatewayv2-route.md
+      - Apigatewayv2 Routing Rule: aws/apigateway/apigatewayv2-routing-rule.md
+      - Apigatewayv2 Stage: aws/apigateway/apigatewayv2-stage.md
+      - Apigatewayv2 VPC Link: aws/apigateway/apigatewayv2-vpc-link.md
+      - API Gateway Authorizer: aws/apigateway/authorizer.md
+      - API Gateway Deployment: aws/apigateway/deployment.md
+      - API Gateway Domain Name: aws/apigateway/domain-name.md
+      - API Gateway Response: aws/apigateway/gateway-response.md
+      - API Gateway HTTP API (v2): aws/apigateway/http-api.md
+      - API Gateway v2 Authorizer: aws/apigateway/http-authorizer.md
+      - API Gateway v2 Domain Name: aws/apigateway/http-domain-name.md
+      - API Gateway v2 Integration: aws/apigateway/http-integration.md
+      - API Gateway v2 Route: aws/apigateway/http-route.md
+      - API Gateway v2 Stage: aws/apigateway/http-stage.md
+      - API Gateway v2 VPC Link: aws/apigateway/http-vpc-link.md
+      - API Gateway Integration: aws/apigateway/integration.md
+      - API Gateway Method: aws/apigateway/method.md
+      - API Gateway Model: aws/apigateway/model.md
+      - API Gateway Resource: aws/apigateway/resource.md
+      - API Gateway REST API: aws/apigateway/rest-api.md
+      - API Gateway Stage: aws/apigateway/stage.md
+      - API Gateway Usage Plan: aws/apigateway/usage-plan.md
+      - API Gateway VPC Link: aws/apigateway/vpc-link.md
+    - AppSync:
+      - Overview: aws/appsync/index.md
+      - AppSync API Key: aws/appsync/api-key.md
+      - Appsync API Cache: aws/appsync/appsync-api-cache.md
+      - Appsync API Key: aws/appsync/appsync-api-key.md
+      - Appsync API: aws/appsync/appsync-api.md
+      - Appsync Channel Namespace: aws/appsync/appsync-channel-namespace.md
+      - Appsync Datasource: aws/appsync/appsync-datasource.md
+      - Appsync Domain Name API Association: aws/appsync/appsync-domain-name-api-association.md
+      - Appsync Domain Name: aws/appsync/appsync-domain-name.md
+      - Appsync Function: aws/appsync/appsync-function.md
+      - Appsync Graphql API: aws/appsync/appsync-graphql-api.md
+      - Appsync Resolver: aws/appsync/appsync-resolver.md
+      - Appsync Source API Association: aws/appsync/appsync-source-api-association.md
+      - Appsync Type: aws/appsync/appsync-type.md
+      - AppSync DataSource: aws/appsync/datasource.md
+      - AppSync Domain Name: aws/appsync/domain-name.md
+      - AppSync Function: aws/appsync/function.md
+      - AppSync GraphQL API: aws/appsync/graphql-api.md
+      - AppSync Resolver: aws/appsync/resolver.md
+      - AppSync Type: aws/appsync/type.md
+    - Organizations:
+      - Overview: aws/organizations/index.md
+      - AWS Organizations Account: aws/organizations/account.md
+      - AWS Organization: aws/organizations/organization.md
+      - Organizational Unit: aws/organizations/organizational-unit.md
+      - Organizations Account: aws/organizations/organizations-account.md
+      - Organizations Delegated Administrator: aws/organizations/organizations-delegated-administrator.md
+      - Organizations Organization: aws/organizations/organizations-organization.md
+      - Organizations Organizational Unit: aws/organizations/organizations-organizational-unit.md
+      - Organizations Policy Attachment: aws/organizations/organizations-policy-attachment.md
+      - Organizations Policy: aws/organizations/organizations-policy.md
+      - Organizations Resource Policy: aws/organizations/organizations-resource-policy.md
+      - Organizations Tag: aws/organizations/organizations-tag.md
+      - Organizations Policy Attachment: aws/organizations/policy-attachment.md
+      - Organizations Policy: aws/organizations/policy.md
+    - OpenSearch:
+      - Overview: aws/opensearch/index.md
+      - OpenSearch Domain: aws/opensearch/domain.md
+      - Elasticsearch Domain Policy: aws/opensearch/elasticsearch-domain-policy.md
+      - Elasticsearch Domain SAML Options: aws/opensearch/elasticsearch-domain-saml-options.md
+      - Elasticsearch Domain: aws/opensearch/elasticsearch-domain.md
+      - Elasticsearch VPC Endpoint: aws/opensearch/elasticsearch-vpc-endpoint.md
+      - Opensearch Application: aws/opensearch/opensearch-application.md
+      - Opensearch Authorize VPC Endpoint Access: aws/opensearch/opensearch-authorize-vpc-endpoint-access.md
+      - Opensearch Domain Policy: aws/opensearch/opensearch-domain-policy.md
+      - Opensearch Domain SAML Options: aws/opensearch/opensearch-domain-saml-options.md
+      - Opensearch Domain: aws/opensearch/opensearch-domain.md
+      - Opensearch Inbound Connection Accepter: aws/opensearch/opensearch-inbound-connection-accepter.md
+      - Opensearch Outbound Connection: aws/opensearch/opensearch-outbound-connection.md
+      - Opensearch Package Association: aws/opensearch/opensearch-package-association.md
+      - Opensearch Package: aws/opensearch/opensearch-package.md
+      - Opensearch VPC Endpoint: aws/opensearch/opensearch-vpc-endpoint.md
+      - Opensearchserverless Access Policy: aws/opensearch/opensearchserverless-access-policy.md
+      - Opensearchserverless Collection: aws/opensearch/opensearchserverless-collection.md
+      - Opensearchserverless Lifecycle Policy: aws/opensearch/opensearchserverless-lifecycle-policy.md
+      - Opensearchserverless Security Config: aws/opensearch/opensearchserverless-security-config.md
+      - Opensearchserverless Security Policy: aws/opensearch/opensearchserverless-security-policy.md
+      - Opensearchserverless VPC Endpoint: aws/opensearch/opensearchserverless-vpc-endpoint.md
+      - OpenSearch Package: aws/opensearch/package.md
+      - OpenSearch Serverless Collection: aws/opensearch/serverless-collection.md
+      - OpenSearch VPC Endpoint: aws/opensearch/vpc-endpoint.md
+    - App Runner:
+      - Overview: aws/apprunner/index.md
+      - Apprunner Auto Scaling Configuration Version: aws/apprunner/apprunner-auto-scaling-configuration-version.md
+      - Apprunner Connection: aws/apprunner/apprunner-connection.md
+      - Apprunner Custom Domain Association: aws/apprunner/apprunner-custom-domain-association.md
+      - Apprunner Default Auto Scaling Configuration Version: aws/apprunner/apprunner-default-auto-scaling-configuration-version.md
+      - Apprunner Deployment: aws/apprunner/apprunner-deployment.md
+      - Apprunner Observability Configuration: aws/apprunner/apprunner-observability-configuration.md
+      - Apprunner Service: aws/apprunner/apprunner-service.md
+      - Apprunner VPC Connector: aws/apprunner/apprunner-vpc-connector.md
+      - Apprunner VPC Ingress Connection: aws/apprunner/apprunner-vpc-ingress-connection.md
+      - App Runner Auto Scaling: aws/apprunner/auto-scaling.md
+      - App Runner Connection: aws/apprunner/connection.md
+      - App Runner Custom Domain: aws/apprunner/custom-domain.md
+      - App Runner Observability: aws/apprunner/observability.md
+      - App Runner Service: aws/apprunner/service.md
+      - App Runner VPC Connector: aws/apprunner/vpc-connector.md
+    - MSK:
+      - Overview: aws/msk/index.md
+      - MSK Cluster: aws/msk/cluster.md
+      - MSK Configuration: aws/msk/configuration.md
+      - MSK Connect Custom Plugin: aws/msk/connect-plugin.md
+      - MSK Connect Worker Configuration: aws/msk/connect-worker.md
+      - MSK Cluster Policy: aws/msk/msk-cluster-policy.md
+      - MSK Cluster: aws/msk/msk-cluster.md
+      - MSK Configuration: aws/msk/msk-configuration.md
+      - MSK Replicator: aws/msk/msk-replicator.md
+      - MSK Scram Secret Association: aws/msk/msk-scram-secret-association.md
+      - MSK Serverless Cluster: aws/msk/msk-serverless-cluster.md
+      - MSK Single Scram Secret Association: aws/msk/msk-single-scram-secret-association.md
+      - MSK Topic: aws/msk/msk-topic.md
+      - MSK VPC Connection: aws/msk/msk-vpc-connection.md
+      - Mskconnect Connector: aws/msk/mskconnect-connector.md
+      - Mskconnect Custom Plugin: aws/msk/mskconnect-custom-plugin.md
+      - Mskconnect Worker Configuration: aws/msk/mskconnect-worker-configuration.md
+      - MSK Serverless Cluster: aws/msk/serverless-cluster.md
+    - EMR:
+      - Overview: aws/emr/index.md
+      - EMR Cluster: aws/emr/cluster.md
+      - EMR Block Public Access Configuration: aws/emr/emr-block-public-access-configuration.md
+      - EMR Cluster: aws/emr/emr-cluster.md
+      - EMR Instance Fleet: aws/emr/emr-instance-fleet.md
+      - EMR Instance Group: aws/emr/emr-instance-group.md
+      - EMR Managed Scaling Policy: aws/emr/emr-managed-scaling-policy.md
+      - EMR Security Configuration: aws/emr/emr-security-configuration.md
+      - EMR Studio Session Mapping: aws/emr/emr-studio-session-mapping.md
+      - EMR Studio: aws/emr/emr-studio.md
+      - Emrcontainers Job Template: aws/emr/emrcontainers-job-template.md
+      - Emrcontainers Virtual Cluster: aws/emr/emrcontainers-virtual-cluster.md
+      - Emrserverless Application: aws/emr/emrserverless-application.md
+      - EMR Instance Group: aws/emr/instance-group.md
+      - EMR Security Configuration: aws/emr/security-config.md
+      - EMR Studio: aws/emr/studio.md
+    - DMS:
+      - Overview: aws/dms/index.md
+      - DMS Certificate: aws/dms/certificate.md
+      - DMS Certificate: aws/dms/dms-certificate.md
+      - DMS Endpoint: aws/dms/dms-endpoint.md
+      - DMS Event Subscription: aws/dms/dms-event-subscription.md
+      - DMS Replication Config: aws/dms/dms-replication-config.md
+      - DMS Replication Instance: aws/dms/dms-replication-instance.md
+      - DMS Replication Subnet Group: aws/dms/dms-replication-subnet-group.md
+      - DMS Replication Task: aws/dms/dms-replication-task.md
+      - DMS S3 Endpoint: aws/dms/dms-s3-endpoint.md
+      - DMS Endpoint: aws/dms/endpoint.md
+      - DMS Event Subscription: aws/dms/event-subscription.md
+      - DMS Replication Instance: aws/dms/replication-instance.md
+      - DMS Replication Subnet Group: aws/dms/replication-subnet-group.md
+      - DMS Replication Task: aws/dms/replication-task.md
+    - Transfer Family:
+      - Overview: aws/transfer/index.md
+      - Transfer Connector: aws/transfer/connector.md
+      - Transfer Server: aws/transfer/server.md
+      - Transfer SSH Key: aws/transfer/ssh-key.md
+      - Transfer Family Tag: aws/transfer/tag.md
+      - Transfer Access: aws/transfer/transfer-access.md
+      - Transfer Agreement: aws/transfer/transfer-agreement.md
+      - Transfer Certificate: aws/transfer/transfer-certificate.md
+      - Transfer Connector: aws/transfer/transfer-connector.md
+      - Transfer Host Key: aws/transfer/transfer-host-key.md
+      - Transfer Profile: aws/transfer/transfer-profile.md
+      - Transfer Server: aws/transfer/transfer-server.md
+      - Transfer Ssh Key: aws/transfer/transfer-ssh-key.md
+      - Transfer Tag: aws/transfer/transfer-tag.md
+      - Transfer User: aws/transfer/transfer-user.md
+      - Transfer Web App Customization: aws/transfer/transfer-web-app-customization.md
+      - Transfer Web App: aws/transfer/transfer-web-app.md
+      - Transfer Workflow: aws/transfer/transfer-workflow.md
+      - Transfer User: aws/transfer/user.md
+      - Transfer Workflow: aws/transfer/workflow.md
+    - VPC Lattice:
+      - Overview: aws/vpclattice/index.md
+      - VPC Lattice Listener Rule: aws/vpclattice/listener-rule.md
+      - VPC Lattice Listener: aws/vpclattice/listener.md
+      - VPC Lattice Service Network: aws/vpclattice/service-network.md
+      - VPC Lattice Service: aws/vpclattice/service.md
+      - VPC Lattice Target Group: aws/vpclattice/target-group.md
+      - Vpclattice Access Log Subscription: aws/vpclattice/vpclattice-access-log-subscription.md
+      - Vpclattice Auth Policy: aws/vpclattice/vpclattice-auth-policy.md
+      - Vpclattice Domain Verification: aws/vpclattice/vpclattice-domain-verification.md
+      - Vpclattice Listener Rule: aws/vpclattice/vpclattice-listener-rule.md
+      - Vpclattice Listener: aws/vpclattice/vpclattice-listener.md
+      - Vpclattice Resource Configuration: aws/vpclattice/vpclattice-resource-configuration.md
+      - Vpclattice Resource Gateway: aws/vpclattice/vpclattice-resource-gateway.md
+      - Vpclattice Resource Policy: aws/vpclattice/vpclattice-resource-policy.md
+      - Vpclattice Service Network Resource Association: aws/vpclattice/vpclattice-service-network-resource-association.md
+      - Vpclattice Service Network Service Association: aws/vpclattice/vpclattice-service-network-service-association.md
+      - Vpclattice Service Network VPC Association: aws/vpclattice/vpclattice-service-network-vpc-association.md
+      - Vpclattice Service Network: aws/vpclattice/vpclattice-service-network.md
+      - Vpclattice Service: aws/vpclattice/vpclattice-service.md
+      - Vpclattice Target Group Attachment: aws/vpclattice/vpclattice-target-group-attachment.md
+      - Vpclattice Target Group: aws/vpclattice/vpclattice-target-group.md
+    - SSO:
+      - Overview: aws/sso/index.md
+      - SSO Account Assignment: aws/sso/account-assignment.md
+      - Identitystore Group Membership: aws/sso/identitystore-group-membership.md
+      - Identitystore Group: aws/sso/identitystore-group.md
+      - Identitystore User: aws/sso/identitystore-user.md
+      - SSO Inline Policy: aws/sso/inline-policy.md
+      - SSO Managed Policy Attachment: aws/sso/managed-policy-attachment.md
+      - SSO Managed Policy Attachment: aws/sso/managed-policy.md
+      - SSO Permission Set: aws/sso/permission-set.md
+      - Ssoadmin Account Assignment: aws/sso/ssoadmin-account-assignment.md
+      - Ssoadmin Application Access Scope: aws/sso/ssoadmin-application-access-scope.md
+      - Ssoadmin Application Assignment Configuration: aws/sso/ssoadmin-application-assignment-configuration.md
+      - Ssoadmin Application Assignment: aws/sso/ssoadmin-application-assignment.md
+      - Ssoadmin Application: aws/sso/ssoadmin-application.md
+      - Ssoadmin Customer Managed Policy Attachment: aws/sso/ssoadmin-customer-managed-policy-attachment.md
+      - Ssoadmin Customer Managed Policy Attachments Exclusive: aws/sso/ssoadmin-customer-managed-policy-attachments-exclusive.md
+      - Ssoadmin Instance Access Control Attributes: aws/sso/ssoadmin-instance-access-control-attributes.md
+      - Ssoadmin Managed Policy Attachment: aws/sso/ssoadmin-managed-policy-attachment.md
+      - Ssoadmin Managed Policy Attachments Exclusive: aws/sso/ssoadmin-managed-policy-attachments-exclusive.md
+      - Ssoadmin Permission Set Inline Policy: aws/sso/ssoadmin-permission-set-inline-policy.md
+      - Ssoadmin Permission Set: aws/sso/ssoadmin-permission-set.md
+      - Ssoadmin Permissions Boundary Attachment: aws/sso/ssoadmin-permissions-boundary-attachment.md
+      - Ssoadmin Trusted Token Issuer: aws/sso/ssoadmin-trusted-token-issuer.md
+    - Bedrock:
+      - Overview: aws/bedrock/index.md
+      - Bedrock Agent: aws/bedrock/agent.md
+      - Bedrock Custom Model: aws/bedrock/bedrock-custom-model.md
+      - Bedrock Guardrail Version: aws/bedrock/bedrock-guardrail-version.md
+      - Bedrock Guardrail: aws/bedrock/bedrock-guardrail.md
+      - Bedrock Inference Profile: aws/bedrock/bedrock-inference-profile.md
+      - Bedrock Model Invocation Logging Configuration: aws/bedrock/bedrock-model-invocation-logging-configuration.md
+      - Bedrock Provisioned Model Throughput: aws/bedrock/bedrock-provisioned-model-throughput.md
+      - Bedrockagent Agent Action Group: aws/bedrock/bedrockagent-agent-action-group.md
+      - Bedrockagent Agent Alias: aws/bedrock/bedrockagent-agent-alias.md
+      - Bedrockagent Agent Collaborator: aws/bedrock/bedrockagent-agent-collaborator.md
+      - Bedrockagent Agent Knowledge Base Association: aws/bedrock/bedrockagent-agent-knowledge-base-association.md
+      - Bedrockagent Agent: aws/bedrock/bedrockagent-agent.md
+      - Bedrockagent Data Source: aws/bedrock/bedrockagent-data-source.md
+      - Bedrockagent Flow: aws/bedrock/bedrockagent-flow.md
+      - Bedrockagent Knowledge Base: aws/bedrock/bedrockagent-knowledge-base.md
+      - Bedrockagent Prompt: aws/bedrock/bedrockagent-prompt.md
+      - Bedrockagentcore Agent Runtime Endpoint: aws/bedrock/bedrockagentcore-agent-runtime-endpoint.md
+      - Bedrockagentcore Agent Runtime: aws/bedrock/bedrockagentcore-agent-runtime.md
+      - Bedrockagentcore API Key Credential Provider: aws/bedrock/bedrockagentcore-api-key-credential-provider.md
+      - Bedrockagentcore Browser: aws/bedrock/bedrockagentcore-browser.md
+      - Bedrockagentcore Code Interpreter: aws/bedrock/bedrockagentcore-code-interpreter.md
+      - Bedrockagentcore Gateway Target: aws/bedrock/bedrockagentcore-gateway-target.md
+      - Bedrockagentcore Gateway: aws/bedrock/bedrockagentcore-gateway.md
+      - Bedrockagentcore Memory Strategy: aws/bedrock/bedrockagentcore-memory-strategy.md
+      - Bedrockagentcore Memory: aws/bedrock/bedrockagentcore-memory.md
+      - Bedrockagentcore Oauth2 Credential Provider: aws/bedrock/bedrockagentcore-oauth2-credential-provider.md
+      - Bedrockagentcore Token Vault Cmk: aws/bedrock/bedrockagentcore-token-vault-cmk.md
+      - Bedrockagentcore Workload Identity: aws/bedrock/bedrockagentcore-workload-identity.md
+      - Bedrock Custom Model: aws/bedrock/custom-model.md
+      - Bedrock Guardrail: aws/bedrock/guardrail.md
+      - Bedrock Knowledge Base: aws/bedrock/knowledge-base.md
+      - Bedrock Model Invocation Logging: aws/bedrock/model-logging.md
+    - SageMaker:
+      - Overview: aws/sagemaker/index.md
+      - Sagemaker App Image Config: aws/sagemaker/sagemaker-app-image-config.md
+      - Sagemaker App: aws/sagemaker/sagemaker-app.md
+      - Sagemaker Code Repository: aws/sagemaker/sagemaker-code-repository.md
+      - Sagemaker Data Quality Job Definition: aws/sagemaker/sagemaker-data-quality-job-definition.md
+      - Sagemaker Device Fleet: aws/sagemaker/sagemaker-device-fleet.md
+      - Sagemaker Device: aws/sagemaker/sagemaker-device.md
+      - Sagemaker Domain: aws/sagemaker/sagemaker-domain.md
+      - Sagemaker Endpoint Configuration: aws/sagemaker/sagemaker-endpoint-configuration.md
+      - Sagemaker Endpoint: aws/sagemaker/sagemaker-endpoint.md
+      - Sagemaker Feature Group: aws/sagemaker/sagemaker-feature-group.md
+      - Sagemaker Flow Definition: aws/sagemaker/sagemaker-flow-definition.md
+      - Sagemaker Hub: aws/sagemaker/sagemaker-hub.md
+      - Sagemaker Human Task Ui: aws/sagemaker/sagemaker-human-task-ui.md
+      - Sagemaker Image Version: aws/sagemaker/sagemaker-image-version.md
+      - Sagemaker Image: aws/sagemaker/sagemaker-image.md
+      - Sagemaker Labeling Job: aws/sagemaker/sagemaker-labeling-job.md
+      - Sagemaker Mlflow App: aws/sagemaker/sagemaker-mlflow-app.md
+      - Sagemaker Mlflow Tracking Server: aws/sagemaker/sagemaker-mlflow-tracking-server.md
+      - Sagemaker Model Card Export Job: aws/sagemaker/sagemaker-model-card-export-job.md
+      - Sagemaker Model Card: aws/sagemaker/sagemaker-model-card.md
+      - Sagemaker Model Package Group Policy: aws/sagemaker/sagemaker-model-package-group-policy.md
+      - Sagemaker Model Package Group: aws/sagemaker/sagemaker-model-package-group.md
+      - Sagemaker Model: aws/sagemaker/sagemaker-model.md
+      - Sagemaker Monitoring Schedule: aws/sagemaker/sagemaker-monitoring-schedule.md
+      - Sagemaker Notebook Instance Lifecycle Configuration: aws/sagemaker/sagemaker-notebook-instance-lifecycle-configuration.md
+      - Sagemaker Notebook Instance: aws/sagemaker/sagemaker-notebook-instance.md
+      - Sagemaker Pipeline: aws/sagemaker/sagemaker-pipeline.md
+      - Sagemaker Project: aws/sagemaker/sagemaker-project.md
+      - Sagemaker Servicecatalog Portfolio Status: aws/sagemaker/sagemaker-servicecatalog-portfolio-status.md
+      - Sagemaker Space: aws/sagemaker/sagemaker-space.md
+      - Sagemaker Studio Lifecycle Config: aws/sagemaker/sagemaker-studio-lifecycle-config.md
+      - Sagemaker User Profile: aws/sagemaker/sagemaker-user-profile.md
+      - Sagemaker Workforce: aws/sagemaker/sagemaker-workforce.md
+      - Sagemaker Workteam: aws/sagemaker/sagemaker-workteam.md
+    - Account:
+      - Overview: aws/account/index.md
+      - Account Alternate Contact: aws/account/account-alternate-contact.md
+      - Account Primary Contact: aws/account/account-primary-contact.md
+      - Account Region: aws/account/account-region.md
+    - Amplify:
+      - Overview: aws/amplify/index.md
+      - Amplify App: aws/amplify/amplify-app.md
+      - Amplify Backend Environment: aws/amplify/amplify-backend-environment.md
+      - Amplify Branch: aws/amplify/amplify-branch.md
+      - Amplify Domain Association: aws/amplify/amplify-domain-association.md
+      - Amplify Webhook: aws/amplify/amplify-webhook.md
+    - Appconfig:
+      - Overview: aws/appconfig/index.md
+      - Appconfig Application: aws/appconfig/appconfig-application.md
+      - Appconfig Configuration Profile: aws/appconfig/appconfig-configuration-profile.md
+      - Appconfig Deployment Strategy: aws/appconfig/appconfig-deployment-strategy.md
+      - Appconfig Deployment: aws/appconfig/appconfig-deployment.md
+      - Appconfig Environment: aws/appconfig/appconfig-environment.md
+      - Appconfig Extension Association: aws/appconfig/appconfig-extension-association.md
+      - Appconfig Extension: aws/appconfig/appconfig-extension.md
+      - Appconfig Hosted Configuration Version: aws/appconfig/appconfig-hosted-configuration-version.md
+    - Appfabric:
+      - Overview: aws/appfabric/index.md
+      - Appfabric App Authorization Connection: aws/appfabric/appfabric-app-authorization-connection.md
+      - Appfabric App Authorization: aws/appfabric/appfabric-app-authorization.md
+      - Appfabric App Bundle: aws/appfabric/appfabric-app-bundle.md
+      - Appfabric Ingestion Destination: aws/appfabric/appfabric-ingestion-destination.md
+      - Appfabric Ingestion: aws/appfabric/appfabric-ingestion.md
+    - Appflow:
+      - Overview: aws/appflow/index.md
+      - Appflow Connector Profile: aws/appflow/appflow-connector-profile.md
+      - Appflow Flow: aws/appflow/appflow-flow.md
+    - Appintegrations:
+      - Overview: aws/appintegrations/index.md
+      - Appintegrations Data Integration: aws/appintegrations/appintegrations-data-integration.md
+      - Appintegrations Event Integration: aws/appintegrations/appintegrations-event-integration.md
+    - Appmesh:
+      - Overview: aws/appmesh/index.md
+      - Appmesh Gateway Route: aws/appmesh/appmesh-gateway-route.md
+      - Appmesh Mesh: aws/appmesh/appmesh-mesh.md
+      - Appmesh Route: aws/appmesh/appmesh-route.md
+      - Appmesh Virtual Gateway: aws/appmesh/appmesh-virtual-gateway.md
+      - Appmesh Virtual Node: aws/appmesh/appmesh-virtual-node.md
+      - Appmesh Virtual Router: aws/appmesh/appmesh-virtual-router.md
+      - Appmesh Virtual Service: aws/appmesh/appmesh-virtual-service.md
+    - Appstream:
+      - Overview: aws/appstream/index.md
+      - Appstream Directory Config: aws/appstream/appstream-directory-config.md
+      - Appstream Fleet Stack Association: aws/appstream/appstream-fleet-stack-association.md
+      - Appstream Fleet: aws/appstream/appstream-fleet.md
+      - Appstream Image Builder: aws/appstream/appstream-image-builder.md
+      - Appstream Stack: aws/appstream/appstream-stack.md
+      - Appstream User Stack Association: aws/appstream/appstream-user-stack-association.md
+      - Appstream User: aws/appstream/appstream-user.md
+    - Arc:
+      - Overview: aws/arc/index.md
+      - Arcregionswitch Plan: aws/arc/arcregionswitch-plan.md
+    - Billing:
+      - Overview: aws/billing/index.md
+      - Billing View: aws/billing/billing-view.md
+    - Chatbot:
+      - Overview: aws/chatbot/index.md
+      - Chatbot Slack Channel Configuration: aws/chatbot/chatbot-slack-channel-configuration.md
+      - Chatbot Teams Channel Configuration: aws/chatbot/chatbot-teams-channel-configuration.md
+    - Chime:
+      - Overview: aws/chime/index.md
+      - Chime Voice Connector Group: aws/chime/chime-voice-connector-group.md
+      - Chime Voice Connector Logging: aws/chime/chime-voice-connector-logging.md
+      - Chime Voice Connector Origination: aws/chime/chime-voice-connector-origination.md
+      - Chime Voice Connector Streaming: aws/chime/chime-voice-connector-streaming.md
+      - Chime Voice Connector Termination Credentials: aws/chime/chime-voice-connector-termination-credentials.md
+      - Chime Voice Connector Termination: aws/chime/chime-voice-connector-termination.md
+      - Chime Voice Connector: aws/chime/chime-voice-connector.md
+      - Chimesdkmediapipelines Media Insights Pipeline Configuration: aws/chime/chimesdkmediapipelines-media-insights-pipeline-configuration.md
+      - Chimesdkvoice Global Settings: aws/chime/chimesdkvoice-global-settings.md
+      - Chimesdkvoice Sip Media Application: aws/chime/chimesdkvoice-sip-media-application.md
+      - Chimesdkvoice Sip Rule: aws/chime/chimesdkvoice-sip-rule.md
+      - Chimesdkvoice Voice Profile Domain: aws/chime/chimesdkvoice-voice-profile-domain.md
+    - Cleanrooms:
+      - Overview: aws/cleanrooms/index.md
+      - Cleanrooms Collaboration: aws/cleanrooms/cleanrooms-collaboration.md
+      - Cleanrooms Configured Table: aws/cleanrooms/cleanrooms-configured-table.md
+      - Cleanrooms Membership: aws/cleanrooms/cleanrooms-membership.md
+    - Cloud9:
+      - Overview: aws/cloud9/index.md
+      - Cloud9 Environment EC2: aws/cloud9/cloud9-environment-ec2.md
+      - Cloud9 Environment Membership: aws/cloud9/cloud9-environment-membership.md
+    - Cloudcontrol:
+      - Overview: aws/cloudcontrol/index.md
+      - Cloudcontrolapi Resource: aws/cloudcontrol/cloudcontrolapi-resource.md
+    - Cloudformation:
+      - Overview: aws/cloudformation/index.md
+      - Cloudformation Stack Instances: aws/cloudformation/cloudformation-stack-instances.md
+      - Cloudformation Stack Set Instance: aws/cloudformation/cloudformation-stack-set-instance.md
+      - Cloudformation Stack Set: aws/cloudformation/cloudformation-stack-set.md
+      - Cloudformation Stack: aws/cloudformation/cloudformation-stack.md
+      - Cloudformation Type: aws/cloudformation/cloudformation-type.md
+    - Cloudhsm:
+      - Overview: aws/cloudhsm/index.md
+      - Cloudhsm V2 Cluster: aws/cloudhsm/cloudhsm-v2-cluster.md
+      - Cloudhsm V2 Hsm: aws/cloudhsm/cloudhsm-v2-hsm.md
+    - Cloudmap:
+      - Overview: aws/cloudmap/index.md
+      - Service Discovery HTTP Namespace: aws/cloudmap/service-discovery-http-namespace.md
+      - Service Discovery Instance: aws/cloudmap/service-discovery-instance.md
+      - Service Discovery Private DNS Namespace: aws/cloudmap/service-discovery-private-dns-namespace.md
+      - Service Discovery Public DNS Namespace: aws/cloudmap/service-discovery-public-dns-namespace.md
+      - Service Discovery Service: aws/cloudmap/service-discovery-service.md
+    - Cloudsearch:
+      - Overview: aws/cloudsearch/index.md
+      - Cloudsearch Domain Service Access Policy: aws/cloudsearch/cloudsearch-domain-service-access-policy.md
+      - Cloudsearch Domain: aws/cloudsearch/cloudsearch-domain.md
+    - Codeguru Profiler:
+      - Overview: aws/codeguru-profiler/index.md
+      - Codeguruprofiler Profiling Group: aws/codeguru-profiler/codeguruprofiler-profiling-group.md
+    - Codeguru Reviewer:
+      - Overview: aws/codeguru-reviewer/index.md
+      - Codegurureviewer Repository Association: aws/codeguru-reviewer/codegurureviewer-repository-association.md
+    - Cognito Idp:
+      - Overview: aws/cognito-idp/index.md
+      - Cognito Identity Provider: aws/cognito-idp/cognito-identity-provider.md
+      - Cognito Log Delivery Configuration: aws/cognito-idp/cognito-log-delivery-configuration.md
+      - Cognito Managed Login Branding: aws/cognito-idp/cognito-managed-login-branding.md
+      - Cognito Managed User Pool Client: aws/cognito-idp/cognito-managed-user-pool-client.md
+      - Cognito Resource Server: aws/cognito-idp/cognito-resource-server.md
+      - Cognito Risk Configuration: aws/cognito-idp/cognito-risk-configuration.md
+      - Cognito User Group: aws/cognito-idp/cognito-user-group.md
+      - Cognito User In Group: aws/cognito-idp/cognito-user-in-group.md
+      - Cognito User Pool Client: aws/cognito-idp/cognito-user-pool-client.md
+      - Cognito User Pool Domain: aws/cognito-idp/cognito-user-pool-domain.md
+      - Cognito User Pool Ui Customization: aws/cognito-idp/cognito-user-pool-ui-customization.md
+      - Cognito User Pool: aws/cognito-idp/cognito-user-pool.md
+      - Cognito User: aws/cognito-idp/cognito-user.md
+    - Comprehend:
+      - Overview: aws/comprehend/index.md
+      - Comprehend Document Classifier: aws/comprehend/comprehend-document-classifier.md
+      - Comprehend Entity Recognizer: aws/comprehend/comprehend-entity-recognizer.md
+    - Compute Optimizer:
+      - Overview: aws/compute-optimizer/index.md
+      - Computeoptimizer Enrollment Status: aws/compute-optimizer/computeoptimizer-enrollment-status.md
+      - Computeoptimizer Recommendation Preferences: aws/compute-optimizer/computeoptimizer-recommendation-preferences.md
+    - Connect:
+      - Overview: aws/connect/index.md
+      - Connect Bot Association: aws/connect/connect-bot-association.md
+      - Connect Contact Flow Module: aws/connect/connect-contact-flow-module.md
+      - Connect Contact Flow: aws/connect/connect-contact-flow.md
+      - Connect Hours Of Operation: aws/connect/connect-hours-of-operation.md
+      - Connect Instance Storage Config: aws/connect/connect-instance-storage-config.md
+      - Connect Instance: aws/connect/connect-instance.md
+      - Connect Lambda Function Association: aws/connect/connect-lambda-function-association.md
+      - Connect Phone Number Contact Flow Association: aws/connect/connect-phone-number-contact-flow-association.md
+      - Connect Phone Number: aws/connect/connect-phone-number.md
+      - Connect Queue: aws/connect/connect-queue.md
+      - Connect Quick Connect: aws/connect/connect-quick-connect.md
+      - Connect Routing Profile: aws/connect/connect-routing-profile.md
+      - Connect Security Profile: aws/connect/connect-security-profile.md
+      - Connect User Hierarchy Group: aws/connect/connect-user-hierarchy-group.md
+      - Connect User Hierarchy Structure: aws/connect/connect-user-hierarchy-structure.md
+      - Connect User: aws/connect/connect-user.md
+      - Connect Vocabulary: aws/connect/connect-vocabulary.md
+    - Connect Customer Profiles:
+      - Overview: aws/connect-customer-profiles/index.md
+      - Customerprofiles Domain: aws/connect-customer-profiles/customerprofiles-domain.md
+      - Customerprofiles Profile: aws/connect-customer-profiles/customerprofiles-profile.md
+    - Control Tower:
+      - Overview: aws/control-tower/index.md
+      - Controltower Baseline: aws/control-tower/controltower-baseline.md
+      - Controltower Control: aws/control-tower/controltower-control.md
+      - Controltower Landing Zone: aws/control-tower/controltower-landing-zone.md
+    - Cost:
+      - Overview: aws/cost/index.md
+      - Bcmdataexports Export: aws/cost/bcmdataexports-export.md
+      - Budgets Budget Action: aws/cost/budgets-budget-action.md
+      - Budgets Budget: aws/cost/budgets-budget.md
+      - Ce Anomaly Monitor: aws/cost/ce-anomaly-monitor.md
+      - Ce Anomaly Subscription: aws/cost/ce-anomaly-subscription.md
+      - Ce Cost Allocation Tag: aws/cost/ce-cost-allocation-tag.md
+      - Ce Cost Category: aws/cost/ce-cost-category.md
+      - Costoptimizationhub Enrollment Status: aws/cost/costoptimizationhub-enrollment-status.md
+      - Costoptimizationhub Preferences: aws/cost/costoptimizationhub-preferences.md
+      - Savingsplans Savings Plan: aws/cost/savingsplans-savings-plan.md
+    - Cost And Usage Report:
+      - Overview: aws/cost-and-usage-report/index.md
+      - Cur Report Definition: aws/cost-and-usage-report/cur-report-definition.md
+    - Datasync:
+      - Overview: aws/datasync/index.md
+      - Datasync Agent: aws/datasync/datasync-agent.md
+      - Datasync Location Azure Blob: aws/datasync/datasync-location-azure-blob.md
+      - Datasync Location EFS: aws/datasync/datasync-location-efs.md
+      - Datasync Location FSX Lustre File System: aws/datasync/datasync-location-fsx-lustre-file-system.md
+      - Datasync Location FSX Ontap File System: aws/datasync/datasync-location-fsx-ontap-file-system.md
+      - Datasync Location FSX Openzfs File System: aws/datasync/datasync-location-fsx-openzfs-file-system.md
+      - Datasync Location FSX Windows File System: aws/datasync/datasync-location-fsx-windows-file-system.md
+      - Datasync Location Hdfs: aws/datasync/datasync-location-hdfs.md
+      - Datasync Location Nfs: aws/datasync/datasync-location-nfs.md
+      - Datasync Location Object Storage: aws/datasync/datasync-location-object-storage.md
+      - Datasync Location S3: aws/datasync/datasync-location-s3.md
+      - Datasync Location Smb: aws/datasync/datasync-location-smb.md
+      - Datasync Task: aws/datasync/datasync-task.md
+    - Devicefarm:
+      - Overview: aws/devicefarm/index.md
+      - Devicefarm Device Pool: aws/devicefarm/devicefarm-device-pool.md
+      - Devicefarm Instance Profile: aws/devicefarm/devicefarm-instance-profile.md
+      - Devicefarm Network Profile: aws/devicefarm/devicefarm-network-profile.md
+      - Devicefarm Project: aws/devicefarm/devicefarm-project.md
+      - Devicefarm Test Grid Project: aws/devicefarm/devicefarm-test-grid-project.md
+      - Devicefarm Upload: aws/devicefarm/devicefarm-upload.md
+    - Devops Guru:
+      - Overview: aws/devops-guru/index.md
+      - Devopsguru Event Sources Config: aws/devops-guru/devopsguru-event-sources-config.md
+      - Devopsguru Notification Channel: aws/devops-guru/devopsguru-notification-channel.md
+      - Devopsguru Resource Collection: aws/devops-guru/devopsguru-resource-collection.md
+      - Devopsguru Service Integration: aws/devops-guru/devopsguru-service-integration.md
+    - Direct Connect:
+      - Overview: aws/direct-connect/index.md
+      - DX Bgp Peer: aws/direct-connect/dx-bgp-peer.md
+      - DX Connection Association: aws/direct-connect/dx-connection-association.md
+      - DX Connection Confirmation: aws/direct-connect/dx-connection-confirmation.md
+      - DX Connection: aws/direct-connect/dx-connection.md
+      - DX Gateway Association Proposal: aws/direct-connect/dx-gateway-association-proposal.md
+      - DX Gateway Association: aws/direct-connect/dx-gateway-association.md
+      - DX Gateway: aws/direct-connect/dx-gateway.md
+      - DX Hosted Connection: aws/direct-connect/dx-hosted-connection.md
+      - DX Hosted Private Virtual Interface Accepter: aws/direct-connect/dx-hosted-private-virtual-interface-accepter.md
+      - DX Hosted Private Virtual Interface: aws/direct-connect/dx-hosted-private-virtual-interface.md
+      - DX Hosted Public Virtual Interface Accepter: aws/direct-connect/dx-hosted-public-virtual-interface-accepter.md
+      - DX Hosted Public Virtual Interface: aws/direct-connect/dx-hosted-public-virtual-interface.md
+      - DX Hosted Transit Virtual Interface Accepter: aws/direct-connect/dx-hosted-transit-virtual-interface-accepter.md
+      - DX Hosted Transit Virtual Interface: aws/direct-connect/dx-hosted-transit-virtual-interface.md
+      - DX Lag: aws/direct-connect/dx-lag.md
+      - DX Macsec Key Association: aws/direct-connect/dx-macsec-key-association.md
+      - DX Private Virtual Interface: aws/direct-connect/dx-private-virtual-interface.md
+      - DX Public Virtual Interface: aws/direct-connect/dx-public-virtual-interface.md
+      - DX Transit Virtual Interface: aws/direct-connect/dx-transit-virtual-interface.md
+    - Directory:
+      - Overview: aws/directory/index.md
+      - Directory Service Conditional Forwarder: aws/directory/directory-service-conditional-forwarder.md
+      - Directory Service Directory: aws/directory/directory-service-directory.md
+      - Directory Service Log Subscription: aws/directory/directory-service-log-subscription.md
+      - Directory Service Radius Settings: aws/directory/directory-service-radius-settings.md
+      - Directory Service Region: aws/directory/directory-service-region.md
+      - Directory Service Shared Directory Accepter: aws/directory/directory-service-shared-directory-accepter.md
+      - Directory Service Shared Directory: aws/directory/directory-service-shared-directory.md
+      - Directory Service Trust: aws/directory/directory-service-trust.md
+    - Dlm:
+      - Overview: aws/dlm/index.md
+      - DLM Lifecycle Policy: aws/dlm/dlm-lifecycle-policy.md
+    - Dynamodb Accelerator:
+      - Overview: aws/dynamodb-accelerator/index.md
+      - DAX Cluster: aws/dynamodb-accelerator/dax-cluster.md
+      - DAX Parameter Group: aws/dynamodb-accelerator/dax-parameter-group.md
+      - DAX Subnet Group: aws/dynamodb-accelerator/dax-subnet-group.md
+    - Ebs:
+      - Overview: aws/ebs/index.md
+      - EBS Default KMS Key: aws/ebs/ebs-default-kms-key.md
+      - EBS Encryption By Default: aws/ebs/ebs-encryption-by-default.md
+      - EBS Fast Snapshot Restore: aws/ebs/ebs-fast-snapshot-restore.md
+      - EBS Snapshot Block Public Access: aws/ebs/ebs-snapshot-block-public-access.md
+      - EBS Snapshot Copy: aws/ebs/ebs-snapshot-copy.md
+      - EBS Snapshot Import: aws/ebs/ebs-snapshot-import.md
+      - EBS Snapshot: aws/ebs/ebs-snapshot.md
+      - EBS Volume: aws/ebs/ebs-volume.md
+      - Snapshot Create Volume Permission: aws/ebs/snapshot-create-volume-permission.md
+      - Volume Attachment: aws/ebs/volume-attachment.md
+    - Ec2 Image Builder:
+      - Overview: aws/ec2-image-builder/index.md
+      - Imagebuilder Component: aws/ec2-image-builder/imagebuilder-component.md
+      - Imagebuilder Container Recipe: aws/ec2-image-builder/imagebuilder-container-recipe.md
+      - Imagebuilder Distribution Configuration: aws/ec2-image-builder/imagebuilder-distribution-configuration.md
+      - Imagebuilder Image Pipeline: aws/ec2-image-builder/imagebuilder-image-pipeline.md
+      - Imagebuilder Image Recipe: aws/ec2-image-builder/imagebuilder-image-recipe.md
+      - Imagebuilder Image: aws/ec2-image-builder/imagebuilder-image.md
+      - Imagebuilder Infrastructure Configuration: aws/ec2-image-builder/imagebuilder-infrastructure-configuration.md
+      - Imagebuilder Lifecycle Policy: aws/ec2-image-builder/imagebuilder-lifecycle-policy.md
+      - Imagebuilder Workflow: aws/ec2-image-builder/imagebuilder-workflow.md
+    - Ecr:
+      - Overview: aws/ecr/index.md
+      - ECR Account Setting: aws/ecr/ecr-account-setting.md
+      - ECR Lifecycle Policy: aws/ecr/ecr-lifecycle-policy.md
+      - ECR Pull Through Cache Rule: aws/ecr/ecr-pull-through-cache-rule.md
+      - ECR Pull Time Update Exclusion: aws/ecr/ecr-pull-time-update-exclusion.md
+      - ECR Registry Policy: aws/ecr/ecr-registry-policy.md
+      - ECR Registry Scanning Configuration: aws/ecr/ecr-registry-scanning-configuration.md
+      - ECR Replication Configuration: aws/ecr/ecr-replication-configuration.md
+      - ECR Repository Creation Template: aws/ecr/ecr-repository-creation-template.md
+      - ECR Repository Policy: aws/ecr/ecr-repository-policy.md
+      - ECR Repository: aws/ecr/ecr-repository.md
+    - Ecr Public:
+      - Overview: aws/ecr-public/index.md
+      - Ecrpublic Repository Policy: aws/ecr-public/ecrpublic-repository-policy.md
+      - Ecrpublic Repository: aws/ecr-public/ecrpublic-repository.md
+    - Elastic Transcoder:
+      - Overview: aws/elastic-transcoder/index.md
+      - Elastictranscoder Pipeline: aws/elastic-transcoder/elastictranscoder-pipeline.md
+      - Elastictranscoder Preset: aws/elastic-transcoder/elastictranscoder-preset.md
+    - Elb:
+      - Overview: aws/elb/index.md
+      - LB Listener Certificate: aws/elb/lb-listener-certificate.md
+      - LB Listener Rule: aws/elb/lb-listener-rule.md
+      - LB Listener: aws/elb/lb-listener.md
+      - LB Target Group Attachment: aws/elb/lb-target-group-attachment.md
+      - LB Target Group: aws/elb/lb-target-group.md
+      - LB Trust Store Revocation: aws/elb/lb-trust-store-revocation.md
+      - LB Trust Store: aws/elb/lb-trust-store.md
+      - LB: aws/elb/lb.md
+    - Elb Classic:
+      - Overview: aws/elb-classic/index.md
+      - App Cookie Stickiness Policy: aws/elb-classic/app-cookie-stickiness-policy.md
+      - ELB Attachment: aws/elb-classic/elb-attachment.md
+      - ELB: aws/elb-classic/elb.md
+      - LB Cookie Stickiness Policy: aws/elb-classic/lb-cookie-stickiness-policy.md
+      - LB SSL Negotiation Policy: aws/elb-classic/lb-ssl-negotiation-policy.md
+      - Load Balancer Backend Server Policy: aws/elb-classic/load-balancer-backend-server-policy.md
+      - Load Balancer Listener Policy: aws/elb-classic/load-balancer-listener-policy.md
+      - Load Balancer Policy: aws/elb-classic/load-balancer-policy.md
+      - Proxy Protocol Policy: aws/elb-classic/proxy-protocol-policy.md
+    - Elemental Mediaconvert:
+      - Overview: aws/elemental-mediaconvert/index.md
+      - Media Convert Queue: aws/elemental-mediaconvert/media-convert-queue.md
+    - Elemental Medialive:
+      - Overview: aws/elemental-medialive/index.md
+      - Medialive Channel: aws/elemental-medialive/medialive-channel.md
+      - Medialive Input Security Group: aws/elemental-medialive/medialive-input-security-group.md
+      - Medialive Input: aws/elemental-medialive/medialive-input.md
+      - Medialive Multiplex Program: aws/elemental-medialive/medialive-multiplex-program.md
+      - Medialive Multiplex: aws/elemental-medialive/medialive-multiplex.md
+    - Elemental Mediapackage:
+      - Overview: aws/elemental-mediapackage/index.md
+      - Media Package Channel: aws/elemental-mediapackage/media-package-channel.md
+    - Elemental Mediapackage Version 2:
+      - Overview: aws/elemental-mediapackage-version-2/index.md
+      - Media Packagev2 Channel Group: aws/elemental-mediapackage-version-2/media-packagev2-channel-group.md
+    - Elemental Mediastore:
+      - Overview: aws/elemental-mediastore/index.md
+      - Media Store Container Policy: aws/elemental-mediastore/media-store-container-policy.md
+      - Media Store Container: aws/elemental-mediastore/media-store-container.md
+    - End User Messaging Sms:
+      - Overview: aws/end-user-messaging-sms/index.md
+      - Pinpointsmsvoicev2 Configuration Set: aws/end-user-messaging-sms/pinpointsmsvoicev2-configuration-set.md
+      - Pinpointsmsvoicev2 Opt Out List: aws/end-user-messaging-sms/pinpointsmsvoicev2-opt-out-list.md
+      - Pinpointsmsvoicev2 Phone Number: aws/end-user-messaging-sms/pinpointsmsvoicev2-phone-number.md
+    - Eventbridge:
+      - Overview: aws/eventbridge/index.md
+      - Cloudwatch Event API Destination: aws/eventbridge/cloudwatch-event-api-destination.md
+      - Cloudwatch Event Archive: aws/eventbridge/cloudwatch-event-archive.md
+      - Cloudwatch Event Bus Policy: aws/eventbridge/cloudwatch-event-bus-policy.md
+      - Cloudwatch Event Bus: aws/eventbridge/cloudwatch-event-bus.md
+      - Cloudwatch Event Connection: aws/eventbridge/cloudwatch-event-connection.md
+      - Cloudwatch Event Endpoint: aws/eventbridge/cloudwatch-event-endpoint.md
+      - Cloudwatch Event Permission: aws/eventbridge/cloudwatch-event-permission.md
+      - Cloudwatch Event Rule: aws/eventbridge/cloudwatch-event-rule.md
+      - Cloudwatch Event Target: aws/eventbridge/cloudwatch-event-target.md
+      - Pipes Pipe: aws/eventbridge/pipes-pipe.md
+      - Scheduler Schedule Group: aws/eventbridge/scheduler-schedule-group.md
+      - Scheduler Schedule: aws/eventbridge/scheduler-schedule.md
+      - Schemas Discoverer: aws/eventbridge/schemas-discoverer.md
+      - Schemas Registry Policy: aws/eventbridge/schemas-registry-policy.md
+      - Schemas Registry: aws/eventbridge/schemas-registry.md
+      - Schemas Schema: aws/eventbridge/schemas-schema.md
+    - Finspace:
+      - Overview: aws/finspace/index.md
+      - Finspace Kx Cluster: aws/finspace/finspace-kx-cluster.md
+      - Finspace Kx Database: aws/finspace/finspace-kx-database.md
+      - Finspace Kx Dataview: aws/finspace/finspace-kx-dataview.md
+      - Finspace Kx Environment: aws/finspace/finspace-kx-environment.md
+      - Finspace Kx Scaling Group: aws/finspace/finspace-kx-scaling-group.md
+      - Finspace Kx User: aws/finspace/finspace-kx-user.md
+      - Finspace Kx Volume: aws/finspace/finspace-kx-volume.md
+    - Fis:
+      - Overview: aws/fis/index.md
+      - FIS Experiment Template: aws/fis/fis-experiment-template.md
+      - FIS Target Account Configuration: aws/fis/fis-target-account-configuration.md
+    - Fms:
+      - Overview: aws/fms/index.md
+      - FMS Admin Account: aws/fms/fms-admin-account.md
+      - FMS Policy: aws/fms/fms-policy.md
+      - FMS Resource Set: aws/fms/fms-resource-set.md
+    - Gamelift:
+      - Overview: aws/gamelift/index.md
+      - Gamelift Alias: aws/gamelift/gamelift-alias.md
+      - Gamelift Build: aws/gamelift/gamelift-build.md
+      - Gamelift Fleet: aws/gamelift/gamelift-fleet.md
+      - Gamelift Game Server Group: aws/gamelift/gamelift-game-server-group.md
+      - Gamelift Game Session Queue: aws/gamelift/gamelift-game-session-queue.md
+      - Gamelift Script: aws/gamelift/gamelift-script.md
+    - Global Accelerator:
+      - Overview: aws/global-accelerator/index.md
+      - Globalaccelerator Accelerator: aws/global-accelerator/globalaccelerator-accelerator.md
+      - Globalaccelerator Cross Account Attachment: aws/global-accelerator/globalaccelerator-cross-account-attachment.md
+      - Globalaccelerator Custom Routing Accelerator: aws/global-accelerator/globalaccelerator-custom-routing-accelerator.md
+      - Globalaccelerator Custom Routing Endpoint Group: aws/global-accelerator/globalaccelerator-custom-routing-endpoint-group.md
+      - Globalaccelerator Custom Routing Listener: aws/global-accelerator/globalaccelerator-custom-routing-listener.md
+      - Globalaccelerator Endpoint Group: aws/global-accelerator/globalaccelerator-endpoint-group.md
+      - Globalaccelerator Listener: aws/global-accelerator/globalaccelerator-listener.md
+    - Iam Access Analyzer:
+      - Overview: aws/iam-access-analyzer/index.md
+      - Accessanalyzer Analyzer: aws/iam-access-analyzer/accessanalyzer-analyzer.md
+      - Accessanalyzer Archive Rule: aws/iam-access-analyzer/accessanalyzer-archive-rule.md
+    - Inspector Classic:
+      - Overview: aws/inspector-classic/index.md
+      - Inspector Assessment Target: aws/inspector-classic/inspector-assessment-target.md
+      - Inspector Assessment Template: aws/inspector-classic/inspector-assessment-template.md
+      - Inspector Resource Group: aws/inspector-classic/inspector-resource-group.md
+    - Invoicing:
+      - Overview: aws/invoicing/index.md
+      - Invoicing Invoice Unit: aws/invoicing/invoicing-invoice-unit.md
+    - Iot:
+      - Overview: aws/iot/index.md
+      - IOT Authorizer: aws/iot/iot-authorizer.md
+      - IOT Billing Group: aws/iot/iot-billing-group.md
+      - IOT Ca Certificate: aws/iot/iot-ca-certificate.md
+      - IOT Certificate: aws/iot/iot-certificate.md
+      - IOT Domain Configuration: aws/iot/iot-domain-configuration.md
+      - IOT Event Configurations: aws/iot/iot-event-configurations.md
+      - IOT Indexing Configuration: aws/iot/iot-indexing-configuration.md
+      - IOT Logging Options: aws/iot/iot-logging-options.md
+      - IOT Policy Attachment: aws/iot/iot-policy-attachment.md
+      - IOT Policy: aws/iot/iot-policy.md
+      - IOT Provisioning Template: aws/iot/iot-provisioning-template.md
+      - IOT Role Alias: aws/iot/iot-role-alias.md
+      - IOT Thing Group Membership: aws/iot/iot-thing-group-membership.md
+      - IOT Thing Group: aws/iot/iot-thing-group.md
+      - IOT Thing Principal Attachment: aws/iot/iot-thing-principal-attachment.md
+      - IOT Thing Type: aws/iot/iot-thing-type.md
+      - IOT Thing: aws/iot/iot-thing.md
+      - IOT Topic Rule Destination: aws/iot/iot-topic-rule-destination.md
+      - IOT Topic Rule: aws/iot/iot-topic-rule.md
+    - Ivs:
+      - Overview: aws/ivs/index.md
+      - IVS Channel: aws/ivs/ivs-channel.md
+      - IVS Playback Key Pair: aws/ivs/ivs-playback-key-pair.md
+      - IVS Recording Configuration: aws/ivs/ivs-recording-configuration.md
+      - Ivschat Logging Configuration: aws/ivs/ivschat-logging-configuration.md
+      - Ivschat Room: aws/ivs/ivschat-room.md
+    - Kendra:
+      - Overview: aws/kendra/index.md
+      - Kendra Data Source: aws/kendra/kendra-data-source.md
+      - Kendra Experience: aws/kendra/kendra-experience.md
+      - Kendra Faq: aws/kendra/kendra-faq.md
+      - Kendra Index: aws/kendra/kendra-index.md
+      - Kendra Query Suggestions Block List: aws/kendra/kendra-query-suggestions-block-list.md
+      - Kendra Thesaurus: aws/kendra/kendra-thesaurus.md
+    - Kinesis Firehose:
+      - Overview: aws/kinesis-firehose/index.md
+      - Kinesis Firehose Delivery Stream: aws/kinesis-firehose/kinesis-firehose-delivery-stream.md
+    - Kinesis Video:
+      - Overview: aws/kinesis-video/index.md
+      - Kinesis Video Stream: aws/kinesis-video/kinesis-video-stream.md
+    - Lex:
+      - Overview: aws/lex/index.md
+      - Lex Bot Alias: aws/lex/lex-bot-alias.md
+      - Lex Bot: aws/lex/lex-bot.md
+      - Lex Intent: aws/lex/lex-intent.md
+      - Lex Slot Type: aws/lex/lex-slot-type.md
+      - Lexv2models Bot Locale: aws/lex/lexv2models-bot-locale.md
+      - Lexv2models Bot Version: aws/lex/lexv2models-bot-version.md
+      - Lexv2models Bot: aws/lex/lexv2models-bot.md
+      - Lexv2models Intent: aws/lex/lexv2models-intent.md
+      - Lexv2models Slot Type: aws/lex/lexv2models-slot-type.md
+      - Lexv2models Slot: aws/lex/lexv2models-slot.md
+    - License Manager:
+      - Overview: aws/license-manager/index.md
+      - Licensemanager Association: aws/license-manager/licensemanager-association.md
+      - Licensemanager Grant Accepter: aws/license-manager/licensemanager-grant-accepter.md
+      - Licensemanager Grant: aws/license-manager/licensemanager-grant.md
+      - Licensemanager License Configuration: aws/license-manager/licensemanager-license-configuration.md
+    - Lightsail:
+      - Overview: aws/lightsail/index.md
+      - Lightsail Bucket Access Key: aws/lightsail/lightsail-bucket-access-key.md
+      - Lightsail Bucket Resource Access: aws/lightsail/lightsail-bucket-resource-access.md
+      - Lightsail Bucket: aws/lightsail/lightsail-bucket.md
+      - Lightsail Certificate: aws/lightsail/lightsail-certificate.md
+      - Lightsail Container Service Deployment Version: aws/lightsail/lightsail-container-service-deployment-version.md
+      - Lightsail Container Service: aws/lightsail/lightsail-container-service.md
+      - Lightsail Database: aws/lightsail/lightsail-database.md
+      - Lightsail Disk Attachment: aws/lightsail/lightsail-disk-attachment.md
+      - Lightsail Disk: aws/lightsail/lightsail-disk.md
+      - Lightsail Distribution: aws/lightsail/lightsail-distribution.md
+      - Lightsail Domain Entry: aws/lightsail/lightsail-domain-entry.md
+      - Lightsail Domain: aws/lightsail/lightsail-domain.md
+      - Lightsail Instance Public Ports: aws/lightsail/lightsail-instance-public-ports.md
+      - Lightsail Instance: aws/lightsail/lightsail-instance.md
+      - Lightsail Key Pair: aws/lightsail/lightsail-key-pair.md
+      - Lightsail LB Attachment: aws/lightsail/lightsail-lb-attachment.md
+      - Lightsail LB Certificate Attachment: aws/lightsail/lightsail-lb-certificate-attachment.md
+      - Lightsail LB Certificate: aws/lightsail/lightsail-lb-certificate.md
+      - Lightsail LB HTTPS Redirection Policy: aws/lightsail/lightsail-lb-https-redirection-policy.md
+      - Lightsail LB Stickiness Policy: aws/lightsail/lightsail-lb-stickiness-policy.md
+      - Lightsail LB: aws/lightsail/lightsail-lb.md
+      - Lightsail Static IP Attachment: aws/lightsail/lightsail-static-ip-attachment.md
+      - Lightsail Static IP: aws/lightsail/lightsail-static-ip.md
+    - Location:
+      - Overview: aws/location/index.md
+      - Location Geofence Collection: aws/location/location-geofence-collection.md
+      - Location Map: aws/location/location-map.md
+      - Location Place Index: aws/location/location-place-index.md
+      - Location Route Calculator: aws/location/location-route-calculator.md
+      - Location Tracker Association: aws/location/location-tracker-association.md
+      - Location Tracker: aws/location/location-tracker.md
+    - M2:
+      - Overview: aws/m2/index.md
+      - M2 Application: aws/m2/m2-application.md
+      - M2 Deployment: aws/m2/m2-deployment.md
+      - M2 Environment: aws/m2/m2-environment.md
+    - Managed Grafana:
+      - Overview: aws/managed-grafana/index.md
+      - Grafana License Association: aws/managed-grafana/grafana-license-association.md
+      - Grafana Role Association: aws/managed-grafana/grafana-role-association.md
+      - Grafana Workspace API Key: aws/managed-grafana/grafana-workspace-api-key.md
+      - Grafana Workspace SAML Configuration: aws/managed-grafana/grafana-workspace-saml-configuration.md
+      - Grafana Workspace Service Account Token: aws/managed-grafana/grafana-workspace-service-account-token.md
+      - Grafana Workspace Service Account: aws/managed-grafana/grafana-workspace-service-account.md
+      - Grafana Workspace: aws/managed-grafana/grafana-workspace.md
+    - Memorydb:
+      - Overview: aws/memorydb/index.md
+      - Memorydb Acl: aws/memorydb/memorydb-acl.md
+      - Memorydb Cluster: aws/memorydb/memorydb-cluster.md
+      - Memorydb Multi Region Cluster: aws/memorydb/memorydb-multi-region-cluster.md
+      - Memorydb Parameter Group: aws/memorydb/memorydb-parameter-group.md
+      - Memorydb Snapshot: aws/memorydb/memorydb-snapshot.md
+      - Memorydb Subnet Group: aws/memorydb/memorydb-subnet-group.md
+      - Memorydb User: aws/memorydb/memorydb-user.md
+    - Mwaa:
+      - Overview: aws/mwaa/index.md
+      - Mwaa Environment: aws/mwaa/mwaa-environment.md
+    - Neptune Analytics:
+      - Overview: aws/neptune-analytics/index.md
+      - Neptunegraph Graph: aws/neptune-analytics/neptunegraph-graph.md
+    - Network Firewall:
+      - Overview: aws/network-firewall/index.md
+      - Networkfirewall Firewall Policy: aws/network-firewall/networkfirewall-firewall-policy.md
+      - Networkfirewall Firewall Transit Gateway Attachment Accepter: aws/network-firewall/networkfirewall-firewall-transit-gateway-attachment-accepter.md
+      - Networkfirewall Firewall: aws/network-firewall/networkfirewall-firewall.md
+      - Networkfirewall Logging Configuration: aws/network-firewall/networkfirewall-logging-configuration.md
+      - Networkfirewall Resource Policy: aws/network-firewall/networkfirewall-resource-policy.md
+      - Networkfirewall Rule Group: aws/network-firewall/networkfirewall-rule-group.md
+      - Networkfirewall TLS Inspection Configuration: aws/network-firewall/networkfirewall-tls-inspection-configuration.md
+      - Networkfirewall VPC Endpoint Association: aws/network-firewall/networkfirewall-vpc-endpoint-association.md
+    - Network Manager:
+      - Overview: aws/network-manager/index.md
+      - Networkmanager Attachment Accepter: aws/network-manager/networkmanager-attachment-accepter.md
+      - Networkmanager Attachment Routing Policy Label: aws/network-manager/networkmanager-attachment-routing-policy-label.md
+      - Networkmanager Connect Attachment: aws/network-manager/networkmanager-connect-attachment.md
+      - Networkmanager Connect Peer: aws/network-manager/networkmanager-connect-peer.md
+      - Networkmanager Connection: aws/network-manager/networkmanager-connection.md
+      - Networkmanager Core Network Policy Attachment: aws/network-manager/networkmanager-core-network-policy-attachment.md
+      - Networkmanager Core Network: aws/network-manager/networkmanager-core-network.md
+      - Networkmanager Customer Gateway Association: aws/network-manager/networkmanager-customer-gateway-association.md
+      - Networkmanager Device: aws/network-manager/networkmanager-device.md
+      - Networkmanager DX Gateway Attachment: aws/network-manager/networkmanager-dx-gateway-attachment.md
+      - Networkmanager Global Network: aws/network-manager/networkmanager-global-network.md
+      - Networkmanager Link Association: aws/network-manager/networkmanager-link-association.md
+      - Networkmanager Link: aws/network-manager/networkmanager-link.md
+      - Networkmanager Prefix List Association: aws/network-manager/networkmanager-prefix-list-association.md
+      - Networkmanager Site To Site VPN Attachment: aws/network-manager/networkmanager-site-to-site-vpn-attachment.md
+      - Networkmanager Site: aws/network-manager/networkmanager-site.md
+      - Networkmanager Transit Gateway Connect Peer Association: aws/network-manager/networkmanager-transit-gateway-connect-peer-association.md
+      - Networkmanager Transit Gateway Peering: aws/network-manager/networkmanager-transit-gateway-peering.md
+      - Networkmanager Transit Gateway Registration: aws/network-manager/networkmanager-transit-gateway-registration.md
+      - Networkmanager Transit Gateway Route Table Attachment: aws/network-manager/networkmanager-transit-gateway-route-table-attachment.md
+      - Networkmanager VPC Attachment: aws/network-manager/networkmanager-vpc-attachment.md
+    - Opensearch Ingestion:
+      - Overview: aws/opensearch-ingestion/index.md
+      - Osis Pipeline: aws/opensearch-ingestion/osis-pipeline.md
+    - Oracle Database@Aws:
+      - Overview: aws/oracle-database@aws/index.md
+      - Odb Cloud Autonomous Vm Cluster: aws/oracle-database@aws/odb-cloud-autonomous-vm-cluster.md
+      - Odb Cloud Exadata Infrastructure: aws/oracle-database@aws/odb-cloud-exadata-infrastructure.md
+      - Odb Cloud Vm Cluster: aws/oracle-database@aws/odb-cloud-vm-cluster.md
+      - Odb Network Peering Connection: aws/oracle-database@aws/odb-network-peering-connection.md
+      - Odb Network: aws/oracle-database@aws/odb-network.md
+    - Outposts:
+      - Overview: aws/outposts/index.md
+      - EC2 Local Gateway Route Table VPC Association: aws/outposts/ec2-local-gateway-route-table-vpc-association.md
+      - EC2 Local Gateway Route: aws/outposts/ec2-local-gateway-route.md
+    - Payment Cryptography:
+      - Overview: aws/payment-cryptography/index.md
+      - Paymentcryptography Key Alias: aws/payment-cryptography/paymentcryptography-key-alias.md
+      - Paymentcryptography Key: aws/payment-cryptography/paymentcryptography-key.md
+    - Pinpoint:
+      - Overview: aws/pinpoint/index.md
+      - Pinpoint Adm Channel: aws/pinpoint/pinpoint-adm-channel.md
+      - Pinpoint Apns Channel: aws/pinpoint/pinpoint-apns-channel.md
+      - Pinpoint Apns Sandbox Channel: aws/pinpoint/pinpoint-apns-sandbox-channel.md
+      - Pinpoint Apns Voip Channel: aws/pinpoint/pinpoint-apns-voip-channel.md
+      - Pinpoint Apns Voip Sandbox Channel: aws/pinpoint/pinpoint-apns-voip-sandbox-channel.md
+      - Pinpoint App: aws/pinpoint/pinpoint-app.md
+      - Pinpoint Baidu Channel: aws/pinpoint/pinpoint-baidu-channel.md
+      - Pinpoint Email Channel: aws/pinpoint/pinpoint-email-channel.md
+      - Pinpoint Email Template: aws/pinpoint/pinpoint-email-template.md
+      - Pinpoint Event Stream: aws/pinpoint/pinpoint-event-stream.md
+      - Pinpoint Gcm Channel: aws/pinpoint/pinpoint-gcm-channel.md
+      - Pinpoint Sms Channel: aws/pinpoint/pinpoint-sms-channel.md
+    - Prometheus:
+      - Overview: aws/prometheus/index.md
+      - Prometheus Alert Manager Definition: aws/prometheus/prometheus-alert-manager-definition.md
+      - Prometheus Query Logging Configuration: aws/prometheus/prometheus-query-logging-configuration.md
+      - Prometheus Resource Policy: aws/prometheus/prometheus-resource-policy.md
+      - Prometheus Rule Group Namespace: aws/prometheus/prometheus-rule-group-namespace.md
+      - Prometheus Scraper: aws/prometheus/prometheus-scraper.md
+      - Prometheus Workspace Configuration: aws/prometheus/prometheus-workspace-configuration.md
+      - Prometheus Workspace: aws/prometheus/prometheus-workspace.md
+    - Qbusiness:
+      - Overview: aws/qbusiness/index.md
+      - Qbusiness Application: aws/qbusiness/qbusiness-application.md
+    - Ram:
+      - Overview: aws/ram/index.md
+      - RAM Permission: aws/ram/ram-permission.md
+      - RAM Principal Association: aws/ram/ram-principal-association.md
+      - RAM Resource Association: aws/ram/ram-resource-association.md
+      - RAM Resource Share Accepter: aws/ram/ram-resource-share-accepter.md
+      - RAM Resource Share Associations Exclusive: aws/ram/ram-resource-share-associations-exclusive.md
+      - RAM Resource Share: aws/ram/ram-resource-share.md
+      - RAM Sharing With Organization: aws/ram/ram-sharing-with-organization.md
+    - Recycle Bin:
+      - Overview: aws/recycle-bin/index.md
+      - Rbin Rule: aws/recycle-bin/rbin-rule.md
+    - Rekognition:
+      - Overview: aws/rekognition/index.md
+      - Rekognition Collection: aws/rekognition/rekognition-collection.md
+      - Rekognition Project: aws/rekognition/rekognition-project.md
+      - Rekognition Stream Processor: aws/rekognition/rekognition-stream-processor.md
+    - Resilience Hub:
+      - Overview: aws/resilience-hub/index.md
+      - Resiliencehub Resiliency Policy: aws/resilience-hub/resiliencehub-resiliency-policy.md
+    - Resource Explorer:
+      - Overview: aws/resource-explorer/index.md
+      - Resourceexplorer2 Index: aws/resource-explorer/resourceexplorer2-index.md
+      - Resourceexplorer2 View: aws/resource-explorer/resourceexplorer2-view.md
+    - Resource Groups:
+      - Overview: aws/resource-groups/index.md
+      - Resourcegroups Group: aws/resource-groups/resourcegroups-group.md
+      - Resourcegroups Resource: aws/resource-groups/resourcegroups-resource.md
+    - Roles Anywhere:
+      - Overview: aws/roles-anywhere/index.md
+      - Rolesanywhere Profile: aws/roles-anywhere/rolesanywhere-profile.md
+      - Rolesanywhere Trust Anchor: aws/roles-anywhere/rolesanywhere-trust-anchor.md
+    - Serverless Repo:
+      - Overview: aws/serverless-repo/index.md
+      - Serverlessapplicationrepository Cloudformation Stack: aws/serverless-repo/serverlessapplicationrepository-cloudformation-stack.md
+    - Service Catalog:
+      - Overview: aws/service-catalog/index.md
+      - Servicecatalog Budget Resource Association: aws/service-catalog/servicecatalog-budget-resource-association.md
+      - Servicecatalog Constraint: aws/service-catalog/servicecatalog-constraint.md
+      - Servicecatalog Organizations Access: aws/service-catalog/servicecatalog-organizations-access.md
+      - Servicecatalog Portfolio Share: aws/service-catalog/servicecatalog-portfolio-share.md
+      - Servicecatalog Portfolio: aws/service-catalog/servicecatalog-portfolio.md
+      - Servicecatalog Principal Portfolio Association: aws/service-catalog/servicecatalog-principal-portfolio-association.md
+      - Servicecatalog Product Portfolio Association: aws/service-catalog/servicecatalog-product-portfolio-association.md
+      - Servicecatalog Product: aws/service-catalog/servicecatalog-product.md
+      - Servicecatalog Provisioned Product: aws/service-catalog/servicecatalog-provisioned-product.md
+      - Servicecatalog Provisioning Artifact: aws/service-catalog/servicecatalog-provisioning-artifact.md
+      - Servicecatalog Service Action: aws/service-catalog/servicecatalog-service-action.md
+      - Servicecatalog Tag Option Resource Association: aws/service-catalog/servicecatalog-tag-option-resource-association.md
+      - Servicecatalog Tag Option: aws/service-catalog/servicecatalog-tag-option.md
+      - Servicecatalogappregistry Application: aws/service-catalog/servicecatalogappregistry-application.md
+      - Servicecatalogappregistry Attribute Group Association: aws/service-catalog/servicecatalogappregistry-attribute-group-association.md
+      - Servicecatalogappregistry Attribute Group: aws/service-catalog/servicecatalogappregistry-attribute-group.md
+    - Service Quotas:
+      - Overview: aws/service-quotas/index.md
+      - Servicequotas Service Quota: aws/service-quotas/servicequotas-service-quota.md
+      - Servicequotas Template Association: aws/service-quotas/servicequotas-template-association.md
+      - Servicequotas Template: aws/service-quotas/servicequotas-template.md
+    - Shield:
+      - Overview: aws/shield/index.md
+      - Shield Protection Group: aws/shield/protection-group.md
+      - Shield Protection: aws/shield/protection.md
+    - Signer:
+      - Overview: aws/signer/index.md
+      - Signer Signing Job: aws/signer/signer-signing-job.md
+      - Signer Signing Profile Permission: aws/signer/signer-signing-profile-permission.md
+      - Signer Signing Profile: aws/signer/signer-signing-profile.md
+    - Swf:
+      - Overview: aws/swf/index.md
+      - Swf Domain: aws/swf/swf-domain.md
+    - Transcribe:
+      - Overview: aws/transcribe/index.md
+      - Transcribe Language Model: aws/transcribe/transcribe-language-model.md
+      - Transcribe Medical Vocabulary: aws/transcribe/transcribe-medical-vocabulary.md
+      - Transcribe Vocabulary Filter: aws/transcribe/transcribe-vocabulary-filter.md
+      - Transcribe Vocabulary: aws/transcribe/transcribe-vocabulary.md
+    - User Notifications:
+      - Overview: aws/user-notifications/index.md
+      - Notifications Channel Association: aws/user-notifications/notifications-channel-association.md
+      - Notifications Event Rule: aws/user-notifications/notifications-event-rule.md
+      - Notifications Managed Notification Account Contact Association: aws/user-notifications/notifications-managed-notification-account-contact-association.md
+      - Notifications Managed Notification Additional Channel Association: aws/user-notifications/notifications-managed-notification-additional-channel-association.md
+      - Notifications Notification Configuration: aws/user-notifications/notifications-notification-configuration.md
+      - Notifications Notification Hub: aws/user-notifications/notifications-notification-hub.md
+      - Notifications Organizational Unit Association: aws/user-notifications/notifications-organizational-unit-association.md
+      - Notifications Organizations Access: aws/user-notifications/notifications-organizations-access.md
+    - User Notifications Contacts:
+      - Overview: aws/user-notifications-contacts/index.md
+      - Notificationscontacts Email Contact: aws/user-notifications-contacts/notificationscontacts-email-contact.md
+    - Workmail:
+      - Overview: aws/workmail/index.md
+      - Workmail Default Domain: aws/workmail/workmail-default-domain.md
+      - Workmail Domain: aws/workmail/workmail-domain.md
+      - Workmail Organization: aws/workmail/workmail-organization.md
+    - Workspaces:
+      - Overview: aws/workspaces/index.md
+      - Workspaces Connection Alias: aws/workspaces/workspaces-connection-alias.md
+      - Workspaces Directory: aws/workspaces/workspaces-directory.md
+      - Workspaces IP Group: aws/workspaces/workspaces-ip-group.md
+      - Workspaces Workspace: aws/workspaces/workspaces-workspace.md
+      - Workspacesweb Browser Settings Association: aws/workspaces/workspacesweb-browser-settings-association.md
+      - Workspacesweb Browser Settings: aws/workspaces/workspacesweb-browser-settings.md
+      - Workspacesweb Data Protection Settings Association: aws/workspaces/workspacesweb-data-protection-settings-association.md
+      - Workspacesweb Data Protection Settings: aws/workspaces/workspacesweb-data-protection-settings.md
+      - Workspacesweb Identity Provider: aws/workspaces/workspacesweb-identity-provider.md
+      - Workspacesweb IP Access Settings Association: aws/workspaces/workspacesweb-ip-access-settings-association.md
+      - Workspacesweb IP Access Settings: aws/workspaces/workspacesweb-ip-access-settings.md
+      - Workspacesweb Network Settings Association: aws/workspaces/workspacesweb-network-settings-association.md
+      - Workspacesweb Network Settings: aws/workspaces/workspacesweb-network-settings.md
+      - Workspacesweb Portal: aws/workspaces/workspacesweb-portal.md
+      - Workspacesweb Session Logger Association: aws/workspaces/workspacesweb-session-logger-association.md
+      - Workspacesweb Session Logger: aws/workspaces/workspacesweb-session-logger.md
+      - Workspacesweb Trust Store Association: aws/workspaces/workspacesweb-trust-store-association.md
+      - Workspacesweb Trust Store: aws/workspaces/workspacesweb-trust-store.md
+      - Workspacesweb User Access Logging Settings Association: aws/workspaces/workspacesweb-user-access-logging-settings-association.md
+      - Workspacesweb User Access Logging Settings: aws/workspaces/workspacesweb-user-access-logging-settings.md
+      - Workspacesweb User Settings Association: aws/workspaces/workspacesweb-user-settings-association.md
+      - Workspacesweb User Settings: aws/workspaces/workspacesweb-user-settings.md
   - Troubleshooting:
     - Overview: troubleshooting/index.md
     - Common Errors: troubleshooting/common-errors.md

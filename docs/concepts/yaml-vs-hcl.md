@@ -171,7 +171,7 @@ provider:
 | Quotes | Optional for strings | Optional (usually) |
 | Lists | `[a, b, c]` | `- item` format |
 | Comments | `#` or `//` or `/* */` | `#` only |
-| Multi-line strings | `<<EOF ... EOF` | `\|` or `>` |
+| Multi-line strings | `<<EOF ... EOF` | `|` or `>` |
 | File extension | `.tf` | `.yaml` or `.yml` |
 
 ## Multi-line Strings
@@ -208,20 +208,38 @@ resource:
         }
 ```
 
+## What YAML CAN Do
+
+YAML supports these features for working with values defined elsewhere:
+
+| Feature | Example | Description |
+|---------|---------|-------------|
+| Variable references | `${var.name}` | Reference variables defined in HCL |
+| Local references | `${local.tags}` | Reference locals defined in HCL |
+| Resource references | `${aws_vpc.main.id}` | Reference other resources |
+| Data source references | `${data.aws_ami.ubuntu.id}` | Reference data sources |
+| Arithmetic operators | `${var.count + 1}` | `+`, `-`, `*`, `/`, `%` |
+| Comparison operators | `${var.env == "prod"}` | `==`, `!=`, `<`, `>`, `<=`, `>=` |
+| Logical operators | `${var.a && var.b}` | `&&`, `||`, `!` |
+| Index access | `${var.list[0]}` | Access list elements |
+| Map access | `${var.map["key"]}` | Access map values |
+| Splat expressions | `${aws_instance.web[*].id}` | Collect attributes from multiple instances |
+| String interpolation | `prefix-${var.name}` | Combine strings and references |
+
 ## What YAML Cannot Do
 
-YAML in ytofu intentionally omits:
+YAML in ytofu intentionally restricts these programming constructs:
 
-| HCL Feature | Status in ytofu |
-|-------------|-----------------|
-| `variable` blocks | Not supported |
-| `locals` blocks | Not supported |
-| `for_each` | Not supported |
-| `count` | Not supported |
-| `for` expressions | Not supported |
-| Functions | Not supported |
-| `dynamic` blocks | Not supported |
-| Conditionals | Not supported |
+| Feature | Status | Alternative |
+|---------|--------|-------------|
+| `variable` blocks | Not supported | Define in `.tf` files |
+| `locals` blocks | Not supported | Define in `.tf` files |
+| `for_each` | Not supported | Create explicit resources |
+| `count` | Not supported | Create explicit resources |
+| `for` expressions | Not supported | Generate YAML externally |
+| Functions | Not supported | Pre-compute or use HCL |
+| Conditionals (`? :`) | Not supported | Use separate configs |
+| `dynamic` blocks | Not supported | Create explicit blocks |
 
 This is by design. See [Configuration as Data](configuration-as-data.md) for the rationale.
 
@@ -235,11 +253,41 @@ When converting HCL to YAML:
 2. **Convert lists to YAML format**
    - `["a", "b"]` becomes `- a` and `- b` on separate lines
 
-3. **Remove variables** - Replace with concrete values
+3. **Move variable/locals definitions** - Keep them in `.tf` files
 
-4. **Remove loops** - Create explicit resources
+4. **Replace loops with explicit resources** - Create individual resources
 
-5. **Remove functions** - Use pre-calculated values
+5. **Replace functions with computed values** - Pre-calculate or use HCL locals
+
+6. **Keep references** - `${var.name}` and `${resource.id}` work in YAML
+
+## Mixed Format Example
+
+You can use both HCL and YAML in the same project:
+
+**variables.tf** (HCL)
+```hcl
+variable "environment" {
+  type    = string
+  default = "dev"
+}
+
+locals {
+  name_prefix = "myapp-${var.environment}"
+}
+```
+
+**main.yaml** (YAML)
+```yaml
+resource:
+  aws_instance:
+    web:
+      ami: ami-0c55b159cbfafe1f0
+      instance_type: t3.micro
+      tags:
+        Name: ${local.name_prefix}-web
+        Environment: ${var.environment}
+```
 
 ## Benefits of YAML
 
@@ -252,4 +300,4 @@ When converting HCL to YAML:
 
 - [Configuration as Data](configuration-as-data.md)
 - [Resource Lifecycle](resource-lifecycle.md)
-- [Getting Started](../getting-started.md)
+- [Mixed Format Workflow](../guides/mixed-format.md)

@@ -8,6 +8,12 @@ These guides show you how to implement specific patterns and solve common proble
 
 ## Available Guides
 
+### Workflow Patterns
+
+| Guide | Description |
+|-------|-------------|
+| [Mixed Format Workflow](mixed-format.md) | Combine HCL and YAML for best of both worlds |
+
 ### Networking Patterns
 
 | Guide | Description |

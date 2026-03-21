@@ -1,0 +1,27 @@
+# DX Connection Association
+
+Manage DX Connection Association resources using ytofu YAML.
+
+## Basic Example
+
+```yaml
+resource:
+  aws_dx_connection:
+    example:
+      name: example
+      bandwidth: 1Gbps
+      location: EqSe2-EQ
+
+resource:
+  aws_dx_lag:
+    example:
+      name: example
+      connections_bandwidth: 1Gbps
+      location: EqSe2-EQ
+
+resource:
+  aws_dx_connection_association:
+    example:
+      connection_id: ${aws_dx_connection.example.id}
+      lag_id: ${aws_dx_lag.example.id}
+```

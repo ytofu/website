@@ -1,123 +1,269 @@
 # Configuration as Data
 
-ytofu follows the **Configuration as Data** (CaD) philosophy. Your infrastructure is defined as plain YAML data, not code.
+ytofu follows the **Configuration as Data** (CaD) philosophy for YAML files. Your infrastructure is defined as plain YAML data with minimal programming constructs.
 
 ## The Philosophy
 
 Configuration as Data means:
 
-- **No programming constructs** - No loops, conditionals, or functions
-- **No variable substitution** - No `${var.xxx}` references
+- **No block definitions** - No `variable` or `locals` blocks in YAML files
+- **No dynamic repetition** - No `for_each` or `count` meta-arguments
+- **No runtime computation** - No functions or conditionals
 - **Explicit resources** - Every resource is defined individually
-- **What you see is what you deploy** - No runtime evaluation
+- **References allowed** - Variable, local, and resource references work normally
 
-## What to Avoid
+## What's NOT Supported in YAML
 
-These programming constructs are **not used** in ytofu:
+These constructs cannot be used in YAML configuration files:
 
-### No For Loops
+### Variable and Locals Blocks
+
+You cannot define `variable` or `locals` blocks in YAML files:
 
 ```yaml
-# AVOID: for expressions
+# NOT SUPPORTED - Cannot define variable blocks in YAML
+variable:
+  instance_type:
+    default: t3.micro
+
+# NOT SUPPORTED - Cannot define locals blocks in YAML
+locals:
+  common_tags:
+    Environment: production
+```
+
+### For Each and Count
+
+The `for_each` and `count` meta-arguments are not supported:
+
+```yaml
+# NOT SUPPORTED - for_each in YAML
 resource:
   aws_subnet:
     public:
-      for_each: ${toset(var.azs)}
-      cidr_block: ${cidrsubnet(var.vpc_cidr, 8, each.key)}
-```
+      for_each: ${toset(["a", "b", "c"])}
+      cidr_block: 10.0.${each.key}.0/24
 
-### No Variables
-
-```yaml
-# AVOID: variable references
+# NOT SUPPORTED - count in YAML
 resource:
   aws_instance:
     web:
-      instance_type: ${var.instance_type}
-      ami: ${var.ami_id}
+      count: 3
+      ami: ami-0c55b159cbfafe1f0
 ```
 
-### No Functions
+### Functions
+
+Function calls are not supported in YAML expressions:
 
 ```yaml
-# AVOID: function calls
+# NOT SUPPORTED - Functions in YAML
 resource:
   aws_subnet:
     public:
       cidr_block: ${cidrsubnet(aws_vpc.main.cidr_block, 8, 1)}
+      tags:
+        Name: ${upper("web-subnet")}
 ```
 
-### No Conditionals
+### Conditionals
+
+Ternary expressions and conditionals are not supported:
 
 ```yaml
-# AVOID: conditional expressions
+# NOT SUPPORTED - Conditionals in YAML
 resource:
   aws_instance:
     web:
       instance_type: ${var.environment == "prod" ? "t3.large" : "t3.micro"}
 ```
 
-## What to Use Instead
+### For Expressions
 
-### Explicit Values
+List and map comprehensions are not supported:
 
 ```yaml
-# GOOD: Explicit values
+# NOT SUPPORTED - For expressions in YAML
+output:
+  instance_ids:
+    value: ${[for i in aws_instance.web : i.id]}
+```
+
+## What IS Supported in YAML
+
+These features work normally in YAML configuration files:
+
+### Variable References
+
+Reference variables defined in HCL files:
+
+```yaml
+# SUPPORTED - Reference variables from HCL
 resource:
   aws_instance:
     web:
-      instance_type: t3.micro
-      ami: ami-0c55b159cbfafe1f0
+      instance_type: ${var.instance_type}
+      ami: ${var.ami_id}
+      tags:
+        Environment: ${var.environment}
 ```
 
-### Explicit Resources
+### Local References
+
+Reference locals defined in HCL files:
 
 ```yaml
-# GOOD: Each resource defined explicitly
+# SUPPORTED - Reference locals from HCL
+resource:
+  aws_instance:
+    web:
+      tags: ${local.common_tags}
+```
+
+### Resource References
+
+Reference other resources:
+
+```yaml
+# SUPPORTED - Resource references
 resource:
   aws_subnet:
-    public_a:
+    public:
       vpc_id: ${aws_vpc.main.id}
       cidr_block: 10.0.1.0/24
-      availability_zone: us-west-2a
 
-    public_b:
-      vpc_id: ${aws_vpc.main.id}
-      cidr_block: 10.0.2.0/24
-      availability_zone: us-west-2b
-
-    public_c:
-      vpc_id: ${aws_vpc.main.id}
-      cidr_block: 10.0.3.0/24
-      availability_zone: us-west-2c
-```
-
-### Simple Resource References
-
-Resource references using `${resource_type.name.attribute}` are allowed because they represent relationships, not logic:
-
-```yaml
-# GOOD: Resource references for relationships
-resource:
   aws_instance:
     web:
-      subnet_id: ${aws_subnet.public_a.id}
+      subnet_id: ${aws_subnet.public.id}
       vpc_security_group_ids:
         - ${aws_security_group.web.id}
 ```
+
+### Data Source References
+
+Reference data sources:
+
+```yaml
+# SUPPORTED - Data source references
+resource:
+  aws_instance:
+    web:
+      ami: ${data.aws_ami.ubuntu.id}
+```
+
+### Operators
+
+Arithmetic, comparison, and logical operators are supported:
+
+```yaml
+# SUPPORTED - Operators
+output:
+  total:
+    value: ${var.base_count + 5}
+
+  is_production:
+    value: ${var.environment == "prod"}
+
+  should_deploy:
+    value: ${var.enabled && var.ready}
+```
+
+### Index and Attribute Access
+
+Access list elements and map keys:
+
+```yaml
+# SUPPORTED - Index access
+resource:
+  aws_instance:
+    web:
+      availability_zone: ${var.availability_zones[0]}
+      ami: ${var.amis["us-west-2"]}
+      subnet_id: ${aws_subnet.public[0].id}
+```
+
+### Splat Expressions
+
+Access attributes across multiple resources:
+
+```yaml
+# SUPPORTED - Splat expressions
+output:
+  all_instance_ids:
+    value: ${aws_instance.web[*].id}
+```
+
+### String Interpolation
+
+Combine strings with references:
+
+```yaml
+# SUPPORTED - String interpolation
+resource:
+  aws_instance:
+    web:
+      tags:
+        Name: ${var.project}-web-${var.environment}
+```
+
+## Mixed HCL + YAML Workflow
+
+The recommended approach is to use HCL for definitions and YAML for resources:
+
+### variables.tf (HCL)
+
+```hcl
+variable "environment" {
+  type    = string
+  default = "dev"
+}
+
+variable "instance_type" {
+  type    = string
+  default = "t3.micro"
+}
+
+variable "ami_id" {
+  type = string
+}
+
+locals {
+  common_tags = {
+    Environment = var.environment
+    ManagedBy   = "ytofu"
+  }
+}
+```
+
+### main.yaml (YAML)
+
+```yaml
+resource:
+  aws_instance:
+    web:
+      ami: ${var.ami_id}
+      instance_type: ${var.instance_type}
+      tags: ${local.common_tags}
+```
+
+This approach gives you:
+- **Type safety** - Variables with types and defaults in HCL
+- **Reusable values** - Locals for computed values in HCL
+- **Clean resources** - Pure data resource definitions in YAML
+- **Easy generation** - YAML resources can be generated by external tools
 
 ## Benefits of Configuration as Data
 
 ### Readable
 
-Every value is explicit. No mental parsing of expressions or variable lookups.
+Every value is explicit or a simple reference. No mental parsing of complex expressions:
 
 ```yaml
-# You know exactly what will be deployed
+# Clear and explicit
 resource:
   aws_instance:
     web:
-      ami: ami-0c55b159cbfafe1f0
+      ami: ${var.ami_id}
       instance_type: t3.micro
       tags:
         Environment: production
@@ -126,7 +272,7 @@ resource:
 
 ### Auditable
 
-Easy to review and diff. Changes are visible in plain data.
+Easy to review and diff. Changes are visible in plain data:
 
 ```diff
  resource:
@@ -138,7 +284,7 @@ Easy to review and diff. Changes are visible in plain data.
 
 ### Generatable
 
-Simple to produce from external tools. Any language can generate YAML.
+Simple to produce from external tools. Any language can generate YAML:
 
 ```python
 # Python script to generate ytofu config
@@ -148,7 +294,7 @@ config = {
     'resource': {
         'aws_instance': {
             'web': {
-                'ami': 'ami-0c55b159cbfafe1f0',
+                'ami': '${var.ami_id}',
                 'instance_type': 't3.micro'
             }
         }
@@ -160,26 +306,32 @@ print(yaml.dump(config))
 
 ### GitOps-Ready
 
-Works naturally with Kubernetes-style workflows. Apply, diff, sync.
+Works naturally with Kubernetes-style workflows. Apply, diff, sync:
 
 ```bash
+# Preview changes
+ytofu plan
+
 # Apply changes
 ytofu apply
-
-# See what would change
-ytofu plan
 ```
 
 ## Comparison Table
 
-| Feature | Traditional IaC | ytofu (CaD) |
-|---------|-----------------|-------------|
-| Variables | `${var.name}` | Concrete values |
-| Loops | `for_each`, `count` | Explicit resources |
-| Conditionals | `condition ? a : b` | No conditionals |
-| Functions | `cidrsubnet()`, `join()` | No functions |
-| Dynamic blocks | `dynamic "block" {}` | Static definitions |
-| Locals | `locals { }` | No locals |
+| Feature | In YAML | Alternative |
+|---------|---------|-------------|
+| `variable` blocks | Not supported | Define in HCL files |
+| `locals` blocks | Not supported | Define in HCL files |
+| `for_each` | Not supported | Create explicit resources |
+| `count` | Not supported | Create explicit resources |
+| Functions | Not supported | Pre-compute in HCL or external tools |
+| Conditionals | Not supported | Use separate configurations |
+| `${var.name}` references | Supported | - |
+| `${local.value}` references | Supported | - |
+| `${resource.name.attr}` references | Supported | - |
+| Operators (`+`, `==`, `&&`) | Supported | - |
+| Index access (`[0]`, `["key"]`) | Supported | - |
+| Splat (`[*].attr`) | Supported | - |
 
 ## When to Use External Tools
 
@@ -196,4 +348,4 @@ The logic lives **outside** ytofu, keeping your configurations pure data.
 
 - [YAML vs HCL](yaml-vs-hcl.md)
 - [Resource Lifecycle](resource-lifecycle.md)
-- [Getting Started](../getting-started.md)
+- [Mixed Format Workflow](../guides/mixed-format.md)

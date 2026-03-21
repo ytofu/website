@@ -14,6 +14,16 @@ ytofu is an OpenTofu fork with first-class YAML support. It brings the **Configu
 | [YAML vs HCL](yaml-vs-hcl.md) | Understanding the differences and benefits |
 | [Resource Lifecycle](resource-lifecycle.md) | How resources are created, updated, and destroyed |
 
+## Advanced Features
+
+| Feature | Description |
+|---------|-------------|
+| [Encryption](encryption.md) | Encrypt state and plan files at rest |
+| [Ephemeral Values](ephemeral-values.md) | Memory-only data that never persists |
+| [Testing](testing.md) | Built-in testing framework for infrastructure |
+| [Enabled Meta-Argument](enabled.md) | Conditionally create resources |
+| [Tracing](tracing.md) | OpenTelemetry integration for observability |
+
 ## Why Configuration as Data?
 
 Traditional Infrastructure as Code (IaC) tools mix data with logic - variables, loops, conditionals, and functions. This makes configurations:
