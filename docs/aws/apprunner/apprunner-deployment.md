@@ -1,6 +1,6 @@
-# Apprunner Deployment
+# Resource: aws_apprunner_deployment
 
-Manage Apprunner Deployment resources using ytofu YAML.
+Manages an App Runner Deployment Operation.
 
 ## Basic Example
 
@@ -10,3 +10,18 @@ resource:
     example:
       service_arn: ${aws_apprunner_service.example.arn}
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `service_arn` - (Required) The Amazon Resource Name (ARN) of the App Runner service to start the deployment for.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - A unique identifier for the deployment.
+* `operation_id` - The unique ID of the operation associated with deployment.
+* `status` - The current status of the App Runner service deployment.

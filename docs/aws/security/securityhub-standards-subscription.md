@@ -1,6 +1,6 @@
-# Securityhub Standards Subscription
+# Resource: aws_securityhub_standards_subscription
 
-Manage Securityhub Standards Subscription resources using ytofu YAML.
+Subscribes to a Security Hub standard.
 
 ## Basic Example
 
@@ -26,4 +26,44 @@ resource:
       depends_on: 
         - ${aws_securityhub_account.example}
       standards_arn: "arn:aws:securityhub:${data.aws_region.current.region}::standards/pci-dss/v/3.2.1"
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `standards_arn` - (Required) The ARN of a standard - see below.
+
+Currently available standards (remember to replace `${var.partition}` and `${var.region}` as appropriate):
+
+| Name                                     | ARN                                                                                                          |
+|------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| AWS Foundational Security Best Practices | `arn:${var.partition}:securityhub:${var.region}::standards/aws-foundational-security-best-practices/v/1.0.0` |
+| AWS Resource Tagging Standard            | `arn:${var.partition}:securityhub:${var.region}::standards/aws-resource-tagging-standard/v/1.0.0`            |
+| CIS AWS Foundations Benchmark v1.2.0     | `arn:${var.partition}:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0`                           |
+| CIS AWS Foundations Benchmark v1.4.0     | `arn:${var.partition}:securityhub:${var.region}::standards/cis-aws-foundations-benchmark/v/1.4.0`            |
+| CIS AWS Foundations Benchmark v3.0.0     | `arn:${var.partition}:securityhub:${var.region}::standards/cis-aws-foundations-benchmark/v/3.0.0`            |
+| NIST SP 800-53 Rev. 5                    | `arn:${var.partition}:securityhub:${var.region}::standards/nist-800-53/v/5.0.0`                              |
+| NIST SP 800-171 Rev. 2                   | `arn:${var.partition}:securityhub:${var.region}::standards/nist-800-171/v/2.0.0`                             |
+| PCI DSS  v3.2.1                          | `arn:${var.partition}:securityhub:${var.region}::standards/pci-dss/v/3.2.1`                                  |
+| PCI DSS  v4.0.1                          | `arn:${var.partition}:securityhub:${var.region}::standards/pci-dss/v/4.0.1`                                  |
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ARN of a resource that represents your subscription to a supported standard.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `3m`)
+* `delete` - (Default `3m`)
+
+## Import
+
+```bash
+ytofu import aws_securityhub_standards_subscription.cis arn:aws:securityhub:eu-west-1:123456789012:subscription/cis-aws-foundations-benchmark/v/1.2.0
 ```

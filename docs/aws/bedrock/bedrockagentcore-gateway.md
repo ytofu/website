@@ -1,6 +1,6 @@
-# Bedrockagentcore Gateway
+# Resource: aws_bedrockagentcore_gateway
 
-Manage Bedrockagentcore Gateway resources using ytofu YAML.
+Manages an AWS Bedrock AgentCore Gateway. With Gateway, developers can convert APIs, Lambda functions, and existing services into Model Context Protocol (MCP)-compatible tools.
 
 ## Basic Example
 
@@ -98,4 +98,109 @@ resource:
             arn: ${aws_lambda_function.interceptor.arn}
         input_configuration:
           pass_request_headers: true
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `authorizer_type` - (Required) Type of authorizer to use. Valid values: `CUSTOM_JWT`, `AWS_IAM`. When set to `CUSTOM_JWT`, `authorizer_configuration` block is required.
+* `name` - (Required) Name of the gateway.
+* `protocol_type` - (Required) Protocol type for the gateway. Valid values: `MCP`.
+* `role_arn` - (Required) ARN of the IAM role that the gateway assumes to access AWS services.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `authorizer_configuration` - (Optional) Configuration for request authorization. Required when `authorizer_type` is set to `CUSTOM_JWT`. See [`authorizer_configuration`](#authorizer_configuration) below.
+* `description` - (Optional) Description of the gateway.
+* `exception_level` - (Optional) Exception level for the gateway. Valid values: `INFO`, `WARN`, `ERROR`.
+* `interceptor_configuration` - (Optional) List of interceptor configurations for the gateway. Minimum of 1, maximum of 2. See [`interceptor_configuration`](#interceptor_configuration) below.
+* `kms_key_arn` - (Optional) ARN of the KMS key used to encrypt the gateway data.
+* `protocol_configuration` - (Optional) Protocol-specific configuration for the gateway. See [`protocol_configuration`](#protocol_configuration) below.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### `authorizer_configuration`
+
+The `authorizer_configuration` block supports the following:
+
+* `custom_jwt_authorizer` - (Required) JWT-based authorization configuration block. See [`custom_jwt_authorizer`](#custom_jwt_authorizer) below.
+
+### `custom_jwt_authorizer`
+
+The `custom_jwt_authorizer` block supports the following:
+
+* `discovery_url` - (Required) URL used to fetch OpenID Connect configuration or authorization server metadata. Must end with `.well-known/openid-configuration`.
+* `allowed_audience` - (Optional) Set of allowed audience values for JWT token validation.
+* `allowed_clients` - (Optional) Set of allowed client IDs for JWT token validation.
+* `allowed_scopes` - (Optional) Set of scopes that are allowed to access the token.
+
+### `interceptor_configuration`
+
+The `interceptor_configuration` block supports the following:
+
+* `interception_points` - (Required) Set of interception points. Valid values: `REQUEST`, `RESPONSE`.
+* `interceptor` - (Required) Interceptor infrastructure configuration. See [`interceptor`](#interceptor) below.
+* `input_configuration` - (Optional) Input configuration for the interceptor. See [`input_configuration`](#input_configuration) below.
+
+### `interceptor`
+
+The `interceptor` block supports the following:
+
+* `lambda` - (Required) Lambda function configuration for the interceptor. See [`lambda`](#lambda) below.
+
+### `lambda`
+
+The `lambda` block supports the following:
+
+* `arn` - (Required) ARN of the Lambda function to invoke for the interceptor.
+
+### `input_configuration`
+
+The `input_configuration` block supports the following:
+
+* `pass_request_headers` - (Required) Whether to pass request headers to the interceptor.
+
+### `protocol_configuration`
+
+The `protocol_configuration` block supports the following:
+
+* `mcp` - (Optional) Model Context Protocol (MCP) configuration block. See [`mcp`](#mcp) below.
+
+### `mcp`
+
+The `mcp` block supports the following:
+
+* `instructions` - (Optional) Instructions for the MCP protocol configuration.
+* `search_type` - (Optional) Search type for MCP. Valid values: `SEMANTIC`.
+* `supported_versions` - (Optional) Set of supported MCP protocol versions.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `gateway_arn` - ARN of the Gateway.
+* `gateway_id` - Unique identifier of the Gateway.
+* `gateway_url` - URL endpoint for the gateway.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+* `workload_identity_details` - Workload identity details for the gateway. See [`workload_identity_details`](#workload_identity_details) below.
+
+### `workload_identity_details`
+
+The `workload_identity_details` block contains the following:
+
+* `workload_identity_arn` - ARN of the workload identity.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_bedrockagentcore_gateway.example GATEWAY1234567890
 ```

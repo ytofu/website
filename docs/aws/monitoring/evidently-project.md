@@ -1,6 +1,6 @@
-# Evidently Project
+# Resource: aws_evidently_project
 
-Manage Evidently Project resources using ytofu YAML.
+Provides a CloudWatch Evidently Project resource.
 
 ## Basic Example
 
@@ -40,4 +40,58 @@ resource:
           bucket: example-bucket-name
           prefix: example
       tags: 
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `data_delivery` - (Optional) A block that contains information about where Evidently is to store evaluation events for longer term storage, if you choose to do so. If you choose not to store these events, Evidently deletes them after using them to produce metrics and other experiment results that you can view. See below.
+* `description` - (Optional) Specifies the description of the project.
+* `name` - (Required) A name for the project.
+* `tags` - (Optional) Tags to apply to the project. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+The `data_delivery` block supports the following arguments:
+
+* `cloudwatch_logs` - (Optional) A block that defines the CloudWatch Log Group that stores the evaluation events. See below.
+* `s3_destination` - (Optional) A block that defines the S3 bucket and prefix that stores the evaluation events. See below.
+
+The `cloudwatch_logs` block supports the following arguments:
+
+* `log_group` - (Optional) The name of the log group where the project stores evaluation events.
+
+The `s3_destination` block supports the following arguments:
+
+* `bucket` - (Optional) The name of the bucket in which Evidently stores evaluation events.
+* `prefix` - (Optional) The bucket prefix in which Evidently stores evaluation events.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `active_experiment_count` - The number of ongoing experiments currently in the project.
+* `active_launch_count` - The number of ongoing launches currently in the project.
+* `arn` - The ARN of the project.
+* `created_time` - The date and time that the project is created.
+* `experiment_count` - The number of experiments currently in the project. This includes all experiments that have been created and not deleted, whether they are ongoing or not.
+* `feature_count` - The number of features currently in the project.
+* `id` - The ID has the same value as the arn of the project.
+* `last_updated_time` - The date and time that the project was most recently updated.
+* `launch_count` - The number of launches currently in the project. This includes all launches that have been created and not deleted, whether they are ongoing or not.
+* `status` - The current state of the project. Valid values are `AVAILABLE` and `UPDATING`.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `2m`)
+* `delete` - (Default `2m`)
+* `update` - (Default `2m`)
+
+## Import
+
+```bash
+ytofu import aws_evidently_project.example arn:aws:evidently:us-east-1:123456789012:segment/example
 ```

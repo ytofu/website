@@ -1,6 +1,6 @@
-# Verifiedpermissions Policy Store
+# Resource: aws_verifiedpermissions_policy_store
 
-Manage Verifiedpermissions Policy Store resources using ytofu YAML.
+This is a ytofu resource for managing an AWS Verified Permissions Policy Store.
 
 ## Basic Example
 
@@ -10,4 +10,32 @@ resource:
     example:
       validation_settings:
         mode: STRICT
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `validation_settings` - (Required) Validation settings for the policy store.
+    * `mode` - (Required) The mode for the validation settings. Valid values: `OFF`, `STRICT`.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `deletion_protection` - (Optional) Specifies whether the policy store can be deleted. If enabled, the policy store can't be deleted. Valid Values: `ENABLED`, `DISABLED`. Default value: `DISABLED`.
+* `description` - (Optional) A description of the Policy Store.
+* `tags` - (Optional) Key-value mapping of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `policy_store_id` - The ID of the Policy Store.
+* `arn` - The ARN of the Policy Store.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_verifiedpermissions_policy_store.example DxQg2j8xvXJQ1tQCYNWj9T
 ```

@@ -1,6 +1,6 @@
-# Cloudfront Origin Request Policy
+# Resource: aws_cloudfront_origin_request_policy
 
-Manage Cloudfront Origin Request Policy resources using ytofu YAML.
+## Example Usage
 
 ## Basic Example
 
@@ -25,4 +25,47 @@ resource:
         query_strings:
           items: 
             - example
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `name` - (Required) Unique name to identify the origin request policy.
+* `comment` - (Optional) Comment to describe the origin request policy.
+* `cookies_config` - (Required) Object that determines whether any cookies in viewer requests (and if so, which cookies) are included in the origin request key and automatically included in requests that CloudFront sends to the origin. See [Cookies Config](#cookies-config) for more information.
+* `headers_config` - (Required) Object that determines whether any HTTP headers (and if so, which headers) are included in the origin request key and automatically included in requests that CloudFront sends to the origin. See [Headers Config](#headers-config) for more information.
+* `query_strings_config` - (Required) Object that determines whether any URL query strings in viewer requests (and if so, which query strings) are included in the origin request key and automatically included in requests that CloudFront sends to the origin. See [Query String Config](#query-string-config) for more information.
+
+### Cookies Config
+
+`cookie_behavior` - (Required) Determines whether any cookies in viewer requests are included in the origin request key and automatically included in requests that CloudFront sends to the origin. Valid values are `none`, `whitelist`, `all`, `allExcept`.
+`cookies` - (Optional) Object that contains a list of cookie names. See [Items](#items) for more information.
+
+### Headers Config
+
+`header_behavior` - (Required) Determines whether any HTTP headers are included in the origin request key and automatically included in requests that CloudFront sends to the origin. Valid values are `none`, `whitelist`, `allViewer`, `allViewerAndWhitelistCloudFront`, `allExcept`.
+`headers` - (Optional) Object that contains a list of header names. See [Items](#items) for more information.
+
+### Query String Config
+
+`query_string_behavior` - (Required) Determines whether any URL query strings in viewer requests are included in the origin request key and automatically included in requests that CloudFront sends to the origin. Valid values are `none`, `whitelist`, `all`, `allExcept`.
+`query_strings` - (Optional) Object that contains a list of query string names. See [Items](#items) for more information.
+
+### Items
+
+`items` - (Required) List of item names (cookies, headers, or query strings).
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The origin request policy ARN.
+* `etag` - The current version of the origin request policy.
+* `id` - The identifier for the origin request policy.
+
+## Import
+
+```bash
+ytofu import aws_cloudfront_origin_request_policy.policy ccca32ef-dce3-4df3-80df-1bd3000bc4d3
 ```

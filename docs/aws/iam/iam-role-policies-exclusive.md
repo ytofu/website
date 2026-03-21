@@ -1,6 +1,6 @@
-# IAM Role Policies Exclusive
+# Resource: aws_iam_role_policies_exclusive
 
-Manage IAM Role Policies Exclusive resources using ytofu YAML.
+ytofu resource for maintaining exclusive management of inline policies assigned to an AWS IAM (Identity & Access Management) role.
 
 ## Basic Example
 
@@ -21,4 +21,21 @@ resource:
     example:
       role_name: ${aws_iam_role.example.name}
       policy_names: []
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `role_name` - (Required) IAM role name.
+* `policy_names` - (Required) A list of inline policy names to be assigned to the role. Policies attached to this role but not configured in this argument will be removed.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_iam_role_policies_exclusive.example MyRole
 ```

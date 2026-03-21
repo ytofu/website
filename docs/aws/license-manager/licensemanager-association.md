@@ -1,6 +1,6 @@
-# Licensemanager Association
+# Resource: aws_licensemanager_association
 
-Manage Licensemanager Association resources using ytofu YAML.
+Provides a License Manager association.
 
 ## Basic Example
 
@@ -33,4 +33,24 @@ resource:
     example:
       license_configuration_arn: ${aws_licensemanager_license_configuration.example.arn}
       resource_arn: ${aws_instance.example.arn}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `license_configuration_arn` - (Required) ARN of the license configuration.
+* `resource_arn` - (Required) ARN of the resource associated with the license configuration.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The license configuration ARN.
+
+## Import
+
+```bash
+ytofu import aws_licensemanager_association.example arn:aws:ec2:eu-west-1:123456789012:image/ami-123456789abcdef01,arn:aws:license-manager:eu-west-1:123456789012:license-configuration:lic-0123456789abcdef0123456789abcdef
 ```

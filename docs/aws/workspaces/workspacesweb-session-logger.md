@@ -1,6 +1,6 @@
-# Workspacesweb Session Logger
+# Resource: aws_workspacesweb_session_logger
 
-Manage Workspacesweb Session Logger resources using ytofu YAML.
+ytofu resource for managing an AWS WorkSpaces Web Session Logger.
 
 ## Basic Example
 
@@ -139,4 +139,52 @@ resource:
       depends_on: 
         - ${aws_s3_bucket_policy.example}
         - ${aws_kms_key.example}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `event_filter` - (Required) Event filter that determines which events are logged. See [Event Filter](#event-filter) below.
+* `log_configuration` - (Required) Configuration block for specifying where logs are delivered. See [Log Configuration](#log-configuration) below.
+
+The following arguments are optional:
+
+* `additional_encryption_context` - (Optional) Map of additional encryption context key-value pairs.
+* `customer_managed_key` - (Optional) ARN of the customer managed KMS key used to encrypt sensitive information.
+* `display_name` - (Optional) Human-readable display name for the session logger resource. Forces replacement if changed.
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `tags` - (Optional) Map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### Log Configuration
+
+* `s3` - (Required) Configuration block for S3 log delivery. See [S3 Configuration](#s3-configuration) below.
+
+### Event Filter
+
+Exactly one of the following must be specified:
+
+* `all` - (Optional) Block that specifies to monitor all events. Set to `{}` to monitor all events.
+* `include` - (Optional) List of specific events to monitor. Valid values include session events like `SessionStart`, `SessionEnd`, etc.
+
+### S3 Configuration
+
+* `bucket` - (Required) S3 bucket name where logs are delivered.
+* `folder_structure` - (Required) Folder structure that defines the organizational structure for log files in S3. Valid values: `FlatStructure`, `DateBasedStructure`.
+* `log_file_format` - (Required) Format of the log file written to S3. Valid values: `Json`, `Parquet`.
+* `bucket_owner` - (Optional) Expected bucket owner of the target S3 bucket.
+* `key_prefix` - (Optional) S3 path prefix that determines where log files are stored.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `associated_portal_arns` - List of ARNs of the web portals associated with the session logger.
+* `session_logger_arn` - ARN of the session logger.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_workspacesweb_session_logger.example arn:aws:workspaces-web:us-west-2:123456789012:sessionLogger/session_logger-id-12345678
 ```

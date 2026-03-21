@@ -1,6 +1,6 @@
-# Workspacesweb IP Access Settings Association
+# Resource: aws_workspacesweb_ip_access_settings_association
 
-Manage Workspacesweb IP Access Settings Association resources using ytofu YAML.
+ytofu resource for managing an AWS WorkSpaces Web IP Access Settings Association.
 
 ## Basic Example
 
@@ -23,3 +23,18 @@ resource:
       ip_access_settings_arn: ${aws_workspacesweb_ip_access_settings.example.ip_access_settings_arn}
       portal_arn: ${aws_workspacesweb_portal.example.portal_arn}
 ```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `ip_access_settings_arn` - (Required) ARN of the IP access settings to associate with the portal. Forces replacement if changed.
+* `portal_arn` - (Required) ARN of the portal to associate with the IP access settings. Forces replacement if changed.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+
+## Attribute Reference
+
+This resource exports no additional attributes.

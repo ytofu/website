@@ -1,6 +1,6 @@
-# Pinpoint Event Stream
+# Resource: aws_pinpoint_event_stream
 
-Manage Pinpoint Event Stream resources using ytofu YAML.
+Provides a Pinpoint Event Stream resource.
 
 ## Basic Example
 
@@ -56,4 +56,23 @@ resource:
       name: test_policy
       role: ${aws_iam_role.test_role.id}
       policy: ${data.aws_iam_policy_document.test_role_policy.json}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `application_id` - (Required) The application ID.
+* `destination_stream_arn` - (Required) The Amazon Resource Name (ARN) of the Amazon Kinesis stream or Firehose delivery stream to which you want to publish events.
+* `role_arn` - (Required) The IAM role that authorizes Amazon Pinpoint to publish events to the stream in your account.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_pinpoint_event_stream.stream application-id
 ```

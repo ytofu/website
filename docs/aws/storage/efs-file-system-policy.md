@@ -1,6 +1,6 @@
-# EFS File System Policy
+# Resource: aws_efs_file_system_policy
 
-Manage EFS File System Policy resources using ytofu YAML.
+Provides an Elastic File System (EFS) File System Policy resource.
 
 ## Basic Example
 
@@ -35,4 +35,28 @@ resource:
     policy:
       file_system_id: ${aws_efs_file_system.fs.id}
       policy: ${data.aws_iam_policy_document.policy.json}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `file_system_id` - (Required) The ID of the EFS file system.
+* `policy` - (Required) The JSON formatted file system policy for the EFS file system. see [Docs](https://docs.aws.amazon.com/efs/latest/ug/access-control-overview.html#access-control-manage-access-intro-resource-policies) for more info.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `bypass_policy_lockout_safety_check` - (Optional) A flag to indicate whether to bypass the `aws_efs_file_system_policy` lockout safety check. The policy lockout safety check determines whether the policy in the request will prevent the principal making the request will be locked out from making future `PutFileSystemPolicy` requests on the file system. Set `bypass_policy_lockout_safety_check` to `true` only when you intend to prevent the principal that is making the request from making a subsequent `PutFileSystemPolicy` request on the file system. The default value is `false`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID that identifies the file system (e.g., fs-ccfc0d65).
+
+## Import
+
+```bash
+ytofu import aws_efs_file_system_policy.foo fs-6fa144c6
 ```

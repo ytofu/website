@@ -1,6 +1,6 @@
-# Bedrockagentcore Memory
+# Resource: aws_bedrockagentcore_memory
 
-Manage Bedrockagentcore Memory resources using ytofu YAML.
+Manages an AWS Bedrock AgentCore Memory. Memory provides persistent storage for AI agent interactions, allowing agents to retain context across conversations and sessions.
 
 ## Basic Example
 
@@ -53,4 +53,40 @@ resource:
       encryption_key_arn: ${aws_kms_key.example.arn}
       memory_execution_role_arn: ${aws_iam_role.example.arn}
       client_token: unique-client-token
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `name` - (Required) Name of the memory.
+* `event_expiry_duration` - (Required) Number of days after which memory events expire. Must be a positive integer in the range of 7 to 365.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) Description of the memory.
+* `encryption_key_arn` - (Optional) ARN of the KMS key used to encrypt the memory. If not provided, AWS managed encryption is used.
+* `memory_execution_role_arn` - (Optional) ARN of the IAM role that the memory service assumes to perform operations. Required when using custom memory strategies with model processing.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the Memory.
+* `id` - Unique identifier of the Memory.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_bedrockagentcore_memory.example MEMORY1234567890
 ```

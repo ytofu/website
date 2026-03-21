@@ -1,6 +1,6 @@
-# DB Snapshot Copy
+# Resource: aws_db_snapshot_copy
 
-Manage DB Snapshot Copy resources using ytofu YAML.
+Manages an RDS database instance snapshot copy. For managing RDS database cluster snapshots, see the `aws_db_cluster_snapshot` resource.
 
 ## Basic Example
 
@@ -30,4 +30,54 @@ resource:
     example:
       source_db_snapshot_identifier: ${aws_db_snapshot.example.db_snapshot_arn}
       target_db_snapshot_identifier: testsnapshot1234-copy
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `copy_tags` - (Optional) Whether to copy existing tags. Defaults to `false`.
+* `destination_region` - (Optional) The Destination region to place snapshot copy.
+* `kms_key_id` - (Optional) KMS key ID.
+* `option_group_name`- (Optional) The name of an option group to associate with the copy of the snapshot.
+* `presigned_url` - (Optional) he URL that contains a Signature Version 4 signed request.
+* `shared_accounts` - (Optional) List of AWS Account IDs to share the snapshot with. Use `all` to make the snapshot public.
+* `source_db_snapshot_identifier` - (Required) Snapshot identifier of the source snapshot.
+* `target_custom_availability_zone` - (Optional) The external custom Availability Zone.
+* `target_db_snapshot_identifier` - (Required) The Identifier for the snapshot.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Snapshot Identifier.
+* `allocated_storage` - Specifies the allocated storage size in gigabytes (GB).
+* `availability_zone` - Specifies the name of the Availability Zone the DB instance was located in at the time of the DB snapshot.
+* `db_snapshot_arn` - The Amazon Resource Name (ARN) for the DB snapshot.
+* `encrypted` - Specifies whether the DB snapshot is encrypted.
+* `engine` - Specifies the name of the database engine.
+* `engine_version` - Specifies the version of the database engine.
+* `iops` - Specifies the Provisioned IOPS (I/O operations per second) value of the DB instance at the time of the snapshot.
+* `kms_key_id` - The ARN for the KMS encryption key.
+* `license_model` - License model information for the restored DB instance.
+* `option_group_name` - Provides the option group name for the DB snapshot.
+* `shared_accounts` - (Optional) List of AWS Account IDs to share the snapshot with. Use `all` to make the snapshot public.
+* `source_db_snapshot_identifier` - The DB snapshot Arn that the DB snapshot was copied from. It only has value in case of cross customer or cross region copy.
+* `source_region` - The region that the DB snapshot was created in or copied from.
+* `storage_type` - Specifies the storage type associated with DB snapshot.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+* `vpc_id` - Provides the VPC ID associated with the DB snapshot.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `20m`)
+
+## Import
+
+```bash
+ytofu import aws_db_snapshot_copy.example my-snapshot
 ```

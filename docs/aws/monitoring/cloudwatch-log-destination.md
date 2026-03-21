@@ -1,6 +1,6 @@
-# Cloudwatch Log Destination
+# Resource: aws_cloudwatch_log_destination
 
-Manage Cloudwatch Log Destination resources using ytofu YAML.
+Provides a CloudWatch Logs destination resource.
 
 ## Basic Example
 
@@ -11,4 +11,27 @@ resource:
       name: test_destination
       role_arn: ${aws_iam_role.iam_for_cloudwatch.arn}
       target_arn: ${aws_kinesis_stream.kinesis_for_cloudwatch.arn}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) A name for the log destination.
+* `role_arn` - (Required) The ARN of an IAM role that grants Amazon CloudWatch Logs permissions to put data into the target.
+* `target_arn` - (Required) The ARN of the target Amazon Kinesis stream resource for the destination.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The Amazon Resource Name (ARN) specifying the log destination.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_cloudwatch_log_destination.test_destination test_destination
 ```

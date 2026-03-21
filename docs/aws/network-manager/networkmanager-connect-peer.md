@@ -1,6 +1,6 @@
-# Networkmanager Connect Peer
+# Resource: aws_networkmanager_connect_peer
 
-Manage Networkmanager Connect Peer resources using ytofu YAML.
+Manages an AWS Network Manager Connect Peer.
 
 ## Basic Example
 
@@ -105,4 +105,49 @@ resource:
       bgp_options:
         peer_asn: 65000
       subnet_arn: ${aws_subnet.example2.arn}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `connect_attachment_id` - (Required) ID of the connection attachment.
+* `peer_address` - (Required) Connect peer address.
+
+The following arguments are optional:
+
+* `bgp_options` - (Optional) Connect peer BGP options. See [bgp_options](#bgp_options) for more information.
+* `core_network_address` - (Optional) Connect peer core network address.
+* `inside_cidr_blocks` - (Optional) Inside IP addresses used for BGP peering. Required when the Connect attachment protocol is `GRE`. See `aws_networkmanager_connect_attachment` for details.
+* `subnet_arn` - (Optional) Subnet ARN for the Connect peer. Required when the Connect attachment protocol is `NO_ENCAP`. See `aws_networkmanager_connect_attachment` for details.
+* `tags` - (Optional) Key-value tags for the attachment. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### bgp_options
+
+* `peer_asn` - (Optional) Peer ASN. Supports 2-byte and 4-byte ASNs (1 to 4294967295).
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the Connect peer.
+* `configuration` - Configuration of the Connect peer.
+* `connect_peer_id` - ID of the Connect peer.
+* `core_network_id` - ID of a core network.
+* `created_at` - Timestamp when the Connect peer was created.
+* `edge_location` - Region where the peer is located.
+* `state` - State of the Connect peer.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `10m`)
+* `delete` - (Default `15m`)
+
+## Import
+
+```bash
+ytofu import aws_networkmanager_connect_peer.example connect-peer-061f3e96275db1acc
 ```

@@ -1,6 +1,6 @@
-# Sagemaker Model Package Group Policy
+# Resource: aws_sagemaker_model_package_group_policy
 
-Manage Sagemaker Model Package Group Policy resources using ytofu YAML.
+Provides a SageMaker AI Model Package Group Policy resource.
 
 ## Basic Example
 
@@ -34,4 +34,23 @@ resource:
     example:
       model_package_group_name: ${aws_sagemaker_model_package_group.example.model_package_group_name}
       resource_policy: example-value
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `model_package_group_name` - (Required) The name of the model package group.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The name of the Model Package Package Group.
+
+## Import
+
+```bash
+ytofu import aws_sagemaker_model_package_group_policy.example example
 ```

@@ -1,6 +1,6 @@
-# Service Discovery Service
+# Resource: aws_service_discovery_service
 
-Manage Service Discovery Service resources using ytofu YAML.
+Provides a Service Discovery Service resource.
 
 ## Basic Example
 
@@ -31,4 +31,58 @@ resource:
         routing_policy: MULTIVALUE
       health_check_config:
         failure_threshold: 1
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required, Forces new resource) The name of the service.
+* `description` - (Optional) The description of the service.
+* `dns_config` - (Optional) A complex type that contains information about the resource record sets that you want Amazon Route 53 to create when you register an instance. See [`dns_config` Block](#dns_config-block) for details.
+* `force_destroy` - (Optional) A boolean that indicates all instances should be deleted from the service so that the service can be destroyed without error. These instances are not recoverable. Defaults to `false`.
+* `health_check_config` - (Optional) A complex type that contains settings for an optional health check. Only for Public DNS namespaces. See [`health_check_config` Block](#health_check_config-block) for details.
+* `namespace_id` - (Optional) The ID of the namespace that you want to use to create the service.
+* `type` - (Optional) If present, specifies that the service instances are only discoverable using the `DiscoverInstances` API operation. No DNS records is registered for the service instances. The only valid value is `HTTP`.
+* `tags` - (Optional) A map of tags to assign to the service. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### `dns_config` Block
+
+The `dns_config` configuration block supports the following arguments:
+
+* `namespace_id` - (Required, Forces new resource) The ID of the namespace to use for DNS configuration.
+* `dns_records` - (Required) An array that contains one DnsRecord object for each resource record set. See [`dns_records` Block](#dns_records-block) for details.
+* `routing_policy` - (Optional) The routing policy that you want to apply to all records that Route 53 creates when you register an instance and specify the service. Valid Values: MULTIVALUE, WEIGHTED
+
+#### `dns_records` Block
+
+The `dns_records` configuration block supports the following arguments:
+
+* `ttl` - (Required) The amount of time, in seconds, that you want DNS resolvers to cache the settings for this resource record set.
+* `type` - (Required, Forces new resource) The type of the resource, which indicates the value that Amazon Route 53 returns in response to DNS queries. Valid Values: A, AAAA, SRV, CNAME
+
+### `health_check_config` Block
+
+The `health_check_config` configuration block supports the following arguments:
+
+* `failure_threshold` - (Optional) The number of consecutive health checks. Maximum value of 10.
+* `resource_path` - (Optional) The path that you want Route 53 to request when performing health checks. Route 53 automatically adds the DNS name for the service. If you don't specify a value, the default value is /.
+* `type` - (Optional, Forces new resource) The type of health check that you want to create, which indicates how Route 53 determines whether an endpoint is healthy. Valid Values: HTTP, HTTPS, TCP
+
+### `health_check_custom_config` Block
+
+The `health_check_custom_config` configuration block supports the following arguments:
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the service.
+* `arn` - The ARN of the service.
+
+## Import
+
+```bash
+ytofu import aws_service_discovery_service.example 0123456789
 ```

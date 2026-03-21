@@ -1,6 +1,7 @@
-# Apigatewayv2 Authorizer
+# Resource: aws_apigatewayv2_authorizer
 
-Manage Apigatewayv2 Authorizer resources using ytofu YAML.
+Manages an Amazon API Gateway Version 2 authorizer.
+More information can be found in the [Amazon API Gateway Developer Guide](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api.html).
 
 ## Basic Example
 
@@ -29,4 +30,55 @@ resource:
         - $request.header.Authorization
       name: example-authorizer
       authorizer_payload_format_version: 2.0
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `api_id` - (Required) API identifier.
+* `authorizer_type` - (Required) Authorizer type. Valid values: `JWT`, `REQUEST`.
+Specify `REQUEST` for a Lambda function using incoming request parameters.
+For HTTP APIs, specify `JWT` to use JSON Web Tokens.
+* `name` - (Required) Name of the authorizer. Must be between 1 and 128 characters in length.
+* `authorizer_credentials_arn` - (Optional) Required credentials as an IAM role for API Gateway to invoke the authorizer.
+Supported only for `REQUEST` authorizers.
+* `authorizer_payload_format_version` - (Optional) Format of the payload sent to an HTTP API Lambda authorizer. Required for HTTP API Lambda authorizers.
+Valid values: `1.0`, `2.0`.
+* `authorizer_result_ttl_in_seconds` - (Optional) Time to live (TTL) for cached authorizer results, in seconds. If it equals 0, authorization caching is disabled.
+If it is greater than 0, API Gateway caches authorizer responses. The maximum value is 3600, or 1 hour. Defaults to `300`.
+Supported only for HTTP API Lambda authorizers.
+* `authorizer_uri` - (Optional) Authorizer's Uniform Resource Identifier (URI).
+For `REQUEST` authorizers this must be a well-formed Lambda function URI, such as the `invoke_arn` attribute of the `aws_lambda_function` resource.
+Supported only for `REQUEST` authorizers. Must be between 1 and 2048 characters in length.
+* `enable_simple_responses` - (Optional) Whether a Lambda authorizer returns a response in a simple format. If enabled, the Lambda authorizer can return a boolean value instead of an IAM policy.
+Supported only for HTTP APIs.
+* `identity_sources` - (Optional) Identity sources for which authorization is requested.
+For `REQUEST` authorizers the value is a list of one or more mapping expressions of the specified request parameters.
+For `JWT` authorizers the single entry specifies where to extract the JSON Web Token (JWT) from inbound requests.
+* `jwt_configuration` - (Optional) Configuration of a JWT authorizer. Required for the `JWT` authorizer type.
+Supported only for HTTP APIs.
+
+The `jwt_configuration` object supports the following:
+
+* `audience` - (Optional) List of the intended recipients of the JWT. A valid JWT must provide an aud that matches at least one entry in this list.
+* `issuer` - (Optional) Base domain of the identity provider that issues JSON Web Tokens, such as the `endpoint` attribute of the `aws_cognito_user_pool` resource.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Authorizer identifier.
+
+## Timeouts
+
+Configuration options:
+
+- `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_apigatewayv2_authorizer.example aabbccddee/1122334
 ```

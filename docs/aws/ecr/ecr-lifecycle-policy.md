@@ -1,6 +1,6 @@
-# ECR Lifecycle Policy
+# Resource: aws_ecr_lifecycle_policy
 
-Manage ECR Lifecycle Policy resources using ytofu YAML.
+Manages an ECR repository lifecycle policy.
 
 ## Basic Example
 
@@ -111,4 +111,25 @@ resource:
         }
         ]
         }
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `repository` - (Required) Name of the repository to apply the policy.
+* `policy` - (Required) The policy document. This is a JSON formatted string. See more details about [Policy Parameters](http://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html#lifecycle_policy_parameters) in the official AWS docs. Consider using the `aws_ecr_lifecycle_policy_document` data_source to generate/manage the JSON document used for the `policy` argument.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `repository` - The name of the repository.
+* `registry_id` - The registry ID where the repository was created.
+
+## Import
+
+```bash
+ytofu import aws_ecr_lifecycle_policy.example tf-example
 ```

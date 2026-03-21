@@ -1,6 +1,6 @@
-# Licensemanager Grant
+# Resource: aws_licensemanager_grant
 
-Manage Licensemanager Grant resources using ytofu YAML.
+Provides a License Manager grant. This allows for sharing licenses with other AWS accounts.
 
 ## Basic Example
 
@@ -18,4 +18,31 @@ resource:
       license_arn: "arn:aws:license-manager::111111111111:license:l-exampleARN"
       principal: "arn:aws:iam::111111111112:root"
       home_region: us-east-1
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) The Name of the grant.
+* `allowed_operations` - (Required) A list of the allowed operations for the grant. This is a subset of the allowed operations on the license.
+* `license_arn` - (Required) The ARN of the license to grant.
+* `principal` - (Required) The target account for the grant in the form of the ARN for an account principal of the root user.
+* `home_region` - (Required) The home region for the license.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The grant ARN (Same as `arn`).
+* `arn` - The grant ARN.
+* `parent_arn` - The parent ARN.
+* `status` - The grant status.
+* `version` - The grant version.
+
+## Import
+
+```bash
+ytofu import aws_licensemanager_grant.test arn:aws:license-manager::123456789011:grant:g-01d313393d9e443d8664cc054db1e089
 ```

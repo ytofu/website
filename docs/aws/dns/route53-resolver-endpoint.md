@@ -1,6 +1,6 @@
-# Route53 Resolver Endpoint
+# Resource: aws_route53_resolver_endpoint
 
-Manage Route53 Resolver Endpoint resources using ytofu YAML.
+Provides a Route 53 Resolver endpoint resource.
 
 ## Basic Example
 
@@ -24,4 +24,52 @@ resource:
         - DoH
       tags:
         Environment: Prod
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `direction` - (Required) Direction of DNS queries to or from the Route 53 Resolver endpoint.
+Valid values are `INBOUND` (resolver forwards DNS queries to the DNS service for a VPC from your network or another VPC), `OUTBOUND` (resolver forwards DNS queries from the DNS service for a VPC to your network or another VPC) or `INBOUND_DELEGATION` (resolver delegates queries to Route 53 private hosted zones from your network).
+* `ip_address` - (Required) Subnets and IP addresses in your VPC that you want DNS queries to pass through on the way from your VPCs
+to your network (for outbound endpoints) or on the way from your network to your VPCs (for inbound endpoints). Described below.
+* `name` - (Optional) Friendly name of the Route 53 Resolver endpoint.
+* `protocols` - (Optional) Protocols you want to use for the Route 53 Resolver endpoint.
+Valid values are `DoH`, `Do53`, or `DoH-FIPS`.
+* `resolver_endpoint_type` - (Optional) Endpoint IP type. This endpoint type is applied to all IP addresses.
+Valid values are `IPV6`,`IPV4` or `DUALSTACK` (both IPv4 and IPv6).
+* `rni_enhanced_metrics_enabled` - (Optional) Boolean indicating whether RNI enhanced metrics are enabled for the Resolver endpoint. Defaults to `false`. Once set, changing the value back to `false` requires explicitly specifying `false` rather than removing the argument.
+* `security_group_ids` - (Required) ID of one or more security groups that you want to use to control access to this VPC.
+* `tags` - (Optional) Map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `target_name_server_metrics_enabled` - (Optional) Boolean indicating whether target name server metrics are enabled for the outbound Resolver endpoints. Defaults to `false`. This argument is supported only for outbound endpoints. Once set, changing the value back to `false` requires explicitly specifying `false` rather than removing the argument.
+
+The `ip_address` object supports the following:
+
+* `ip` - (Optional) IPv4 address in the subnet that you want to use for DNS queries.
+* `ipv6` - (Optional) IPv6 address in the subnet that you want to use for DNS queries.
+* `subnet_id` - (Required) ID of the subnet that contains the IP address.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the Route 53 Resolver endpoint.
+* `host_vpc_id` - ID of the VPC that you want to create the resolver endpoint in.
+* `id` - ID of the Route 53 Resolver endpoint.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `10m`)
+- `update` - (Default `10m`)
+- `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_route53_resolver_endpoint.foo rslvr-in-abcdef01234567890
 ```

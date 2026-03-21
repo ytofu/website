@@ -1,6 +1,7 @@
-# Shield Proactive Engagement
+# Resource: aws_shield_proactive_engagement
 
-Manage Shield Proactive Engagement resources using ytofu YAML.
+ytofu resource for managing a AWS Shield Proactive Engagement.
+Proactive engagement authorizes the Shield Response Team (SRT) to use email and phone to notify contacts about escalations to the SRT and to initiate proactive customer support.
 
 ## Basic Example
 
@@ -43,4 +44,27 @@ resource:
       protection_group_id: example
       aggregation: MAX
       pattern: ALL
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `enabled` - (Required) Boolean value indicating if Proactive Engagement should be enabled or not.
+* `emergency_contact` - (Required) One or more emergency contacts. You must provide at least one phone number in the emergency contact list. See [`emergency_contacts`](#emergency_contacts).
+
+### emergency_contacts
+
+* `contact_notes` - (Optional) Additional notes regarding the contact.
+* `email_address` - (Required) A valid email address that will be used for this contact.
+* `phone_number` - (Optional) A phone number, starting with `+` and up to 15 digits that will be used for this contact.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_shield_proactive_engagement.example 123456789012
 ```

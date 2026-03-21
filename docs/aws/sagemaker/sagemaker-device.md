@@ -1,6 +1,6 @@
-# Sagemaker Device
+# Resource: aws_sagemaker_device
 
-Manage Sagemaker Device resources using ytofu YAML.
+Provides a SageMaker AI Device resource.
 
 ## Basic Example
 
@@ -11,4 +11,31 @@ resource:
       device_fleet_name: ${aws_sagemaker_device_fleet.example.device_fleet_name}
       device:
         device_name: example
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `device_fleet_name` - (Required) The name of the Device Fleet.
+* `device` - (Required) The device to register with SageMaker AI Edge Manager. See [Device](#device) details below.
+
+### Device
+
+* `description` - (Required) A description for the device.
+* `device_name` - (Optional) The name of the device.
+* `iot_thing_name` - (Optional) Amazon Web Services Internet of Things (IoT) object name.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The id is constructed from `device-fleet-name/device-name`.
+* `arn` - The Amazon Resource Name (ARN) assigned by AWS to this Device.
+
+## Import
+
+```bash
+ytofu import aws_sagemaker_device.example my-fleet/my-device
 ```

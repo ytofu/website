@@ -1,6 +1,6 @@
-# Load Balancer Listener Policy
+# Resource: aws_load_balancer_listener_policy
 
-Manage Load Balancer Listener Policy resources using ytofu YAML.
+Attaches a load balancer policy to an ELB Listener.
 
 ## Basic Example
 
@@ -78,3 +78,21 @@ resource:
       policy_names:
         - ${aws_load_balancer_policy.wu-tang-ssl-tls-1-1.policy_name}
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `load_balancer_name` - (Required) The load balancer to attach the policy to.
+* `load_balancer_port` - (Required) The load balancer listener port to apply the policy to.
+* `policy_names` - (Required) List of Policy Names to apply to the backend server.
+* `triggers` - (Optional) Map of arbitrary keys and values that, when changed, will trigger an update. To force an update without changing these keys/values, use the `ytofu taint` command.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the policy.
+* `load_balancer_name` - The load balancer on which the policy is defined.
+* `load_balancer_port` - The load balancer listener port the policies are applied to

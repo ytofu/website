@@ -1,6 +1,6 @@
-# Lakeformation Data Cells Filter
+# Resource: aws_lakeformation_data_cells_filter
 
-Manage Lakeformation Data Cells Filter resources using ytofu YAML.
+ytofu resource for managing an AWS Lake Formation Data Cells Filter.
 
 ## Basic Example
 
@@ -72,4 +72,51 @@ resource:
           excluded_column_names: []
         row_filter:
           filter_expression: "region = 'US-WEST'"
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `table_data` - (Required) Information about the data cells filter. See [Table Data](#table-data) below for details.
+
+### Table Data
+
+* `database_name` - (Required) The name of the database.
+* `name` - (Required) The name of the data cells filter.
+* `table_catalog_id` - (Required) The ID of the Data Catalog.
+* `table_name` - (Required) The name of the table.
+* `column_names` - (Optional) A list of column names and/or nested column attributes.
+* `column_wildcard` - (Optional) A wildcard with exclusions. See [Column Wildcard](#column-wildcard) below for details.
+* `row_filter` - (Optional) A PartiQL predicate. See [Row Filter](#row-filter) below for details.
+* `version_id` - (Optional) ID of the data cells filter version.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Provider composed identifier: `database_name,name,table_catalog_id,table_name`.
+
+#### Column Wildcard
+
+* `excluded_column_names` - (Optional) Excludes column names. Any column with this name will be excluded.
+
+#### Row Filter
+
+**Note:** Exactly one of `filter_expression` or `all_rows_wildcard` must be specified.
+
+* `all_rows_wildcard` - (Optional) A wildcard that matches all rows. Required when applying column-level filtering without row-level filtering. Use an empty block: `all_rows_wildcard {}`.
+* `filter_expression` - (Optional) A PartiQL predicate expression for row-level filtering.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `2m`)
+
+## Import
+
+```bash
+ytofu import aws_lakeformation_data_cells_filter.example database_name,name,table_catalog_id,table_name
 ```

@@ -1,6 +1,6 @@
-# WAF Rule Group
+# Resource: aws_waf_rule_group
 
-Manage WAF Rule Group resources using ytofu YAML.
+Provides a WAF Rule Group Resource
 
 ## Basic Example
 
@@ -21,4 +21,27 @@ resource:
           type: COUNT
         priority: 50
         rule_id: ${aws_waf_rule.example.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `name` - (Optional) Name of the rule group. If omitted, ytofu will assign a random, unique name. Conflicts with `name_prefix`.
+* `metric_name` - (Required) A friendly name for the metrics from the rule group
+* `activated_rule` - (Optional) A list of activated rules, see below
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the WAF rule group.
+* `arn` - The ARN of the WAF rule group.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_waf_rule_group.example a1b2c3d4-d5f6-7777-8888-9999aaaabbbbcccc
 ```

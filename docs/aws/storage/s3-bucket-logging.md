@@ -1,6 +1,7 @@
-# S3 Bucket Logging
+# Resource: aws_s3_bucket_logging
 
-Manage S3 Bucket Logging resources using ytofu YAML.
+Provides an S3 bucket (server access) logging resource. For more information, see [Logging requests using server access logging](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html)
+in the AWS S3 User Guide.
 
 ## Basic Example
 
@@ -84,4 +85,56 @@ resource:
       bucket: ${aws_s3_bucket.example.id}
       target_bucket: ${aws_s3_bucket.log_bucket.id}
       target_prefix: log/
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `bucket` - (Required, Forces new resource) Name of the bucket.
+* `target_bucket` - (Required) Name of the bucket where you want Amazon S3 to store server access logs.
+* `target_prefix` - (Required) Prefix for all log object keys.
+* `target_grant` - (Optional) Set of configuration blocks with information for granting permissions. [See below](#target_grant).
+* `target_object_key_format` - (Optional) Amazon S3 key format for log objects. [See below](#target_object_key_format).
+
+### target_grant
+
+The `target_grant` configuration block supports the following arguments:
+
+* `grantee` - (Required) Configuration block for the person being granted permissions. [See below](#grantee).
+* `permission` - (Required) Logging permissions assigned to the grantee for the bucket. Valid values: `FULL_CONTROL`, `READ`, `WRITE`.
+
+### grantee
+
+The `grantee` configuration block supports the following arguments:
+
+* `email_address` - (Optional) Email address of the grantee. See [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region) for supported AWS regions where this argument can be specified.
+* `id` - (Optional) Canonical user ID of the grantee.
+* `type` - (Required) Type of grantee. Valid values: `CanonicalUser`, `AmazonCustomerByEmail`, `Group`.
+* `uri` - (Optional) URI of the grantee group.
+
+### target_object_key_format
+
+The `target_object_key_format` configuration block supports the following arguments:
+
+* `partitioned_prefix` - (Optional) Partitioned S3 key for log objects, in the form `[target_prefix][SourceAccountId]/[SourceRegion]/[SourceBucket]/[YYYY]/[MM]/[DD]/[YYYY]-[MM]-[DD]-[hh]-[mm]-[ss]-[UniqueString]`. Conflicts with `simple_prefix`. [See below](#partitioned_prefix).
+* `simple_prefix` - (Optional) Use the simple format for S3 keys for log objects, in the form `[target_prefix][YYYY]-[MM]-[DD]-[hh]-[mm]-[ss]-[UniqueString]`. To use, set `simple_prefix {}`. Conflicts with `partitioned_prefix`.
+
+### partitioned_prefix
+
+The `partitioned_prefix` configuration block supports the following arguments:
+
+* `partition_date_source` - (Required) Specifies the partition date source for the partitioned prefix. Valid values: `EventTime`, `DeliveryTime`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The `bucket` or `bucket` and `expected_bucket_owner` separated by a comma (`,`) if the latter is provided.
+
+## Import
+
+```bash
+ytofu import aws_s3_bucket_logging.example bucket-name
 ```

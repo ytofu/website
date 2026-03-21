@@ -1,6 +1,7 @@
-# ACM Certificate Validation
+# Resource: aws_acm_certificate_validation
 
-Manage ACM Certificate Validation resources using ytofu YAML.
+This resource represents a successful validation of an ACM certificate in concert
+with other resources.
 
 ## Basic Example
 
@@ -101,3 +102,23 @@ resource:
     example:
       certificate_arn: ${aws_acm_certificate.example.arn}
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `certificate_arn` - (Required) ARN of the certificate that is being validated.
+* `validation_record_fqdns` - (Optional) List of FQDNs that implement the validation. Only valid for DNS validation method ACM certificates. If this is set, the resource can implement additional sanity checks and has an explicit dependency on the resource that is implementing the validation
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Time at which the certificate was issued
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `75m`)

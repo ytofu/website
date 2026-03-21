@@ -1,6 +1,6 @@
-# Datapipeline Pipeline Definition
+# Resource: aws_datapipeline_pipeline_definition
 
-Manage Datapipeline Pipeline Definition resources using ytofu YAML.
+Provides a DataPipeline Pipeline Definition resource.
 
 ## Basic Example
 
@@ -50,4 +50,56 @@ resource:
         field:
           key: schedule
           string_value: Schedule
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `pipeline_id` - (Required) ID of the pipeline.
+* `pipeline_object` - (Required) Configuration block for the objects that define the pipeline. See below
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `parameter_object` - (Optional) Configuration block for the parameter objects used in the pipeline definition. See below
+* `parameter_value` - (Optional) Configuration block for the parameter values used in the pipeline definition. See below
+
+### `pipeline_object`
+
+* `field` - (Required) Configuration block for Key-value pairs that define the properties of the object. See below
+* `id` - (Required) ID of the object.
+* `name` - (Required) ARN of the storage connector.
+
+### `field`
+
+* `key` - (Required) Field identifier.
+* `ref_value` - (Optional) Field value, expressed as the identifier of another object
+* `string_value` - (Optional) Field value, expressed as a String.
+
+### `parameter_object`
+
+* `attribute` - (Required) Configuration block for attributes of the parameter object. See below
+* `id` - (Required) ID of the parameter object.
+
+### `attribute`
+
+* `key` - (Required) Field identifier.
+* `string_value` - (Required) Field value, expressed as a String.
+
+### `parameter_value`
+
+* `id` - (Required) ID of the parameter value.
+* `string_value` - (Required) Field value, expressed as a String.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Unique ID of the datapipeline definition.
+
+## Import
+
+```bash
+ytofu import aws_datapipeline_pipeline_definition.example df-1234567890
 ```

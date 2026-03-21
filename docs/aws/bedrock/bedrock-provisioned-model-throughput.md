@@ -1,6 +1,6 @@
-# Bedrock Provisioned Model Throughput
+# Resource: aws_bedrock_provisioned_model_throughput
 
-Manage Bedrock Provisioned Model Throughput resources using ytofu YAML.
+Manages [Provisioned Throughput](https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html) for an Amazon Bedrock model.
 
 ## Basic Example
 
@@ -12,4 +12,34 @@ resource:
       model_arn: "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-v2"
       commitment_duration: SixMonths
       model_units: 1
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `commitment_duration` - (Optional) Commitment duration requested for the Provisioned Throughput. For custom models, you can purchase on-demand Provisioned Throughput by omitting this argument. Valid values: `OneMonth`, `SixMonths`.
+* `model_arn` - (Required) ARN of the model to associate with this Provisioned Throughput.
+* `model_units` - (Required) Number of model units to allocate. A model unit delivers a specific throughput level for the specified model.
+* `provisioned_model_name` - (Required) Unique name for this Provisioned Throughput.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `provisioned_model_arn` - The ARN of the Provisioned Throughput.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_bedrock_provisioned_model_throughput.example arn:aws:bedrock:us-west-2:123456789012:provisioned-model/1y5n57gh5y2e
 ```

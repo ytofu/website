@@ -1,6 +1,6 @@
-# Observabilityadmin Centralization Rule For Organization
+# Resource: aws_observabilityadmin_centralization_rule_for_organization
 
-Manage Observabilityadmin Centralization Rule For Organization resources using ytofu YAML.
+Manages an AWS CloudWatch Observability Admin Centralization Rule For Organization.
 
 ## Basic Example
 
@@ -103,4 +103,79 @@ resource:
       tags:
         Name: filtered-centralization-rule
         Filter: lambda-logs
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `rule_name` - (Required) Name of the centralization rule. Must be unique within the organization.
+* `rule` - (Required) Configuration block for the centralization rule. See [`rule`](#rule) below.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### rule
+
+* `destination` - (Required) Configuration block for the destination where logs will be centralized. See [`destination`](#destination) below.
+* `source` - (Required) Configuration block for the source of logs to be centralized. See [`source`](#source) below.
+
+### destination
+
+* `account` - (Required) AWS account ID where logs will be centralized.
+* `region` - (Required) AWS region where logs will be centralized.
+* `destination_logs_configuration` - (Optional) Configuration block for destination logs settings. See [`destination_logs_configuration`](#destination_logs_configuration) below.
+
+#### destination_logs_configuration
+
+* `backup_configuration` - (Optional) Configuration block for backup settings. See [`backup_configuration`](#backup_configuration) below.
+* `log_group_name_configuration` - (Optional) Configuration block for a naming pattern for destination log groups created during centralization. See [`log_group_name_configuration`](#log_group_name_configuration) below.
+* `logs_encryption_configuration` - (Optional) Configuration block for logs encryption settings. See [`logs_encryption_configuration`](#logs_encryption_configuration) below.
+
+##### backup_configuration
+
+* `region` - (Required) AWS region for backup storage.
+* `kms_key_arn` - (Optional) ARN of the KMS key to use for backup encryption.
+
+##### log_group_name_configuration
+
+* `log_group_name_pattern` - (Required) Pattern used for generating destination log group names during centralization. The pattern can contain static text and dynamic variables that are replaced with source attributes. For supported dynamic variables, see the [AWS documentation](https://docs.aws.amazon.com/cloudwatch/latest/observabilityadmin/API_LogGroupNameConfiguration.html). Note that `$` used in dynamic variables must be escaped as `$$` in ytofu configuration.
+
+##### logs_encryption_configuration
+
+* `encryption_strategy` - (Required) Encryption strategy for logs. Valid values: `AWS_OWNED`, `CUSTOMER_MANAGED`.
+* `encryption_conflict_resolution_strategy` - (Optional) Strategy for resolving encryption conflicts. Valid values: `ALLOW`, `SKIP`.
+* `kms_key_arn` - (Optional) ARN of the KMS key to use for encryption when `encryption_strategy` is `CUSTOMER_MANAGED`.
+
+### source
+
+* `regions` - (Required) Set of AWS regions from which to centralize logs. Must contain at least one region.
+* `scope` - (Required) Scope defining which resources to include. Use organization ID format: `OrganizationId = 'o-example123456'`.
+* `source_logs_configuration` - (Optional) Configuration block for source logs settings. See [`source_logs_configuration`](#source_logs_configuration) below.
+
+#### source_logs_configuration
+
+* `encrypted_log_group_strategy` - (Required) Strategy for handling encrypted log groups. Valid values: `ALLOW`, `SKIP`.
+* `log_group_selection_criteria` - (Required) Criteria for selecting log groups. Use `*` for all log groups or OAM filter syntax like `LogGroupName LIKE '/aws/lambda%'`. Must be between 1 and 2000 characters.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `rule_arn` - ARN of the centralization rule.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `5m`)
+- `update` - (Default `5m`)
+
+## Import
+
+```bash
+ytofu import aws_observabilityadmin_centralization_rule_for_organization.example example-centralization-rule
 ```

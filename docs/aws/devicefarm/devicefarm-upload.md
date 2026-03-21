@@ -1,6 +1,6 @@
-# Devicefarm Upload
+# Resource: aws_devicefarm_upload
 
-Manage Devicefarm Upload resources using ytofu YAML.
+Provides a resource to manage AWS Device Farm Uploads.
 
 ## Basic Example
 
@@ -16,4 +16,29 @@ resource:
       name: example
       project_arn: ${aws_devicefarm_project.example.arn}
       type: APPIUM_JAVA_TESTNG_TEST_SPEC
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `content_type` - (Optional) The upload's content type (for example, application/octet-stream).
+* `name` - (Required) The upload's file name. The name should not contain any forward slashes (/). If you are uploading an iOS app, the file name must end with the .ipa extension. If you are uploading an Android app, the file name must end with the .apk extension. For all others, the file name must end with the .zip file extension.
+* `project_arn` - (Required) The ARN of the project for the upload.
+* `type` - (Required) The upload's upload type. See [AWS Docs](https://docs.aws.amazon.com/devicefarm/latest/APIReference/API_CreateUpload.html#API_CreateUpload_RequestSyntax) for valid list of values.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The Amazon Resource Name of this upload.
+* `url` - The presigned Amazon S3 URL that was used to store a file using a PUT request.
+* `category` - The upload's category.
+* `metadata` - The upload's metadata. For example, for Android, this contains information that is parsed from the manifest and is displayed in the AWS Device Farm console after the associated app is uploaded.
+
+## Import
+
+```bash
+ytofu import aws_devicefarm_upload.example arn:aws:devicefarm:us-west-2:123456789012:upload:4fa784c7-ccb4-4dbf-ba4f-02198320daa1
 ```

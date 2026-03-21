@@ -1,6 +1,6 @@
-# MSK Scram Secret Association
+# Resource: aws_msk_scram_secret_association
 
-Manage MSK Scram Secret Association resources using ytofu YAML.
+Associates SCRAM secrets stored in the Secrets Manager service with a Managed Streaming for Kafka (MSK) cluster.
 
 ## Basic Example
 
@@ -59,4 +59,24 @@ resource:
     example:
       secret_arn: ${aws_secretsmanager_secret.example.arn}
       policy: ${data.aws_iam_policy_document.example.json}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `cluster_arn` - (Required, Forces new resource) Amazon Resource Name (ARN) of the MSK cluster.
+* `secret_arn_list` - (Required) List of AWS Secrets Manager secret ARNs.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Amazon Resource Name (ARN) of the MSK cluster.
+
+## Import
+
+```bash
+ytofu import aws_msk_scram_secret_association.example arn:aws:kafka:us-west-2:123456789012:cluster/example/279c0212-d057-4dba-9aa9-1c4e5a25bfc7-3
 ```

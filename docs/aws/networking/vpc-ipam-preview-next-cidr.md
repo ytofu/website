@@ -1,6 +1,6 @@
-# VPC Ipam Preview Next CIDR
+# Resource: aws_vpc_ipam_preview_next_cidr
 
-Manage VPC Ipam Preview Next CIDR resources using ytofu YAML.
+Previews a CIDR from an IPAM address pool. Only works for private IPv4.
 
 ## Basic Example
 
@@ -38,3 +38,19 @@ resource:
       operating_regions:
         region_name: ${data.aws_region.current.region}
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `disallowed_cidrs` - (Optional) Exclude a particular CIDR range from being returned by the pool.
+* `ipam_pool_id` - (Required) The ID of the pool to which you want to assign a CIDR.
+* `netmask_length` - (Optional) The netmask length of the CIDR you would like to preview from the IPAM pool.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `cidr` - The previewed CIDR from the pool.
+* `id` - The ID of the preview.

@@ -1,6 +1,6 @@
-# FIS Target Account Configuration
+# Resource: aws_fis_target_account_configuration
 
-Manage FIS Target Account Configuration resources using ytofu YAML.
+Manages an AWS FIS (Fault Injection Simulator) Target Account Configuration.
 
 ## Basic Example
 
@@ -12,4 +12,27 @@ resource:
       account_id: ${data.aws_caller_identity.current.account_id}
       role_arn: ${aws_iam_role.fis_role.arn}
       description: Example
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `account_id` - (Required) Account ID of the target account.
+* `experiment_template_id` - (Required) Experiment Template ID.
+
+The following arguments are optional:
+
+* `description` - (Optional) Description of the target account.
+* `role_arn` - (Optional) ARN of the IAM Role for the target account.
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_fis_target_account_configuration.example 123456789012,abcd123456789
 ```

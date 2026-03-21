@@ -1,6 +1,6 @@
-# Securitylake Aws Log Source
+# Resource: aws_securitylake_aws_log_source
 
-Manage Securitylake Aws Log Source resources using ytofu YAML.
+ytofu resource for managing an Amazon Security Lake AWS Log Source.
 
 ## Basic Example
 
@@ -16,4 +16,31 @@ resource:
         source_name: ROUTE53
       depends_on: 
         - ${aws_securitylake_data_lake.example}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `source` - (Required) Specify the natively-supported AWS service to add as a source in Security Lake.
+
+`source` supports the following:
+
+* `accounts` - (Optional) Specify the AWS account information where you want to enable Security Lake.
+  If not specified, uses all accounts included in the Security Lake.
+* `regions` - (Required) Specify the Regions where you want to enable Security Lake.
+* `source_name` - (Required) The name for a AWS source. This must be a Regionally unique value. Valid values: `ROUTE53`, `VPC_FLOW`, `SH_FINDINGS`, `CLOUD_TRAIL_MGMT`, `LAMBDA_EXECUTION`, `S3_DATA`, `EKS_AUDIT`, `WAF`.
+* `source_version` - (Optional) The version for a AWS source.
+  If not specified, the version will be the default.
+  This must be a Regionally unique value.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_securitylake_aws_log_source.example ROUTE53
 ```

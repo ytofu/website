@@ -1,6 +1,7 @@
-# FSX Openzfs Snapshot
+# Resource: aws_fsx_openzfs_snapshot
 
-Manage FSX Openzfs Snapshot resources using ytofu YAML.
+Manages an Amazon FSx for OpenZFS volume.
+See the [FSx OpenZFS User Guide](https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/what-is-fsx.html) for more information.
 
 ## Basic Example
 
@@ -44,4 +45,35 @@ resource:
         - ${aws_subnet.example.id}
       deployment_type: SINGLE_AZ_1
       throughput_capacity: 64
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) The name of the Snapshot. You can use a maximum of 203 alphanumeric characters plus either _ or -  or : or . for the name.
+* `tags` - (Optional) A map of tags to assign to the file system. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level. If you have set `copy_tags_to_backups` to true, and you specify one or more tags, no existing file system tags are copied from the file system to the backup.
+* `volume_id` - (Optional) The ID of the volume to snapshot. This can be the root volume or a child volume.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Amazon Resource Name of the snapshot.
+* `id` - Identifier of the snapshot, e.g., `fsvolsnap-12345678`
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `delete` - (Default `30m`)
+* `update` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_fsx_openzfs_snapshot.example fs-543ab12b1ca672f33
 ```

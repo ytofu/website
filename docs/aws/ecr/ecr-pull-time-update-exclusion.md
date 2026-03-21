@@ -1,6 +1,6 @@
-# ECR Pull Time Update Exclusion
+# Resource: aws_ecr_pull_time_update_exclusion
 
-Manage ECR Pull Time Update Exclusion resources using ytofu YAML.
+Manages an AWS ECR (Elastic Container Registry) Pull Time Update Exclusion.
 
 ## Basic Example
 
@@ -43,4 +43,24 @@ resource:
   aws_ecr_pull_time_update_exclusion:
     example:
       principal_arn: ${aws_iam_user.example.arn}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `principal_arn` - (Required, Forces new resource) ARN of the IAM principal to exclude from having image pull times recorded.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_ecr_pull_time_update_exclusion.example arn:aws:iam::123456789012:role/example-role
 ```

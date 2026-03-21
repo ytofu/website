@@ -1,6 +1,6 @@
-# Route53 Traffic Policy Instance
+# Resource: aws_route53_traffic_policy_instance
 
-Manage Route53 Traffic Policy Instance resources using ytofu YAML.
+Provides a Route53 traffic policy instance resource.
 
 ## Basic Example
 
@@ -13,4 +13,27 @@ resource:
       traffic_policy_version: 1
       hosted_zone_id: Z033120931TAQO548OGJC
       ttl: 360
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `name` - (Required) Domain name for which Amazon Route 53 responds to DNS queries by using the resource record sets that Route 53 creates for this traffic policy instance.
+* `traffic_policy_id` - (Required) ID of the traffic policy that you want to use to create resource record sets in the specified hosted zone.
+* `traffic_policy_version` - (Required) Version of the traffic policy
+* `hosted_zone_id` - (Required) ID of the hosted zone that you want Amazon Route 53 to create resource record sets in by using the configuration in a traffic policy.
+* `ttl` - (Required) TTL that you want Amazon Route 53 to assign to all the resource record sets that it creates in the specified hosted zone.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Amazon Resource Name (ARN) of the traffic policy instance.
+* `id` - ID of traffic policy instance.
+
+## Import
+
+```bash
+ytofu import aws_route53_traffic_policy_instance.test df579d9a-6396-410e-ac22-e7ad60cf9e7e
 ```

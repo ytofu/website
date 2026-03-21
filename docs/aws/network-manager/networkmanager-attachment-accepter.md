@@ -1,6 +1,6 @@
-# Networkmanager Attachment Accepter
+# Resource: aws_networkmanager_attachment_accepter
 
-Manage Networkmanager Attachment Accepter resources using ytofu YAML.
+Manages an AWS Network Manager Attachment Accepter.
 
 ## Basic Example
 
@@ -51,3 +51,30 @@ resource:
       attachment_id: ${aws_networkmanager_dx_gateway_attachment.example.id}
       attachment_type: ${aws_networkmanager_dx_gateway_attachment.example.attachment_type}
 ```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `attachment_id` - (Required) ID of the attachment.
+* `attachment_type` - (Required) Type of attachment. Valid values: `CONNECT`, `DIRECT_CONNECT_GATEWAY`, `SITE_TO_SITE_VPN`, `TRANSIT_GATEWAY_ROUTE_TABLE`, `VPC`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `attachment_policy_rule_number` - Policy rule number associated with the attachment.
+* `core_network_arn` - ARN of the core network.
+* `core_network_id` - ID of the core network.
+* `edge_location` - Region where the edge is located. This is returned for all attachment types except Direct Connect gateway attachments, which instead return `edge_locations`.
+* `edge_locations` - Edge locations that the Direct Connect gateway is associated with. This is returned only for Direct Connect gateway attachments. All other attachment types return `edge_location`.
+* `owner_account_id` - ID of the attachment account owner.
+* `resource_arn` - Attachment resource ARN.
+* `segment_name` - Name of the segment attachment.
+* `state` - State of the attachment.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `15m`)

@@ -1,6 +1,6 @@
-# Ssoadmin Permission Set
+# Resource: aws_ssoadmin_permission_set
 
-Manage Ssoadmin Permission Set resources using ytofu YAML.
+Provides a Single Sign-On (SSO) Permission Set resource
 
 ## Basic Example
 
@@ -17,4 +17,37 @@ resource:
       instance_arn: ${data.aws_ssoadmin_instances.example.arns[0]}
       relay_state: "https://s3.console.aws.amazon.com/s3/home?region=us-east-1#"
       session_duration: PT2H
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) The description of the Permission Set.
+* `instance_arn` - (Required, Forces new resource) The Amazon Resource Name (ARN) of the SSO Instance under which the operation will be executed.
+* `name` - (Required, Forces new resource) The name of the Permission Set.
+* `relay_state` - (Optional) The relay state URL used to redirect users within the application during the federation authentication process.
+* `session_duration` - (Optional) The length of time that the application user sessions are valid in the ISO-8601 standard. Default: `PT1H`.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The Amazon Resource Name (ARN) of the Permission Set.
+* `id` - The Amazon Resource Names (ARNs) of the Permission Set and SSO Instance, separated by a comma (`,`).
+* `created_date` - The date the Permission Set was created in [RFC3339 format](https://tools.ietf.org/html/rfc3339#section-5.8).
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+- `update` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_ssoadmin_permission_set.example arn:aws:sso:::permissionSet/ssoins-2938j0x8920sbj72/ps-80383020jr9302rk,arn:aws:sso:::instance/ssoins-2938j0x8920sbj72
 ```

@@ -1,6 +1,6 @@
-# Datasync Location EFS
+# Resource: aws_datasync_location_efs
 
-Manage Datasync Location EFS resources using ytofu YAML.
+Manages an AWS DataSync EFS Location.
 
 ## Basic Example
 
@@ -13,4 +13,38 @@ resource:
         security_group_arns: 
           - ${aws_security_group.example.arn}
         subnet_arn: ${aws_subnet.example.arn}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `access_point_arn` - (Optional) Specifies the Amazon Resource Name (ARN) of the access point that DataSync uses to access the Amazon EFS file system.
+* `ec2_config` - (Required) Configuration block containing EC2 configurations for connecting to the EFS File System.
+* `efs_file_system_arn` - (Required) Amazon Resource Name (ARN) of EFS File System.
+* `file_system_access_role_arn` - (Optional)  Specifies an Identity and Access Management (IAM) role that DataSync assumes when mounting the Amazon EFS file system.
+* `in_transit_encryption` - (Optional) Specifies whether you want DataSync to use TLS encryption when transferring data to or from your Amazon EFS file system. Valid values are `NONE` and `TLS1_2`.
+* `subdirectory` - (Optional) Subdirectory to perform actions as source or destination. Default `/`.
+* `tags` - (Optional) Key-value pairs of resource tags to assign to the DataSync Location. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### ec2_config Argument Reference
+
+The `ec2_config` configuration block supports the following arguments:
+
+* `security_group_arns` - (Required) List of Amazon Resource Names (ARNs) of the EC2 Security Groups that are associated with the EFS Mount Target.
+* `subnet_arn` - (Required) Amazon Resource Name (ARN) of the EC2 Subnet that is associated with the EFS Mount Target.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Amazon Resource Name (ARN) of the DataSync Location.
+* `arn` - Amazon Resource Name (ARN) of the DataSync Location.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_datasync_location_efs.example arn:aws:datasync:us-east-1:123456789012:location/loc-12345678901234567
 ```

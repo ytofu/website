@@ -1,6 +1,6 @@
-# Lakeformation Identity Center Configuration
+# Resource: aws_lakeformation_identity_center_configuration
 
-Manage Lakeformation Identity Center Configuration resources using ytofu YAML.
+Manages an AWS Lake Formation Identity Center Configuration.
 
 ## Basic Example
 
@@ -13,4 +13,29 @@ resource:
 data:
   aws_ssoadmin_instances:
     example:
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `instance_arn` - (Required) ARN of the IAM Identity Center Instance to associate.
+
+The following arguments are optional:
+
+* `catalog_id` - (Optional) Identifier for the Data Catalog.
+  By default, the account ID.
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `application_arn` - ARN of the Lake Formation applicated integrated with IAM Identity Center.
+* `resource_share` - ARN of the Resource Access Manager (RAM) resource share.
+
+## Import
+
+```bash
+ytofu import aws_lakeformation_identity_center_configuration.example 123456789012
 ```

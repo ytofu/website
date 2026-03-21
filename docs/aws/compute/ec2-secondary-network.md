@@ -1,6 +1,6 @@
-# EC2 Secondary Network
+# Resource: aws_ec2_secondary_network
 
-Manage EC2 Secondary Network resources using ytofu YAML.
+Provides an EC2 Secondary Network resource for RDMA networking.
 
 ## Basic Example
 
@@ -12,4 +12,44 @@ resource:
       network_type: rdma
       tags:
         Name: example-secondary-network
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `ipv4_cidr_block` - (Required) IPv4 CIDR block for the secondary network. The CIDR block size must be between `/12` and `/28`.
+* `network_type` - (Required) Type of secondary network. Currently only `rdma` is supported.
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the secondary network.
+* `id` - ID of the secondary network.
+* `ipv4_cidr_block_associations` - A list of IPv4 CIDR block associations for the secondary network.
+* `secondary_network_id` - ID of the secondary network.
+* `state` - Current state of the secondary network.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+The following attributes are exported in the `ipv4_cidr_block_associations` block:
+
+* `association_id` - Association ID for the IPv4 CIDR block.
+* `cidr_block` - IPv4 CIDR block.
+* `state` - State of the IPv4 CIDR block association.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_ec2_secondary_network.example sn-0123456789abcdef0
 ```

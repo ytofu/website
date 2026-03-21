@@ -1,6 +1,6 @@
-# Ssoadmin Permission Set Inline Policy
+# Resource: aws_ssoadmin_permission_set_inline_policy
 
-Manage Ssoadmin Permission Set Inline Policy resources using ytofu YAML.
+Provides an IAM inline policy for a Single Sign-On (SSO) Permission Set resource
 
 ## Basic Example
 
@@ -32,4 +32,32 @@ resource:
       inline_policy: ${data.aws_iam_policy_document.example.json}
       instance_arn: ${data.aws_ssoadmin_instances.example.arns[0]}
       permission_set_arn: ${aws_ssoadmin_permission_set.example.arn}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `inline_policy` - (Required) The IAM inline policy to attach to a Permission Set.
+* `instance_arn` - (Required, Forces new resource) The Amazon Resource Name (ARN) of the SSO Instance under which the operation will be executed.
+* `permission_set_arn` - (Required, Forces new resource) The Amazon Resource Name (ARN) of the Permission Set.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The Amazon Resource Names (ARNs) of the Permission Set and SSO Instance, separated by a comma (`,`).
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `10m`)
+- `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_ssoadmin_permission_set_inline_policy.example arn:aws:sso:::permissionSet/ssoins-2938j0x8920sbj72/ps-80383020jr9302rk,arn:aws:sso:::instance/ssoins-2938j0x8920sbj72
 ```

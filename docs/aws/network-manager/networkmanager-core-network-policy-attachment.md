@@ -1,6 +1,6 @@
-# Networkmanager Core Network Policy Attachment
+# Resource: aws_networkmanager_core_network_policy_attachment
 
-Manage Networkmanager Core Network Policy Attachment resources using ytofu YAML.
+Manages a Network Manager Core Network Policy Attachment.
 
 ## Basic Example
 
@@ -155,4 +155,29 @@ resource:
       core_network_id: ${aws_networkmanager_core_network.example.id}
       subnet_arns: ${aws_subnet.example_us_east_1[*].arn}
       vpc_arn: ${aws_vpc.example_us_east_1.arn}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `core_network_id` - (Required) ID of the core network that a policy will be attached to and made `LIVE`.
+* `policy_document` - (Required) Policy document for creating a core network. Note that updating this argument will result in the new policy document version being set as the `LATEST` and `LIVE` policy document. Refer to the [Core network policies documentation](https://docs.aws.amazon.com/network-manager/latest/cloudwan/cloudwan-policy-change-sets.html) for more information.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `state` - Current state of a core network.
+
+## Timeouts
+
+Configuration options:
+
+* `update` - (Default `30m`). If this is the first time attaching a policy to a core network then this timeout value is also used as the `create` timeout value.
+
+## Import
+
+```bash
+ytofu import aws_networkmanager_core_network_policy_attachment.example core-network-0d47f6t230mz46dy4
 ```

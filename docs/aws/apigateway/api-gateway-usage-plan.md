@@ -1,6 +1,6 @@
-# API Gateway Usage Plan
+# Resource: aws_api_gateway_usage_plan
 
-Manage API Gateway Usage Plan resources using ytofu YAML.
+Provides an API Gateway Usage Plan.
 
 ## Basic Example
 
@@ -53,4 +53,60 @@ resource:
       throttle_settings:
         burst_limit: 5
         rate_limit: 10
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) Name of the usage plan.
+* `description` - (Optional) Description of a usage plan.
+* `api_stages` - (Optional) Associated [API stages](#api-stages-arguments) of the usage plan.
+* `quota_settings` - (Optional) The [quota settings](#quota-settings-arguments) of the usage plan.
+* `throttle_settings` - (Optional) The [throttling limits](#throttling-settings-arguments) of the usage plan.
+* `product_code` - (Optional) AWS Marketplace product identifier to associate with the usage plan as a SaaS product on AWS Marketplace.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+#### Api Stages arguments
+
+* `api_id` (Required) - API Id of the associated API stage in a usage plan.
+* `stage` (Required) - API stage name of the associated API stage in a usage plan.
+* `throttle` - (Optional) The [throttling limits](#throttle) of the usage plan.
+
+##### Throttle
+
+* `path` (Required) - Method to apply the throttle settings for. Specfiy the path and method, for example `/test/GET`.
+* `burst_limit` (Optional) - The API request burst limit, the maximum rate limit over a time ranging from one to a few seconds, depending upon whether the underlying token bucket is at its full capacity.
+* `rate_limit` (Optional) - The API request steady-state rate limit.
+
+#### Quota Settings Arguments
+
+* `limit` (Optional) - Maximum number of requests that can be made in a given time period.
+* `offset` (Optional) - Number of requests subtracted from the given limit in the initial time period.
+* `period` (Optional) - Time period in which the limit applies. Valid values are "DAY", "WEEK" or "MONTH".
+
+#### Throttling Settings Arguments
+
+* `burst_limit` (Optional) - The API request burst limit, the maximum rate limit over a time ranging from one to a few seconds, depending upon whether the underlying token bucket is at its full capacity.
+* `rate_limit` (Optional) - The API request steady-state rate limit.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - ID of the API resource
+* `name` - Name of the usage plan.
+* `description` - Description of a usage plan.
+* `api_stages` - Associated API stages of the usage plan.
+* `quota_settings` - Quota of the usage plan.
+* `throttle_settings` - Throttling limits of the usage plan.
+* `product_code` - AWS Marketplace product identifier to associate with the usage plan as a SaaS product on AWS Marketplace.
+* `arn` - ARN
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_api_gateway_usage_plan.myusageplan <usage_plan_id>
 ```

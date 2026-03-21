@@ -1,6 +1,6 @@
-# Transfer Ssh Key
+# Resource: aws_transfer_ssh_key
 
-Manage Transfer Ssh Key resources using ytofu YAML.
+Provides a AWS Transfer User SSH Key resource.
 
 ## Basic Example
 
@@ -69,4 +69,23 @@ resource:
       name: tf-test-transfer-user-iam-policy
       role: ${aws_iam_role.example.id}
       policy: ${data.aws_iam_policy_document.example.json}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `server_id` - (Requirement) The Server ID of the Transfer Server (e.g., `s-12345678`)
+* `user_name` - (Requirement) The name of the user account that is assigned to one or more servers.
+* `body` - (Requirement) The public key portion of an SSH key pair.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_transfer_ssh_key.bar s-12345678/test-username/key-12345
 ```

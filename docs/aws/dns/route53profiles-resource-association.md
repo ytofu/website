@@ -1,6 +1,6 @@
-# Route53profiles Resource Association
+# Resource: aws_route53profiles_resource_association
 
-Manage Route53profiles Resource Association resources using ytofu YAML.
+ytofu resource for managing an AWS Route 53 Profiles Resource Association.
 
 ## Basic Example
 
@@ -28,4 +28,38 @@ resource:
       name: example
       profile_id: ${aws_route53profiles_profile.example.id}
       resource_arn: ${aws_route53_zone.example.arn}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) Name of the Profile Resource Association.
+* `profile_id` - (Required) ID of the profile associated with the VPC.
+* `resource_arn` - (Required) Resource ID of the resource to be associated with the profile.
+* `resource_properties` - (Optional) Resource properties for the resource to be associated with the profile.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - ID of the Profile Resource Association.
+* `name` - Name of the Profile Resource Association.
+* `resource_type` - Type of resource associated with the profile.
+* `status` - Status of the Profile Association. Valid values [AWS docs](https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53profiles_Profile.html)
+* `status_message` - Status message of the Profile Resource Association.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_route53profiles_resource_association.example rpa-id-12345678
 ```

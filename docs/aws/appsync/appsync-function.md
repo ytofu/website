@@ -1,6 +1,6 @@
-# Appsync Function
+# Resource: aws_appsync_function
 
-Manage Appsync Function resources using ytofu YAML.
+Provides an AppSync Function.
 
 ## Basic Example
 
@@ -59,4 +59,56 @@ resource:
         #else
         $utils.appendError($ctx.result.body, $ctx.result.statusCode)
         #end
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `api_id` - (Required) ID of the associated AppSync API.
+* `code` - (Optional) The function code that contains the request and response functions. When code is used, the runtime is required. The runtime value must be APPSYNC_JS.
+* `data_source` - (Required) Function data source name.
+* `max_batch_size` - (Optional) Maximum batching size for a resolver. Valid values are between `0` and `2000`.
+* `name` - (Required) Function name. The function name does not have to be unique.
+* `request_mapping_template` - (Optional) Function request mapping template. Functions support only the 2018-05-29 version of the request mapping template.
+* `response_mapping_template` - (Optional) Function response mapping template.
+* `description` - (Optional) Function description.
+* `runtime` - (Optional) Describes a runtime used by an AWS AppSync pipeline resolver or AWS AppSync function. Specifies the name and version of the runtime to use. Note that if a runtime is specified, code must also be specified. See [`runtime` Block](#runtime-block) for details.
+* `sync_config` - (Optional) Describes a Sync configuration for a resolver. See [`sync_config` Block](#sync_config-block) for details.
+* `function_version` - (Optional) Version of the request mapping template. Currently the supported value is `2018-05-29`. Does not apply when specifying `code`.
+
+### `runtime` Block
+
+The `runtime` configuration block supports the following arguments:
+
+* `name` - (Optional) The name of the runtime to use. Currently, the only allowed value is `APPSYNC_JS`.
+* `runtime_version` - (Optional) The version of the runtime to use. Currently, the only allowed version is `1.0.0`.
+
+### `sync_config` Block
+
+The `sync_config` configuration block supports the following arguments:
+
+* `conflict_detection` - (Optional) Conflict Detection strategy to use. Valid values are `NONE` and `VERSION`.
+* `conflict_handler` - (Optional) Conflict Resolution strategy to perform in the event of a conflict. Valid values are `NONE`, `OPTIMISTIC_CONCURRENCY`, `AUTOMERGE`, and `LAMBDA`.
+* `lambda_conflict_handler_config` - (Optional) Lambda Conflict Handler Config when configuring `LAMBDA` as the Conflict Handler. See [`lambda_conflict_handler_config` Block](#lambda_conflict_handler_config-block) for details.
+
+#### `lambda_conflict_handler_config` Block
+
+The `lambda_conflict_handler_config` configuration block supports the following arguments:
+
+* `lambda_conflict_handler_arn` - (Optional) ARN for the Lambda function to use as the Conflict Handler.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - API Function ID (Formatted as ApiId-FunctionId)
+* `arn` - ARN of the Function object.
+* `function_id` - Unique ID representing the Function object.
+
+## Import
+
+```bash
+ytofu import aws_appsync_function.example xxxxx-yyyyy
 ```

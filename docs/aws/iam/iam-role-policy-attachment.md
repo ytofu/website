@@ -1,6 +1,6 @@
-# IAM Role Policy Attachment
+# Resource: aws_iam_role_policy_attachment
 
-Manage IAM Role Policy Attachment resources using ytofu YAML.
+Attaches a Managed IAM Policy to an IAM role
 
 ## Basic Example
 
@@ -45,4 +45,21 @@ resource:
     test-attach:
       role: ${aws_iam_role.role.name}
       policy_arn: ${aws_iam_policy.policy.arn}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `role`  (Required) - The name of the IAM role to which the policy should be applied
+* `policy_arn` (Required) - The ARN of the policy you want to apply
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_iam_role_policy_attachment.example test-role/arn:aws:iam::xxxxxxxxxxxx:policy/test-policy
 ```

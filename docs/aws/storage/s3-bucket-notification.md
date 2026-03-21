@@ -1,6 +1,6 @@
-# S3 Bucket Notification
+# Resource: aws_s3_bucket_notification
 
-Manage S3 Bucket Notification resources using ytofu YAML.
+Manages a S3 Bucket Notification Configuration. For additional information, see the [Configuring S3 Event Notifications section in the Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html).
 
 ## Basic Example
 
@@ -291,4 +291,52 @@ resource:
     bucket_notification:
       bucket: ${aws_s3_bucket.bucket.id}
       eventbridge: true
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `bucket` - (Required) Name of the bucket for notification configuration.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `eventbridge` - (Optional) Whether to enable Amazon EventBridge notifications. Defaults to `false`.
+* `lambda_function` - (Optional, Multiple) Used to configure notifications to a Lambda Function. See below.
+* `queue` - (Optional) Notification configuration to SQS Queue. See below.
+* `topic` - (Optional) Notification configuration to SNS Topic. See below.
+
+### `lambda_function`
+
+* `events` - (Required) [Event](http://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html#notification-how-to-event-types-and-destinations) for which to send notifications.
+* `filter_prefix` - (Optional) Object key name prefix.
+* `filter_suffix` - (Optional) Object key name suffix.
+* `id` - (Optional) Unique identifier for each of the notification configurations.
+* `lambda_function_arn` - (Required) Lambda function ARN.
+
+### `queue`
+
+* `events` - (Required) Specifies [event](http://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html#notification-how-to-event-types-and-destinations) for which to send notifications.
+* `filter_prefix` - (Optional) Object key name prefix.
+* `filter_suffix` - (Optional) Object key name suffix.
+* `id` - (Optional) Unique identifier for each of the notification configurations.
+* `queue_arn` - (Required) SQS queue ARN.
+
+### `topic`
+
+* `events` - (Required) [Event](http://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html#notification-how-to-event-types-and-destinations) for which to send notifications.
+* `filter_prefix` - (Optional) Object key name prefix.
+* `filter_suffix` - (Optional) Object key name suffix.
+* `id` - (Optional) Unique identifier for each of the notification configurations.
+* `topic_arn` - (Required) SNS topic ARN.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_s3_bucket_notification.bucket_notification bucket-name
 ```

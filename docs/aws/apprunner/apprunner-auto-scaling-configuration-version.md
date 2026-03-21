@@ -1,6 +1,6 @@
-# Apprunner Auto Scaling Configuration Version
+# Resource: aws_apprunner_auto_scaling_configuration_version
 
-Manage Apprunner Auto Scaling Configuration Version resources using ytofu YAML.
+Manages an App Runner AutoScaling Configuration Version.
 
 ## Basic Example
 
@@ -14,4 +14,31 @@ resource:
       min_size: 2
       tags:
         Name: example-apprunner-autoscaling
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `auto_scaling_configuration_name` - (Required, Forces new resource) Name of the auto scaling configuration.
+* `max_concurrency` - (Optional, Forces new resource) Maximal number of concurrent requests that you want an instance to process. When the number of concurrent requests goes over this limit, App Runner scales up your service.
+* `max_size` - (Optional, Forces new resource) Maximal number of instances that App Runner provisions for your service.
+* `min_size` - (Optional, Forces new resource) Minimal number of instances that App Runner provisions for your service.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of this auto scaling configuration version.
+* `auto_scaling_configuration_revision` - The revision of this auto scaling configuration.
+* `latest` - Whether the auto scaling configuration has the highest `auto_scaling_configuration_revision` among all configurations that share the same `auto_scaling_configuration_name`.
+* `status` - Current state of the auto scaling configuration. An INACTIVE configuration revision has been deleted and can't be used. It is permanently removed some time after deletion.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_apprunner_auto_scaling_configuration_version.example "arn:aws:apprunner:us-east-1:1234567890:autoscalingconfiguration/example/1/69bdfe0115224b0db49398b7beb68e0f
 ```

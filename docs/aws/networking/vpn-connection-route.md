@@ -1,6 +1,6 @@
-# VPN Connection Route
+# Resource: aws_vpn_connection_route
 
-Manage VPN Connection Route resources using ytofu YAML.
+Provides a static route between a VPN connection and a customer gateway.
 
 ## Basic Example
 
@@ -36,3 +36,18 @@ resource:
       destination_cidr_block: 192.168.10.0/24
       vpn_connection_id: ${aws_vpn_connection.main.id}
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `destination_cidr_block` - (Required) The CIDR block associated with the local subnet of the customer network.
+* `vpn_connection_id` - (Required) The ID of the VPN connection.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `destination_cidr_block` - The CIDR block associated with the local subnet of the customer network.
+* `vpn_connection_id` - The ID of the VPN connection.

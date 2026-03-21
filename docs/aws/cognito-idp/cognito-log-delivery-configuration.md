@@ -1,6 +1,6 @@
-# Cognito Log Delivery Configuration
+# Resource: aws_cognito_log_delivery_configuration
 
-Manage Cognito Log Delivery Configuration resources using ytofu YAML.
+Manages an AWS Cognito IDP (Identity Provider) Log Delivery Configuration.
 
 ## Basic Example
 
@@ -106,4 +106,53 @@ resource:
         log_level: ERROR
         s3_configuration:
           bucket_arn: ${aws_s3_bucket.example.arn}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `user_pool_id` - (Required) The ID of the user pool for which to configure log delivery.
+
+The following arguments are optional:
+
+* `log_configurations` - (Optional) Configuration block for log delivery. At least one configuration block is required. See [Log Configurations](#log-configurations) below.
+* `region` - (Optional) The AWS region.
+
+### Log Configurations
+
+The `log_configurations` block supports the following:
+
+* `event_source` - (Required) The event source to configure logging for. Valid values are `userNotification` and `userAuthEvents`.
+* `log_level` - (Required) The log level to set for the event source. Valid values are `ERROR` and `INFO`.
+* `cloud_watch_logs_configuration` - (Optional) Configuration for CloudWatch Logs delivery. See [CloudWatch Logs Configuration](#cloudwatch-logs-configuration) below.
+* `firehose_configuration` - (Optional) Configuration for Kinesis Data Firehose delivery. See [Firehose Configuration](#firehose-configuration) below.
+* `s3_configuration` - (Optional) Configuration for S3 delivery. See [S3 Configuration](#s3-configuration) below.
+
+#### CloudWatch Logs Configuration
+
+The `cloud_watch_logs_configuration` block supports the following:
+
+* `log_group_arn` - (Optional) The ARN of the CloudWatch Logs log group to which the logs should be delivered.
+
+#### Firehose Configuration
+
+The `firehose_configuration` block supports the following:
+
+* `stream_arn` - (Optional) The ARN of the Kinesis Data Firehose delivery stream to which the logs should be delivered.
+
+#### S3 Configuration
+
+The `s3_configuration` block supports the following:
+
+* `bucket_arn` - (Optional) The ARN of the S3 bucket to which the logs should be delivered.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+## Import
+
+```bash
+ytofu import aws_cognito_log_delivery_configuration.example us-west-2_example123
 ```

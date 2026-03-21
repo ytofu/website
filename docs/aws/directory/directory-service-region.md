@@ -1,6 +1,7 @@
-# Directory Service Region
+# Resource: aws_directory_service_region
 
-Manage Directory Service Region resources using ytofu YAML.
+Manages a replicated Region and directory for Multi-Region replication.
+Multi-Region replication is only supported for the Enterprise Edition of AWS Managed Microsoft AD.
 
 ## Basic Example
 
@@ -79,4 +80,40 @@ resource:
         subnet_ids: ${aws_subnet.example-secondary[*].id}
       tags:
         Name: Secondary
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `desired_number_of_domain_controllers` - (Optional) The number of domain controllers desired in the replicated directory. Minimum value of `2`.
+* `directory_id` - (Required) The identifier of the directory to which you want to add Region replication.
+* `region_name` - (Required) The name of the Region where you want to add domain controllers for replication.
+* `tags` - (Optional) Map of tags to assign to this resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `vpc_settings` - (Required) VPC information in the replicated Region. Detailed below.
+
+### `vpc_settings`
+
+* `subnet_ids` - (Required) The identifiers of the subnets for the directory servers.
+* `vpc_id` - (Optional) The identifier of the VPC in which to create the directory.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+`aws_directory_service_region` provides the following Timeouts configuration options:
+
+- `create` - (Default `180 minutes`) Used for Region addition
+- `update` - (Default `90 minutes`) Used for replicated directory update
+- `delete` - (Default `90 minutes`) Used for Region removal
+
+## Import
+
+```bash
+ytofu import aws_directory_service_region.example d-9267651497,us-east-2
 ```

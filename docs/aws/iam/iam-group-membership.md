@@ -1,6 +1,6 @@
-# IAM Group Membership
+# Resource: aws_iam_group_membership
 
-Manage IAM Group Membership resources using ytofu YAML.
+
 
 ## Basic Example
 
@@ -29,3 +29,23 @@ resource:
     user_two:
       name: test-user-two
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `name` - (Required) The name to identify the Group Membership
+* `users` - (Required) A list of IAM User names to associate with the Group
+* `group` - (Required) The IAM Group name to attach the list of `users` to
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `name` - The name to identify the Group Membership
+* `users` - list of IAM User names
+* `group` - IAM Group name
+
+[1]: /docs/providers/aws/r/iam_group.html
+[2]: /docs/providers/aws/r/iam_user.html
+[3]: /docs/providers/aws/r/iam_user_group_membership.html

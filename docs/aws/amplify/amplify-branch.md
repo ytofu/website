@@ -1,6 +1,6 @@
-# Amplify Branch
+# Resource: aws_amplify_branch
 
-Manage Amplify Branch resources using ytofu YAML.
+Provides an Amplify Branch resource.
 
 ## Basic Example
 
@@ -107,4 +107,45 @@ resource:
       topic_arn: ${aws_sns_topic.amplify_app_master.arn}
       protocol: email
       endpoint: user@acme.com
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `app_id` - (Required) Unique ID for an Amplify app.
+* `branch_name` - (Required) Name for the branch.
+* `backend_environment_arn` - (Optional) ARN for a backend environment that is part of an Amplify app.
+* `basic_auth_credentials` - (Optional) Basic authorization credentials for the branch.
+* `description` - (Optional) Description for the branch.
+* `display_name` - (Optional) Display name for a branch. This is used as the default domain prefix.
+* `enable_auto_build` - (Optional) Enables auto building for the branch.
+* `enable_basic_auth` - (Optional) Enables basic authorization for the branch.
+* `enable_notification` - (Optional) Enables notifications for the branch.
+* `enable_performance_mode` - (Optional) Enables performance mode for the branch.
+* `enable_pull_request_preview` - (Optional) Enables pull request previews for this branch.
+* `enable_skew_protection` - (Optional) Enables skew protection for the branch.  
+* `environment_variables` - (Optional) Environment variables for the branch.
+* `framework` - (Optional) Framework for the branch.
+* `pull_request_environment_name` - (Optional) Amplify environment name for the pull request.
+* `stage` - (Optional) Describes the current stage for the branch. Valid values: `PRODUCTION`, `BETA`, `DEVELOPMENT`, `EXPERIMENTAL`, `PULL_REQUEST`.
+* `tags` - (Optional) Key-value mapping of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `ttl` - (Optional) Content Time To Live (TTL) for the website in seconds.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN for the branch.
+* `associated_resources` - A list of custom resources that are linked to this branch.
+* `custom_domains` - Custom domains for the branch.
+* `destination_branch` - Destination branch if the branch is a pull request branch.
+* `source_branch` - Source branch if the branch is a pull request branch.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_amplify_branch.master d2ypk4k47z8u6/master
 ```

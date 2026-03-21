@@ -1,6 +1,6 @@
-# Config Configuration Recorder Status
+# Resource: aws_config_configuration_recorder_status
 
-Manage Config Configuration Recorder Status resources using ytofu YAML.
+Manages status (recording / stopped) of an AWS Config Configuration Recorder.
 
 ## Basic Example
 
@@ -71,4 +71,22 @@ resource:
       name: awsconfig-example
       role: ${aws_iam_role.r.id}
       policy: ${data.aws_iam_policy_document.p.json}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) The name of the recorder
+* `is_enabled` - (Required) Whether the configuration recorder should be enabled or disabled.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_config_configuration_recorder_status.foo example
 ```

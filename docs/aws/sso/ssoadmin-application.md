@@ -1,6 +1,6 @@
-# Ssoadmin Application
+# Resource: aws_ssoadmin_application
 
-Manage Ssoadmin Application resources using ytofu YAML.
+ytofu resource for managing an AWS SSO Admin Application.
 
 ## Basic Example
 
@@ -35,4 +35,48 @@ resource:
         sign_in_options:
           application_url: "http://example.com"
           origin: APPLICATION
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `application_provider_arn` - (Required) ARN of the application provider.
+* `instance_arn` - (Required) ARN of the instance of IAM Identity Center.
+* `name` - (Required) Name of the application.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `client_token` - (Optional) A unique, case-sensitive ID that you provide to ensure the idempotency of the request. AWS generates a random value when not provided.
+* `description` - (Optional) Description of the application.
+* `portal_options` - (Optional) Options for the portal associated with an application. See [`portal_options`](#portal_options-argument-reference) below.
+* `status` - (Optional) Status of the application. Valid values are `ENABLED` and `DISABLED`.
+* `tags` - (Optional) Key-value mapping of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### `portal_options` Argument Reference
+
+* `sign_in_options` - (Optional) Sign-in options for the access portal. See [`sign_in_options`](#sign_in_options-argument-reference) below.
+* `visibility` - (Optional) Indicates whether this application is visible in the access portal. Valid values are `ENABLED` and `DISABLED`.
+
+### `sign_in_options` Argument Reference
+
+* `application_url` - (Optional) URL that accepts authentication requests for an application.
+* `origin` - (Required) Determines how IAM Identity Center navigates the user to the target application.
+Valid values are `APPLICATION` and `IDENTITY_CENTER`.
+If `APPLICATION` is set, IAM Identity Center redirects the customer to the configured `application_url`.
+If `IDENTITY_CENTER` is set, IAM Identity Center uses SAML identity-provider initiated authentication to sign the customer directly into a SAML-based application.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `application_account` - AWS account ID.
+* `arn` - ARN of the application.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_ssoadmin_application.example arn:aws:sso::123456789012:application/id-12345678
 ```

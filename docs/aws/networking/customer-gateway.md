@@ -1,6 +1,6 @@
-# Customer Gateway
+# Resource: aws_customer_gateway
 
-Manage Customer Gateway resources using ytofu YAML.
+Provides a customer gateway inside a VPC. These objects can be connected to VPN gateways via VPN connections, and allow you to establish tunnels between your network and the VPC.
 
 ## Basic Example
 
@@ -13,4 +13,32 @@ resource:
       type: ipsec.1
       tags:
         Name: main-customer-gateway
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `bgp_asn` - (Optional, Forces new resource) The gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN). Valid values are from  `1` to `2147483647`. Conflicts with `bgp_asn_extended`.
+* `bgp_asn_extended` - (Optional, Forces new resource) The gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN). Valid values are from  `2147483648` to `4294967295` Conflicts with `bgp_asn`.
+* `certificate_arn` - (Optional) The Amazon Resource Name (ARN) for the customer gateway certificate.
+* `device_name` - (Optional) A name for the customer gateway device.
+* `ip_address` - (Optional) The IPv4 address for the customer gateway device's outside interface.
+* `type` - (Required) The type of customer gateway. The only type AWS
+  supports at this time is "ipsec.1".
+* `tags` - (Optional) Tags to apply to the gateway. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The amazon-assigned ID of the gateway.
+* `arn` - The ARN of the customer gateway.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_customer_gateway.main cgw-b4dc3961
 ```

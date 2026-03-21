@@ -1,6 +1,6 @@
-# Grafana Role Association
+# Resource: aws_grafana_role_association
 
-Manage Grafana Role Association resources using ytofu YAML.
+Provides an Amazon Managed Grafana workspace role association resource.
 
 ## Basic Example
 
@@ -29,3 +29,20 @@ resource:
       name: grafana-assume
       assume_role_policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": "sts:AssumeRole" "Effect": "Allow" "Sid": "" "Principal": { "Service": "grafana.amazonaws.com" } }, ] }'
 ```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `role` - (Required) The grafana role. Valid values can be found [here](https://docs.aws.amazon.com/grafana/latest/APIReference/API_UpdateInstruction.html#ManagedGrafana-Type-UpdateInstruction-role).
+* `workspace_id` - (Required) The workspace id.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `group_ids` - (Optional) The AWS SSO group ids to be assigned the role given in `role`.
+* `user_ids` - (Optional) The AWS SSO user ids to be assigned the role given in `role`.
+
+## Attribute Reference
+
+This resource exports no additional attributes.

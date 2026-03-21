@@ -1,6 +1,6 @@
-# Secretsmanager Secret Policy
+# Resource: aws_secretsmanager_secret_policy
 
-Manage Secretsmanager Secret Policy resources using ytofu YAML.
+Provides a resource to manage AWS Secrets Manager secret policy.
 
 ## Basic Example
 
@@ -30,4 +30,28 @@ resource:
     example:
       secret_arn: ${aws_secretsmanager_secret.example.arn}
       policy: ${data.aws_iam_policy_document.example.json}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `policy` - (Required) Valid JSON document representing a [resource policy](https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_resource-based-policies.html). For more information about building AWS IAM policy documents with ytofu, see the [AWS IAM Policy Document Guide](https://learn.hashicorp.com/terraform/aws/iam-policy). Unlike `aws_secretsmanager_secret`, where `policy` can be set to `"{}"` to delete the policy, `"{}"` is not a valid policy since `policy` is required.
+* `secret_arn` - (Required) Secret ARN.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `block_public_policy` - (Optional) Makes an optional API call to Zelkova to validate the Resource Policy to prevent broad access to your secret.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Amazon Resource Name (ARN) of the secret.
+
+## Import
+
+```bash
+ytofu import aws_secretsmanager_secret_policy.example arn:aws:secretsmanager:us-east-1:123456789012:secret:example-123456
 ```

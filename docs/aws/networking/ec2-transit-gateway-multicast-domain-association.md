@@ -1,6 +1,6 @@
-# EC2 Transit Gateway Multicast Domain Association
+# Resource: aws_ec2_transit_gateway_multicast_domain_association
 
-Manage EC2 Transit Gateway Multicast Domain Association resources using ytofu YAML.
+Associates the specified subnet and transit gateway attachment with the specified transit gateway multicast domain.
 
 ## Basic Example
 
@@ -30,3 +30,25 @@ resource:
       transit_gateway_attachment_id: ${aws_ec2_transit_gateway_vpc_attachment.example.id}
       transit_gateway_multicast_domain_id: ${aws_ec2_transit_gateway_multicast_domain.example.id}
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `subnet_id` - (Required) The ID of the subnet to associate with the transit gateway multicast domain.
+* `transit_gateway_attachment_id` - (Required) The ID of the transit gateway attachment.
+* `transit_gateway_multicast_domain_id` - (Required) The ID of the transit gateway multicast domain.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - EC2 Transit Gateway Multicast Domain Association identifier.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `10m`)
+- `delete` - (Default `10m`)

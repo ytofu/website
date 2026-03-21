@@ -1,6 +1,6 @@
-# Transfer Web App
+# Resource: aws_transfer_web_app
 
-Manage Transfer Web App resources using ytofu YAML.
+ytofu resource for managing an AWS Transfer Family Web App.
 
 ## Basic Example
 
@@ -86,4 +86,54 @@ resource:
         provisioned: 1
       tags:
         Name: test
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `identity_provider_details` - (Required) Block for details of the identity provider to use with the web app. See [Identity provider details](#identity-provider-details) below.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `access_endpoint` - (Optional) URL provided to interact with the Transfer Family web app. If `endpoint_details.vpc` block is specified, `access_endpoint` must not be provided.
+* `endpoint_details` - (Optional) Block for the endpoint configuration for the web app. If not specified, the web app will be created with a public endpoint.
+    * `vpc` - (Optional) Block defining VPC configuration for hosting the web app endpoint within a VPC. See [Vpc](#vpc) below.
+* `tags` - (Optional) Key-value pairs that can be used to group and search for web apps.
+* `web_app_endpoint_policy` - (Optional) Type of endpoint policy for the web app. Valid values are: `STANDARD`(default) or `FIPS`.
+* `web_app_units` - (Optional) Block for number of concurrent connections or the user sessions on the web app.
+    * provisioned - (Optional) Number of units of concurrent connections.
+
+### Identity provider details
+
+* `identity_center_config` - (Optional) Block that describes the values to use for the IAM Identity Center settings. See [Identity center config](#identity-center-config) below.
+
+### Identity center config
+
+* `instance_arn` - (Optional) ARN of the IAM Identity Center used for the web app.
+* `role` - (Optional) ARN of an identity bearer role for your web app.
+
+### Vpc
+
+For details about prerequisites to host a web app endpoint within a VPC, see [the AWS documentation](https://docs.aws.amazon.com/transfer/latest/userguide/create-webapp-in-vpc.html).
+
+* `security_group_ids` - (Optional) List of security group IDs that control access to the web app endpoint. If not specified, the VPC's default security group is used.
+* `subnet_ids` - (Required) List of subnet IDs within the VPC where the web app endpoint will be deployed. These subnets must be in the same VPC specified in the `vpc_id` parameter.
+* `vpc_id` - (Required) ID of the VPC where the web app endpoint will be hosted. The VPC must be dual-stack, meaning it supports both IPv4 and IPv6 addressing.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the Web App.
+* `endpoint_details` - Block for the endpoint configuration for the web app.
+    * `vpc` -  Block defining VPC configuration for hosting the web app endpoint within a VPC.
+        * `vpc_endpoint_id` - ID of the VPC endpoint created for the web app.
+* `web_app_id` - ID of the Wep App resource.
+
+## Import
+
+```bash
+ytofu import aws_transfer_web_app.example web_app-id-12345678
 ```

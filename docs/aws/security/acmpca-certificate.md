@@ -1,6 +1,6 @@
-# Acmpca Certificate
+# Resource: aws_acmpca_certificate
 
-Manage Acmpca Certificate resources using ytofu YAML.
+Provides a resource to issue a certificate using AWS Certificate Manager Private Certificate Authority (ACM PCA).
 
 ## Basic Example
 
@@ -36,4 +36,36 @@ resource:
       private_key_pem: ${tls_private_key.key.private_key_pem}
       subject:
         common_name: example
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `certificate_authority_arn` - (Required) ARN of the certificate authority.
+* `certificate_signing_request` - (Required) Certificate Signing Request in PEM format.
+* `signing_algorithm` - (Required) Algorithm to use to sign certificate requests. Valid values: `SHA256WITHRSA`, `SHA256WITHECDSA`, `SHA384WITHRSA`, `SHA384WITHECDSA`, `SHA512WITHRSA`, `SHA512WITHECDSA`.
+* `validity` - (Required) Configures end of the validity period for the certificate. See [validity block](#validity-block) below.
+* `template_arn` - (Optional) Template to use when issuing a certificate.
+  See [ACM PCA Documentation](https://docs.aws.amazon.com/privateca/latest/userguide/UsingTemplates.html) for more information.
+* `api_passthrough` - (Optional) Specifies X.509 certificate information to be included in the issued certificate. To use with API Passthrough templates
+
+### validity block
+
+* `type` - (Required) Determines how `value` is interpreted. Valid values: `DAYS`, `MONTHS`, `YEARS`, `ABSOLUTE`, `END_DATE`.
+* `value` - (Required) If `type` is `DAYS`, `MONTHS`, or `YEARS`, the relative time until the certificate expires. If `type` is `ABSOLUTE`, the date in seconds since the Unix epoch. If `type` is `END_DATE`, the  date in RFC 3339 format.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the certificate.
+* `certificate` - PEM-encoded certificate value.
+* `certificate_chain` - PEM-encoded certificate chain that includes any intermediate certificates and chains up to root CA.
+
+## Import
+
+```bash
+ytofu import aws_acmpca_certificate.cert arn:aws:acm-pca:eu-west-1:675225743824:certificate-authority/08319ede-83g9-1400-8f21-c7d12b2b6edb/certificate/a4e9c2aa4bcfab625g1b9136464cd3a
 ```

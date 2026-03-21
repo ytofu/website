@@ -1,6 +1,6 @@
-# Datasync Location Azure Blob
+# Resource: aws_datasync_location_azure_blob
 
-Manage Datasync Location Azure Blob resources using ytofu YAML.
+Manages a Microsoft Azure Blob Storage Location within AWS DataSync.
 
 ## Basic Example
 
@@ -14,4 +14,35 @@ resource:
       container_url: "https://myaccount.blob.core.windows.net/mycontainer"
       sas_configuration:
         token: "sp=r&st=2023-12-20T14:54:52Z&se=2023-12-20T22:54:52Z&spr=https&sv=2021-06-08&sr=c&sig=aBBKDWQvyuVcTPH9EBp%2FXTI9E%2F%2Fmq171%2BZU178wcwqU%3D"
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `access_tier` - (Optional) The access tier that you want your objects or files transferred into. Valid values: `HOT`, `COOL` and `ARCHIVE`. Default: `HOT`.
+* `agent_arns` - (Required) A list of DataSync Agent ARNs with which this location will be associated.
+* `authentication_type` - (Required) The authentication method DataSync uses to access your Azure Blob Storage. Valid values: `SAS`.
+* `blob_type` - (Optional) The type of blob that you want your objects or files to be when transferring them into Azure Blob Storage. Valid values: `BLOB`. Default: `BLOB`.
+* `container_url` - (Required) The URL of the Azure Blob Storage container involved in your transfer.
+* `sas_configuration` - (Optional) The SAS configuration that allows DataSync to access your Azure Blob Storage. See configuration below.
+* `subdirectory` - (Optional) Path segments if you want to limit your transfer to a virtual directory in the container.
+* `tags` - (Optional) Key-value pairs of resource tags to assign to the DataSync Location. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### sas_configuration Argument Reference
+
+* `token` - (Required) A SAS token that provides permissions to access your Azure Blob Storage.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Amazon Resource Name (ARN) of the DataSync Location.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_datasync_location_azure_blob.example arn:aws:datasync:us-east-1:123456789012:location/loc-12345678901234567
 ```

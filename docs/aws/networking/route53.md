@@ -372,5 +372,5 @@ resource:
 ## Related Resources
 
 - [Load Balancer](load-balancer.md)
-- [ACM Certificate](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate)
-- [CloudFront](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution)
+- ACM Certificate
+- CloudFront

@@ -1,6 +1,6 @@
-# Dynamodb Kinesis Streaming Destination
+# Resource: aws_dynamodb_kinesis_streaming_destination
 
-Manage Dynamodb Kinesis Streaming Destination resources using ytofu YAML.
+Enables a [Kinesis streaming destination](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/kds.html) for data replication of a DynamoDB table.
 
 ## Basic Example
 
@@ -26,4 +26,25 @@ resource:
       stream_arn: ${aws_kinesis_stream.example.arn}
       table_name: ${aws_dynamodb_table.example.name}
       approximate_creation_date_time_precision: MICROSECOND
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `approximate_creation_date_time_precision` - (Optional) Toggle for the precision of Kinesis data stream timestamp. Valid values: `MILLISECOND` and `MICROSECOND`.
+* `stream_arn` - (Required) The ARN for a Kinesis data stream. This must exist in the same account and region as the DynamoDB table.
+* `table_name` - (Required) The name of the DynamoDB table. There can only be one Kinesis streaming destination for a given DynamoDB table.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The `table_name` and `stream_arn` separated by a comma (`,`).
+
+## Import
+
+```bash
+ytofu import aws_dynamodb_kinesis_streaming_destination.example example,arn:aws:kinesis:us-east-1:111122223333:exampleStreamName
 ```

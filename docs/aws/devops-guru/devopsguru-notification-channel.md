@@ -1,6 +1,6 @@
-# Devopsguru Notification Channel
+# Resource: aws_devopsguru_notification_channel
 
-Manage Devopsguru Notification Channel resources using ytofu YAML.
+ytofu resource for managing an AWS DevOps Guru Notification Channel.
 
 ## Basic Example
 
@@ -25,4 +25,36 @@ resource:
           - NEW_INSIGHT
         severities: 
           - HIGH
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `sns` - (Required) SNS noficiation channel configurations. See the [`sns` argument reference](#sns-argument-reference) below.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `filters` - (Optional) Filter configurations for the Amazon SNS notification topic. See the [`filters` argument reference](#filters-argument-reference) below.
+
+### `sns` Argument Reference
+
+* `topic_arn` - (Required) Amazon Resource Name (ARN) of an Amazon Simple Notification Service topic.
+
+### `filters` Argument Reference
+
+* `message_types` - (Optional) Events to receive notifications for. Valid values are `NEW_INSIGHT`, `CLOSED_INSIGHT`, `NEW_ASSOCIATION`, `SEVERITY_UPGRADED`, and `NEW_RECOMMENDATION`.
+* `severities` - (Optional) Severity levels to receive notifications for. Valid values are `LOW`, `MEDIUM`, and `HIGH`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Unique identifier for the notification channel.
+
+## Import
+
+```bash
+ytofu import aws_devopsguru_notification_channel.example id-12345678
 ```

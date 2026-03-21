@@ -1,6 +1,6 @@
-# Opensearch VPC Endpoint
+# Resource: aws_opensearch_vpc_endpoint
 
-Manage Opensearch VPC Endpoint resources using ytofu YAML.
+Manages an [AWS Opensearch VPC Endpoint](https://docs.aws.amazon.com/opensearch-service/latest/APIReference/API_CreateVpcEndpoint.html). Creates an Amazon OpenSearch Service-managed VPC endpoint.
 
 ## Basic Example
 
@@ -16,4 +16,38 @@ resource:
         subnet_ids: 
           - ${aws_subnet.test.id}
           - ${aws_subnet.test2.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `domain_arn` - (Required, Forces new resource) Specifies the Amazon Resource Name (ARN) of the domain to create the endpoint for
+* `vpc_options` - (Required) Options to specify the subnets and security groups for the endpoint.
+
+### vpc_options
+
+* `security_group_ids` - (Optional) The list of security group IDs associated with the VPC endpoints for the domain. If you do not provide a security group ID, OpenSearch Service uses the default security group for the VPC.
+* `subnet_ids` - (Required) A list of subnet IDs associated with the VPC endpoints for the domain. If your domain uses multiple Availability Zones, you need to provide two subnet IDs, one per zone. Otherwise, provide only one.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The unique identifier of the endpoint.
+* `endpoint` - The connection endpoint ID for connecting to the domain.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `60m`)
+* `update` - (Default `60m`)
+* `delete` - (Default `90m`)
+
+## Import
+
+```bash
+ytofu import aws_opensearch_vpc_endpoint_connection.example endpoint-id
 ```

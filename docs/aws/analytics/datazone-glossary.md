@@ -1,6 +1,6 @@
-# Datazone Glossary
+# Resource: aws_datazone_glossary
 
-Manage Datazone Glossary resources using ytofu YAML.
+ytofu resource for managing an AWS DataZone Glossary.
 
 ## Basic Example
 
@@ -56,4 +56,29 @@ resource:
       owning_project_identifier: ${aws_datazone_project.test.id}
       status: DISABLED
       domain_identifier: ${aws_datazone_project.test.domain_identifier}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `name` - (Required) Name of the glossary. Must have length between 1 and 256.
+* `owning_project_identifier` - (Required) ID of the project that owns business glossary. Must follow regex of ^[a-zA-Z0-9_-]{1,36}$.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) Description of the glossary. Must have a length between 0 and 4096.
+* `status` - (Optional) Status of business glossary. Valid values are DISABLED and ENABLED.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Id of the Glossary.
+
+## Import
+
+```bash
+ytofu import aws_datazone_glossary.example domain-id,glossary-id,owning-project-identifier
 ```

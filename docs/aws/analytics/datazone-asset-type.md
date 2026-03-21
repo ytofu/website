@@ -1,6 +1,6 @@
-# Datazone Asset Type
+# Resource: aws_datazone_asset_type
 
-Manage Datazone Asset Type resources using ytofu YAML.
+ytofu resource for managing an AWS DataZone Asset Type.
 
 ## Basic Example
 
@@ -12,4 +12,38 @@ resource:
       domain_identifier: ${aws_datazone_domain.test.id}
       name: example
       owning_project_identifier: ${aws_datazone_project.test.id}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `domain_identifier` - (Required) The unique identifier of the Amazon DataZone domain where the custom asset type is being created.
+* `name` - (Required) The name of the custom asset type.
+* `owning_project_identifier` - (Required) The unique identifier of the Amazon DataZone project that owns the custom asset type.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) The description of the custom asset type.
+* `forms_input` - (Optional) The metadata forms that are to be attached to the custom asset type.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `created_at` - The timestamp when the custom asset type was created.
+* `created_by` - The user who created the custom asset type.
+* `revision` - The revision of the asset type.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30s`)
+
+## Import
+
+```bash
+ytofu import aws_datazone_asset_type.example domain-id-12345678,example
 ```

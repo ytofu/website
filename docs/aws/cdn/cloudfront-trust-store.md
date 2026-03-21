@@ -1,6 +1,6 @@
-# Cloudfront Trust Store
+# Resource: aws_cloudfront_trust_store
 
-Manage Cloudfront Trust Store resources using ytofu YAML.
+Manages an AWS CloudFront Trust Store.
 
 ## Basic Example
 
@@ -29,4 +29,50 @@ resource:
           key: ca-certificates.pem
           region: us-east-1
           version: abc123
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `name` - (Required) Name of the trust store. Changing this forces a new resource to be created.
+* `ca_certificates_bundle_source` - (Required) Configuration block for the CA certificates bundle source. See [`ca_certificates_bundle_source`](#ca_certificates_bundle_source) below.
+
+The following arguments are optional:
+
+* `tags` - (Optional) Key-value tags for the place index. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### ca_certificates_bundle_source
+
+* `ca_certificates_bundle_s3_location` - (Required) Configuration block for the S3 location of the CA certificates bundle. See [`ca_certificates_bundle_s3_location`](#ca_certificates_bundle_s3_location) below.
+
+### ca_certificates_bundle_s3_location
+
+* `bucket` - (Required) S3 bucket name containing the CA certificates bundle.
+* `key` - (Required) S3 object key for the CA certificates bundle.
+* `region` - (Required) AWS region of the S3 bucket.
+* `version` - (Optional) S3 object version ID for the CA certificates bundle.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the trust store.
+* `etag` - ETag of the trust store.
+* `id` - ID of the trust store.
+* `number_of_ca_certificates` - Number of CA certificates in the trust store.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `10m`)
+* `update` - (Default `10m`)
+* `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_cloudfront_trust_store.example ts_12abcXYZhA4Q6RS6tuvW5Xy0ZZZ
 ```

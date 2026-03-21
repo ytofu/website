@@ -1,6 +1,6 @@
-# Transfer Web App Customization
+# Resource: aws_transfer_web_app_customization
 
-Manage Transfer Web App Customization resources using ytofu YAML.
+ytofu resource for managing an AWS Transfer Family Web App Customization.
 
 ## Basic Example
 
@@ -24,4 +24,27 @@ resource:
       favicon_file: ${filebase64("${path.module}/favicon.png")}
       logo_file: ${filebase64("${path.module}/logo.png")}
       title: test
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `web_app_id` - (Required) The identifier of the web app to be customized.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `favicon_file` - (Optional) Base64-encoded string representing the favicon image. ytofu will detect drift only if this argument is specified. To remove the favicon, recreate the resource.
+* `logo_file` - (Optional) Base64-encoded string representing the logo image. ytofu will detect drift only if this argument is specified. To remove the logo, recreate the resource.
+* `title` – (Optional) Title of the web app. Must be between 1 and 100 characters in length (an empty string is not allowed). To remove the title, omit this argument from your configuration.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_transfer_web_app_customization.example webapp-12345678901234567890
 ```

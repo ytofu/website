@@ -1,6 +1,6 @@
-# Applicationinsights Application
+# Resource: aws_applicationinsights_application
 
-Manage Applicationinsights Application resources using ytofu YAML.
+Provides a ApplicationInsights Application resource.
 
 ## Basic Example
 
@@ -16,4 +16,35 @@ resource:
       name: example
       resource_query:
         query: '{ "ResourceTypeFilters": [ "AWS::EC2::Instance" ] "TagFilters": [ { "Key": "Stage" "Values": [ "Test" ] } ] }'
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `resource_group_name` - (Required) Name of the resource group.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `auto_config_enabled` - (Optional)  Indicates whether Application Insights automatically configures unmonitored resources in the resource group.
+* `auto_create` - (Optional) Configures all of the resources in the resource group by applying the recommended configurations.
+* `cwe_monitor_enabled` - (Optional)  Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as instance terminated, failed deployment, and others.
+* `grouping_type` - (Optional) Application Insights can create applications based on a resource group or on an account. To create an account-based application using all of the resources in the account, set this parameter to `ACCOUNT_BASED`.
+* `ops_center_enabled` - (Optional) When set to `true`, creates opsItems for any problems detected on an application.
+* `ops_item_sns_topic_arn` - (Optional) SNS topic provided to Application Insights that is associated to the created opsItem. Allows you to receive notifications for updates to the opsItem.
+* `tags` - (Optional) Map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the Application.
+* `id` - Name of the resource group.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_applicationinsights_application.some some-application
 ```

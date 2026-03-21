@@ -1,6 +1,6 @@
-# Codestarnotifications Notification Rule
+# Resource: aws_codestarnotifications_notification_rule
 
-Manage Codestarnotifications Notification Rule resources using ytofu YAML.
+Provides a CodeStar Notifications Rule.
 
 ## Basic Example
 
@@ -44,4 +44,37 @@ resource:
       resource: ${aws_codecommit_repository.code.arn}
       target:
         address: ${aws_sns_topic.notif.arn}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `detail_type` - (Required) The level of detail to include in the notifications for this resource. Possible values are `BASIC` and `FULL`.
+* `event_type_ids` - (Required) A list of event types associated with this notification rule.
+  For list of allowed events see [here](https://docs.aws.amazon.com/codestar-notifications/latest/userguide/concepts.html#concepts-api).
+* `name` - (Required) The name of notification rule.
+* `resource` - (Required) The ARN of the resource to associate with the notification rule.
+* `status` - (Optional) The status of the notification rule. Possible values are `ENABLED` and `DISABLED`, default is `ENABLED`.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `target` - (Optional) Configuration blocks containing notification target information. Can be specified multiple times. At least one target must be specified on creation.
+
+An `target` block supports the following arguments:
+
+* `address` - (Required) The ARN of the Amazon Q Developer in chat applications topic or Amazon Q Developer in chat applications client.
+* `type` - (Optional) The type of the notification target. Valid values are `SNS`, `AWSChatbotSlack`, and `AWSChatbotMicrosoftTeams`. Default value is `SNS`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The codestar notification rule ARN.
+* `arn` - The codestar notification rule ARN.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_codestarnotifications_notification_rule.foo arn:aws:codestar-notifications:us-west-1:0123456789:notificationrule/2cdc68a3-8f7c-4893-b6a5-45b362bd4f2b
 ```

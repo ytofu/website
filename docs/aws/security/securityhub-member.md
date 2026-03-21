@@ -1,6 +1,6 @@
-# Securityhub Member
+# Resource: aws_securityhub_member
 
-Manage Securityhub Member resources using ytofu YAML.
+Provides a Security Hub member resource.
 
 ## Basic Example
 
@@ -17,4 +17,27 @@ resource:
       account_id: 123456789012
       email: example@example.com
       invite: true
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `account_id` - (Required) The ID of the member AWS account.
+* `email` - (Optional) The email of the member AWS account.
+* `invite` - (Optional) Boolean whether to invite the account to Security Hub as a member. Defaults to `false`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the member AWS account (matches `account_id`).
+* `master_id` - The ID of the master Security Hub AWS account.
+* `member_status` - The status of the member account relationship.
+
+## Import
+
+```bash
+ytofu import aws_securityhub_member.example 123456789012
 ```

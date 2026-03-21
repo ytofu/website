@@ -1,6 +1,6 @@
-# Organizations Resource Policy
+# Resource: aws_organizations_resource_policy
 
-Manage Organizations Resource Policy resources using ytofu YAML.
+Provides a resource to manage a resource-based delegation policy that can be used to delegate policy management for AWS Organizations to specified member accounts to perform policy actions that are by default available only to the management account. See the [_AWS Organizations User Guide_](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_delegate_policies.html) for more information.
 
 ## Basic Example
 
@@ -39,4 +39,25 @@ resource:
         }
         ]
         }
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `content` - (Required) Content for the resource policy. The text must be correctly formatted JSON that complies with the syntax for the resource policy's type. See the [_AWS Organizations User Guide_](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_delegate_examples.html) for examples.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Amazon Resource Name (ARN) of the resource policy.
+* `id` - The unique identifier (ID) of the resource policy.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_organizations_resource_policy.example rp-12345678
 ```

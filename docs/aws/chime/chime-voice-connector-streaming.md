@@ -1,6 +1,7 @@
-# Chime Voice Connector Streaming
+# Resource: aws_chime_voice_connector_streaming
 
-Manage Chime Voice Connector Streaming resources using ytofu YAML.
+Adds a streaming configuration for the specified Amazon Chime Voice Connector. The streaming configuration specifies whether media streaming is enabled for sending to Amazon Kinesis.
+It also sets the retention period, in hours, for the Amazon Kinesis data.
 
 ## Basic Example
 
@@ -79,4 +80,32 @@ resource:
     example:
       name: ExampleStream
       shard_count: 2
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `voice_connector_id` - (Required) The Amazon Chime Voice Connector ID.
+* `data_retention`  - (Required) The retention period, in hours, for the Amazon Kinesis data.
+* `disabled` - (Optional) When true, media streaming to Amazon Kinesis is turned off. Default: `false`
+* `streaming_notification_targets` - (Optional) The streaming notification targets. Valid Values: `EventBridge | SNS | SQS`
+* `media_insights_configuration` - (Optional) The media insights configuration. See [`media_insights_configuration`](#media_insights_configuration).
+
+### media_insights_configuration
+
+* `disabled` - (Optional) When `true`, the media insights configuration is not enabled. Defaults to `false`.
+* `configuration_arn` - (Optional) The media insights configuration that will be invoked by the Voice Connector.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The Amazon Chime Voice Connector ID.
+
+## Import
+
+```bash
+ytofu import aws_chime_voice_connector_streaming.default abcdef1ghij2klmno3pqr4
 ```

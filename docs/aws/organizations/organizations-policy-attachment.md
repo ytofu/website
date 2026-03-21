@@ -1,6 +1,6 @@
-# Organizations Policy Attachment
+# Resource: aws_organizations_policy_attachment
 
-Manage Organizations Policy Attachment resources using ytofu YAML.
+Provides a resource to attach an AWS Organizations policy to an organization account, root, or unit.
 
 ## Basic Example
 
@@ -30,4 +30,22 @@ resource:
     unit:
       policy_id: ${aws_organizations_policy.example.id}
       target_id: ${aws_organizations_organizational_unit.example.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `policy_id` - (Required) The unique identifier (ID) of the policy that you want to attach to the target.
+* `target_id` - (Required) The unique identifier (ID) of the root, organizational unit, or account number that you want to attach the policy to.
+* `skip_destroy` - (Optional) If set to `true`, destroy will **not** detach the policy and instead just remove the resource from state. This can be useful in situations where the attachment must be preserved to meet the AWS minimum requirement of 1 attached policy.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_organizations_policy_attachment.example 123456789012:p-12345678
 ```

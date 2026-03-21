@@ -1,6 +1,6 @@
-# Appconfig Environment
+# Resource: aws_appconfig_environment
 
-Manage Appconfig Environment resources using ytofu YAML.
+Provides an AppConfig Environment resource for an [`aws_appconfig_application` resource](appconfig_application.html.markdown). One or more environments can be defined for an application.
 
 ## Basic Example
 
@@ -24,4 +24,38 @@ resource:
       description: Example AppConfig Application
       tags:
         Type: AppConfig Application
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `application_id` - (Required, Forces new resource) AppConfig application ID. Must be between 4 and 7 characters in length.
+* `name` - (Required) Name for the environment. Must be between 1 and 64 characters in length.
+* `description` - (Optional) Description of the environment. Can be at most 1024 characters.
+* `monitor` - (Optional) Set of Amazon CloudWatch alarms to monitor during the deployment process. Maximum of 5. See [Monitor](#monitor) below for more details.
+* `tags` - (Optional) Map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### Monitor
+
+The `monitor` block supports the following:
+
+* `alarm_arn` - (Required) ARN of the Amazon CloudWatch alarm.
+* `alarm_role_arn` - (Optional) ARN of an IAM role for AWS AppConfig to monitor `alarm_arn`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the AppConfig Environment.
+* `environment_id` - AppConfig environment ID.
+* `state` - State of the environment. Possible values are `READY_FOR_DEPLOYMENT`, `DEPLOYING`, `ROLLING_BACK`
+  or `ROLLED_BACK`.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_appconfig_environment.example 71abcde:11xxxxx
 ```

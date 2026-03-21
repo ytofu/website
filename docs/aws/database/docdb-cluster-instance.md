@@ -1,6 +1,6 @@
-# Docdb Cluster Instance
+# Resource: aws_docdb_cluster_instance
 
-Manage Docdb Cluster Instance resources using ytofu YAML.
+Provides an DocumentDB Cluster Resource Instance. A Cluster Instance Resource defines attributes that are specific to a single instance in a DocumentDB Cluster.
 
 ## Basic Example
 
@@ -22,4 +22,60 @@ resource:
         - us-west-2c
       master_username: foo
       master_password: barbut8chars
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `apply_immediately` - (Optional) Whether any database modifications are applied immediately, or during the next maintenance window. Default is`false`.
+* `auto_minor_version_upgrade` - (Optional) Parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version upgrades regardless of the value set (see [docs](https://docs.aws.amazon.com/documentdb/latest/developerguide/API_DBInstance.html)). Default `true`.
+* `availability_zone` - (Optional, Computed) EC2 Availability Zone that the DB instance is created in. See [docs](https://docs.aws.amazon.com/documentdb/latest/developerguide/API_CreateDBInstance.html) about the details.
+* `ca_cert_identifier` - (Optional) Identifier of the certificate authority (CA) certificate for the DB instance.
+* `certificate_rotation_restart` – (Optional) Whether to restart the DB instance when rotating its SSL/TLS certificate. By default, AWS restarts the DB instance when you rotate your SSL/TLS certificate. The certificate is not updated until the DB instance is restarted. Set to `false` only if you are not using SSL/TLS to connect to the DB instance.
+* `cluster_identifier` - (Required) Identifier of the `aws_docdb_cluster` in which to launch this instance.
+* `copy_tags_to_snapshot` - (Optional, boolean) Copy all DB instance `tags` to snapshots. Default is `false`.
+* `enable_performance_insights` - (Optional) Value that indicates whether to enable Performance Insights for the DB Instance. Default `false`. See [docs] (https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html) about the details.
+* `engine` - (Optional) Name of the database engine to be used for the DocumentDB instance. Defaults to `docdb`. Valid Values: `docdb`.
+* `identifier_prefix` - (Optional, Forces new resource) Creates a unique identifier beginning with the specified prefix. Conflicts with `identifier`.
+* `identifier` - (Optional, Forces new resource) The identifier for the DocumentDB instance, if omitted, ytofu will assign a random, unique identifier.
+* `instance_class` - (Required) Instance class to use. For details on CPU and memory, see [Scaling for DocumentDB Instances](https://docs.aws.amazon.com/documentdb/latest/developerguide/db-cluster-manage-performance.html#db-cluster-manage-scaling-instance). See the `aws_docdb_orderable_db_instance` data source. See [AWS Documentation](https://docs.aws.amazon.com/documentdb/latest/developerguide/db-instance-classes.html#db-instance-class-specs) for complete details.
+* `performance_insights_kms_key_id` - (Optional) KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default KMS key.
+* `preferred_maintenance_window` - (Optional) Window to perform maintenance in. Syntax: "ddd:hh24:mi-ddd:hh24:mi". Eg: "Mon:00:00-Mon:03:00".
+* `promotion_tier` - (Optional) Failover Priority setting on instance level. Default `0`. The reader who has lower tier has higher priority to get promoter to writer.
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `tags` - (Optional) Map of tags to assign to the instance. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of cluster instance
+* `db_subnet_group_name` - DB subnet group to associate with this DB instance.
+* `dbi_resource_id` - Region-unique, immutable identifier for the DB instance.
+* `endpoint` - DNS address for this instance. May not be writable
+* `engine_version` - Database engine version
+* `kms_key_id` - ARN for the KMS encryption key if one is set to the cluster.
+* `port` - Database port
+* `preferred_backup_window` - Daily time range during which automated backups are created if automated backups are enabled.
+* `storage_encrypted` - Whether the DB cluster is encrypted.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+* `writer` - Whether this instance is writable. `False` indicates this instance is a read replica.
+
+For more detailed documentation about each argument, refer to the [AWS official documentation](https://docs.aws.amazon.com/cli/latest/reference/docdb/create-db-instance.html).
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `90m`)
+restoring from Snapshots
+- `update` - (Default `90m`)
+- `delete` - (Default `90m`)
+the time required to take snapshots
+
+## Import
+
+```bash
+ytofu import aws_docdb_cluster_instance.prod_instance_1 aurora-cluster-instance-1
 ```

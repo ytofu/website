@@ -1,6 +1,6 @@
-# DX Connection Association
+# Resource: aws_dx_connection_association
 
-Manage DX Connection Association resources using ytofu YAML.
+Associates a Direct Connect Connection with a LAG.
 
 ## Basic Example
 
@@ -25,3 +25,15 @@ resource:
       connection_id: ${aws_dx_connection.example.id}
       lag_id: ${aws_dx_lag.example.id}
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `connection_id` - (Required) The ID of the connection.
+* `lag_id` - (Required) The ID of the LAG with which to associate the connection.
+
+## Attribute Reference
+
+This resource exports no additional attributes.

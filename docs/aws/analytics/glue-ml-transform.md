@@ -1,6 +1,6 @@
-# Glue Ml Transform
+# Resource: aws_glue_ml_transform
 
-Manage Glue Ml Transform resources using ytofu YAML.
+Provides a Glue ML Transform resource.
 
 ## Basic Example
 
@@ -79,4 +79,62 @@ resource:
         comment: my_column_2_comment
       parameters:
         param1: param1_val
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) The name you assign to this ML Transform. It must be unique in your account.
+* `input_record_tables` - (Required)  A list of AWS Glue table definitions used by the transform. see [Input Record Tables](#input_record_tables).
+* `parameters` - (Required) The algorithmic parameters that are specific to the transform type used. Conditionally dependent on the transform type. see [Parameters](#parameters).
+* `role_arn` - (Required) The ARN of the IAM role associated with this ML Transform.
+* `description` - (Optional) Description of the ML Transform.
+* `glue_version` - (Optional) The version of glue to use, for example "1.0". For information about available versions, see the [AWS Glue Release Notes](https://docs.aws.amazon.com/glue/latest/dg/release-notes.html).
+* `max_capacity` - (Optional) The number of AWS Glue data processing units (DPUs) that are allocated to task runs for this transform. You can allocate from `2` to `100` DPUs; the default is `10`. `max_capacity` is a mutually exclusive option with `number_of_workers` and `worker_type`.
+* `max_retries` - (Optional) The maximum number of times to retry this ML Transform if it fails.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `timeout` - (Optional) The ML Transform timeout in minutes. The default is 2880 minutes (48 hours).
+* `worker_type` - (Optional) The type of predefined worker that is allocated when an ML Transform runs. Accepts a value of `Standard`, `G.1X`, or `G.2X`. Required with `number_of_workers`.
+* `number_of_workers` - (Optional) The number of workers of a defined `worker_type` that are allocated when an ML Transform runs. Required with `worker_type`.
+
+### input_record_tables
+
+* `database_name` - (Required) A database name in the AWS Glue Data Catalog.
+* `table_name` - (Required) A table name in the AWS Glue Data Catalog.
+* `catalog_id` - (Optional) A unique identifier for the AWS Glue Data Catalog.
+* `connection_name`- (Optional) The name of the connection to the AWS Glue Data Catalog.
+
+### parameters
+
+* `transform_type` - (Required) The type of machine learning transform. For information about the types of machine learning transforms, see [Creating Machine Learning Transforms](http://docs.aws.amazon.com/glue/latest/dg/add-job-machine-learning-transform.html).
+* `find_matches_parameters` - (Required) The parameters for the find matches algorithm. see [Find Matches Parameters](#find_matches_parameters).
+
+#### find_matches_parameters
+
+* `accuracy_cost_trade_off` - (Optional) The value that is selected when tuning your transform for a balance between accuracy and cost.
+* `enforce_provided_labels` - (Optional) The value to switch on or off to force the output to match the provided labels from users.
+* `precision_recall_trade_off` - (Optional) The value selected when tuning your transform for a balance between precision and recall.
+* `primary_key_column_name` - (Optional) The name of a column that uniquely identifies rows in the source table.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Amazon Resource Name (ARN) of Glue ML Transform.
+* `id` - Glue ML Transform ID.
+* `label_count` - The number of labels available for this transform.
+* `schema` - The object that represents the schema that this transform accepts. see [Schema](#schema).
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+### schema
+
+* `name` - The name of the column.
+* `data_type` - The type of data in the column.
+
+## Import
+
+```bash
+ytofu import aws_glue_ml_transform.example tfm-c2cafbe83b1c575f49eaca9939220e2fcd58e2d5
 ```

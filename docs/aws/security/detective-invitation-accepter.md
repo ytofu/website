@@ -1,6 +1,6 @@
-# Detective Invitation Accepter
+# Resource: aws_detective_invitation_accepter
 
-Manage Detective Invitation Accepter resources using ytofu YAML.
+Provides a resource to manage an [Amazon Detective Invitation Accepter](https://docs.aws.amazon.com/detective/latest/APIReference/API_AcceptInvitation.html). Ensure that the accepter is configured to use the AWS account you wish to _accept_ the invitation from the primary graph owner account.
 
 ## Basic Example
 
@@ -23,4 +23,23 @@ resource:
       graph_arn: ${aws_detective_graph.primary.graph_arn}
       depends_on: 
         - ${aws_detective_member.primary}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `graph_arn` - (Required) ARN of the behavior graph that the member account is accepting the invitation for.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Unique identifier (ID) of the Detective invitation accepter.
+
+## Import
+
+```bash
+ytofu import aws_detective_invitation_accepter.example arn:aws:detective:us-east-1:123456789101:graph:231684d34gh74g4bae1dbc7bd807d02d
 ```

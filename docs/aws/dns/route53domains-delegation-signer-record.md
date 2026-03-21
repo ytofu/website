@@ -1,6 +1,6 @@
-# Route53domains Delegation Signer Record
+# Resource: aws_route53domains_delegation_signer_record
 
-Manage Route53domains Delegation Signer Record resources using ytofu YAML.
+Provides a resource to manage a [delegation signer record](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring-dnssec-enable-signing.html#dns-configuring-dnssec-enable-signing-step-1) in the parent DNS zone for domains registered with Route53.
 
 ## Basic Example
 
@@ -44,4 +44,33 @@ resource:
         algorithm: ${aws_route53_key_signing_key.example.signing_algorithm_type}
         flags: ${aws_route53_key_signing_key.example.flag}
         public_key: ${aws_route53_key_signing_key.example.public_key}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `domain_name` - (Required) The name of the domain that will have its parent DNS zone updated with the Delegation Signer record.
+* `signing_attributes` - (Required) The information about a key, including the algorithm, public key-value, and flags.
+    * `algorithm` - (Required) Algorithm which was used to generate the digest from the public key.
+    * `flags` - (Required) Defines the type of key. It can be either a KSK (key-signing-key, value `257`) or ZSK (zone-signing-key, value `256`).
+    * `public_key` - (Required) The base64-encoded public key part of the key pair that is passed to the registry.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `dnssec_key_id` - An ID assigned to the created DS record.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `5m`)
+* `delete` - (Default `5m`)
+
+## Import
+
+```bash
+ytofu import aws_route53domains_delegation_signer_record.example example.com,40DE3534F5324DBDAC598ACEDB5B1E26A5368732D9C791D1347E4FBDDF6FC343
 ```

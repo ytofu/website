@@ -1,6 +1,6 @@
-# Batch Job Definition
+# Resource: aws_batch_job_definition
 
-Manage Batch Job Definition resources using ytofu YAML.
+Provides a Batch Job Definition resource.
 
 ## Basic Example
 
@@ -96,4 +96,123 @@ resource:
       platform_capabilities: 
         - FARGATE
       ecs_properties: '{ "taskProperties": [ { "executionRoleArn": aws_iam_role.ecs_task_execution_role.arn "containers": [ { "image": "public.ecr.aws/amazonlinux/amazonlinux:1" "command": ["sleep", "60"] "dependsOn": [ { "containerName": "container_b" "condition": "COMPLETE" } ] "secrets": [ { "name": "TEST" "valueFrom": "DUMMY" } ] "environment": [ { "name": "test" "value": "Environment Variable" } ] "essential": true "logConfiguration": { "logDriver": "awslogs" "options": { "awslogs-group" = "tf_test_batch_job" "awslogs-region" = "us-west-2" "awslogs-stream-prefix" = "ecs" } } "name": "container_a" "privileged": false "readonlyRootFilesystem": false "resourceRequirements": [ { "value": "1.0" "type": "VCPU" }, { "value": "2048" "type": "MEMORY" } ] }, { "image": "public.ecr.aws/amazonlinux/amazonlinux:1" "command": ["sleep", "360"] "name": "container_b" "essential": false "resourceRequirements": [ { "value": "1.0" "type": "VCPU" }, { "value": "2048" "type": "MEMORY" } ] } ] } ] }'
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `name` - (Required) Name of the job definition.
+* `type` - (Required) Type of job definition. Must be `container` or `multinode`.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `container_properties` - (Optional) Valid [container properties](http://docs.aws.amazon.com/batch/latest/APIReference/API_RegisterJobDefinition.html) provided as a single valid JSON document. This parameter is only valid if the `type` parameter is `container`.
+* `deregister_on_new_revision` - (Optional) When updating a job definition a new revision is created. This parameter determines if the previous version is `deregistered` (`INACTIVE`) or left  `ACTIVE`. Defaults to `true`.
+* `ecs_properties` - (Optional) Valid [ECS properties](http://docs.aws.amazon.com/batch/latest/APIReference/API_RegisterJobDefinition.html) provided as a single valid JSON document. This parameter is only valid if the `type` parameter is `container`.
+* `eks_properties` - (Optional) Valid [eks properties](#eks_properties). This parameter is only valid if the `type` parameter is `container`.
+* `node_properties` - (Optional) Valid [node properties](http://docs.aws.amazon.com/batch/latest/APIReference/API_RegisterJobDefinition.html) provided as a single valid JSON document. This parameter is required if the `type` parameter is `multinode`.
+* `parameters` - (Optional) Parameter substitution placeholders to set in the job definition.
+* `platform_capabilities` - (Optional) Platform capabilities required by the job definition. If no value is specified, it defaults to `EC2`. To run the job on Fargate resources, specify `FARGATE`.
+* `propagate_tags` - (Optional) Whether to propagate the tags from the job definition to the corresponding Amazon ECS task. Default is `false`.
+* `retry_strategy` - (Optional) Retry strategy to use for failed jobs that are submitted with this job definition. Maximum number of `retry_strategy` is `1`.  Defined below.
+* `scheduling_priority` - (Optional) Scheduling priority of the job definition. This only affects jobs in job queues with a fair share policy. Jobs with a higher scheduling priority are scheduled before jobs with a lower scheduling priority. Allowed values `0` through `9999`.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `timeout` - (Optional) Timeout for jobs so that if a job runs longer, AWS Batch terminates the job. Maximum number of `timeout` is `1`. Defined below.
+
+### `eks_properties`
+
+* `pod_properties` - (Optional) Properties for the Kubernetes pod resources of a job. See [`pod_properties`](#pod_properties) below.
+
+#### `pod_properties`
+
+* `containers` - (Optional) Properties of the container that's used on the Amazon EKS pod. See [containers](#containers) below.
+* `dns_policy` - (Optional) DNS policy for the pod. The default value is `ClusterFirst`. If the `host_network` argument is not specified, the default is `ClusterFirstWithHostNet`. `ClusterFirst` indicates that any DNS query that does not match the configured cluster domain suffix is forwarded to the upstream nameserver inherited from the node. For more information, see Pod's DNS policy in the Kubernetes documentation.
+* `host_network` - (Optional) Whether the pod uses the hosts' network IP address. The default value is `true`. Setting this to `false` enables the Kubernetes pod networking model. Most AWS Batch workloads are egress-only and don't require the overhead of IP allocation for each pod for incoming connections.
+* `init_containers` - (Optional) Containers which run before application containers, always runs to completion, and must complete successfully before the next container starts. These containers are registered with the Amazon EKS Connector agent and persists the registration information in the Kubernetes backend data store. See [containers](#container) below.
+* `image_pull_secret` - (Optional) List of Kubernetes secret resources. See [`image_pull_secret`](#image_pull_secret) below.
+* `metadata` - (Optional) Metadata about the Kubernetes pod.
+* `service_account_name` - (Optional) Name of the service account that's used to run the pod.
+* `share_process_namespace` - (Optional) Indicates if the processes in a container are shared, or visible, to other containers in the same pod.
+* `metadata` - [Metadata](#eks_metadata) about the Kubernetes pod.
+* `volumes` - (Optional) Volumes for a job definition that uses Amazon EKS resources. AWS Batch supports [emptyDir](#eks_empty_dir), [hostPath](#eks_host_path), and [secret](#eks_secret) volume types.
+
+#### `containers`
+
+* `args` - (Optional) Array of arguments to the entrypoint. If this isn't specified, the CMD of the container image is used. This corresponds to the args member in the Entrypoint portion of the Pod in Kubernetes. Environment variable references are expanded using the container's environment.
+* `command` - (Optional) Entrypoint for the container. This isn't run within a shell. If this isn't specified, the ENTRYPOINT of the container image is used. Environment variable references are expanded using the container's environment.
+* `env` - (Optional) Environment variables to pass to a container. See [EKS Environment](#eks_environment) below.
+* `image` - (Required) Docker image used to start the container.
+* `image_pull_policy` - (Optional) Image pull policy for the container. Supported values are `Always`, `IfNotPresent`, and `Never`.
+* `name` - (Optional) Name of the container. If the name isn't specified, the default name "Default" is used. Each container in a pod must have a unique name.
+* `resources` - (Optional) Type and amount of resources to assign to a container. The supported resources include `memory`, `cpu`, and `nvidia.com/gpu`.
+* `security_context` - (Optional) Security context for a job. See [`security_context`](#security_context) below.
+* `volume_mounts` - (Optional) Volume mounts for the container.
+
+#### `image_pull_secret`
+
+* `name` - (Required) Unique identifier.
+
+#### `eks_environment`
+
+* `name` - (Required) Name of the environment variable.
+* `value` - (Optional) Value of the environment variable.
+
+#### `eks_empty_dir`
+
+* `medium` - (Optional) Medium to store the volume. The default value is an empty string, which uses the storage of the node.
+* `size_limit` - (Optional) Maximum size of the volume. By default, there's no maximum size defined.
+
+#### `eks_host_path`
+
+* `path` - (Optional) Path of the file or directory on the host to mount into containers on the pod.
+
+#### eks_metadata
+
+* `labels` - Key-value pairs used to identify, sort, and organize kubernetes resources.
+
+#### `eks_secret`
+
+* `secret_name` - (Required) Name of the secret. The name must be allowed as a DNS subdomain name.
+* `optional` - (Optional) Whether the secret or the secret's keys must be defined.
+
+##### security_context
+
+* `allow_privilege_escalation` - (Optional) Whether or not a container or a Kubernetes pod is allowed to gain more privileges than its parent process. The default value is `false`.
+* `privileged` - (Optional) When this parameter is `true`, the container is given elevated permissions on the host container instance. The level of permissions are similar to the root user permissions. The default value is `false`.
+* `read_only_root_filesystem` - (Optional) When this parameter is `true`, the container is given read-only access to its root file system. The default value is `false`.
+* `run_as_group` - (Optional) When this parameter is specified, the container is run as the specified group ID (gid). If this parameter isn't specified, the default is the group that's specified in the image metadata.
+* `run_as_non_root` - (Optional) When this parameter is specified, the container is run as a user with a uid other than 0. If this parameter isn't specified, so such rule is enforced.
+* `run_as_user` - (Optional) When this parameter is specified, the container is run as the specified user ID (uid). If this parameter isn't specified, the default is the user that's specified in the image metadata.
+
+### `retry_strategy`
+
+* `attempts` - (Optional) Number of times to move a job to the `RUNNABLE` status. You may specify between `1` and `10` attempts.
+* `evaluate_on_exit` - (Optional) [Evaluate on exit](#evaluate_on_exit) conditions under which the job should be retried or failed. If this parameter is specified, then the `attempts` parameter must also be specified. You may specify up to 5 configuration blocks.
+
+#### `evaluate_on_exit`
+
+* `action` - (Required) Action to take if all of the specified conditions are met. The values are not case sensitive. Valid values: `retry`, `exit`.
+* `on_exit_code` - (Optional) Glob pattern to match against the decimal representation of the exit code returned for a job.
+* `on_reason` - (Optional) Glob pattern to match against the reason returned for a job.
+* `on_status_reason` - (Optional) Glob pattern to match against the status reason returned for a job.
+
+### `timeout`
+
+* `attempt_duration_seconds` - (Optional) Time duration in seconds after which AWS Batch terminates your jobs if they have not finished. The minimum value for the timeout is `60` seconds.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the job definition, includes revision (`:#`).
+* `arn_prefix` - ARN without the revision number.
+* `revision` - Revision of the job definition.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_batch_job_definition.test arn:aws:batch:us-east-1:123456789012:job-definition/sample
 ```

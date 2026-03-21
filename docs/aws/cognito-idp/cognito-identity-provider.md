@@ -1,6 +1,6 @@
-# Cognito Identity Provider
+# Resource: aws_cognito_identity_provider
 
-Manage Cognito Identity Provider resources using ytofu YAML.
+Provides a Cognito User Identity Provider resource.
 
 ## Basic Example
 
@@ -25,4 +25,26 @@ resource:
       attribute_mapping:
         email: email
         username: sub
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `user_pool_id` (Required) - The user pool id
+* `provider_name` (Required) - The provider name
+* `provider_type` (Required) - The provider type.  [See AWS API for valid values](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateIdentityProvider.html#CognitoUserPools-CreateIdentityProvider-request-ProviderType)
+* `attribute_mapping` (Optional) - The map of attribute mapping of user pool attributes. [AttributeMapping in AWS API documentation](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateIdentityProvider.html#CognitoUserPools-CreateIdentityProvider-request-AttributeMapping)
+* `idp_identifiers` (Optional) - The list of identity providers.
+* `provider_details` (Optional) - The map of identity details, such as access token
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_cognito_identity_provider.example us-west-2_abc123:CorpAD
 ```

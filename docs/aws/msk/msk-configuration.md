@@ -1,6 +1,6 @@
-# MSK Configuration
+# Resource: aws_msk_configuration
 
-Manage MSK Configuration resources using ytofu YAML.
+Manages an Amazon Managed Streaming for Kafka configuration. More information can be found on the [MSK Developer Guide](https://docs.aws.amazon.com/msk/latest/developerguide/msk-configuration.html).
 
 ## Basic Example
 
@@ -14,4 +14,27 @@ resource:
       server_properties: |
         auto.create.topics.enable = true
         delete.topic.enable = true
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `server_properties` - (Required) Contents of the server.properties file. Supported properties are documented in the [MSK Developer Guide](https://docs.aws.amazon.com/msk/latest/developerguide/msk-configuration-properties.html).
+* `kafka_versions` - (Optional) List of Apache Kafka versions which can use this configuration.
+* `name` - (Required) Name of the configuration.
+* `description` - (Optional) Description of the configuration.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Amazon Resource Name (ARN) of the configuration.
+* `latest_revision` - Latest revision of the configuration.
+
+## Import
+
+```bash
+ytofu import aws_msk_configuration.example arn:aws:kafka:us-west-2:123456789012:configuration/example/279c0212-d057-4dba-9aa9-1c4e5a25bfc7-3
 ```

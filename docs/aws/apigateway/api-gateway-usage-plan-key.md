@@ -1,6 +1,6 @@
-# API Gateway Usage Plan Key
+# Resource: aws_api_gateway_usage_plan_key
 
-Manage API Gateway Usage Plan Key resources using ytofu YAML.
+Provides an API Gateway Usage Plan Key.
 
 ## Basic Example
 
@@ -29,4 +29,30 @@ resource:
       key_id: ${aws_api_gateway_api_key.mykey.id}
       key_type: API_KEY
       usage_plan_id: ${aws_api_gateway_usage_plan.myusageplan.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `key_id` - (Required) Identifier of the API key resource.
+* `key_type` - (Required) Type of the API key resource. Currently, the valid key type is API_KEY.
+* `usage_plan_id` - (Required) Id of the usage plan resource representing to associate the key to.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - ID of a usage plan key.
+* `key_id` - Identifier of the API gateway key resource.
+* `key_type` - Type of a usage plan key. Currently, the valid key type is API_KEY.
+* `usage_plan_id` - ID of the API resource
+* `name` - Name of a usage plan key.
+* `value` - Value of a usage plan key.
+
+## Import
+
+```bash
+ytofu import aws_api_gateway_usage_plan_key.key 12345abcde/zzz
 ```

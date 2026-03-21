@@ -1,6 +1,6 @@
-# API Gateway Method Settings
+# Resource: aws_api_gateway_method_settings
 
-Manage API Gateway Method Settings resources using ytofu YAML.
+Manages API Gateway Stage Method Settings. For example, CloudWatch logging and metrics.
 
 ## Basic Usage
 
@@ -59,4 +59,37 @@ resource:
       method_path: path1/GET
       settings:
         logging_level: OFF
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `rest_api_id` - (Required) ID of the REST API
+* `stage_name` - (Required) Name of the stage
+* `method_path` - (Required) Method path defined as `{resource_path}/{http_method}` for an individual method override, or `*/*` for overriding all methods in the stage. Ensure to trim any leading forward slashes in the path (e.g., `trimprefix(aws_api_gateway_resource.example.path, "/")`).
+* `settings` - (Required) Settings block, see below.
+
+### `settings`
+
+* `metrics_enabled` - (Optional) Whether Amazon CloudWatch metrics are enabled for this method.
+* `logging_level` - (Optional) Logging level for this method, which effects the log entries pushed to Amazon CloudWatch Logs. The available levels are `OFF`, `ERROR`, and `INFO`.
+* `data_trace_enabled` - (Optional) Whether data trace logging is enabled for this method, which effects the log entries pushed to Amazon CloudWatch Logs.
+* `throttling_burst_limit` - (Optional) Throttling burst limit. Default: `-1` (throttling disabled).
+* `throttling_rate_limit` - (Optional) Throttling rate limit. Default: `-1` (throttling disabled).
+* `caching_enabled` - (Optional) Whether responses should be cached and returned for requests. A cache cluster must be enabled on the stage for responses to be cached.
+* `cache_ttl_in_seconds` - (Optional) Time to live (TTL), in seconds, for cached responses. The higher the TTL, the longer the response will be cached.
+* `cache_data_encrypted` - (Optional) Whether the cached responses are encrypted.
+* `require_authorization_for_cache_control` - (Optional) Whether authorization is required for a cache invalidation request.
+* `unauthorized_cache_control_header_strategy` - (Optional) How to handle unauthorized requests for cache invalidation. The available values are `FAIL_WITH_403`, `SUCCEED_WITH_RESPONSE_HEADER`, `SUCCEED_WITHOUT_RESPONSE_HEADER`.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_api_gateway_method_settings.example 12345abcde/example/test/GET
 ```

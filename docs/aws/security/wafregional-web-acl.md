@@ -1,6 +1,6 @@
-# Wafregional Web Acl
+# Resource: aws_wafregional_web_acl
 
-Manage Wafregional Web Acl resources using ytofu YAML.
+Provides a WAF Regional Web ACL Resource for use with Application Load Balancer.
 
 ## Basic Example
 
@@ -70,4 +70,61 @@ resource:
           field_to_match:
             data: referer
             type: HEADER
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `default_action` - (Required) The action that you want AWS WAF Regional to take when a request doesn't match the criteria in any of the rules that are associated with the web ACL.
+* `metric_name` - (Required) The name or description for the Amazon CloudWatch metric of this web ACL.
+* `name` - (Required) The name or description of the web ACL.
+* `logging_configuration` - (Optional) Configuration block to enable WAF logging. Detailed below.
+* `rule` - (Optional) Set of configuration blocks containing rules for the web ACL. Detailed below.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### `default_action` Configuration Block
+
+* `type` - (Required) Specifies how you want AWS WAF Regional to respond to requests that match the settings in a ruleE.g., `ALLOW`, `BLOCK` or `COUNT`
+
+### `logging_configuration` Configuration Block
+
+* `log_destination` - (Required) Amazon Resource Name (ARN) of Kinesis Firehose Delivery Stream
+* `redacted_fields` - (Optional) Configuration block containing parts of the request that you want redacted from the logs. Detailed below.
+
+#### `redacted_fields` Configuration Block
+
+* `field_to_match` - (Required) Set of configuration blocks for fields to redact. Detailed below.
+
+##### `field_to_match` Configuration Block
+
+* `data` - (Optional) When the value of `type` is `HEADER`, enter the name of the header that you want the WAF to search, for example, `User-Agent` or `Referer`. If the value of `type` is any other value, omit `data`.
+* `type` - (Required) The part of the web request that you want AWS WAF to search for a specified stringE.g., `HEADER` or `METHOD`
+
+### `rule` Configuration Block
+
+* `priority` - (Required) Specifies the order in which the rules in a WebACL are evaluated.
+  Rules with a lower value are evaluated before rules with a higher value.
+* `rule_id` - (Required) ID of the associated WAF (Regional) rule (e.g., `aws_wafregional_rule`). WAF (Global) rules cannot be used.
+* `action` - (Optional) Configuration block of the action that CloudFront or AWS WAF takes when a web request matches the conditions in the rule.  Not used if `type` is `GROUP`. Detailed below.
+* `override_action` - (Optional) Configuration block of the override the action that a group requests CloudFront or AWS WAF takes when a web request matches the conditions in the rule.  Only used if `type` is `GROUP`. Detailed below.
+* `type` - (Optional) The rule type, either `REGULAR`, as defined by [Rule](http://docs.aws.amazon.com/waf/latest/APIReference/API_Rule.html), `RATE_BASED`, as defined by [RateBasedRule](http://docs.aws.amazon.com/waf/latest/APIReference/API_RateBasedRule.html), or `GROUP`, as defined by [RuleGroup](https://docs.aws.amazon.com/waf/latest/APIReference/API_RuleGroup.html). The default is REGULAR. If you add a RATE_BASED rule, you need to set `type` as `RATE_BASED`. If you add a GROUP rule, you need to set `type` as `GROUP`.
+
+#### `action` / `override_action` Configuration Block
+
+* `type` - (Required) Specifies how you want AWS WAF Regional to respond to requests that match the settings in a rule. Valid values for `action` are `ALLOW`, `BLOCK` or `COUNT`. Valid values for `override_action` are `COUNT` and `NONE`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Amazon Resource Name (ARN) of the WAF Regional WebACL.
+* `id` - The ID of the WAF Regional WebACL.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_wafregional_web_acl.wafacl a1b2c3d4-d5f6-7777-8888-9999aaaabbbbcccc
 ```

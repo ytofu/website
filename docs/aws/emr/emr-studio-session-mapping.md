@@ -1,6 +1,6 @@
-# EMR Studio Session Mapping
+# Resource: aws_emr_studio_session_mapping
 
-Manage EMR Studio Session Mapping resources using ytofu YAML.
+Provides an Elastic MapReduce Studio Session Mapping.
 
 ## Basic Example
 
@@ -12,4 +12,27 @@ resource:
       identity_type: USER
       identity_id: example
       session_policy_arn: ${aws_iam_policy.example.arn}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `identity_id`- (Optional) The globally unique identifier (GUID) of the user or group from the Amazon Web Services SSO Identity Store.
+* `identity_name` - (Optional) The name of the user or group from the Amazon Web Services SSO Identity Store.
+* `identity_type` - (Required) Specifies whether the identity to map to the Amazon EMR Studio is a `USER` or a `GROUP`.
+* `session_policy_arn` - (Required) The Amazon Resource Name (ARN) for the session policy that will be applied to the user or group. You should specify the ARN for the session policy that you want to apply, not the ARN of your user role.
+* `studio_id` - (Required) The ID of the Amazon EMR Studio to which the user or group will be mapped.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id`- The id of the Elastic MapReduce Studio Session Mapping.
+
+## Import
+
+```bash
+ytofu import aws_emr_studio_session_mapping.example es-xxxxx:USER:xxxxx-xxx-xxx
 ```

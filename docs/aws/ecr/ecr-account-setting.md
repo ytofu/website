@@ -1,6 +1,6 @@
-# ECR Account Setting
+# Resource: aws_ecr_account_setting
 
-Manage ECR Account Setting resources using ytofu YAML.
+Provides a resource to manage AWS ECR account settings
 
 ## Basic Example
 
@@ -30,4 +30,27 @@ resource:
     registry_policy_scope:
       name: REGISTRY_POLICY_SCOPE
       value: V2
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) Name of the account setting. One of: `BASIC_SCAN_TYPE_VERSION`, `BLOB_MOUNTING`, `REGISTRY_POLICY_SCOPE`.
+* `value` - (Required) Setting value that is specified. Valid values are:
+    * If `name` is specified as `BASIC_SCAN_TYPE_VERSION`, one of: `AWS_NATIVE`, `CLAIR`.
+    * If `name` is specified as `BLOB_MOUNTING`, one of: `ENABLED`, `DISABLED`.
+    * If `name` is specified as `REGISTRY_POLICY_SCOPE`, one of: `V1`, `V2`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Name of the account setting.
+
+## Import
+
+```bash
+ytofu import aws_ecr_account_setting.foo BASIC_SCAN_TYPE_VERSION
 ```

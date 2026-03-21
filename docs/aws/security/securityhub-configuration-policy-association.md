@@ -1,6 +1,6 @@
-# Securityhub Configuration Policy Association
+# Resource: aws_securityhub_configuration_policy_association
 
-Manage Securityhub Configuration Policy Association resources using ytofu YAML.
+Manages Security Hub configuration policy associations.
 
 ## Basic Example
 
@@ -52,4 +52,31 @@ resource:
     ou_example:
       target_id: ou-abcd-12345678
       policy_id: ${aws_securityhub_configuration_policy.example.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `policy_id` - (Required) The universally unique identifier (UUID) of the configuration policy.
+* `target_id` - (Required, Forces new resource) The identifier of the target account, organizational unit, or the root to associate with the specified configuration.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The identifier of the target account, organizational unit, or the root that is associated with the configuration.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `90s`)
+* `update` - (Default `90s`)
+
+## Import
+
+```bash
+ytofu import aws_securityhub_configuration_policy_association.example_account_association 123456789012
 ```

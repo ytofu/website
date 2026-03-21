@@ -1,6 +1,6 @@
-# Storagegateway Smb File Share
+# Resource: aws_storagegateway_smb_file_share
 
-Manage Storagegateway Smb File Share resources using ytofu YAML.
+Manages an AWS Storage Gateway SMB File Share.
 
 ## Basic Example
 
@@ -24,4 +24,69 @@ resource:
       gateway_arn: ${aws_storagegateway_gateway.example.arn}
       location_arn: ${aws_s3_bucket.example.arn}
       role_arn: ${aws_iam_role.example.arn}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `gateway_arn` - (Required) Amazon Resource Name (ARN) of the file gateway.
+* `location_arn` - (Required) The ARN of the backed storage used for storing file data.
+* `vpc_endpoint_dns_name` - (Optional) The DNS name of the VPC endpoint for S3 private link.
+* `bucket_region` - (Optional) The region of the S3 buck used by the file share. Required when specifying a `vpc_endpoint_dns_name`.
+* `role_arn` - (Required) The ARN of the AWS Identity and Access Management (IAM) role that a file gateway assumes when it accesses the underlying storage.
+* `admin_user_list` - (Optional) A list of users in the Active Directory that have admin access to the file share. Only valid if `authentication` is set to `ActiveDirectory`.
+* `authentication` - (Optional) The authentication method that users use to access the file share. Defaults to `ActiveDirectory`. Valid values: `ActiveDirectory`, `GuestAccess`.
+* `audit_destination_arn` - (Optional) The Amazon Resource Name (ARN) of the CloudWatch Log Group used for the audit logs.
+* `default_storage_class` - (Optional) The default [storage class](https://docs.aws.amazon.com/storagegateway/latest/APIReference/API_CreateNFSFileShare.html#StorageGateway-CreateNFSFileShare-request-DefaultStorageClass) for objects put into an Amazon S3 bucket by the file gateway. Defaults to `S3_STANDARD`.
+* `file_share_name` - (Optional) The name of the file share. Must be set if an S3 prefix name is set in `location_arn`.
+* `guess_mime_type_enabled` - (Optional) Boolean value that enables guessing of the MIME type for uploaded objects based on file extensions. Defaults to `true`.
+* `invalid_user_list` - (Optional) A list of users in the Active Directory that are not allowed to access the file share. Only valid if `authentication` is set to `ActiveDirectory`.
+* `kms_encrypted` - (Optional) Boolean value if `true` to use Amazon S3 server side encryption with your own AWS KMS key, or `false` to use a key managed by Amazon S3. Defaults to `false`.
+* `kms_key_arn` - (Optional) Amazon Resource Name (ARN) for KMS key used for Amazon S3 server side encryption. This value can only be set when `kms_encrypted` is true.
+* `object_acl` - (Optional) Access Control List permission for S3 objects. Defaults to `private`.
+* `oplocks_enabled` - (Optional) Boolean to indicate Opportunistic lock (oplock) status. Defaults to `true`.
+* `cache_attributes` - (Optional) Refresh cache information. see [`cache_attributes` Block](#cache_attributes-block) for more details.
+* `read_only` - (Optional) Boolean to indicate write status of file share. File share does not accept writes if `true`. Defaults to `false`.
+* `requester_pays` - (Optional) Boolean who pays the cost of the request and the data download from the Amazon S3 bucket. Set this value to `true` if you want the requester to pay instead of the bucket owner. Defaults to `false`.
+* `smb_acl_enabled` - (Optional) Set this value to `true` to enable ACL (access control list) on the SMB fileshare. Set it to `false` to map file and directory permissions to the POSIX permissions. This setting applies only to `ActiveDirectory` authentication type.
+* `case_sensitivity` - (Optional) The case of an object name in an Amazon S3 bucket. For `ClientSpecified`, the client determines the case sensitivity. For `CaseSensitive`, the gateway determines the case sensitivity. The default value is `ClientSpecified`.
+* `valid_user_list` - (Optional) A list of users in the Active Directory that are allowed to access the file share. If you need to specify an Active directory group, add '@' before the name of the group. It will be set on Allowed group in AWS console. Only valid if `authentication` is set to `ActiveDirectory`.
+* `access_based_enumeration` - (Optional) The files and folders on this share will only be visible to users with read access. Default value is `false`.
+* `notification_policy` - (Optional) The notification policy of the file share. For more information see the [AWS Documentation](https://docs.aws.amazon.com/storagegateway/latest/APIReference/API_CreateNFSFileShare.html#StorageGateway-CreateNFSFileShare-request-NotificationPolicy). Default value is `{}`.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+**Note:** If you have previously included a `cache_attributes` block in your configuration, removing it will not reset the refresh cache value and the previous value will remain. You must explicitly set a new value to change it.
+
+### `cache_attributes` Block
+
+The `cache_attributes` configuration block supports the following arguments:
+
+* `cache_stale_timeout_in_seconds` - (Optional) Refreshes a file share's cache by using Time To Live (TTL).
+ TTL is the length of time since the last refresh after which access to the directory would cause the file gateway
+  to first refresh that directory's contents from the Amazon S3 bucket. Valid Values: 300 to 2,592,000 seconds (5 minutes to 30 days)
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Amazon Resource Name (ARN) of the SMB File Share.
+* `arn` - Amazon Resource Name (ARN) of the SMB File Share.
+* `fileshare_id` - ID of the SMB File Share.
+* `path` - File share path used by the NFS client to identify the mount point.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `10m`)
+* `update` - (Default `10m`)
+* `delete` - (Default `15m`)
+
+## Import
+
+```bash
+ytofu import aws_storagegateway_smb_file_share.example arn:aws:storagegateway:us-east-1:123456789012:share/share-12345678
 ```

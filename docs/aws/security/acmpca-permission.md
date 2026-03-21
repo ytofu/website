@@ -1,6 +1,7 @@
-# Acmpca Permission
+# Resource: aws_acmpca_permission
 
-Manage Acmpca Permission resources using ytofu YAML.
+Provides a resource to manage an AWS Certificate Manager Private Certificate Authorities Permission.
+Currently, this is only required in order to allow the ACM service to automatically renew certificates issued by a PCA.
 
 ## Basic Example
 
@@ -24,3 +25,19 @@ resource:
         subject:
           common_name: example.com
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `certificate_authority_arn` - (Required) ARN of the CA that grants the permissions.
+* `actions` - (Required) Actions that the specified AWS service principal can use. These include `IssueCertificate`, `GetCertificate`, and `ListPermissions`. Note that in order for ACM to automatically rotate certificates issued by a PCA, it must be granted permission on all 3 actions, as per the example above.
+* `principal` - (Required) AWS service or identity that receives the permission. At this time, the only valid principal is `acm.amazonaws.com`.
+* `source_account` - (Optional) ID of the calling account
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `policy` - IAM policy that is associated with the permission.

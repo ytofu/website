@@ -1,6 +1,6 @@
-# Redshift Snapshot Schedule Association
+# Resource: aws_redshift_snapshot_schedule_association
 
-Manage Redshift Snapshot Schedule Association resources using ytofu YAML.
+## Example Usage
 
 ## Basic Example
 
@@ -27,4 +27,22 @@ resource:
     default:
       cluster_identifier: ${aws_redshift_cluster.default.id}
       schedule_identifier: ${aws_redshift_snapshot_schedule.default.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `cluster_identifier` - (Required, Forces new resource) The cluster identifier.
+* `schedule_identifier` - (Required, Forces new resource) The snapshot schedule identifier.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_redshift_snapshot_schedule_association.default tf-redshift-cluster/tf-redshift-snapshot-schedule
 ```

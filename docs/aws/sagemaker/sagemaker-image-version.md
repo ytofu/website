@@ -1,6 +1,6 @@
-# Sagemaker Image Version
+# Resource: aws_sagemaker_image_version
 
-Manage Sagemaker Image Version resources using ytofu YAML.
+Provides a SageMaker AI Image Version resource.
 
 ## Basic Example
 
@@ -23,4 +23,34 @@ resource:
       aliases: 
         - latest
         - stable
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `image_name` - (Required) The name of the image. Must be unique to your account.
+* `base_image` - (Required) The registry path of the container image on which this image version is based.
+* `aliases` - (Optional) A list of aliases for the image version.
+* `horovod` - (Optional) Indicates Horovod compatibility.
+* `job_type` - (Optional) Indicates SageMaker AI job type compatibility. Valid values are: `TRAINING`, `INFERENCE`, and `NOTEBOOK_KERNEL`.
+* `ml_framework` - (Optional) The machine learning framework vended in the image version.
+* `processor` - (Optional) Indicates CPU or GPU compatibility. Valid values are: `CPU` and `GPU`.
+* `programming_lang` - (Optional) The supported programming language and its version.
+* `release_notes` - (Optional) The maintainer description of the image version.
+* `vendor_guidance` - (Optional) The stability of the image version, specified by the maintainer. Valid values are: `NOT_PROVIDED`, `STABLE`, `TO_BE_ARCHIVED`, and `ARCHIVED`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The Amazon Resource Name (ARN) assigned by AWS to this Image Version.
+* `version`- The version of the image. If not specified, the latest version is described.
+* `container_image` - The registry path of the container image that contains this image version.
+
+## Import
+
+```bash
+ytofu import aws_sagemaker_image_version.example example-name,1
 ```

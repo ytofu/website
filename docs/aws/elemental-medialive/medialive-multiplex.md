@@ -1,6 +1,6 @@
-# Medialive Multiplex
+# Resource: aws_medialive_multiplex
 
-Manage Medialive Multiplex resources using ytofu YAML.
+ytofu resource for managing an AWS MediaLive Multiplex.
 
 ## Basic Example
 
@@ -25,4 +25,45 @@ resource:
       start_multiplex: true
       tags:
         tag1: value1
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `availability_zones` - (Required) A list of availability zones. You must specify exactly two.
+* `multiplex_settings`- (Required) Multiplex settings. See [Multiplex Settings](#multiplex-settings) for more details.
+* `name` - (Required) name of Multiplex.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `start_multiplex` - (Optional) Whether to start the Multiplex. Defaults to `false`.
+* `tags` - (Optional) A map of tags to assign to the Multiplex. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### Multiplex Settings
+
+* `transport_stream_bitrate` - (Required) Transport stream bit rate.
+* `transport_stream_id` - (Required) Unique ID for each multiplex.
+* `transport_stream_reserved_bitrate` - (Optional) Transport stream reserved bit rate.
+* `maximum_video_buffer_delay_milliseconds` - (Optional) Maximum video buffer delay.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the Multiplex.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_medialive_multiplex.example 12345678
 ```

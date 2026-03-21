@@ -1,6 +1,7 @@
-# EC2 Transit Gateway Multicast Group Member
+# Resource: aws_ec2_transit_gateway_multicast_group_member
 
-Manage EC2 Transit Gateway Multicast Group Member resources using ytofu YAML.
+Registers members (network interfaces) with the transit gateway multicast group.
+A member is a network interface associated with a supported EC2 instance that receives multicast traffic.
 
 ## Basic Example
 
@@ -12,3 +13,18 @@ resource:
       network_interface_id: ${aws_network_interface.example.id}
       transit_gateway_multicast_domain_id: ${aws_ec2_transit_gateway_multicast_domain.example.id}
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `group_ip_address` - (Required) The IP address assigned to the transit gateway multicast group.
+* `network_interface_id` - (Required) The group members' network interface ID to register with the transit gateway multicast group.
+* `transit_gateway_multicast_domain_id` - (Required) The ID of the transit gateway multicast domain.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - EC2 Transit Gateway Multicast Group Member identifier.

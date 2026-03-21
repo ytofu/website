@@ -1,6 +1,6 @@
-# Chatbot Teams Channel Configuration
+# Resource: aws_chatbot_teams_channel_configuration
 
-Manage Chatbot Teams Channel Configuration resources using ytofu YAML.
+ytofu resource for managing an AWS Chatbot Microsoft Teams Channel Configuration.
 
 ## Basic Example
 
@@ -15,4 +15,46 @@ resource:
       tenant_id: 1234
       tags:
         Name: mitt-lags-kanal
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `channel_id` - (Required) ID of the Microsoft Teams channel.
+* `configuration_name` - (Required) Name of the Microsoft Teams channel configuration.
+* `iam_role_arn` - (Required) ARN of the IAM role that defines the permissions for AWS Chatbot. This is a user-defined role that AWS Chatbot will assume. This is not the service-linked role.
+* `team_id` - (Required) ID of the Microsoft Team authorized with AWS Chatbot. To get the team ID, you must perform the initial authorization flow with Microsoft Teams in the AWS Chatbot console. Then you can copy and paste the team ID from the console.
+* `tenant_id` - (Required) ID of the Microsoft Teams tenant.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `channel_name` - (Optional) Name of the Microsoft Teams channel.
+* `guardrail_policy_arns` - (Optional) List of IAM policy ARNs that are applied as channel guardrails. The AWS managed `AdministratorAccess` policy is applied by default if this is not set.
+* `logging_level` - (Optional) Logging levels include `ERROR`, `INFO`, or `NONE`.
+* `sns_topic_arns` - (Optional) ARNs of the SNS topics that deliver notifications to AWS Chatbot.
+* `tags` - (Optional) Map of tags assigned to the resource.
+* `team_name` - (Optional) Name of the Microsoft Teams team.
+* `user_authorization_required` - (Optional) Enables use of a user role requirement in your chat configuration.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `chat_configuration_arn` - ARN of the Microsoft Teams channel configuration.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `20m`)
+* `update` - (Default `20m`)
+* `delete` - (Default `20m`)
+
+## Import
+
+```bash
+ytofu import aws_chatbot_teams_channel_configuration.example 5f4f15d2-b958-522a-8333-124aa8bf0925
 ```

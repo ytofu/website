@@ -1,6 +1,6 @@
-# Route53 Query Log
+# Resource: aws_route53_query_log
 
-Manage Route53 Query Log resources using ytofu YAML.
+Provides a Route53 query logging configuration resource.
 
 ## Basic Example
 
@@ -43,4 +43,24 @@ resource:
         - ${aws_cloudwatch_log_resource_policy.route53-query-logging-policy}
       cloudwatch_log_group_arn: ${aws_cloudwatch_log_group.aws_route53_example_com.arn}
       zone_id: ${aws_route53_zone.example_com.zone_id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `cloudwatch_log_group_arn` - (Required) CloudWatch log group ARN to send query logs.
+* `zone_id` - (Required) Route53 hosted zone ID to enable query logs.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The Amazon Resource Name (ARN) of the Query Logging Config.
+* `id` - The query logging configuration ID
+
+## Import
+
+```bash
+ytofu import aws_route53_query_log.example_com xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```

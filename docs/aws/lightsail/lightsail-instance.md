@@ -1,6 +1,6 @@
-# Lightsail Instance
+# Resource: aws_lightsail_instance
 
-Manage Lightsail Instance resources using ytofu YAML.
+Manages a Lightsail Instance. Use this resource to create easy virtual private servers with custom software already setup.
 
 ## Basic Example
 
@@ -46,4 +46,52 @@ resource:
         status: Enabled
       tags:
         foo: bar
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `availability_zone` - (Required) Availability Zone in which to create your instance. A list of available zones can be obtained using the AWS CLI command: [`aws lightsail get-regions --include-availability-zones`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lightsail/get-regions.html).
+* `blueprint_id` - (Required) ID for a virtual private server image. A list of available blueprint IDs can be obtained using the AWS CLI command: [`aws lightsail get-blueprints`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lightsail/get-blueprints.html).
+* `bundle_id` - (Required) Bundle of specification information. A list of available bundle IDs can be obtained using the AWS CLI command: [`aws lightsail get-bundles`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lightsail/get-bundles.html).
+* `name` - (Required) Name of the Lightsail Instance. Names must be unique within each AWS Region in your Lightsail account.
+
+The following arguments are optional:
+
+* `add_on` - (Optional) Add-on configuration for the instance. [See below](#add_on).
+* `ip_address_type` - (Optional) IP address type of the Lightsail Instance. Valid values: `dualstack`, `ipv4`, `ipv6`. Default: `dualstack`.
+* `key_pair_name` - (Optional) Name of your key pair. Created in the Lightsail console (cannot use `aws_key_pair` at this time).
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `tags` - (Optional) Map of tags to assign to the resource. To create a key-only tag, use an empty string as the value. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `user_data` - (Optional) Single lined launch script as a string to configure server with additional user data.
+
+### `add_on`
+
+Add-on configuration for the instance. The `add_on` configuration block supports the following arguments:
+
+* `snapshot_time` - (Required) Daily time when an automatic snapshot will be created. Must be in HH:00 format, and in an hourly increment and specified in Coordinated Universal Time (UTC). The snapshot will be automatically created between the time specified and up to 45 minutes after.
+* `status` - (Required) Status of the add-on. Valid values: `Enabled`, `Disabled`.
+* `type` - (Required) Add-on type. There is currently only one valid type `AutoSnapshot`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the Lightsail instance (matches `id`).
+* `cpu_count` - Number of vCPUs the instance has.
+* `created_at` - Timestamp when the instance was created.
+* `id` - ARN of the Lightsail instance (matches `arn`).
+* `ipv6_addresses` - List of IPv6 addresses for the Lightsail instance.
+* `is_static_ip` - Whether this instance has a static IP assigned to it.
+* `private_ip_address` - Private IP address of the instance.
+* `public_ip_address` - Public IP address of the instance.
+* `ram_size` - Amount of RAM in GB on the instance (e.g., 1.0).
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+* `username` - User name for connecting to the instance (e.g., ec2-user).
+
+## Import
+
+```bash
+ytofu import aws_lightsail_instance.example 'example'
 ```

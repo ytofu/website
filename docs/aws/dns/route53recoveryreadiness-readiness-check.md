@@ -1,6 +1,6 @@
-# Route53recoveryreadiness Readiness Check
+# Resource: aws_route53recoveryreadiness_readiness_check
 
-Manage Route53recoveryreadiness Readiness Check resources using ytofu YAML.
+Provides an AWS Route 53 Recovery Readiness Readiness Check.
 
 ## Basic Example
 
@@ -10,4 +10,34 @@ resource:
     example:
       readiness_check_name: my-cw-alarm-check
       resource_set_name: my-cw-alarm-set
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `readiness_check_name` - (Required) Unique name describing the readiness check.
+* `resource_set_name` - (Required) Name describing the resource set that will be monitored for readiness.
+
+The following arguments are optional:
+
+* `tags` - (Optional) Key-value mapping of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the readiness_check
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+- `delete` - (Default `5m`)
+
+## Import
+
+```bash
+ytofu import aws_route53recoveryreadiness_readiness_check.my-cw-alarm-check example
 ```

@@ -1,6 +1,6 @@
-# Cloudwatch Event Bus Policy
+# Resource: aws_cloudwatch_event_bus_policy
 
-Manage Cloudwatch Event Bus Policy resources using ytofu YAML.
+Provides a resource to create an EventBridge resource policy to support cross-account events.
 
 ## Basic Example
 
@@ -102,4 +102,25 @@ resource:
     test:
       policy: ${data.aws_iam_policy_document.test.json}
       event_bus_name: ${aws_cloudwatch_event_bus.test.name}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `policy` - (Required) The text of the policy. For more information about building AWS IAM policy documents with ytofu, see the [AWS IAM Policy Document Guide](https://learn.hashicorp.com/terraform/aws/iam-policy).
+* `event_bus_name` - (Optional) The name of the event bus to set the permissions on.
+  If you omit this, the permissions are set on the `default` event bus.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The name of the EventBridge event bus.
+
+## Import
+
+```bash
+ytofu import aws_cloudwatch_event_bus_policy.DevAccountAccess example-event-bus
 ```

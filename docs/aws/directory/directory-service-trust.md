@@ -1,6 +1,6 @@
-# Directory Service Trust
+# Resource: aws_directory_service_trust
 
-Manage Directory Service Trust resources using ytofu YAML.
+Manages a trust relationship between two Active Directory Directories.
 
 ## Basic Example
 
@@ -68,4 +68,45 @@ resource:
     two:
       name: two.example.com
       type: MicrosoftAD
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `conditional_forwarder_ip_addrs` - (Optional) Set of IPv4 addresses for the DNS server associated with the remote Directory.
+  Can contain between 1 and 4 values.
+* `delete_associated_conditional_forwarder` - (Optional) Whether to delete the conditional forwarder when deleting the Trust relationship.
+* `directory_id` - (Required) ID of the Directory.
+* `remote_domain_name` - (Required) Fully qualified domain name of the remote Directory.
+* `selective_auth` - (Optional) Whether to enable selective authentication.
+  Valid values are `Enabled` and `Disabled`.
+  Default value is `Disabled`.
+* `trust_direction` - (Required) The direction of the Trust relationship.
+  Valid values are `One-Way: Outgoing`, `One-Way: Incoming`, and `Two-Way`.
+* `trust_password` - (Required) Password for the Trust.
+  Does not need to match the passwords for either Directory.
+  Can contain upper- and lower-case letters, numbers, and punctuation characters.
+  May be up to 128 characters long.
+* `trust_type` - (Optional) Type of the Trust relationship.
+  Valid values are `Forest` and `External`.
+  Default value is `Forest`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `created_date_time` - Date and time when the Trust was created.
+* `id` - The Trust identifier.
+* `last_updated_date_time` - Date and time when the Trust was last updated.
+* `state_last_updated_date_time` - Date and time when the Trust state in `trust_state` was last updated.
+* `trust_state` - State of the Trust relationship.
+  One of `Created`, `VerifyFailed`,`Verified`, `UpdateFailed`,`Updated`,`Deleted`, or `Failed`.
+* `trust_state_reason` - Reason for the Trust state set in `trust_state`.
+
+## Import
+
+```bash
+ytofu import aws_directory_service_trust.example d-926724cf57/directory.example.com
 ```

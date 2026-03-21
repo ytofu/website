@@ -1,6 +1,6 @@
-# SNS Platform Application
+# Resource: aws_sns_platform_application
 
-Manage SNS Platform Application resources using ytofu YAML.
+Provides an SNS platform application resource
 
 ## Basic Example
 
@@ -37,4 +37,42 @@ resource:
       name: gcm_application
       platform: GCM
       platform_credential: <GCM API KEY>
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) The friendly name for the SNS platform application
+* `platform` - (Required) The platform that the app is registered with. See [Platform][1] for supported platforms.
+* `platform_credential` - (Required) Application Platform credential. See [Credential][1] for type of credential required for platform. The value of this attribute when stored into the ytofu state is only a hash of the real value, so therefore it is not practical to use this as an attribute for other resources.
+* `event_delivery_failure_topic_arn` - (Optional) The ARN of the SNS Topic triggered when a delivery to any of the platform endpoints associated with your platform application encounters a permanent failure.
+* `event_endpoint_created_topic_arn` - (Optional) The ARN of the SNS Topic triggered when a new platform endpoint is added to your platform application.
+* `event_endpoint_deleted_topic_arn` - (Optional) The ARN of the SNS Topic triggered when an existing platform endpoint is deleted from your platform application.
+* `event_endpoint_updated_topic_arn` - (Optional) The ARN of the SNS Topic triggered when an existing platform endpoint is changed from your platform application.
+* `failure_feedback_role_arn` - (Optional) The IAM role ARN permitted to receive failure feedback for this application and give SNS write access to use CloudWatch logs on your behalf.
+* `platform_principal` - (Optional) Application Platform principal. See [Principal][2] for type of principal required for platform. The value of this attribute when stored into the ytofu state is only a hash of the real value, so therefore it is not practical to use this as an attribute for other resources.
+* `success_feedback_role_arn` - (Optional) The IAM role ARN permitted to receive success feedback for this application and give SNS write access to use CloudWatch logs on your behalf.
+* `success_feedback_sample_rate` - (Optional) The sample rate percentage (0-100) of successfully delivered messages.
+
+The following attributes are needed only when using APNS token credentials:
+
+* `apple_platform_team_id` - (Required) The identifier that's assigned to your Apple developer account team. Must be 10 alphanumeric characters.
+* `apple_platform_bundle_id` - (Required) The bundle identifier that's assigned to your iOS app. May only include alphanumeric characters, hyphens (-), and periods (.).
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ARN of the SNS platform application
+* `arn` - The ARN of the SNS platform application
+
+[1]: http://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-register.html
+[2]: http://docs.aws.amazon.com/sns/latest/api/API_CreatePlatformApplication.html
+
+## Import
+
+```bash
+ytofu import aws_sns_platform_application.gcm_application arn:aws:sns:us-west-2:123456789012:app/GCM/gcm_application
 ```

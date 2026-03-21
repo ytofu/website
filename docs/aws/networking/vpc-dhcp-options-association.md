@@ -1,6 +1,6 @@
-# VPC Dhcp Options Association
+# Resource: aws_vpc_dhcp_options_association
 
-Manage VPC Dhcp Options Association resources using ytofu YAML.
+Provides a VPC DHCP Options Association resource.
 
 ## Basic Example
 
@@ -10,4 +10,24 @@ resource:
     dns_resolver:
       vpc_id: ${aws_vpc.foo.id}
       dhcp_options_id: ${aws_vpc_dhcp_options.foo.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `vpc_id` - (Required) The ID of the VPC to which we would like to associate a DHCP Options Set.
+* `dhcp_options_id` - (Required) The ID of the DHCP Options Set to associate to the VPC.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the DHCP Options Set Association.
+
+## Import
+
+```bash
+ytofu import aws_vpc_dhcp_options_association.imported vpc-0f001273ec18911b1
 ```

@@ -1,6 +1,6 @@
-# Appconfig Hosted Configuration Version
+# Resource: aws_appconfig_hosted_configuration_version
 
-Manage Appconfig Hosted Configuration Version resources using ytofu YAML.
+Provides an AppConfig Hosted Configuration Version resource.
 
 ## Basic Example
 
@@ -39,4 +39,29 @@ resource:
       description: Example Multi-variant Feature Flag Configuration Version
       content_type: application/json
       content: '{ "flags": { "loggingenabled": { "name": "loggingEnabled" } }, "values": { "loggingenabled": { "_variants": concat([ for user_id in var.appcfg_enableLogging_userIds : { # Flat list of userIds "enabled": true, "name": "usersWithLoggingEnabled_${user_id}", "rule": "(or (eq $userId \"${user_id}\"))" } ], [ { "enabled": false, "name": "Default" } ]) } }, "version": "1" }'
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `application_id` - (Required, Forces new resource) Application ID.
+* `configuration_profile_id` - (Required, Forces new resource) Configuration profile ID.
+* `content` - (Required, Forces new resource) Content of the configuration or the configuration data.
+* `content_type` - (Required, Forces new resource) Standard MIME type describing the format of the configuration content. For more information, see [Content-Type](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17).
+* `description` - (Optional, Forces new resource) Description of the configuration.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the AppConfig  hosted configuration version.
+* `id` - AppConfig application ID, configuration profile ID, and version number separated by a slash (`/`).
+* `version_number` - Version number of the hosted configuration.
+
+## Import
+
+```bash
+ytofu import aws_appconfig_hosted_configuration_version.example 71abcde/11xxxxx/2
 ```

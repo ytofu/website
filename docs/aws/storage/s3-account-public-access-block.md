@@ -1,6 +1,6 @@
-# S3 Account Public Access Block
+# Resource: aws_s3_account_public_access_block
 
-Manage S3 Account Public Access Block resources using ytofu YAML.
+Manages S3 account-level Public Access Block configuration. For more information about these settings, see the [AWS S3 Block Public Access documentation](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html).
 
 ## Basic Example
 
@@ -10,4 +10,31 @@ resource:
     example:
       block_public_acls: true
       block_public_policy: true
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `account_id` - (Optional) AWS account ID to configure. Defaults to automatically determined account ID of the ytofu AWS provider.
+* `block_public_acls` - (Optional) Whether Amazon S3 should block public ACLs for buckets in this account. Defaults to `false`. Enabling this setting does not affect existing policies or ACLs. When set to `true` causes the following behavior:
+    * PUT Bucket acl and PUT Object acl calls will fail if the specified ACL allows public access.
+    * PUT Object calls fail if the request includes a public ACL.
+* `block_public_policy` - (Optional) Whether Amazon S3 should block public bucket policies for buckets in this account. Defaults to `false`. Enabling this setting does not affect existing bucket policies. When set to `true` causes Amazon S3 to:
+    * Reject calls to PUT Bucket policy if the specified bucket policy allows public access.
+* `ignore_public_acls` - (Optional) Whether Amazon S3 should ignore public ACLs for buckets in this account. Defaults to `false`. Enabling this setting does not affect the persistence of any existing ACLs and doesn't prevent new public ACLs from being set. When set to `true` causes Amazon S3 to:
+    * Ignore all public ACLs on buckets in this account and any objects that they contain.
+* `restrict_public_buckets` - (Optional) Whether Amazon S3 should restrict public bucket policies for buckets in this account. Defaults to `false`. Enabling this setting does not affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked. When set to `true`:
+    * Only the bucket owner and AWS Services can access buckets with public policies.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - AWS account ID
+
+## Import
+
+```bash
+ytofu import aws_s3_account_public_access_block.example 123456789012
 ```

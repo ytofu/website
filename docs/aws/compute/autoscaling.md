@@ -399,4 +399,4 @@ resource:
 - [Launch Template](launch-template.md)
 - [EC2 Instance](ec2-instance.md)
 - [Load Balancer](../networking/load-balancer.md)
-- [CloudWatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm)
+- CloudWatch

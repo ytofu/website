@@ -1,6 +1,6 @@
-# ECS Cluster Capacity Providers
+# Resource: aws_ecs_cluster_capacity_providers
 
-Manage ECS Cluster Capacity Providers resources using ytofu YAML.
+Manages the capacity providers of an ECS Cluster.
 
 ## Basic Example
 
@@ -20,4 +20,31 @@ resource:
         base: 1
         weight: 100
         capacity_provider: FARGATE
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `capacity_providers` - (Optional) Set of names of one or more capacity providers to associate with the cluster. Valid values also include `FARGATE` and `FARGATE_SPOT`.
+* `cluster_name` - (Required, Forces new resource) Name of the ECS cluster to manage capacity providers for.
+* `default_capacity_provider_strategy` - (Optional) Set of capacity provider strategies to use by default for the cluster. Detailed below.
+
+### default_capacity_provider_strategy Configuration Block
+
+* `capacity_provider` - (Required) Name of the capacity provider.
+* `weight` - (Optional) The relative percentage of the total number of launched tasks that should use the specified capacity provider. The `weight` value is taken into consideration after the `base` count of tasks has been satisfied. Defaults to `0`.
+* `base` - (Optional) The number of tasks, at a minimum, to run on the specified capacity provider. Only one capacity provider in a capacity provider strategy can have a base defined. Defaults to `0`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Same as `cluster_name`.
+
+## Import
+
+```bash
+ytofu import aws_ecs_cluster_capacity_providers.example my-cluster
 ```

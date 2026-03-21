@@ -1,6 +1,6 @@
-# Cognito User Group
+# Resource: aws_cognito_user_group
 
-Manage Cognito User Group resources using ytofu YAML.
+Provides a Cognito User Group resource.
 
 ## Basic Example
 
@@ -44,4 +44,25 @@ resource:
       description: Managed by Terraform
       precedence: 42
       role_arn: ${aws_iam_role.group_role.arn}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) The name of the user group.
+* `user_pool_id` - (Required) The user pool ID.
+* `description` - (Optional) The description of the user group.
+* `precedence` - (Optional) The precedence of the user group.
+* `role_arn` - (Optional) The ARN of the IAM role to be associated with the user group.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_cognito_user_group.group us-east-1_vG78M4goG/user-group
 ```

@@ -1,6 +1,6 @@
-# Appsync Type
+# Resource: aws_appsync_type
 
-Manage Appsync Type resources using ytofu YAML.
+Provides an AppSync Type.
 
 ## Basic Example
 
@@ -23,4 +23,28 @@ resource:
         putPost(id: ID!,title: String! ): Post
         
         }
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `api_id` - (Required) GraphQL API ID.
+* `format` - (Required) The type format: `SDL` or `JSON`.
+* `definition` - (Required) The type definition.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The ARN of the type.
+* `description` - The type description.
+* `id` - The ID is constructed from `api-id:format:name`.
+* `name` - The type name.
+
+## Import
+
+```bash
+ytofu import aws_appsync_type.example api-id:format:name
 ```

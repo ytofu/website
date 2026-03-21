@@ -1,6 +1,6 @@
-# Networkmanager Customer Gateway Association
+# Resource: aws_networkmanager_customer_gateway_association
 
-Manage Networkmanager Customer Gateway Association resources using ytofu YAML.
+Manages a Network Manager Customer Gateway Association.
 
 ## Basic Example
 
@@ -56,4 +56,33 @@ resource:
       device_id: ${aws_networkmanager_device.example.id}
       depends_on: 
         - ${aws_networkmanager_transit_gateway_registration.example}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `customer_gateway_arn` - (Required) ARN of the customer gateway.
+* `device_id` - (Required) ID of the device.
+* `global_network_id` - (Required) ID of the global network.
+
+The following arguments are optional:
+
+* `link_id` - (Optional) ID of the link.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `10m`)
+* `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_networkmanager_customer_gateway_association.example global-network-0d47f6t230mz46dy4,arn:aws:ec2:us-west-2:123456789012:customer-gateway/cgw-123abc05e04123abc
 ```

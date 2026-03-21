@@ -1,6 +1,6 @@
-# SQS Queue Redrive Allow Policy
+# Resource: aws_sqs_queue_redrive_allow_policy
 
-Manage SQS Queue Redrive Allow Policy resources using ytofu YAML.
+Provides a SQS Queue Redrive Allow Policy resource.
 
 ## Basic Example
 
@@ -21,4 +21,22 @@ resource:
     example:
       queue_url: ${aws_sqs_queue.example.id}
       redrive_allow_policy: '{ "redrivePermission": "byQueue", "sourceQueueArns": [aws_sqs_queue.src.arn] }'
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `queue_url` - (Required) The URL of the SQS Queue to which to attach the policy
+* `redrive_allow_policy` - (Required) The JSON redrive allow policy for the SQS queue. Learn more in the [Amazon SQS dead-letter queues documentation](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html).
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_sqs_queue_redrive_allow_policy.test https://queue.amazonaws.com/123456789012/myqueue
 ```

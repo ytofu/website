@@ -1,6 +1,6 @@
-# Codepipeline Webhook
+# Resource: aws_codepipeline_webhook
 
-Manage Codepipeline Webhook resources using ytofu YAML.
+Provides a CodePipeline Webhook.
 
 ## Basic Example
 
@@ -66,4 +66,42 @@ resource:
         secret: example-webhook_secret
       events: 
         - push
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) The name of the webhook.
+* `authentication` - (Required) The type of authentication  to use. One of `IP`, `GITHUB_HMAC`, or `UNAUTHENTICATED`.
+* `authentication_configuration` - (Optional) An `auth` block. Required for `IP` and `GITHUB_HMAC`. Auth blocks are documented below.
+* `filter` (Required) One or more `filter` blocks. Filter blocks are documented below.
+* `target_action` - (Required) The name of the action in a pipeline you want to connect to the webhook. The action must be from the source (first) stage of the pipeline.
+* `target_pipeline` - (Required) The name of the pipeline.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+An `authentication_configuration` block supports the following arguments:
+
+* `secret_token` - (Optional) The shared secret for the GitHub repository webhook. Set this as `secret` in your `github_repository_webhook`'s `configuration` block. Required for `GITHUB_HMAC`.
+* `allowed_ip_range` - (Optional) A valid CIDR block for `IP` filtering. Required for `IP`.
+
+A `filter` block supports the following arguments:
+
+* `json_path` - (Required) The [JSON path](https://github.com/json-path/JsonPath) to filter on.
+* `match_equals` - (Required) The value to match on (e.g., `refs/heads/{Branch}`). See [AWS docs](https://docs.aws.amazon.com/codepipeline/latest/APIReference/API_WebhookFilterRule.html) for details.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The CodePipeline webhook's ARN.
+* `id` - The CodePipeline webhook's ARN.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+* `url` - The CodePipeline webhook's URL. POST events to this endpoint to trigger the target.
+
+## Import
+
+```bash
+ytofu import aws_codepipeline_webhook.example arn:aws:codepipeline:us-west-2:123456789012:webhook:example
 ```

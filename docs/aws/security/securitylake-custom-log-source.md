@@ -1,6 +1,6 @@
-# Securitylake Custom Log Source
+# Resource: aws_securitylake_custom_log_source
 
-Manage Securitylake Custom Log Source resources using ytofu YAML.
+ytofu resource for managing an AWS Security Lake Custom Log Source.
 
 ## Basic Example
 
@@ -20,4 +20,39 @@ resource:
           principal: 123456789012
       depends_on: 
         - ${aws_securitylake_data_lake.example}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `configuration` - (Required) The configuration for the third-party custom source.
+    * `crawler_configuration` - (Required) The configuration for the Glue Crawler for the third-party custom source.
+        * `role_arn` - (Required) The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role to be used by the AWS Glue crawler.
+    * `provider_identity` - (Required) The identity of the log provider for the third-party custom source.
+        * `external_id` - (Required) The external ID used to estalish trust relationship with the AWS identity.
+        * `principal` - (Required) The AWS identity principal.
+* `event_classes` - (Optional) The Open Cybersecurity Schema Framework (OCSF) event classes which describes the type of data that the custom source will send to Security Lake.
+* `source_name` - (Required) Specify the name for a third-party custom source.
+  This must be a Regionally unique value.
+  Has a maximum length of 20.
+* `source_version` - (Optional) Specify the source version for the third-party custom source, to limit log collection to a specific version of custom data source.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `attributes` - The attributes of a third-party custom source.
+    * `crawler_arn` - The ARN of the AWS Glue crawler.
+    * `database_arn` - The ARN of the AWS Glue database where results are written.
+    * `table_arn` - The ARN of the AWS Glue table.
+* `provider_details` - The details of the log provider for a third-party custom source.
+    * `location` - The location of the partition in the Amazon S3 bucket for Security Lake.
+    * `role_arn` - The ARN of the IAM role to be used by the entity putting logs into your custom source partition.
+
+## Import
+
+```bash
+ytofu import aws_securitylake_custom_log_source.example example-name
 ```

@@ -1,6 +1,6 @@
-# Cloudwatch Log Destination Policy
+# Resource: aws_cloudwatch_log_destination_policy
 
-Manage Cloudwatch Log Destination Policy resources using ytofu YAML.
+Provides a CloudWatch Logs destination policy resource.
 
 ## Basic Example
 
@@ -31,4 +31,23 @@ resource:
     test_destination_policy:
       destination_name: ${aws_cloudwatch_log_destination.test_destination.name}
       access_policy: ${data.aws_iam_policy_document.test_destination_policy.json}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `destination_name` - (Required) A name for the subscription filter
+* `access_policy` - (Required) The policy document. This is a JSON formatted string.
+* `force_update` - (Optional) Specify true if you are updating an existing destination policy to grant permission to an organization ID instead of granting permission to individual AWS accounts.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_cloudwatch_log_destination_policy.test_destination_policy test_destination
 ```

@@ -1,6 +1,6 @@
-# Redshift Parameter Group
+# Resource: aws_redshift_parameter_group
 
-Manage Redshift Parameter Group resources using ytofu YAML.
+Provides a Redshift Cluster parameter group resource.
 
 ## Basic Example
 
@@ -19,4 +19,36 @@ resource:
       parameter:
         name: enable_user_activity_logging
         value: true
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) The name of the Redshift parameter group.
+* `family` - (Required) The family of the Redshift parameter group.
+* `description` - (Optional) The description of the Redshift parameter group. Defaults to "Managed by ytofu".
+* `parameter` - (Optional) A list of Redshift parameters to apply.
+
+Parameter blocks support the following:
+
+* `name` - (Required) The name of the Redshift parameter.
+* `value` - (Required) The value of the Redshift parameter.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+You can read more about the parameters that Redshift supports in the [documentation](http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Amazon Resource Name (ARN) of parameter group
+* `id` - The Redshift parameter group name.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_redshift_parameter_group.paramgroup1 parameter-group-test-terraform
 ```

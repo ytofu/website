@@ -1,6 +1,6 @@
-# Vpclattice Resource Configuration
+# Resource: aws_vpclattice_resource_configuration
 
-Manage Vpclattice Resource Configuration resources using ytofu YAML.
+ytofu resource for managing an AWS VPC Lattice Resource Configuration.
 
 ## Basic Example
 
@@ -77,4 +77,78 @@ resource:
       resource_configuration_definition:
         arn_resource:
           arn: ${aws_rds_cluster_instance.example.arn}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `name` - (Required) Name for the Resource Configuration.
+* `port_ranges` - (Required) Port ranges to access the Resource either single port `80` or range `80-81` range.
+* `resource_configuration_definition` - (Required) Details of the Resource Configuration. See [`resource_configuration_definition` Block](#resource_configuration_definition-block) for details.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `allow_association_to_shareable_service_network` (Optional) Allow or Deny the association of this resource to a shareable service network.
+* `custom_domain_name` - (Optional) Custom domain name for your resource configuration. Additionally, provide a `domain_verification_id` to prove your ownership of a domain.
+* `domain_verification_id` - (Optional) The domain verification ID of your verified custom domain name. If you don't provide an ID, you must configure the DNS settings yourself.
+* `protocol` - (Optional) Protocol for the Resource `TCP` is currently the only supported value.  MUST be specified if `resource_configuration_group_id` is not.
+* `resource_configuration_group_id` (Optional) ID of Resource Configuration where `type` is `CHILD`.
+* `resource_gateway_identifier` - (Optional) ID of the Resource Gateway used to access the resource. MUST be specified if `resource_configuration_group_id` is not.
+* `tags` - (Optional) Key-value mapping of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `type` - (Optional) Type of Resource Configuration. Must be one of `GROUP`, `CHILD`, `SINGLE`, `ARN`.
+
+### `resource_configuration_definition` Block
+
+One of `dns_resource`, `ip_resource`, `arn_resource` must be specified.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `arn_resource` - (Optional) Resource DNS Configuration. See [`arn_resource` Block](#arn_resource-block) for details.
+* `dns_resource` - (Optional) Resource DNS Configuration. See [`dns_resource` Block](#dns_resource-block) for details.
+* `ip_resource` - (Optional) Resource DNS Configuration. See [`ip_resource` Block](#ip_resource-block) for details.
+
+### `arn_resource` Block
+
+The following arguments are required:
+
+* `arn` - (Required) The ARN of the Resource for this configuration.
+
+### `dns_resource` Block
+
+The following arguments are required:
+
+* `domain_name` - (Required) The hostname of the Resource for this configuration.
+* `ip_address_type` - (Required) The IP Address type either `IPV4` or `IPV6`
+
+### `ip_resource` Block
+
+The following arguments are required:
+
+* `ip_address` - (Required) The IP Address of the Resource for this configuration.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the resource gateway.
+* `domain_verification_arn` - ARN of the domain verification.
+* `domain_verification_status` - Domain verification status.
+* `id` - ID of the resource gateway.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `10m`)
+* `update` - (Default `10m`)
+* `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_vpclattice_resource_configuration.example rcfg-1234567890abcdef1
 ```

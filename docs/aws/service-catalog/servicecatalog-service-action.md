@@ -1,6 +1,6 @@
-# Servicecatalog Service Action
+# Resource: aws_servicecatalog_service_action
 
-Manage Servicecatalog Service Action resources using ytofu YAML.
+Manages a Service Catalog self-service action.
 
 ## Basic Example
 
@@ -12,4 +12,48 @@ resource:
       name: MGU
       definition:
         name: AWS-RestartEC2Instance
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `definition` - (Required) Self-service action definition configuration block. Detailed below.
+* `name` - (Required) Self-service action name.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `accept_language` - (Optional) Language code. Valid values are `en` (English), `jp` (Japanese), and `zh` (Chinese). Default is `en`.
+* `description` - (Optional) Self-service action description.
+
+### `definition`
+
+The `definition` configuration block supports the following attributes:
+
+* `assume_role` - (Optional) ARN of the role that performs the self-service actions on your behalf. For example, `arn:aws:iam::12345678910:role/ActionRole`. To reuse the provisioned product launch role, set to `LAUNCH_ROLE`.
+* `name` - (Required) Name of the SSM document. For example, `AWS-RestartEC2Instance`. If you are using a shared SSM document, you must provide the ARN instead of the name.
+* `parameters` - (Optional) List of parameters in JSON format. For example: `[{\"Name\":\"InstanceId\",\"Type\":\"TARGET\"}]` or `[{\"Name\":\"InstanceId\",\"Type\":\"TEXT_VALUE\"}]`.
+* `type` - (Optional) Service action definition type. Valid value is `SSM_AUTOMATION`. Default is `SSM_AUTOMATION`.
+* `version` - (Required) SSM document version. For example, `1`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Identifier of the service action.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `3m`)
+- `read` - (Default `10m`)
+- `update` - (Default `3m`)
+- `delete` - (Default `3m`)
+
+## Import
+
+```bash
+ytofu import aws_servicecatalog_service_action.example act-f1w12eperfslh
 ```

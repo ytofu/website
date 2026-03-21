@@ -1,6 +1,6 @@
-# Bedrockagent Agent Alias
+# Resource: aws_bedrockagent_agent_alias
 
-Manage Bedrockagent Agent Alias resources using ytofu YAML.
+ytofu resource for managing an AWS Agents for Amazon Bedrock Agent Alias.
 
 ## Basic Example
 
@@ -71,4 +71,48 @@ resource:
       agent_alias_name: my-agent-alias
       agent_id: ${aws_bedrockagent_agent.example.agent_id}
       description: Test Alias
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `agent_alias_name` - (Required) Name of the alias.
+* `agent_id` - (Required, Forces new resource) Identifier of the agent to create an alias for.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) Description of the alias.
+* `routing_configuration` - (Optional) Details about the routing configuration of the alias. See [`routing_configuration` Block](#routing_configuration-block) for details.
+* `tags` - (Optional) Map of tags assigned to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### `routing_configuration` Block
+
+The `routing_configuration` configuration block supports the following arguments:
+
+* `agent_version` - (Optional) Version of the agent with which the alias is associated.
+* `provisioned_throughput` - (Optional) ARN of the Provisioned Throughput assigned to the agent alias.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `agent_alias_arn` - ARN of the alias.
+* `agent_alias_id` - Unique identifier of the alias.
+* `id` - Alias ID and agent ID separated by `,`.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `5m`)
+* `update` - (Default `5m`)
+* `delete` - (Default `5m`)
+
+## Import
+
+```bash
+ytofu import aws_bedrockagent_agent_alias.example 66IVY0GUTF,GGRRAED6JP
 ```

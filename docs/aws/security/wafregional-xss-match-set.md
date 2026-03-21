@@ -1,6 +1,6 @@
-# Wafregional Xss Match Set
+# Resource: aws_wafregional_xss_match_set
 
-Manage Wafregional Xss Match Set resources using ytofu YAML.
+Provides a WAF Regional XSS Match Set Resource for use with Application Load Balancer.
 
 ## Basic Example
 
@@ -17,4 +17,36 @@ resource:
         text_transformation: NONE
         field_to_match:
           type: QUERY_STRING
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) The name of the set
+* `xss_match_tuple` - (Optional) The parts of web requests that you want to inspect for cross-site scripting attacks.
+
+### Nested fields
+
+#### `xss_match_tuple`
+
+* `field_to_match` - (Required) Specifies where in a web request to look for cross-site scripting attacks.
+* `text_transformation` - (Required) Which text transformation, if any, to perform on the web request before inspecting the request for cross-site scripting attacks.
+
+#### `field_to_match`
+
+* `data` - (Optional) When the value of `type` is `HEADER`, enter the name of the header that you want the WAF to search, for example, `User-Agent` or `Referer`. If the value of `type` is any other value, omit `data`.
+* `type` - (Required) The part of the web request that you want AWS WAF to search for a specified stringE.g., `HEADER` or `METHOD`
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the Regional WAF XSS Match Set.
+
+## Import
+
+```bash
+ytofu import aws_wafregional_xss_match_set.example 12345abcde
 ```

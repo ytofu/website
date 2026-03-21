@@ -1,6 +1,6 @@
-# Route53 VPC Association Authorization
+# Resource: aws_route53_vpc_association_authorization
 
-Manage Route53 VPC Association Authorization resources using ytofu YAML.
+Authorizes a VPC in a different account to be associated with a local Route53 Hosted Zone.
 
 ## Basic Example
 
@@ -40,4 +40,32 @@ resource:
     example:
       vpc_id: ${aws_route53_vpc_association_authorization.example.vpc_id}
       zone_id: ${aws_route53_vpc_association_authorization.example.zone_id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `zone_id` - (Required) The ID of the private hosted zone that you want to authorize associating a VPC with.
+* `vpc_id` - (Required) The VPC to authorize for association with the private hosted zone.
+* `vpc_region` - (Optional) The VPC's region. Defaults to the region of the AWS provider.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The calculated unique identifier for the association.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `20m`)
+* `read` - (Default `5m`)
+* `delete` - (Default `20m`)
+
+## Import
+
+```bash
+ytofu import aws_route53_vpc_association_authorization.example Z123456ABCDEFG:vpc-12345678
 ```

@@ -1,6 +1,7 @@
-# EC2 Traffic Mirror Target
+# Resource: aws_ec2_traffic_mirror_target
 
-Manage EC2 Traffic Mirror Target resources using ytofu YAML.
+Provides a Traffic mirror target.  
+Read [limits and considerations](https://docs.aws.amazon.com/vpc/latest/mirroring/traffic-mirroring-considerations.html) for traffic mirroring
 
 ## Basic Example
 
@@ -22,4 +23,32 @@ resource:
     gwlb:
       description: GWLB target
       gateway_load_balancer_endpoint_id: ${aws_vpc_endpoint.example.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional, Forces new) A description of the traffic mirror session.
+* `network_interface_id` - (Optional, Forces new) The network interface ID that is associated with the target.
+* `network_load_balancer_arn` - (Optional, Forces new) The Amazon Resource Name (ARN) of the Network Load Balancer that is associated with the target.
+* `gateway_load_balancer_endpoint_id` - (Optional, Forces new) The VPC Endpoint Id of the Gateway Load Balancer that is associated with the target.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+**NOTE:** Either `network_interface_id` or `network_load_balancer_arn` should be specified and both should not be specified together
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the Traffic Mirror target.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+* `arn` - The ARN of the traffic mirror target.
+* `owner_id` - The ID of the AWS account that owns the traffic mirror target.
+
+## Import
+
+```bash
+ytofu import aws_ec2_traffic_mirror_target.target tmt-0c13a005422b86606
 ```

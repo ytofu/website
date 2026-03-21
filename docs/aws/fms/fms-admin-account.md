@@ -1,6 +1,6 @@
-# FMS Admin Account
+# Resource: aws_fms_admin_account
 
-Manage FMS Admin Account resources using ytofu YAML.
+Provides a resource to associate/disassociate an AWS Firewall Manager administrator account. This operation must be performed in the `us-east-1` region.
 
 ## Basic Example
 
@@ -8,4 +8,29 @@ Manage FMS Admin Account resources using ytofu YAML.
 resource:
   aws_fms_admin_account:
     example:
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `account_id` - (Optional) The AWS account ID to associate with AWS Firewall Manager as the AWS Firewall Manager administrator account. This can be an AWS Organizations master account or a member account. Defaults to the current account. Must be configured to perform drift detection.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The AWS account ID of the AWS Firewall Manager administrator account.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `30m`)
+- `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_fms_admin_account.example 123456789012
 ```

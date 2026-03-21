@@ -1,6 +1,6 @@
-# Appconfig Extension
+# Resource: aws_appconfig_extension
 
-Manage Appconfig Extension resources using ytofu YAML.
+Provides an AppConfig Extension resource.
 
 ## Basic Example
 
@@ -40,4 +40,53 @@ resource:
           uri: ${aws_sns_topic.test.arn}
       tags:
         Type: AppConfig Extension
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) A name for the extension. Each extension name in your account must be unique. Extension versions use the same name.
+* `description` - (Optional) Information about the extension.
+* `action_point` - (Required) The action points defined in the extension. [Detailed below](#action_point).
+* `parameter` - (Optional) The parameters accepted by the extension. You specify parameter values when you associate the extension to an AppConfig resource by using the CreateExtensionAssociation API action. For Lambda extension actions, these parameters are included in the Lambda request object. [Detailed below](#parameter).
+* `tags` - (Optional) Map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### `action_point`
+
+Defines the actions the extension performs during the AppConfig workflow and at which point those actions are performed. The `action_point` configuration block supports the following arguments:
+
+* `point` - (Required) The point at which to perform the defined actions. Valid points are `PRE_CREATE_HOSTED_CONFIGURATION_VERSION`, `PRE_START_DEPLOYMENT`, `ON_DEPLOYMENT_START`, `ON_DEPLOYMENT_STEP`, `ON_DEPLOYMENT_BAKING`, `ON_DEPLOYMENT_COMPLETE`, `ON_DEPLOYMENT_ROLLED_BACK`.
+* `action` - (Required) An action defines the tasks the extension performs during the AppConfig workflow. [Detailed below](#action).
+
+#### `action`
+
+The `action` configuration block supports configuring any number of the following arguments:
+
+* `name` - (Required) The action name.
+* `uri` - (Required) The extension URI associated to the action point in the extension definition. The URI can be an Amazon Resource Name (ARN) for one of the following: an Lambda function, an Amazon Simple Queue Service queue, an Amazon Simple Notification Service topic, or the Amazon EventBridge default event bus.
+* `role_arn` - (Optional) An Amazon Resource Name (ARN) for an Identity and Access Management assume role.
+* `description` - (Optional) Information about the action.
+
+#### `parameter`
+
+The `parameter` configuration block supports configuring any number of the following arguments:
+
+* `name` - (Required) The parameter name.
+* `required` - (Required) Determines if a parameter value must be specified in the extension association.
+* `description` - (Optional) Information about the parameter.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the AppConfig Extension.
+* `id` - AppConfig Extension ID.
+* `version` - The version number for the extension.
+
+## Import
+
+```bash
+ytofu import aws_appconfig_extension.example 71rxuzt
 ```

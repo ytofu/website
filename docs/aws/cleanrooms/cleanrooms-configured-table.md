@@ -1,6 +1,6 @@
-# Cleanrooms Configured Table
+# Resource: aws_cleanrooms_configured_table
 
-Manage Cleanrooms Configured Table resources using ytofu YAML.
+Provides a AWS Clean Rooms configured table. Configured tables are used to represent references to existing tables in the AWS Glue Data Catalog.
 
 ## Basic Example
 
@@ -20,4 +20,41 @@ resource:
         table_name: example_table
       tags:
         Project: Terraform
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) - The name of the configured table.
+* `description` - (Optional) - A description for the configured table.
+* `analysis_method` - (Required) - The analysis method for the configured table. The only valid value is currently `DIRECT_QUERY`.
+* `allowed_columns` - (Required - Forces new resource) - The columns of the references table which will be included in the configured table.
+* `table_reference` - (Required - Forces new resource) - A reference to the AWS Glue table which will be used to create the configured table.
+* `table_reference.database_name` - (Required - Forces new resource) - The name of the AWS Glue database which contains the table.
+* `table_reference.table_name` - (Required - Forces new resource) - The name of the AWS Glue table which will be used to create the configured table.
+* `tags` - (Optional) - Key value pairs which tag the configured table.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The ARN of the configured table.
+* `id` - The ID of the configured table.
+* `create_time` - The date and time the configured table was created.
+* `update_time` - The date and time the configured table was last updated.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `1m`)
+- `update` - (Default `1m`)
+- `delete` - (Default `1m`)
+
+## Import
+
+```bash
+ytofu import aws_cleanrooms_configured_table.table 1234abcd-12ab-34cd-56ef-1234567890ab
 ```

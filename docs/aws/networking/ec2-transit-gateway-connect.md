@@ -1,6 +1,6 @@
-# EC2 Transit Gateway Connect
+# Resource: aws_ec2_transit_gateway_connect
 
-Manage EC2 Transit Gateway Connect resources using ytofu YAML.
+Manages an EC2 Transit Gateway Connect.
 
 ## Basic Example
 
@@ -18,4 +18,37 @@ resource:
     attachment:
       transport_attachment_id: ${aws_ec2_transit_gateway_vpc_attachment.example.id}
       transit_gateway_id: ${aws_ec2_transit_gateway.example.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `protocol` - (Optional) The tunnel protocol. Valid values: `gre`. Default is `gre`.
+* `tags` - (Optional) Key-value tags for the EC2 Transit Gateway Connect. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `transit_gateway_default_route_table_association` - (Optional) Boolean whether the Connect should be associated with the EC2 Transit Gateway association default route table. This cannot be configured or perform drift detection with Resource Access Manager shared EC2 Transit Gateways. Default value: `true`.
+* `transit_gateway_default_route_table_propagation` - (Optional) Boolean whether the Connect should propagate routes with the EC2 Transit Gateway propagation default route table. This cannot be configured or perform drift detection with Resource Access Manager shared EC2 Transit Gateways. Default value: `true`.
+* `transit_gateway_id` - (Required) Identifier of EC2 Transit Gateway.
+* `transport_attachment_id` - (Required) The underlaying VPC attachment
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - EC2 Transit Gateway Attachment identifier
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `10m`)
+- `update` - (Default `10m`)
+- `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_ec2_transit_gateway_connect.example tgw-attach-12345678
 ```

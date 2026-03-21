@@ -1,6 +1,6 @@
-# LB Listener Rule
+# Resource: aws_lb_listener_rule
 
-Manage LB Listener Rule resources using ytofu YAML.
+Provides a Load Balancer Listener Rule resource.
 
 ## Basic Example
 
@@ -188,4 +188,197 @@ resource:
           rewrite:
             regex: ^/dp/([A-Za-z0-9]+)/?$
             replace: /product.php?id=$1
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `listener_arn` - (Required, Forces New Resource) The ARN of the listener to which to attach the rule.
+* `priority` - (Optional) The priority for the rule between `1` and `50000`. Leaving it unset will automatically set the rule with next available priority after currently existing highest rule. A listener can't have multiple rules with the same priority.
+* `action` - (Required) An Action block. Action blocks are documented below.
+* `condition` - (Required) A Condition block. Multiple condition blocks of different types can be set and all must be satisfied for the rule to match. Condition blocks are documented below.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `transform` - (Optional) Configuration block that defines the transform to apply to requests matching this rule. See [Transform Blocks](#transform-blocks) below for more details. Once specified, to remove the transform from the rule, remove the `transform` block from the configuration.
+
+### Action Blocks
+
+Action Blocks (for `action`) support the following:
+
+* `type` - (Required) The type of routing action. Valid values are `forward`, `redirect`, `fixed-response`, `authenticate-cognito`, `authenticate-oidc` and `jwt-validation`.
+* `authenticate_cognito` - (Optional) Information for creating an authenticate action using Cognito. Required if `type` is `authenticate-cognito`.
+* `authenticate_oidc` - (Optional) Information for creating an authenticate action using OIDC. Required if `type` is `authenticate-oidc`.
+* `fixed_response` - (Optional) Information for creating an action that returns a custom HTTP response. Required if `type` is `fixed-response`.
+* `forward` - (Optional) Configuration block for creating an action that distributes requests among one or more target groups.
+  Specify only if `type` is `forward`.
+  Cannot be specified with `target_group_arn`.
+* `jwt_validation` - (Optional) Information for creating a JWT validation action. Required if `type` is `jwt-validation`.
+* `order` - (Optional) Order for the action.
+  The action with the lowest value for order is performed first.
+  Valid values are between `1` and `50000`.
+  Defaults to the position in the list of actions.
+* `redirect` - (Optional) Information for creating a redirect action. Required if `type` is `redirect`.
+* `target_group_arn` - (Optional) ARN of the Target Group to which to route traffic.
+  Specify only if `type` is `forward` and you want to route to a single target group.
+  To route to one or more target groups, use a `forward` block instead.
+  Cannot be specified with `forward`.
+
+Forward Blocks (for `forward`) support the following:
+
+* `target_group` - (Required) One or more target group blocks.
+* `stickiness` - (Optional) The target group stickiness for the rule.
+
+Target Group Blocks (for `target_group`) supports the following:
+
+* `arn` - (Required) The Amazon Resource Name (ARN) of the target group.
+* `weight` - (Optional) The weight. The range is 0 to 999.
+
+Target Group Stickiness Config Blocks (for `stickiness`) supports the following:
+
+* `enabled` - (Required) Indicates whether target group stickiness is enabled.
+* `duration` - (Optional) The time period, in seconds, during which requests from a client should be routed to the same target group. The range is 1-604800 seconds (7 days).
+
+Redirect Blocks (for `redirect`) support the following:
+
+* `host` - (Optional) The hostname. This component is not percent-encoded. The hostname can contain `#{host}`. Defaults to `#{host}`.
+* `path` - (Optional) The absolute path, starting with the leading "/". This component is not percent-encoded. The path can contain #{host}, #{path}, and #{port}. Defaults to `/#{path}`.
+* `port` - (Optional) The port. Specify a value from `1` to `65535` or `#{port}`. Defaults to `#{port}`.
+* `protocol` - (Optional) The protocol. Valid values are `HTTP`, `HTTPS`, or `#{protocol}`. Defaults to `#{protocol}`.
+* `query` - (Optional) The query parameters, URL-encoded when necessary, but not percent-encoded. Do not include the leading "?". Defaults to `#{query}`.
+* `status_code` - (Required) The HTTP redirect code. The redirect is either permanent (`HTTP_301`) or temporary (`HTTP_302`).
+
+Fixed-response Blocks (for `fixed_response`) support the following:
+
+* `content_type` - (Required) The content type. Valid values are `text/plain`, `text/css`, `text/html`, `application/javascript` and `application/json`.
+* `message_body` - (Optional) The message body.
+* `status_code` - (Optional) The HTTP response code. Valid values are `2XX`, `4XX`, or `5XX`.
+
+Authenticate Cognito Blocks (for `authenticate_cognito`) supports the following:
+
+* `authentication_request_extra_params` - (Optional) The query parameters to include in the redirect request to the authorization endpoint. Max: 10.
+* `on_unauthenticated_request` - (Optional) The behavior if the user is not authenticated. Valid values: `deny`, `allow` and `authenticate`
+* `scope` - (Optional) The set of user claims to be requested from the IdP.
+* `session_cookie_name` - (Optional) The name of the cookie used to maintain session information.
+* `session_timeout` - (Optional) The maximum duration of the authentication session, in seconds.
+* `user_pool_arn` - (Required) The ARN of the Cognito user pool.
+* `user_pool_client_id` - (Required) The ID of the Cognito user pool client.
+* `user_pool_domain` - (Required) The domain prefix or fully-qualified domain name of the Cognito user pool.
+
+Authenticate OIDC Blocks (for `authenticate_oidc`) supports the following:
+
+* `authentication_request_extra_params` - (Optional) The query parameters to include in the redirect request to the authorization endpoint. Max: 10.
+* `authorization_endpoint` - (Required) The authorization endpoint of the IdP.
+* `client_id` - (Required) The OAuth 2.0 client identifier.
+* `client_secret` - (Required) The OAuth 2.0 client secret.
+* `issuer` - (Required) The OIDC issuer identifier of the IdP.
+* `on_unauthenticated_request` - (Optional) The behavior if the user is not authenticated. Valid values: `deny`, `allow` and `authenticate`
+* `scope` - (Optional) The set of user claims to be requested from the IdP.
+* `session_cookie_name` - (Optional) The name of the cookie used to maintain session information.
+* `session_timeout` - (Optional) The maximum duration of the authentication session, in seconds.
+* `token_endpoint` - (Required) The token endpoint of the IdP.
+* `user_info_endpoint` - (Required) The user info endpoint of the IdP.
+
+Authentication Request Extra Params Blocks (for `authentication_request_extra_params`) supports the following:
+
+* `key` - (Required) The key of query parameter
+* `value` - (Required) The value of query parameter
+
+JWT Validation Blocks (for `jwt_validation`) supports the following:
+
+* `issuer` - (Required) Issuer of the JWT.
+* `jwks_endpoint` - (Required) JSON Web Key Set (JWKS) endpoint. This endpoint contains JSON Web Keys (JWK) that are used to validate signatures from the provider. This must be a full URL, including the HTTPS protocol, the domain, and the path.
+* `additional_claim` - (Optional) Repeatable configuration block for additional claims to validate.
+
+Additional Claim Blocks (for `additional_claim`) supports the following:
+
+* `format` - (Required) Format of the claim value. Valid values are `single-string`, `string-array` and `space-separated-values`.
+* `name` - (Required) Name of the claim to validate. `exp`, `iss`, `nbf`, or `iat` cannot be specified because they are validated by default.
+* `values` - (Required) List of expected values of the claim.
+
+### Condition Blocks
+
+One or more condition blocks can be set per rule. Most condition types can only be specified once per rule except for `http-header` and `query-string` which can be specified multiple times.
+
+Condition Blocks (for `condition`) support the following:
+
+* `host_header` - (Optional) Host header patterns to match. [Host Header block](#host-header-blocks) fields documented below.
+* `http_header` - (Optional) HTTP headers to match. [HTTP Header block](#http-header-blocks) fields documented below.
+* `http_request_method` - (Optional) Contains a single `values` item which is a list of HTTP request methods or verbs to match. Maximum size is 40 characters. Only allowed characters are A-Z, hyphen (-) and underscore (\_). Comparison is case sensitive. Wildcards are not supported. Only one needs to match for the condition to be satisfied. AWS recommends that GET and HEAD requests are routed in the same way because the response to a HEAD request may be cached.
+* `path_pattern` - (Optional) Path patterns to match against the request URL. [Path Pattern block](#path-pattern-blocks) fields documented below.
+* `query_string` - (Optional) Query strings to match. [Query String block](#query-string-blocks) fields documented below.
+* `source_ip` - (Optional) Contains a single `values` item which is a list of source IP CIDR notations to match. You can use both IPv4 and IPv6 addresses. Wildcards are not supported. Condition is satisfied if the source IP address of the request matches one of the CIDR blocks. Condition is not satisfied by the addresses in the `X-Forwarded-For` header, use `http_header` condition instead.
+
+#### Host Header Blocks
+
+Host Header Blocks (for `host_header`) support the following:
+
+* `regex_values` - (Optional) List of regular expressions to compare against the host header. The maximum length of each string is 128 characters. Conflicts with `values`.
+* `values` - (Optional) List of host header value patterns to match. Maximum size of each pattern is 128 characters. Comparison is case-insensitive. Wildcard characters supported: * (matches 0 or more characters) and ? (matches exactly 1 character). Only one pattern needs to match for the condition to be satisfied. Conflicts with `regex_values`.
+
+#### HTTP Header Blocks
+
+HTTP Header Blocks (for `http_header`) support the following:
+
+* `http_header_name` - (Required) Name of HTTP header to search. The maximum size is 40 characters. Comparison is case-insensitive. Only RFC7240 characters are supported. Wildcards are not supported. You cannot use HTTP header condition to specify the host header, use a `host-header` condition instead.
+* `regex_values` - (Optional) List of regular expression to compare against the HTTP header. The maximum length of each string is 128 characters. Conflicts with `values`.
+* `values` - (Optional) List of header value patterns to match. Maximum size of each pattern is 128 characters. Comparison is case-insensitive. Wildcard characters supported: * (matches 0 or more characters) and ? (matches exactly 1 character). If the same header appears multiple times in the request they will be searched in order until a match is found. Only one pattern needs to match for the condition to be satisfied. To require that all of the strings are a match, create one condition block per string. Conflicts with `regex_values`.
+
+#### Path Pattern Blocks
+
+Path Pattern Blocks (for `path_pattern`) support the following:
+
+* `regex_values` - (Optional) List of regular expressions to compare against the request URL. The maximum length of each string is 128 characters. Conflicts with `values`.
+* `values` - (Optional) List of path patterns to compare against the request URL. Maximum size of each pattern is 128 characters. Comparison is case-sensitive. Wildcard characters supported: * (matches 0 or more characters) and ? (matches exactly 1 character). Only one pattern needs to match for the condition to be satisfied. Path pattern is compared only to the path of the URL, not to its query string. To compare against the query string, use a `query_string` condition. Conflicts with `regex_values`.
+
+#### Query String Blocks
+
+Query String Blocks (for `query_string`) support the following:
+
+* `values` - (Required) Query string pairs or values to match. Query String Value blocks documented below. Multiple `values` blocks can be specified, see example above. Maximum size of each string is 128 characters. Comparison is case insensitive. Wildcard characters supported: * (matches 0 or more characters) and ? (matches exactly 1 character). To search for a literal '\*' or '?' character in a query string, escape the character with a backslash (\\). Only one pair needs to match for the condition to be satisfied.
+
+Query String Value Blocks (for `query_string.values`) support the following:
+
+* `key` - (Optional) Query string key pattern to match.
+* `value` - (Required) Query string value pattern to match.
+
+#### Transform Blocks
+
+Transform Blocks (for `transform`) support the following:
+
+* `type` - (Required) Type of transform. Valid values are `host-header-rewrite` and `url-rewrite`.
+* `host_header_rewrite_config` - (Optional) Configuration block for host header rewrite. Required if `type` is `host-header-rewrite`. See [Host Header Rewrite Config Blocks](#host-header-rewrite-config-blocks) below.
+* `url_rewrite_config` - (Optional) Configuration block for URL rewrite. Required if `type` is `url-rewrite`. See [URL Rewrite Config Blocks](#url-rewrite-config-blocks) below.
+
+### Host Header Rewrite Config Blocks
+
+Host Header Rewrite Config Blocks (for `host_header_rewrite_config`) support the following:
+
+* `rewrite` - (Optional) Block for host header rewrite configuration. Only one block is accepted. See [Rewrite Blocks](#rewrite-blocks) below.
+
+### URL Rewrite Config Blocks
+
+URL Rewrite Config Blocks (for `url_rewrite_config`) support the following:
+
+* `rewrite` - (Optional) Block for URL rewrite configuration. Only one block is accepted. See [Rewrite Blocks](#rewrite-blocks) below.
+
+### Rewrite Blocks
+
+Rewrite Blocks (for `rewrite`) support the following:
+
+* `regex` - (Required) Regular expression to match in the input string. Length constraints: Between 1 and 1024 characters.
+* `replace` - (Required) Replacement string to use when rewriting the matched input. Capture groups in the regular expression (for example, `$1` and `$2`) can be specified. Length constraints: Between 0 and 1024 characters.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ARN of the rule (matches `arn`)
+* `arn` - The ARN of the rule (matches `id`)
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_lb_listener_rule.front_end arn:aws:elasticloadbalancing:us-west-2:187416307283:listener-rule/app/test/8e4497da625e2d8a/9ab28ade35828f96/67b3d2d36dd7c26b
 ```

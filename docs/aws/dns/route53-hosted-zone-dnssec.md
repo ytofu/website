@@ -1,6 +1,6 @@
-# Route53 Hosted Zone Dnssec
+# Resource: aws_route53_hosted_zone_dnssec
 
-Manage Route53 Hosted Zone Dnssec resources using ytofu YAML.
+Manages Route 53 Hosted Zone Domain Name System Security Extensions (DNSSEC). For more information about managing DNSSEC in Route 53, see the [Route 53 Developer Guide](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring-dnssec.html).
 
 ## Basic Example
 
@@ -35,4 +35,34 @@ resource:
       depends_on:
         - ${aws_route53_key_signing_key.example}
       hosted_zone_id: ${aws_route53_key_signing_key.example.hosted_zone_id}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `hosted_zone_id` - (Required) Identifier of the Route 53 Hosted Zone.
+
+The following arguments are optional:
+
+* `signing_status` - (Optional) Hosted Zone signing status. Valid values: `SIGNING`, `NOT_SIGNING`. Defaults to `SIGNING`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Route 53 Hosted Zone identifier.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_route53_hosted_zone_dnssec.example Z1D633PJN98FT9
 ```

@@ -1,6 +1,6 @@
-# Route53 Resolver Config
+# Resource: aws_route53_resolver_config
 
-Manage Route53 Resolver Config resources using ytofu YAML.
+Provides a Route 53 Resolver config resource.
 
 ## Basic Example
 
@@ -17,4 +17,25 @@ resource:
     example:
       resource_id: ${aws_vpc.example.id}
       autodefined_reverse_flag: DISABLE
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `resource_id` - (Required) The ID of the VPC that the configuration is for.
+* `autodefined_reverse_flag` - (Required) Indicates whether or not the Resolver will create autodefined rules for reverse DNS lookups. Valid values: `ENABLE`, `DISABLE`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the resolver configuration.
+* `owner_id` - The AWS account ID of the owner of the VPC that this resolver configuration applies to.
+
+## Import
+
+```bash
+ytofu import aws_route53_resolver_config.example rslvr-rc-715aa20c73a23da7
 ```

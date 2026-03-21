@@ -1,6 +1,6 @@
-# Lightsail LB Attachment
+# Resource: aws_lightsail_lb_attachment
 
-Manage Lightsail LB Attachment resources using ytofu YAML.
+Manages a Lightsail Load Balancer Attachment. Use this resource to attach Lightsail instances to a load balancer for distributing traffic across multiple instances.
 
 ## Basic Example
 
@@ -36,4 +36,27 @@ resource:
     example:
       lb_name: ${aws_lightsail_lb.example.name}
       instance_name: ${aws_lightsail_instance.example.name}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `instance_name` - (Required) Name of the instance to attach to the load balancer.
+* `lb_name` - (Required) Name of the Lightsail load balancer.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Combination of attributes to create a unique ID: `lb_name`,`instance_name`.
+
+## Import
+
+```bash
+ytofu import aws_lightsail_lb_attachment.example example-load-balancer,example-instance
 ```

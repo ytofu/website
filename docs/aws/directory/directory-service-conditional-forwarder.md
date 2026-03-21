@@ -1,6 +1,6 @@
-# Directory Service Conditional Forwarder
+# Resource: aws_directory_service_conditional_forwarder
 
-Manage Directory Service Conditional Forwarder resources using ytofu YAML.
+Provides a conditional forwarder for managed Microsoft AD in AWS Directory Service.
 
 ## Basic Example
 
@@ -13,4 +13,23 @@ resource:
       dns_ips:
         - 8.8.8.8
         - 8.8.4.4
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `directory_id` - (Required) ID of directory.
+* `dns_ips` - (Required) A list of forwarder IP addresses.
+* `remote_domain_name` - (Required) The fully qualified domain name of the remote domain for which forwarders will be used.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_directory_service_conditional_forwarder.example d-1234567890:example.com
 ```

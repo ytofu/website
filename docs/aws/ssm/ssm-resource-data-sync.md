@@ -1,6 +1,6 @@
-# SSM Resource Data Sync
+# Resource: aws_ssm_resource_data_sync
 
-Manage SSM Resource Data Sync resources using ytofu YAML.
+Provides a SSM resource data sync.
 
 ## Basic Example
 
@@ -53,4 +53,32 @@ resource:
       s3_destination:
         bucket_name: ${aws_s3_bucket.hoge.bucket}
         region: ${aws_s3_bucket.hoge.region}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) Name for the configuration.
+* `s3_destination` - (Required) Amazon S3 configuration details for the sync.
+
+## s3_destination
+
+`s3_destination` supports the following:
+
+* `bucket_name` - (Required) Name of S3 bucket where the aggregated data is stored.
+* `region` - (Required) Region with the bucket targeted by the Resource Data Sync.
+* `kms_key_arn` - (Optional) ARN of an encryption key for a destination in Amazon S3.
+* `prefix` - (Optional) Prefix for the bucket.
+* `sync_format` - (Optional) A supported sync format. Only JsonSerDe is currently supported. Defaults to JsonSerDe.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_ssm_resource_data_sync.example example-name
 ```

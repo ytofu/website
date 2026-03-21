@@ -1,6 +1,6 @@
-# SES Event Destination
+# Resource: aws_ses_event_destination
 
-Manage SES Event Destination resources using ytofu YAML.
+Provides an SES event destination
 
 ## Basic Example
 
@@ -51,4 +51,45 @@ resource:
         - send
       sns_destination:
         topic_arn: ${aws_sns_topic.example.arn}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) The name of the event destination
+* `configuration_set_name` - (Required) The name of the configuration set
+* `enabled` - (Optional) If true, the event destination will be enabled
+* `matching_types` - (Required) A list of matching types. May be any of `"send"`, `"reject"`, `"bounce"`, `"complaint"`, `"delivery"`, `"open"`, `"click"`, or `"renderingFailure"`.
+* `cloudwatch_destination` - (Optional) CloudWatch destination for the events
+* `kinesis_destination` - (Optional) Send the events to a kinesis firehose destination
+* `sns_destination` - (Optional) Send the events to an SNS Topic destination
+
+### cloudwatch_destination Argument Reference
+
+* `default_value` - (Required) The default value for the event
+* `dimension_name` - (Required) The name for the dimension
+* `value_source` - (Required) The source for the value. May be any of `"messageTag"`, `"emailHeader"` or `"linkTag"`.
+
+### kinesis_destination Argument Reference
+
+* `stream_arn` - (Required) The ARN of the Kinesis Stream
+* `role_arn` - (Required) The ARN of the role that has permissions to access the Kinesis Stream
+
+### sns_destination Argument Reference
+
+* `topic_arn` - (Required) The ARN of the SNS topic
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The SES event destination name.
+* `arn` - The SES event destination ARN.
+
+## Import
+
+```bash
+ytofu import aws_ses_event_destination.sns some-configuration-set-test/event-destination-sns
 ```

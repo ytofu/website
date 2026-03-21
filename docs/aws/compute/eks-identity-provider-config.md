@@ -1,6 +1,6 @@
-# EKS Identity Provider Config
+# Resource: aws_eks_identity_provider_config
 
-Manage EKS Identity Provider Config resources using ytofu YAML.
+Manages an EKS Identity Provider Configuration.
 
 ## Basic Example
 
@@ -13,4 +13,46 @@ resource:
         client_id: your client_id
         identity_provider_config_name: example
         issuer_url: your issuer_url
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `cluster_name` - (Required) Name of the EKS Cluster.
+* `oidc` - (Required) Nested attribute containing [OpenID Connect](https://openid.net/connect/) identity provider information for the cluster. Detailed below.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### oidc Configuration Block
+
+* `client_id` - (Required) Client ID for the OpenID Connect identity provider.
+* `groups_claim` - (Optional) The JWT claim that the provider will use to return groups.
+* `groups_prefix` - (Optional) A prefix that is prepended to group claims e.g., `oidc:`.
+* `identity_provider_config_name` - (Required) The name of the identity provider config.
+* `issuer_url` - (Required) Issuer URL for the OpenID Connect identity provider.
+* `required_claims` - (Optional) The key value pairs that describe required claims in the identity token.
+* `username_claim` - (Optional) The JWT claim that the provider will use as the username.
+* `username_prefix` - (Optional) A prefix that is prepended to username claims.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Amazon Resource Name (ARN) of the EKS Identity Provider Configuration.
+* `id` - EKS Cluster name and EKS Identity Provider Configuration name separated by a colon (`:`).
+* `status` - Status of the EKS Identity Provider Configuration.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `40m`)
+* `delete` - (Default `40m`)
+
+## Import
+
+```bash
+ytofu import aws_eks_identity_provider_config.my_identity_provider_config my_cluster:my_identity_provider_config
 ```

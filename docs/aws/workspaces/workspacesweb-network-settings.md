@@ -1,6 +1,6 @@
-# Workspacesweb Network Settings
+# Resource: aws_workspacesweb_network_settings
 
-Manage Workspacesweb Network Settings resources using ytofu YAML.
+ytofu resource for managing an AWS WorkSpaces Web Network Settings resource. Once associated with a web portal, network settings define how streaming instances will connect with your specified VPC.
 
 ## Basic Example
 
@@ -33,4 +33,31 @@ resource:
       security_group_ids: 
         - ${aws_security_group.example[0].id}
         - ${aws_security_group.example[1].id}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `security_group_ids` - (Required) One or more security groups used to control access from streaming instances to your VPC.
+* `subnet_ids` - (Required) The subnets in which network interfaces are created to connect streaming instances to your VPC. At least two subnet ids must be specified.
+* `vpc_id` - (Required) The VPC that streaming instances will connect to.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `tags` - (Optional) Map of tags assigned to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `associated_portal_arns` - List of web portal ARNs associated with the network settings.
+* `network_settings_arn` - ARN of the network settings resource.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_workspacesweb_network_settings.example arn:aws:workspacesweb:us-west-2:123456789012:networksettings/abcdef12345
 ```

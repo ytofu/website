@@ -1,6 +1,6 @@
-# Cognito Resource Server
+# Resource: aws_cognito_resource_server
 
-Manage Cognito Resource Server resources using ytofu YAML.
+Provides a Cognito Resource Server.
 
 ## Basic Example
 
@@ -35,4 +35,31 @@ resource:
         scope_name: sample-scope
         scope_description: a Sample Scope Description
       user_pool_id: ${aws_cognito_user_pool.pool.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `identifier` - (Required) An identifier for the resource server.
+* `name` - (Required) A name for the resource server.
+* `user_pool_id` - (Required) User pool the client belongs to.
+* `scope` - (Optional) A list of [Authorization Scope](#authorization-scope).
+
+### Authorization Scope
+
+* `scope_name` - (Required) The scope name.
+* `scope_description` - (Required) The scope description.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `scope_identifiers` - A list of all scopes configured for this resource server in the format identifier/scope_name.
+
+## Import
+
+```bash
+ytofu import aws_cognito_resource_server.example "us-west-2_abc123|https://example.com"
 ```

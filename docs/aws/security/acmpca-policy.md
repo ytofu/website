@@ -1,6 +1,6 @@
-# Acmpca Policy
+# Resource: aws_acmpca_policy
 
-Manage Acmpca Policy resources using ytofu YAML.
+Attaches a resource based policy to a private CA.
 
 ## Basic Example
 
@@ -44,4 +44,22 @@ resource:
     example:
       resource_arn: ${aws_acmpca_certificate_authority.example.arn}
       policy: ${data.aws_iam_policy_document.example.json}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `resource_arn` - (Required) ARN of the private CA to associate with the policy.
+* `policy` - (Required) JSON-formatted IAM policy to attach to the specified private CA resource.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_acmpca_policy.example arn:aws:acm-pca:us-east-1:123456789012:certificate-authority/12345678-1234-1234-1234-123456789012
 ```

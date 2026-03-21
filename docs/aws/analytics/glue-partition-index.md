@@ -1,6 +1,6 @@
-# Glue Partition Index
+# Resource: aws_glue_partition_index
 
-Manage Glue Partition Index resources using ytofu YAML.
+## Example Usage
 
 ## Basic Example
 
@@ -75,4 +75,38 @@ resource:
         keys: 
           - my_column_1
           - my_column_2
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `table_name` - (Required) Name of the table. For Hive compatibility, this must be entirely lowercase.
+* `database_name` - (Required) Name of the metadata database where the table metadata resides. For Hive compatibility, this must be all lowercase.
+* `partition_index` - (Required) Configuration block for a partition index. See [`partition_index`](#partition_index) below.
+* `catalog_id` - (Optional) The catalog ID where the table resides.
+
+### partition_index
+
+* `index_name` - (Required) Name of the partition index.
+* `keys` - (Required) Keys for the partition index.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Catalog ID, Database name, table name, and index name.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `10m`)
+* `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_glue_partition_index.example 123456789012:MyDatabase:MyTable:index-name
 ```

@@ -1,6 +1,6 @@
-# S3control Access Point Policy
+# Resource: aws_s3control_access_point_policy
 
-Manage S3control Access Point Policy resources using ytofu YAML.
+Provides a resource to manage an S3 Access Point resource policy.
 
 ## Basic Example
 
@@ -29,4 +29,25 @@ resource:
     example:
       access_point_arn: ${aws_s3_access_point.example.arn}
       policy: '{ "Version": "2008-10-17" "Statement": [{ "Effect": "Allow" "Action": "s3:GetObjectTagging" "Principal": { "AWS": "*" } "Resource": "${aws_s3_access_point.example.arn}/object/*" }] }'
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `access_point_arn` - (Required) The ARN of the access point that you want to associate with the specified policy.
+* `policy` - (Required) The policy that you want to apply to the specified access point.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `has_public_access_policy` - Indicates whether this access point currently has a policy that allows public access.
+* `id` - The AWS account ID and access point name separated by a colon (`:`).
+
+## Import
+
+```bash
+ytofu import aws_s3control_access_point_policy.example arn:aws:s3:us-west-2:123456789012:accesspoint/example
 ```

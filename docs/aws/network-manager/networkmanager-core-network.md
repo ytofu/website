@@ -1,6 +1,6 @@
-# Networkmanager Core Network
+# Resource: aws_networkmanager_core_network
 
-Manage Networkmanager Core Network resources using ytofu YAML.
+Manages a Network Manager Core Network.
 
 ## Basic Example
 
@@ -169,4 +169,86 @@ resource:
       core_network_id: ${aws_networkmanager_core_network.example.id}
       subnet_arns: ${aws_subnet.example_us_east_1[*].arn}
       vpc_arn: ${aws_vpc.example_us_east_1.arn}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `global_network_id` - (Required) ID of the global network that a core network will be a part of.
+
+The following arguments are optional:
+
+* `base_policy_document` - (Optional, conflicts with `base_policy_regions`) Sets the base policy document for the core network. Refer to the [Core network policies documentation](https://docs.aws.amazon.com/network-manager/latest/cloudwan/cloudwan-policy-change-sets.html) for more information.
+* `base_policy_regions` - (Optional, conflicts with `base_policy_document`) List of regions to add to the base policy. The base policy created by setting the `create_base_policy` argument to `true` requires one or more regions to be set in the `edge-locations`, `location` key. If `base_policy_regions` is not specified, the region used in the base policy defaults to the region specified in the `provider` block.
+* `create_base_policy` - (Optional) Whether to create a base policy when a core network is created or updated. A base policy is created and set to `LIVE` to allow attachments to the core network (e.g. VPC Attachments) before applying a policy document provided using the `aws_networkmanager_core_network_policy_attachment` resource. This base policy is needed if your core network does not have any `LIVE` policies and your policy document has static routes pointing to VPC attachments and you want to attach your VPCs to the core network before applying the desired policy document. Valid values are `true` or `false`. An example of this ytofu snippet can be found above [for VPC Attachment in a single region](#with-vpc-attachment-single-region) and [for VPC Attachment multi-region](#with-vpc-attachment-multi-region). An example base policy is shown below. This base policy is overridden with the policy that you specify in the `aws_networkmanager_core_network_policy_attachment` resource.
+
+```json
+{
+  "version": "2021.12",
+  "core-network-configuration": {
+    "asn-ranges": [
+      "64512-65534"
+    ],
+    "vpn-ecmp-support": false,
+    "edge-locations": [
+      {
+        "location": "us-east-1"
+      }
+    ]
+  },
+  "segments": [
+    {
+      "name": "segment",
+      "description": "base-policy",
+      "isolate-attachments": false,
+      "require-attachment-acceptance": false
+    }
+  ]
+}
+```
+
+* `description` - (Optional) Description of the Core Network.
+* `tags` - (Optional) Key-value tags for the Core Network. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Core Network ARN.
+* `created_at` - Timestamp when a core network was created.
+* `edges` - One or more blocks detailing the edges within a core network. [Detailed below](#edges).
+* `id` - Core Network ID.
+* `segments` - One or more blocks detailing the segments within a core network. [Detailed below](#segments).
+* `state` - Current state of a core network.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+### `edges`
+
+The `edges` configuration block supports the following arguments:
+
+* `asn` - ASN of a core network edge.
+* `edge_location` - Region where a core network edge is located.
+* `inside_cidr_blocks` - Inside IP addresses used for core network edges.
+
+### `segments`
+
+The `segments` configuration block supports the following arguments:
+
+* `edge_locations` - Regions where the edges are located.
+* `name` - Name of a core network segment.
+* `shared_segments` - Shared segments of a core network.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `delete` - (Default `30m`)
+* `update` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_networkmanager_core_network.example core-network-0d47f6t230mz46dy4
 ```

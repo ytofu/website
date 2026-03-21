@@ -1,6 +1,6 @@
-# MSK Replicator
+# Resource: aws_msk_replicator
 
-Manage MSK Replicator resources using ytofu YAML.
+ytofu resource for managing an AWS Managed Streaming for Kafka Replicator.
 
 ## Basic Example
 
@@ -39,4 +39,84 @@ resource:
         consumer_group_replication:
           consumer_groups_to_replicate: 
             - ".*"
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `replicator_name` - (Required) The name of the replicator.
+* `kafka_cluster` - (Required) A list of Kafka clusters which are targets of the replicator.
+* `service_execution_role_arn` - (Required) The ARN of the IAM role used by the replicator to access resources in the customer's account (e.g source and target clusters).
+* `replication_info_list` - (Required) A list of replication configurations, where each configuration targets a given source cluster to target cluster replication flow.
+* `description` - (Optional) A summary description of the replicator.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### kafka_cluster Argument Reference
+
+* `amazon_msk_cluster` - (Required) Details of an Amazon MSK cluster.
+* `vpc_config` - (Required) Details of an Amazon VPC which has network connectivity to the Apache Kafka cluster.
+
+### amazon_msk_cluster Argument Reference
+
+* `msk_cluster_arn` - (Required) The ARN of an Amazon MSK cluster.
+
+### vpc_config Argument Reference
+
+* `subnet_ids` - (Required) The list of subnets to connect to in the virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets to allow communication between your Kafka Cluster and the replicator.
+* `security_groups_ids` - (Required) The AWS security groups to associate with the ENIs used by the replicator. If a security group is not specified, the default security group associated with the VPC is used.
+
+### replication_info_list Argument Reference
+
+* `source_kafka_cluster_arn` - (Required) The ARN of the source Kafka cluster.
+* `target_kafka_cluster_arn` - (Required) The ARN of the target Kafka cluster.
+* `target_compression_type` - (Required) The type of compression to use writing records to target Kafka cluster.
+* `topic_replication` - (Required) Configuration relating to topic replication.
+* `consumer_group_replication` - (Required) Configuration relating to consumer group replication.
+
+### topic_replication Argument Reference
+
+* `topic_name_configuration` - (Optional) Configuration for specifying replicated topic names should be the same as their corresponding upstream topics or prefixed with source cluster alias.
+* `topics_to_replicate` - (Required) List of regular expression patterns indicating the topics to copy.
+* `topics_to_exclude` - (Optional) List of regular expression patterns indicating the topics that should not be replica.
+* `detect_and_copy_new_topics` - (Optional) Whether to periodically check for new topics and partitions.
+* `copy_access_control_lists_for_topics` - (Optional) Whether to periodically configure remote topic ACLs to match their corresponding upstream topics.
+* `copy_topic_configurations` - (Optional) Whether to periodically configure remote topics to match their corresponding upstream topics.
+* `starting_position` - (Optional) Configuration for specifying the position in the topics to start replicating from.
+
+### consumer_group_replication Argument Reference
+
+* `consumer_groups_to_replicate` - (Required) List of regular expression patterns indicating the consumer groups to copy.
+* `consumer_groups_to_exclude` - (Optional) List of regular expression patterns indicating the consumer groups that should not be replicated.
+* `detect_and_copy_new_consumer_groups` - (Optional) Whether to periodically check for new consumer groups.
+* `synchronise_consumer_group_offsets` - (Optional) Whether to periodically write the translated offsets to __consumer_offsets topic in target cluster.
+
+### topic_name_configuration
+
+* `type` - (optional) The type of topic configuration name. Supports `PREFIXED_WITH_SOURCE_CLUSTER_ALIAS` and `IDENTICAL`.
+
+### starting_position
+
+* `type` - (Optional) The type of replication starting position. Supports `LATEST` and `EARLIEST`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the Replicator.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `60m`)
+* `update` - (Default `180m`)
+* `delete` - (Default `90m`)
+
+## Import
+
+```bash
+ytofu import aws_msk_replicator.example arn:aws:kafka:us-west-2:123456789012:configuration/example/279c0212-d057-4dba-9aa9-1c4e5a25bfc7-3
 ```

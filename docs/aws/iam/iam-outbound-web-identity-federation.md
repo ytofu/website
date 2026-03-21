@@ -1,6 +1,6 @@
-# IAM Outbound Web Identity Federation
+# Resource: aws_iam_outbound_web_identity_federation
 
-Manage IAM Outbound Web Identity Federation resources using ytofu YAML.
+Manages an AWS IAM (Identity & Access Management) Outbound Web Identity Federation.
 
 ## Basic Example
 
@@ -8,4 +8,20 @@ Manage IAM Outbound Web Identity Federation resources using ytofu YAML.
 resource:
   aws_iam_outbound_web_identity_federation:
     example:
+```
+
+## Argument Reference
+
+This resource does not support any arguments.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `issuer_identifier` - A unique issuer URL for your AWS account that hosts the OpenID Connect (OIDC) discovery endpoints.
+
+## Import
+
+```bash
+ytofu import aws_iam_outbound_web_identity_federation.example 123456789012
 ```

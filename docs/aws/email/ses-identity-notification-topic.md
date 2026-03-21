@@ -1,6 +1,6 @@
-# SES Identity Notification Topic
+# Resource: aws_ses_identity_notification_topic
 
-Manage SES Identity Notification Topic resources using ytofu YAML.
+Resource for managing SES Identity Notification Topics
 
 ## Basic Example
 
@@ -12,4 +12,24 @@ resource:
       notification_type: Bounce
       identity: ${aws_ses_domain_identity.example.domain}
       include_original_headers: true
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `topic_arn` - (Optional) The Amazon Resource Name (ARN) of the Amazon SNS topic. Can be set to `""` (an empty string) to disable publishing.
+* `notification_type` - (Required) The type of notifications that will be published to the specified Amazon SNS topic. Valid Values: `Bounce`, `Complaint` or `Delivery`.
+* `identity` - (Required) The identity for which the Amazon SNS topic will be set. You can specify an identity by using its name or by using its Amazon Resource Name (ARN).
+* `include_original_headers` - (Optional) Whether SES should include original email headers in SNS notifications of this type. `false` by default.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_ses_identity_notification_topic.test 'example.com|Bounce'
 ```

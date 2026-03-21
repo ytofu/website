@@ -1,6 +1,6 @@
-# Bedrockagentcore Gateway Target
+# Resource: aws_bedrockagentcore_gateway_target
 
-Manage Bedrockagentcore Gateway Target resources using ytofu YAML.
+Manages an AWS Bedrock AgentCore Gateway Target. Gateway targets define the endpoints and configurations that a gateway can invoke, such as Lambda functions or APIs, allowing agents to interact with external services through the Model Context Protocol (MCP).
 
 ## Basic Example
 
@@ -225,4 +225,208 @@ resource:
           - x-rate-limit-remaining
         allowed_query_parameters: 
           - version
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `name` - (Required) Name of the gateway target.
+* `gateway_identifier` - (Required) Identifier of the gateway that this target belongs to.
+* `target_configuration` - (Required) Configuration for the target endpoint. See [`target_configuration`](#target_configuration) below.
+
+The following arguments are optional:
+
+* `credential_provider_configuration` - (Optional) Configuration for authenticating requests to the target. Required when using `lambda`, `open_api_schema` and `smithy_model` in `mcp` block. If using `mcp_server` in `mcp` block with no authorization, it should not be specified. See [`credential_provider_configuration`](#credential_provider_configuration) below.
+* `description` - (Optional) Description of the gateway target.
+* `metadata_configuration` - (Optional) Configuration for HTTP header and query parameter propagation between the gateway and target servers. See [`metadata_configuration`](#metadata_configuration) below.
+* `region` - (Optional) AWS region where the resource will be created. If not provided, the region from the provider configuration will be used.
+
+### `credential_provider_configuration`
+
+The `credential_provider_configuration` block supports exactly one of the following:
+
+* `gateway_iam_role` - (Optional) Use the gateway's IAM role for authentication. This is an empty configuration block.
+* `api_key` - (Optional) API key-based authentication configuration. See [`api_key`](#api_key) below.
+* `oauth` - (Optional) OAuth-based authentication configuration. See [`oauth`](#oauth) below.
+
+### `api_key`
+
+The `api_key` block supports the following:
+
+* `provider_arn` - (Required) ARN of the OIDC provider for API key authentication.
+* `credential_location` - (Optional) Location where the API key credential is provided. Valid values: `HEADER`, `QUERY_PARAMETER`.
+* `credential_parameter_name` - (Optional) Name of the parameter containing the API key credential.
+* `credential_prefix` - (Optional) Prefix to add to the API key credential value.
+
+### `oauth`
+
+The `oauth` block supports the following:
+
+* `provider_arn` - (Required) ARN of the Oauth credential provider for OAuth authentication.
+* `grant_type` - (Optional) The OAuth grant type. Valid values: `CLIENT_CREDENTIALS` (machine-to-machine authentication), `AUTHORIZATION_CODE` (user-delegated access).
+* `default_return_url` - (Optional) The URL where the end user's browser is redirected after obtaining the authorization code. Required when `grant_type` is `AUTHORIZATION_CODE`.
+* `scopes` - (Optional) Set of OAuth scopes to request.
+* `custom_parameters` - (Optional) Map of custom parameters to include in OAuth requests.
+
+### `metadata_configuration`
+
+The `metadata_configuration` block supports the following:
+
+* `allowed_query_parameters` - (Optional) A set of URL query parameters that are allowed to be propagated from incoming gateway URL to the target. Maximum of 10 parameters.
+* `allowed_request_headers` - (Optional) A set of HTTP headers that are allowed to be propagated from incoming client requests to the target. Maximum of 10 headers.
+* `allowed_response_headers` - (Optional) A set of HTTP headers that are allowed to be propagated from the target response back to the client. Maximum of 10 headers.
+
+### `target_configuration`
+
+The `target_configuration` block supports the following:
+
+* `mcp` - (Optional) Model Context Protocol (MCP) configuration. See [`mcp`](#mcp) below.
+
+### `mcp`
+
+The `mcp` block supports exactly one of the following:
+
+* `api_gateway` - (Optional) API Gateway target configuration. See [`api_gateway`](#api_gateway) below.
+* `lambda` - (Optional) Lambda function target configuration. See [`lambda`](#lambda) below.
+* `mcp_server` - (Optional) MCP server target configuration. See [`mcp_server`](#mcp_server) below.
+* `open_api_schema` - (Optional) OpenAPI schema-based target configuration. See [`api_schema_configuration`](#api_schema_configuration) below.
+* `smithy_model` - (Optional) Smithy model-based target configuration. See [`api_schema_configuration`](#api_schema_configuration) below.
+
+### `api_gateway`
+
+The `api_gateway` block supports the following:
+
+* `api_gateway_tool_configuration` - (Required) Configuration for API Gateway tools. See [`api_gateway_tool_configuration`](#api_gateway_tool_configuration) below.
+* `rest_api_id` - (Required) ID of the API Gateway REST API to invoke.
+* `stage` - (Required) Stage name of the REST API to add as a target.
+
+### `api_gateway_tool_configuration`
+
+The `api_gateway_tool_configuration` block supports the following:
+
+* `tool_filter` - (Required) Repeatable block of path and method patterns to expose as tools. See [`tool_filter`](#tool_filter) below.
+* `tool_override` - (Required) Repeatable block of explicit tool definitions with optional custom names and descriptions. See [`tool_override`](#tool_override) below.
+
+### `tool_filter`
+
+The `tool_filter` block supports the following:
+
+* `filter_path` - (Required) Resource path to match in the REST API. Supports exact paths (for example, `/pets`) or wildcard paths (for example, `/pets/*` to match all paths under `/pets`). Must match existing paths in the REST API.
+* `methods` - (Required) List of HTTP methods to filter for. Valid values: `GET`, `DELETE`, `HEAD`, `OPTIONS`, `PATCH`, `PUT` and `POST`.
+
+### `tool_override`
+
+The `tool_override` block supports the following:
+
+* `description` - (Optional) Description of the tool. Provides information about the purpose and usage of the tool. If not provided, uses the description from the API's OpenAPI specification.
+* `method` - (Required) HTTP method to expose for the specified path. Valid values: `GET`, `DELETE`, `HEAD`, `OPTIONS`, `PATCH`, `PUT` and `POST`.
+* `name` - (Optional) Name of tool. Identifies the tool in the Model Context Protocol.
+* `path` - (Required) Resource path in the REST API (e.g., `/pets`). Must explicitly match an existing path in the REST API.
+
+### `lambda`
+
+The `lambda` block supports the following:
+
+* `lambda_arn` - (Required) ARN of the Lambda function to invoke.
+* `tool_schema` - (Required) Schema definition for the tool. See [`tool_schema`](#tool_schema) below.
+
+### `tool_schema`
+
+The `tool_schema` block supports exactly one of the following:
+
+* `inline_payload` - (Optional) Inline tool definition. See [`inline_payload`](#inline_payload) below.
+* `s3` - (Optional) S3-based tool definition. See [`s3`](#s3) below.
+
+### `inline_payload`
+
+The `inline_payload` block supports the following:
+
+* `name` - (Required) Name of the tool.
+* `description` - (Required) Description of what the tool does.
+* `input_schema` - (Required) Schema for the tool's input. See [`schema_definition`](#schema_definition) below.
+* `output_schema` - (Optional) Schema for the tool's output. See [`schema_definition`](#schema_definition) below.
+
+### `s3`
+
+The `s3` block supports the following:
+
+* `uri` - (Optional) S3 URI where the tool schema is stored.
+* `bucket_owner_account_id` - (Optional) Account ID of the S3 bucket owner.
+
+### `mcp_server`
+
+The `mcp_server` block supports the following:
+
+* `endpoint` - (Required) Endpoint for the MCP server target configuration.
+
+### `api_schema_configuration`
+
+The `api_schema_configuration` block supports exactly one of the following:
+
+* `inline_payload` - (Optional) Inline schema payload. See [`inline_payload`](#inline_payload) below.
+* `s3` - (Optional) S3-based schema configuration. See [`s3`](#s3) below.
+
+### `inline_payload` (API Schema)
+
+The `inline_payload` block for API schemas supports the following:
+
+* `payload` - (Required) The inline schema payload content.
+
+### `s3` (API Schema)
+
+The `s3` block for API schemas supports the following:
+
+* `uri` - (Optional) S3 URI where the schema is stored.
+* `bucket_owner_account_id` - (Optional) Account ID of the S3 bucket owner.
+
+### `schema_definition`
+
+The `schema_definition` block supports the following:
+
+* `type` - (Required) Data type of the schema. Valid values: `string`, `number`, `integer`, `boolean`, `array`, `object`.
+* `description` - (Optional) Description of the schema element.
+* `items` - (Optional) Schema definition for array items. Can only be used when `type` is `array`. See [`items`](#items) below.
+* `property` - (Optional) Set of property definitions for object types. Can only be used when `type` is `object`. See [`property`](#property) below.
+
+### `items`
+
+The `items` block supports the following:
+
+* `type` - (Required) Data type of the array items.
+* `description` - (Optional) Description of the array items.
+* `items` - (Optional) Nested items definition for arrays of arrays.
+* `property` - (Optional) Set of property definitions for arrays of objects. See [`property`](#property) below.
+
+### `property`
+
+The `property` block supports the following:
+
+* `name` - (Required) Name of the property.
+* `type` - (Required) Data type of the property.
+* `description` - (Optional) Description of the property.
+* `required` - (Optional) Whether this property is required. Defaults to `false`.
+* `items_json` - (Optional) JSON-encoded schema definition for array items. Used for complex nested structures. Cannot be used with `properties_json`.
+* `properties_json` - (Optional) JSON-encoded schema definition for object properties. Used for complex nested structures. Cannot be used with `items_json`.
+* `items` - (Optional) Items definition for array properties. See [`items`](#items) above.
+* `property` - (Optional) Set of nested property definitions for object properties.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `target_id` - Unique identifier of the gateway target.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_bedrockagentcore_gateway_target.example GATEWAY1234567890,TARGET0987654321
 ```

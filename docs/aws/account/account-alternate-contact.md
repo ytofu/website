@@ -1,6 +1,6 @@
-# Account Alternate Contact
+# Resource: aws_account_alternate_contact
 
-Manage Account Alternate Contact resources using ytofu YAML.
+Manages the specified alternate contact attached to an AWS Account.
 
 ## Basic Example
 
@@ -13,4 +13,33 @@ resource:
       title: Example
       email_address: test@example.com
       phone_number: +1234567890
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `account_id` - (Optional) ID of the target account when managing member accounts. Will manage current user's account by default if omitted.
+* `alternate_contact_type` - (Required) Type of the alternate contact. Allowed values are: `BILLING`, `OPERATIONS`, `SECURITY`.
+* `email_address` - (Required) An email address for the alternate contact.
+* `name` - (Required) Name of the alternate contact.
+* `phone_number` - (Required) Phone number for the alternate contact.
+* `title` - (Required) Title for the alternate contact.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `5m`)
+- `update` - (Default `5m`)
+- `delete` - (Default `5m`)
+
+## Import
+
+```bash
+ytofu import aws_account_alternate_contact.operations OPERATIONS
 ```

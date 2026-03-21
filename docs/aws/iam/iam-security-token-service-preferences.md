@@ -1,6 +1,6 @@
-# IAM Security Token Service Preferences
+# Resource: aws_iam_security_token_service_preferences
 
-Manage IAM Security Token Service Preferences resources using ytofu YAML.
+Provides an IAM Security Token Service Preferences resource.
 
 ## Basic Example
 
@@ -10,3 +10,15 @@ resource:
     example:
       global_endpoint_token_version: v2Token
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `global_endpoint_token_version` - (Required) The version of the STS global endpoint token. Valid values: `v1Token`, `v2Token`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The AWS Account ID.

@@ -1,6 +1,6 @@
-# SES Template
+# Resource: aws_ses_template
 
-Manage SES Template resources using ytofu YAML.
+Provides a resource to create a SES template.
 
 ## Basic Example
 
@@ -12,4 +12,27 @@ resource:
       subject: "Greetings, {{name}}!"
       html: "<h1>Hello {{name}},</h1><p>Your favorite animal is {{favoriteanimal}}.</p>"
       text: "Hello {{name}},\r\nYour favorite animal is {{favoriteanimal}}."
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) The name of the template. Cannot exceed 64 characters. You will refer to this name when you send email.
+* `html` - (Optional) The HTML body of the email. Must be less than 500KB in size, including both the text and HTML parts.
+* `subject` - (Optional) The subject line of the email.
+* `text` - (Optional) The email body that will be visible to recipients whose email clients do not display HTML. Must be less than 500KB in size, including both the text and HTML parts.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The ARN of the SES template
+* `id` - The name of the SES template
+
+## Import
+
+```bash
+ytofu import aws_ses_template.MyTemplate MyTemplate
 ```

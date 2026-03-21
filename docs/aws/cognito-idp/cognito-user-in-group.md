@@ -1,6 +1,6 @@
-# Cognito User In Group
+# Resource: aws_cognito_user_in_group
 
-Manage Cognito User In Group resources using ytofu YAML.
+Adds the specified user to the specified group.
 
 ## Basic Example
 
@@ -34,4 +34,23 @@ resource:
       user_pool_id: ${aws_cognito_user_pool.example.id}
       group_name: ${aws_cognito_user_group.example.name}
       username: ${aws_cognito_user.example.username}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `user_pool_id` - (Required) The user pool ID of the user and group.
+* `group_name` - (Required) The name of the group to which the user is to be added.
+* `username` - (Required) The username of the user to be added to the group.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_cognito_user_in_group.example us-east-1_vG78M4goG,example-group,example-user
 ```

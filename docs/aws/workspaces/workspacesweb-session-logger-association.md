@@ -1,6 +1,6 @@
-# Workspacesweb Session Logger Association
+# Resource: aws_workspacesweb_session_logger_association
 
-Manage Workspacesweb Session Logger Association resources using ytofu YAML.
+ytofu resource for managing an AWS WorkSpaces Web Session Logger Association.
 
 ## Basic Example
 
@@ -55,4 +55,25 @@ resource:
     example:
       portal_arn: ${aws_workspacesweb_portal.example.portal_arn}
       session_logger_arn: ${aws_workspacesweb_session_logger.example.session_logger_arn}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `portal_arn` - (Required) ARN of the web portal.
+* `session_logger_arn` - (Required) ARN of the session logger.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_workspacesweb_session_logger_association.example arn:aws:workspaces-web:us-west-2:123456789012:sessionLogger/session_logger-id-12345678,arn:aws:workspaces-web:us-west-2:123456789012:portal/portal-id-12345678
 ```

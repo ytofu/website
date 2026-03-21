@@ -1,6 +1,6 @@
-# Cloudfront Monitoring Subscription
+# Resource: aws_cloudfront_monitoring_subscription
 
-Manage Cloudfront Monitoring Subscription resources using ytofu YAML.
+Provides a CloudFront real-time log configuration resource.
 
 ## Basic Example
 
@@ -12,4 +12,31 @@ resource:
       monitoring_subscription:
         realtime_metrics_subscription_config:
           realtime_metrics_subscription_status: Enabled
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `distribution_id` - (Required) The ID of the distribution that you are enabling metrics for.
+* `monitoring_subscription` - (Required) A monitoring subscription. This structure contains information about whether additional CloudWatch metrics are enabled for a given CloudFront distribution.
+
+### monitoring_subscription
+
+* `realtime_metrics_subscription_config` - (Required) A subscription configuration for additional CloudWatch metrics. See below.
+
+### realtime_metrics_subscription_config
+
+* `realtime_metrics_subscription_status` - (Required) A flag that indicates whether additional CloudWatch metrics are enabled for a given CloudFront distribution. Valid values are `Enabled` and `Disabled`. See below.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the CloudFront monitoring subscription, which corresponds to the `distribution_id`.
+
+## Import
+
+```bash
+ytofu import aws_cloudfront_monitoring_subscription.example E3QYSUHO4VYRGB
 ```

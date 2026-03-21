@@ -1,6 +1,6 @@
-# Controltower Baseline
+# Resource: aws_controltower_baseline
 
-Manage Controltower Baseline resources using ytofu YAML.
+ytofu resource for managing an AWS Control Tower Baseline.
 
 ## Basic Example
 
@@ -14,4 +14,45 @@ resource:
       parameters:
         key: IdentityCenterEnabledBaselineArn
         value: "arn:aws:controltower:us-east-1:664418989480:enabledbaseline/XALULM96QHI525UOC"
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `baseline_identifier` - (Required) The ARN of the baseline to be enabled.
+* `baseline_version` - (Required) The version of the baseline to be enabled.
+* `target_identifier` - (Required) The ARN of the target on which the baseline will be enabled. Only OUs are supported as targets.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `parameters` - (Optional) A list of key-value objects that specify enablement parameters, where key is a string and value is a document of any type. See [Parameter](#parameters) below for details.
+* `tags` - (Optional) Tags to apply to the landing zone. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### parameters
+
+* `key` - (Required) The key of the parameter.
+* `value` - (Required) The value of the parameter.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the Baseline.
+* `operaton_identifier` - The ID (in UUID format) of the asynchronous operation.
+* `tags_all` - A map of tags assigned to the landing zone, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_controltower_baseline.example arn:aws:controltower:us-east-1:012345678912:enabledbaseline/XALULM96QHI525UOC
 ```

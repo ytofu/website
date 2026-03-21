@@ -1,6 +1,6 @@
-# Evidently Launch
+# Resource: aws_evidently_launch
 
-Manage Evidently Launch resources using ytofu YAML.
+Provides a CloudWatch Evidently Launch resource.
 
 ## Basic Example
 
@@ -167,4 +167,98 @@ resource:
             segment: ${aws_evidently_segment.example.name}
             weights: 
           start_time: "2024-01-08 01:43:59+00:00"
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) Specifies the description of the launch.
+* `groups` - (Required) One or up to five blocks that contain the feature and variations that are to be used for the launch. [Detailed below](#groups).
+* `metric_monitors` - (Optional) One or up to three blocks that define the metrics that will be used to monitor the launch performance. [Detailed below](#metric_monitors).
+* `name` - (Required) The name for the new launch. Minimum length of `1`. Maximum length of `127`.
+* `project` - (Required) The name or ARN of the project that is to contain the new launch.
+* `randomization_salt` - (Optional) When Evidently assigns a particular user session to a launch, it must use a randomization ID to determine which variation the user session is served. This randomization ID is a combination of the entity ID and randomizationSalt. If you omit randomizationSalt, Evidently uses the launch name as the randomizationSalt.
+* `scheduled_splits_config` - (Optional) A block that defines the traffic allocation percentages among the feature variations during each step of the launch. [Detailed below](#scheduled_splits_config).
+* `tags` - (Optional) Tags to apply to the launch. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### `groups`
+
+The `groups` block supports the following arguments:
+
+* `description` - (Optional) Specifies the description of the launch group.
+* `feature` - (Required) Specifies the name of the feature that the launch is using.
+* `name` - (Required) Specifies the name of the lahnch group.
+* `variation` - (Required) Specifies the feature variation to use for this launch group.
+
+### `metric_monitors`
+
+The `metric_monitors` block supports the following arguments:
+
+* `metric_definition` - (Required) A block that defines the metric. [Detailed below](#metric_definition).
+
+#### `metric_definition`
+
+The `metric_definition` block supports the following arguments:
+
+* `entity_id_key` - (Required) Specifies the entity, such as a user or session, that does an action that causes a metric value to be recorded. An example is `userDetails.userID`.
+* `event_pattern` - (Required) Specifies The EventBridge event pattern that defines how the metric is recorded.
+* `name` - (Required) Specifies the name for the metric.
+* `unit_label` - (Optional) Specifies a label for the units that the metric is measuring.
+* `value_key` - (Required) Specifies the value that is tracked to produce the metric.
+
+### `scheduled_splits_config`
+
+The `scheduled_splits_config` block supports the following arguments:
+
+* `steps` - (Required) One or up to six blocks that define the traffic allocation percentages among the feature variations during each step of the launch. This also defines the start time of each step. [Detailed below](#steps).
+
+#### `steps`
+
+The `steps` block supports the following arguments:
+
+* `group_weights` - (Required) The traffic allocation percentages among the feature variations during one step of a launch. This is a set of key-value pairs. The keys are variation names. The values represent the percentage of traffic to allocate to that variation during this step. For more information, refer to the [AWS documentation for ScheduledSplitConfig groupWeights](https://docs.aws.amazon.com/cloudwatchevidently/latest/APIReference/API_ScheduledSplitConfig.html).
+* `segment_overrides` - (Required) One or up to six blocks that specify different traffic splits for one or more audience segments. A segment is a portion of your audience that share one or more characteristics. Examples could be Chrome browser users, users in Europe, or Firefox browser users in Europe who also fit other criteria that your application collects, such as age. [Detailed below](#segment_overrides).
+* `start_time` - (Required) Specifies the date and time that this step of the launch starts.
+
+##### `segment_overrides`
+
+* `evaluation_order` - (Required) Specifies a number indicating the order to use to evaluate segment overrides, if there are more than one. Segment overrides with lower numbers are evaluated first.
+* `segment` - (Required) The name or ARN of the segment to use.
+* `weights` - (Required) The traffic allocation percentages among the feature variations to assign to this segment. This is a set of key-value pairs. The keys are variation names. The values represent the amount of traffic to allocate to that variation for this segment. This is expressed in thousandths of a percent, so a weight of 50000 represents 50% of traffic.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The ARN of the launch.
+* `created_time` - The date and time that the launch is created.
+* `execution` - A block that contains information about the start and end times of the launch. [Detailed below](#execution)
+* `id` - The launch `name` and the project `name` or `arn` separated by a colon (`:`).
+* `last_updated_time` - The date and time that the launch was most recently updated.
+* `status` - The current state of the launch. Valid values are `CREATED`, `UPDATING`, `RUNNING`, `COMPLETED`, and `CANCELLED`.
+* `status_reason` - If the launch was stopped, this is the string that was entered by the person who stopped the launch, to explain why it was stopped.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+* `type` - The type of launch.
+
+### `execution`
+
+The `execution` block supports the following attributes:
+
+* `ended_time` - The date and time that the launch ended.
+* `started_time` - The date and time that the launch started.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `2m`)
+* `delete` - (Default `2m`)
+* `update` - (Default `2m`)
+
+## Import
+
+```bash
+ytofu import aws_evidently_launch.example exampleLaunchName:exampleProjectName
 ```

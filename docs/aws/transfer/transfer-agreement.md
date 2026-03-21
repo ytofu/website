@@ -1,6 +1,6 @@
-# Transfer Agreement
+# Resource: aws_transfer_agreement
 
-Manage Transfer Agreement resources using ytofu YAML.
+Provides a AWS Transfer AS2 Agreement resource.
 
 ## Basic Example
 
@@ -14,4 +14,31 @@ resource:
       local_profile_id: ${aws_transfer_profile.local.profile_id}
       partner_profile_id: ${aws_transfer_profile.partner.profile_id}
       server_id: ${aws_transfer_server.test.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `access_role` - (Required) The IAM Role which provides read and write access to the parent directory of the file location mentioned in the StartFileTransfer request.
+* `base_directory` - (Required) The landing directory for the files transferred by using the AS2 protocol.
+* `description` - (Optional) The Optional description of the transdfer.
+* `local_profile_id` - (Required) The unique identifier for the AS2 local profile.
+* `partner_profile_id` - (Required) The unique identifier for the AS2 partner profile.
+* `server_id` - (Required) The unique server identifier for the server instance. This is the specific server the agreement uses.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `agreement_id`  - The unique identifier for the AS2 agreement.
+* `arn` - The ARN of the agreement.
+* `staus`  - The staus of the agreement which is either ACTIVE or INACTIVE.
+
+## Import
+
+```bash
+ytofu import aws_transfer_agreement.example s-4221a88afd5f4362a/a-4221a88afd5f4362a
 ```

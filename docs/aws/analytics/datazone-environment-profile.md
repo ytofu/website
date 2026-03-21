@@ -1,6 +1,6 @@
-# Datazone Environment Profile
+# Resource: aws_datazone_environment_profile
 
-Manage Datazone Environment Profile resources using ytofu YAML.
+ytofu resource for managing an AWS DataZone Environment Profile.
 
 ## Basic Example
 
@@ -72,4 +72,35 @@ resource:
       user_parameters:
         name: consumerGlueDbName
         value: value
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `aws_account_id` - (Required) -  Id of the AWS account being used.
+* `aws_account_region` - (Required) -  Desired region for environment profile.
+* `domain_identifier` - (Required) -  Domain Identifier for environment profile.
+* `name` - (Required) -  Name of the environment profile.
+* `environment_blueprint_identifier` - (Required) -  ID of the blueprint which the environment will be created with.
+* `project_identifier` - (Required) -  Project identifier for environment profile.
+* `description` - (Optional) Description of environment profile.
+* `user_parameters` - (Optional) -  Array of user parameters of the environment profile with the following attributes:
+    * `name` - (Required) -  Name of the environment profile parameter.
+    * `value` - (Required) -  Value of the environment profile parameter.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `created_at` - Creation time of environment profile.
+* `created_by` - Creator of environment profile.
+* `id` - ID of environment profile.
+* `updated_at` - Time of last update to environment profile.
+
+## Import
+
+```bash
+ytofu import aws_datazone_environment_profile.example environment_profile-id-12345678,domain-id-12345678
 ```

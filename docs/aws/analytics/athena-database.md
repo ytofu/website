@@ -1,6 +1,6 @@
-# Athena Database
+# Resource: aws_athena_database
 
-Manage Athena Database resources using ytofu YAML.
+Provides an Athena database.
 
 ## Basic Example
 
@@ -15,4 +15,40 @@ resource:
     example:
       name: database_name
       bucket: ${aws_s3_bucket.example.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `bucket` - (Required) Name of S3 bucket to save the results of the query execution.
+* `name` - (Required) Name of the database to create.
+* `acl_configuration` - (Optional) That an Amazon S3 canned ACL should be set to control ownership of stored query results. See [ACL Configuration](#acl-configuration) below.
+* `comment` - (Optional) Description of the database.
+* `encryption_configuration` - (Optional) Encryption key block AWS Athena uses to decrypt the data in S3, such as an AWS Key Management Service (AWS KMS) key. See [Encryption Configuration](#encryption-configuration) below.
+* `expected_bucket_owner` - (Optional) AWS account ID that you expect to be the owner of the Amazon S3 bucket.
+* `force_destroy` - (Optional, Default: false) Boolean that indicates all tables should be deleted from the database so that the database can be destroyed without error. The tables are *not* recoverable.
+* `properties` - (Optional) Key-value map of custom metadata properties for the database definition.
+* `workgroup` - (Optional) Name of the workgroup.
+
+### ACL Configuration
+
+* `s3_acl_option` - (Required) Amazon S3 canned ACL that Athena should specify when storing query results. Valid value is `BUCKET_OWNER_FULL_CONTROL`.
+
+### Encryption Configuration
+
+* `encryption_option` - (Required) Type of key; one of `SSE_S3`, `SSE_KMS`, `CSE_KMS`
+* `kms_key` - (Optional) KMS key ARN or ID; required for key types `SSE_KMS` and `CSE_KMS`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Database name
+
+## Import
+
+```bash
+ytofu import aws_athena_database.example example
 ```

@@ -1,6 +1,6 @@
-# ECR Replication Configuration
+# Resource: aws_ecr_replication_configuration
 
-Manage ECR Replication Configuration resources using ytofu YAML.
+Provides an Elastic Container Registry Replication Configuration.
 
 ## Basic Example
 
@@ -21,4 +21,42 @@ resource:
           destination:
             region: ${data.aws_regions.example.names[0]}
             registry_id: ${data.aws_caller_identity.current.account_id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `replication_configuration` - (Required) Replication configuration for a registry. See [Replication Configuration](#replication-configuration).
+
+### Replication Configuration
+
+* `rule` - (Required) The replication rules for a replication configuration. A maximum of 10 are allowed per `replication_configuration`. See [Rule](#rule)
+
+### Rule
+
+* `destination` - (Required) the details of a replication destination. A maximum of 25 are allowed per `rule`. See [Destination](#destination).
+* `repository_filter` - (Optional) filters for a replication rule. See [Repository Filter](#repository-filter).
+
+### Destination
+
+* `region` - (Required) A Region to replicate to.
+* `registry_id` - (Required) The account ID of the destination registry to replicate to.
+
+### Repository Filter
+
+* `filter` - (Required) The repository filter details.
+* `filter_type` - (Required) The repository filter type. The only supported value is `PREFIX_MATCH`, which is a repository name prefix specified with the filter parameter.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `registry_id` - The registry ID where the replication configuration was created.
+
+## Import
+
+```bash
+ytofu import aws_ecr_replication_configuration.service 012345678912
 ```

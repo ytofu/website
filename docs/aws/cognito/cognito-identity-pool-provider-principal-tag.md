@@ -1,6 +1,6 @@
-# Cognito Identity Pool Provider Principal Tag
+# Resource: aws_cognito_identity_pool_provider_principal_tag
 
-Manage Cognito Identity Pool Provider Principal Tag resources using ytofu YAML.
+Provides an AWS Cognito Identity Principal Mapping.
 
 ## Basic Example
 
@@ -36,4 +36,24 @@ resource:
       use_defaults: false
       principal_tags:
         test: value
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `identity_pool_id` (Required) - An identity pool ID.
+* `identity_provider_name` (Required) - The name of the identity provider.
+* `principal_tags`: (Optional: []) - String to string map of variables.
+* `use_defaults`: (Optional: true) use default (username and clientID) attribute mappings.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_cognito_identity_pool_provider_principal_tag.example us-west-2_abc123:CorpAD
 ```

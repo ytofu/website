@@ -1,6 +1,6 @@
-# Networkflowmonitor Monitor
+# Resource: aws_networkflowmonitor_monitor
 
-Manage Networkflowmonitor Monitor resources using ytofu YAML.
+Manages a Network Flow Monitor Monitor.
 
 ## Basic Example
 
@@ -25,4 +25,46 @@ resource:
         identifier: ${aws_vpc.example.arn}
       tags:
         Name: example
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `monitor_name` - (Required) The name of the monitor. Cannot be changed after creation.
+* `scope_arn` - (Required) The Amazon Resource Name (ARN) of the scope for the monitor. Cannot be changed after creation.
+
+The following arguments are optional:
+
+* `local_resource` - (Optional) The local resources to monitor. A local resource in a workload is the location of the hosts where the Network Flow Monitor agent is installed.
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `remote_resource` - (Optional) The remote resources to monitor. A remote resource is the other endpoint specified for the network flow of a workload, with a local resource.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### local_resource and remote_resource
+
+The `local_resource` and `remote_resource` blocks support the following:
+
+* `type` - (Required) The type of the resource. Valid values are `AWS::EC2::VPC`, `AWS::EC2::Subnet`, `AWS::EC2::AvailabilityZone`, `AWS::EC2::Region`, and `AWS::EKS::Cluster`.
+* `identifier` - (Required) The identifier of the resource. For VPC resources, this is the VPC ARN.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `monitor_arn` - The Amazon Resource Name (ARN) of the monitor.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_networkflowmonitor_monitor.example example-monitor
 ```

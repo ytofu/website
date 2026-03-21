@@ -1,6 +1,6 @@
-# Networkfirewall Firewall
+# Resource: aws_networkfirewall_firewall
 
-Manage Networkfirewall Firewall resources using ytofu YAML.
+Provides an AWS Network Firewall Firewall Resource
 
 ## Basic Example
 
@@ -43,4 +43,76 @@ resource:
         availability_zone_id: ${data.aws_availability_zones.example.zone_ids[0]}
       availability_zone_mapping:
         availability_zone_id: ${data.aws_availability_zones.example.zone_ids[1]}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `availability_zone_change_protection` - (Optional) A setting indicating whether the firewall is protected against changes to its Availability Zone configuration. When set to `true`, you must first disable this protection before adding or removing Availability Zones.
+* `availability_zone_mapping` - (Optional) Required when creating a transit gateway-attached firewall. Set of configuration blocks describing the avaiability availability where you want to create firewall endpoints for a transit gateway-attached firewall.
+* `delete_protection` - (Optional) A flag indicating whether the firewall is protected against deletion. Use this setting to protect against accidentally deleting a firewall that is in use. Defaults to `false`.
+* `description` - (Optional) A friendly description of the firewall.
+* `enabled_analysis_types` - (Optional) Set of types for which to collect analysis metrics. See [Reporting on network traffic in Network Firewall](https://docs.aws.amazon.com/network-firewall/latest/developerguide/reporting.html) for details on how to use the data. Valid values: `TLS_SNI`, `HTTP_HOST`. Defaults to `[]`.
+* `encryption_configuration` - (Optional) KMS encryption configuration settings. See [Encryption Configuration](#encryption-configuration) below for details.
+* `firewall_policy_arn` - (Required) The Amazon Resource Name (ARN) of the VPC Firewall policy.
+* `firewall_policy_change_protection` - (Optional) A flag indicating whether the firewall is protected against a change to the firewall policy association. Use this setting to protect against accidentally modifying the firewall policy for a firewall that is in use. Defaults to `false`.
+* `name` - (Required, Forces new resource) A friendly name of the firewall.
+* `subnet_change_protection` - (Optional) A flag indicating whether the firewall is protected against changes to the subnet associations. Use this setting to protect against accidentally modifying the subnet associations for a firewall that is in use. Defaults to `false`.
+* `subnet_mapping` - (Optional) Required when creating a VPC attached firewall. Set of configuration blocks describing the public subnets. Each subnet must belong to a different Availability Zone in the VPC. AWS Network Firewall creates a firewall endpoint in each subnet. See [Subnet Mapping](#subnet-mapping) below for details.
+* `tags` - (Optional) Map of resource tags to associate with the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `transit_gateway_id` - (Optional, Forces new resource). Required when creating a transit gateway-attached firewall. The unique identifier of the transit gateway to attach to this firewall. You can provide either a transit gateway from your account or one that has been shared with you through AWS Resource Access Manager
+* `vpc_id` - (Optional, Forces new resource)  Required when creating a VPC attached firewall. The unique identifier of the VPC where AWS Network Firewall should create the firewall.
+
+### Availability Zone Mapping
+
+The `availability_zone_mapping` block supports the following arguments:
+
+* `availability_zone_id` - (Required)The ID of the Availability Zone where the firewall endpoint is located..
+
+### Encryption Configuration
+
+`encryption_configuration` settings for customer managed KMS keys. Remove this block to use the default AWS-managed KMS encryption (rather than setting `type` to `AWS_OWNED_KMS_KEY`).
+
+* `key_id` - (Optional) The ID of the customer managed key. You can use any of the [key identifiers](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id) that KMS supports, unless you're using a key that's managed by another account. If you're using a key managed by another account, then specify the key ARN.
+* `type` - (Required) The type of AWS KMS key to use for encryption of your Network Firewall resources. Valid values are `CUSTOMER_KMS` and `AWS_OWNED_KMS_KEY`.
+
+### Subnet Mapping
+
+The `subnet_mapping` block supports the following arguments:
+
+* `ip_address_type` - (Optional) The subnet's IP address type. Valid values: `"DUALSTACK"`, `"IPV4"`.
+* `subnet_id` - (Required) The unique identifier for the subnet.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The Amazon Resource Name (ARN) that identifies the firewall.
+* `arn` - The Amazon Resource Name (ARN) that identifies the firewall.
+* `firewall_status` - Nested list of information about the current status of the firewall.
+    * `sync_states` - Set of subnets configured for use by the firewall.
+        * `attachment` - Nested list describing the attachment status of the firewall's association with a single VPC subnet.
+            * `endpoint_id` - The identifier of the firewall endpoint that AWS Network Firewall has instantiated in the subnet. You use this to identify the firewall endpoint in the VPC route tables, when you redirect the VPC traffic through the endpoint.
+            * `subnet_id` - The unique identifier of the subnet that you've specified to be used for a firewall endpoint.
+        * `availability_zone` - The Availability Zone where the subnet is configured.
+    * `transit_gateway_attachment_sync_states` - Set of transit gateway configured for use by the firewall.
+        * `attachment_id` - The unique identifier of the transit gateway attachment.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+* `transit_gateway_owner_account_id` - The AWS account ID that owns the transit gateway.
+* `update_token` - A string token used when updating a firewall.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `60m`)
+- `update` - (Default `60m`)
+- `delete` - (Default `60m`)
+
+## Import
+
+```bash
+ytofu import aws_networkfirewall_firewall.example arn:aws:network-firewall:us-west-1:123456789012:firewall/example
 ```

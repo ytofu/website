@@ -1,6 +1,6 @@
-# Vpclattice Service Network
+# Resource: aws_vpclattice_service_network
 
-Manage Vpclattice Service Network resources using ytofu YAML.
+ytofu resource for managing an AWS VPC Lattice Service Network.
 
 ## Basic Example
 
@@ -10,4 +10,29 @@ resource:
     example:
       name: example
       auth_type: AWS_IAM
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `name` - (Required) Name of the service network
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `auth_type` - (Optional) Type of IAM policy. Either `NONE` or `AWS_IAM`.
+* `tags` - (Optional) Key-value mapping of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the Service Network.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_vpclattice_service_network.example sn-0158f91c1e3358dba
 ```

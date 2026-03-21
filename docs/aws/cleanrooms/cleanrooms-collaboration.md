@@ -1,6 +1,7 @@
-# Cleanrooms Collaboration
+# Resource: aws_cleanrooms_collaboration
 
-Manage Cleanrooms Collaboration resources using ytofu YAML.
+Provides a AWS Clean Rooms collaboration.
+All members included in the definition will be invited to join the collaboration and can create memberships.
 
 ## Basic Example
 
@@ -27,4 +28,59 @@ resource:
         member_abilities: []
       tags:
         Project: Terraform
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `creator_display_name` - (Required - Forces new resource) - Name for the member record for the collaboration creator.
+* `creator_member_abilities` - (Required - Forces new resource) - List of member abilities for the creator of the collaboration. Valid values [may be found here](https://docs.aws.amazon.com/clean-rooms/latest/apireference/API_CreateCollaboration.html#API-CreateCollaboration-request-creatorMemberAbilities).
+* `description` - (Required) - Description for a collaboration.
+* `name` - (Required) - Name of the collaboration.  Collaboration names do not need to be unique.
+* `query_log_status` - (Required - Forces new resource) Whether members of the collaboration can enable query logs within their own memberships. Valid values [may be found here](https://docs.aws.amazon.com/clean-rooms/latest/apireference/API_CreateCollaboration.html#API-CreateCollaboration-request-queryLogStatus).
+
+The following arguments are optional:
+
+* `analytics_engine` - (Optional) Analytics engine used by the collaboration. Valid values are `CLEAN_ROOMS_SQL` (deprecated) and `SPARK`.
+* `data_encryption_metadata` - (Optional - Forces new resource) Collection of settings which determine how the [c3r client](https://docs.aws.amazon.com/clean-rooms/latest/userguide/crypto-computing.html) will encrypt data for use within this collaboration. [See below](#data_encryption_metadata-configuration-block).
+* `member` - (Optional - Forces new resource) Additional members of the collaboration which will be invited to join the collaboration. [See below](#member-configuration-block).
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `tags` - (Optional) Key value pairs which tag the collaboration.
+
+### `data_encryption_metadata` Configuration Block
+
+* `allow_clear_text` - (Required - Forces new resource) Whether encrypted tables can contain cleartext data. This is a boolean field.
+* `allow_duplicates` - (Required - Forces new resource) Whether Fingerprint columns can contain duplicate entries. This is a boolean field.
+* `allow_joins_on_columns_with_different_names` - (Required - Forces new resource) Whether Fingerprint columns can be joined on any other Fingerprint column with a different name. This is a boolean field.
+* `preserve_nulls` - (Required - Forces new resource) Whether NULL values are to be copied as NULL to encrypted tables (true) or cryptographically processed (false).
+
+### `member` Configuration Block
+
+* `account_id` - (Required - Forces new resource) Account ID for the invited member.
+* `display_name` - (Required - Forces new resource) Display name for the invited member.
+* `member_abilities` - (Required - Forces new resource) List of abilities for the invited member. Valid values [may be found here](https://docs.aws.amazon.com/clean-rooms/latest/apireference/API_CreateCollaboration.html#API-CreateCollaboration-request-creatorMemberAbilities).
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the collaboration.
+* `create_time` - Date and time the collaboration was created.
+* `id` - ID of the collaboration.
+* `member.status` - For each member included in the collaboration an additional computed attribute of status is added. These values [may be found here](https://docs.aws.amazon.com/clean-rooms/latest/apireference/API_MemberSummary.html#API-Type-MemberSummary-status).
+* `update_time` - Date and time the collaboration was last updated.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `1m`)
+- `update` - (Default `1m`)
+- `delete` - (Default `1m`)
+
+## Import
+
+```bash
+ytofu import aws_cleanrooms_collaboration.collaboration 1234abcd-12ab-34cd-56ef-1234567890ab
 ```

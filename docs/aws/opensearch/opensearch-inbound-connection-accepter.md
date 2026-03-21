@@ -1,6 +1,6 @@
-# Opensearch Inbound Connection Accepter
+# Resource: aws_opensearch_inbound_connection_accepter
 
-Manage Opensearch Inbound Connection Accepter resources using ytofu YAML.
+Manages an [AWS Opensearch Inbound Connection Accepter](https://docs.aws.amazon.com/opensearch-service/latest/APIReference/API_AcceptInboundConnection.html). If connecting domains from different AWS accounts, ensure that the accepter is configured to use the AWS account where the _remote_ opensearch domain exists.
 
 ## Basic Example
 
@@ -30,4 +30,31 @@ resource:
   aws_opensearch_inbound_connection_accepter:
     foo:
       connection_id: ${aws_opensearch_outbound_connection.foo.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `connection_id` - (Required, Forces new resource) Specifies the ID of the connection to accept.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The Id of the connection to accept.
+* `connection_status` - Status of the connection request.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `5m`)
+* `delete` - (Default `5m`)
+
+## Import
+
+```bash
+ytofu import aws_opensearch_inbound_connection_accepter.foo connection-id
 ```

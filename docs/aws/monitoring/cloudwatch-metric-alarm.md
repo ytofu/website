@@ -1,6 +1,6 @@
-# Cloudwatch Metric Alarm
+# Resource: aws_cloudwatch_metric_alarm
 
-Manage Cloudwatch Metric Alarm resources using ytofu YAML.
+Provides a CloudWatch Metric Alarm resource.
 
 ## Basic Example
 
@@ -139,4 +139,86 @@ resource:
       dimensions:
         TargetGroup: ${aws_lb_target_group.lb-tg.arn_suffix}
         LoadBalancer: ${aws_lb.lb.arn_suffix}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `alarm_name` - (Required) The descriptive name for the alarm. This name must be unique within the user's AWS account
+* `comparison_operator` - (Required) The arithmetic operation to use when comparing the specified Statistic and Threshold. The specified Statistic value is used as the first operand. Either of the following is supported: `GreaterThanOrEqualToThreshold`, `GreaterThanThreshold`, `LessThanThreshold`, `LessThanOrEqualToThreshold`. Additionally, the values  `LessThanLowerOrGreaterThanUpperThreshold`, `LessThanLowerThreshold`, and `GreaterThanUpperThreshold` are used only for alarms based on anomaly detection models.
+* `evaluation_periods` - (Required) The number of periods over which data is compared to the specified threshold.
+* `metric_name` - (Optional) The name for the alarm's associated metric.
+  See docs for [supported metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html).
+* `namespace` - (Optional) The namespace for the alarm's associated metric. See docs for the [list of namespaces](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/aws-namespaces.html).
+  See docs for [supported metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html).
+* `period` - (Optional) The period in seconds over which the specified `statistic` is applied.
+  Valid values are `10`, `20`, `30`, or any multiple of `60`.
+* `statistic` - (Optional) The statistic to apply to the alarm's associated metric.
+   Either of the following is supported: `SampleCount`, `Average`, `Sum`, `Minimum`, `Maximum`
+* `threshold` - (Optional) The value against which the specified statistic is compared. This parameter is required for alarms based on static thresholds, but should not be used for alarms based on anomaly detection models.
+* `threshold_metric_id` - (Optional) If this is an alarm based on an anomaly detection model, make this value match the ID of the ANOMALY_DETECTION_BAND function.
+* `actions_enabled` - (Optional) Indicates whether or not actions should be executed during any changes to the alarm's state. Defaults to `true`.
+* `alarm_actions` - (Optional) The list of actions to execute when this alarm transitions into an ALARM state from any other state. Each action is specified as an Amazon Resource Name (ARN).
+* `alarm_description` - (Optional) The description for the alarm.
+* `datapoints_to_alarm` - (Optional) The number of data points that must be breaching to trigger the alarm.
+* `dimensions` - (Optional) The dimensions for the alarm's associated metric.  For the list of available dimensions see the AWS documentation [here](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html).
+* `insufficient_data_actions` - (Optional) The list of actions to execute when this alarm transitions into an INSUFFICIENT_DATA state from any other state. Each action is specified as an Amazon Resource Name (ARN).
+* `ok_actions` - (Optional) The list of actions to execute when this alarm transitions into an OK state from any other state. Each action is specified as an Amazon Resource Name (ARN).
+* `unit` - (Optional) The unit for the alarm's associated metric.
+* `extended_statistic` - (Optional) The percentile statistic for the metric associated with the alarm. Specify a value between p0.0 and p100.
+* `treat_missing_data` - (Optional) Sets how this alarm is to handle missing data points. The following values are supported: `missing`, `ignore`, `breaching` and `notBreaching`. Defaults to `missing`.
+* `evaluate_low_sample_count_percentiles` - (Optional) Used only for alarms based on percentiles.
+  If you specify `ignore`, the alarm state will not change during periods with too few data points to be statistically significant.
+  If you specify `evaluate` or omit this parameter, the alarm will always be evaluated and possibly change state no matter how many data points are available.
+The following values are supported: `ignore`, and `evaluate`.
+* `metric_query` (Optional) Enables you to create an alarm based on a metric math expression. You may specify at most 20.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+See [related part of AWS Docs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_PutMetricAlarm.html)
+for details about valid values.
+
+### Nested fields
+
+#### `metric_query`
+
+* `id` - (Required) A short name used to tie this object to the results in the response. If you are performing math expressions on this set of data, this name represents that data and can serve as a variable in the mathematical expression. The valid characters are letters, numbers, and underscore. The first character must be a lowercase letter.
+* `account_id` - (Optional) The ID of the account where the metrics are located, if this is a cross-account alarm.
+* `expression` - (Optional) A Metrics Insights query or a metric math expression to be evaluated on the returned data.
+  For details about Metrics Insights queries, see [Metrics Insights query components and syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-insights-querylanguage) in the AWS documentation.
+  For details about metric math expressions, see [Metric Math Syntax and Functions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax) in the AWS documentation.
+* `label` - (Optional) A human-readable label for this metric or expression. This is especially useful if this is an expression, so that you know what the value represents.
+* `metric` - (Optional) The metric to be returned, along with statistics, period, and units. Use this parameter only if this object is retrieving a metric and not performing a math expression on returned data.
+* `period` - (Optional) Granularity in seconds of returned data points.
+  For metrics with regular resolution, valid values are any multiple of `60`.
+  For high-resolution metrics, valid values are `1`, `5`, `10`, `20`, `30`, or any multiple of `60`.
+* `return_data` - (Optional) Specify exactly one `metric_query` to be `true` to use that `metric_query` result as the alarm.
+
+#### `metric`
+
+* `dimensions` - (Optional) The dimensions for this metric.  For the list of available dimensions see the AWS documentation [here](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html).
+* `metric_name` - (Required) The name for this metric.
+  See docs for [supported metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html).
+* `namespace` - (Required) The namespace for this metric. See docs for the [list of namespaces](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/aws-namespaces.html).
+  See docs for [supported metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html).
+* `period` - (Required) Granularity in seconds of returned data points.
+  For metrics with regular resolution, valid values are any multiple of `60`.
+  For high-resolution metrics, valid values are `1`, `5`, `10`, `20`, `30`, or any multiple of `60`.
+* `stat` - (Required) The statistic to apply to this metric.
+   See docs for [supported statistics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Statistics-definitions.html).
+* `unit` - (Optional) The unit for this metric.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The ARN of the CloudWatch Metric Alarm.
+* `id` - The ID of the health check.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_cloudwatch_metric_alarm.example alarm-12345
 ```

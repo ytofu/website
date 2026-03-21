@@ -1,6 +1,6 @@
-# API Gateway Model
+# Resource: aws_api_gateway_model
 
-Manage API Gateway Model resources using ytofu YAML.
+Provides a Model for a REST API Gateway.
 
 ## Basic Example
 
@@ -19,4 +19,27 @@ resource:
       description: a JSON schema
       content_type: application/json
       schema: '{ "type": "object" }'
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `rest_api_id` - (Required) ID of the associated REST API
+* `name` - (Required) Name of the model
+* `description` - (Optional) Description of the model
+* `content_type` - (Required) Content type of the model
+* `schema` - (Required) Schema of the model in a JSON form
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - ID of the model
+
+## Import
+
+```bash
+ytofu import aws_api_gateway_model.example 12345abcde/example
 ```

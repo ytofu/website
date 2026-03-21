@@ -1,6 +1,6 @@
-# WAF Rate Based Rule
+# Resource: aws_waf_rate_based_rule
 
-Manage WAF Rate Based Rule resources using ytofu YAML.
+Provides a WAF Rate Based Rule Resource
 
 ## Basic Example
 
@@ -26,4 +26,29 @@ resource:
         data_id: ${aws_waf_ipset.ipset.id}
         negated: false
         type: IPMatch
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `metric_name` - (Required) The name or description for the Amazon CloudWatch metric of this rule.
+* `name` - (Required) The name or description of the rule.
+* `rate_key` - (Required) Valid value is IP.
+* `rate_limit` - (Required) The maximum number of requests, which have an identical value in the field specified by the RateKey, allowed in a five-minute period. Minimum value is 100.
+* `predicates` - (Optional) The objects to include in a rule (documented below).
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the WAF rule.
+* `arn` - Amazon Resource Name (ARN)
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_waf_rate_based_rule.wafrule a1b2c3d4-d5f6-7777-8888-9999aaaabbbbcccc
 ```

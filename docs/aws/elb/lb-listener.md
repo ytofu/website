@@ -1,6 +1,6 @@
-# LB Listener
+# Resource: aws_lb_listener
 
-Manage LB Listener resources using ytofu YAML.
+Provides a Load Balancer Listener resource.
 
 ## Basic Example
 
@@ -224,4 +224,194 @@ resource:
       mutual_authentication:
         mode: verify
         trust_store_arn: ...
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `default_action` - (Required) Configuration block for default actions. See below.
+* `load_balancer_arn` - (Required, Forces New Resource) ARN of the load balancer.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `alpn_policy` - (Optional)  Name of the Application-Layer Protocol Negotiation (ALPN) policy. Can be set if `protocol` is `TLS`. Valid values are `HTTP1Only`, `HTTP2Only`, `HTTP2Optional`, `HTTP2Preferred`, and `None`.
+* `certificate_arn` - (Optional) ARN of the default SSL server certificate. Exactly one certificate is required if the protocol is HTTPS. For adding additional SSL certificates, see the `aws_lb_listener_certificate` resource.
+* `mutual_authentication` - (Optional) The mutual authentication configuration information. See below.
+* `port` - (Optional) Port on which the load balancer is listening. Not valid for Gateway Load Balancers.
+* `protocol` - (Optional) Protocol for connections from clients to the load balancer. For Application Load Balancers, valid values are `HTTP` and `HTTPS`, with a default of `HTTP`. For Network Load Balancers, valid values are `TCP`, `TLS`, `UDP`, `TCP_UDP`, `QUIC`, and `TCP_QUIC`. Not valid to use `UDP` or `TCP_UDP` if dual-stack mode is enabled. Not valid to use `QUIC` or `TCP_QUIC` if security groups are configured or dual-stack mode is enabled. Not valid for Gateway Load Balancers.
+* `ssl_policy` - (Optional) Name of the SSL Policy for the listener. Required if `protocol` is `HTTPS` or `TLS`. Default is `ELBSecurityPolicy-2016-08`.
+* `tcp_idle_timeout_seconds` - (Optional) TCP idle timeout value in seconds. Can only be set if protocol is `TCP` on Network Load Balancer, or with a Gateway Load Balancer. Not supported for Application Load Balancers. Valid values are between `60` and `6000` inclusive. Default: `350`.
+* `routing_http_response_server_enabled` - (Optional) Enables you to allow or remove the HTTP response server header. Can only be set if protocol is `HTTP` or `HTTPS` for Application Load Balancers. Not supported for Network Load Balancer, or with a Gateway Load Balancer. Valid values are `true` or `false`.
+* `routing_http_response_strict_transport_security_header_value` - (Optional) Informs browsers that the site should only be accessed using HTTPS, and that any future attempts to access it using HTTP should automatically be converted to HTTPS. Default values are `max-age=31536000; includeSubDomains; preload` consult the Strict-Transport-Security documentation for further details.
+* `routing_http_response_access_control_allow_origin_header_value` - (Optional) Specifies which origins are allowed to access the server. Can only be set if protocol is `HTTP` or `HTTPS` for Application Load Balancers. Not supported for Network Load Balancer, or with a Gateway Load Balancer. A valid value is a URI, eg: `https://example.com`.
+* `routing_http_response_access_control_allow_methods_header_value` - (Optional) Set which HTTP methods are allowed when accessing the server from a different origin. Can only be set if protocol is `HTTP` or `HTTPS` for Application Load Balancers. Not supported for Network Load Balancer, or with a Gateway Load Balancer. Valid values are `GET`, `HEAD`, `POST`, `DELETE`, `CONNECT`, `OPTIONS`, `TRACE` or `PATCH`.
+* `routing_http_response_access_control_allow_headers_header_value` - (Optional) Specifies which headers can be used during the request. Can only be set if protocol is `HTTP` or `HTTPS` for Application Load Balancers. Not supported for Network Load Balancer, or with a Gateway Load Balancer. Valid values are `*`, `Accept`, `Accept-Language`, `Cache-Control`, `Content-Language`, `Content-Length`, `Content-Type`, `Expires`, `Last-Modified`, `Pragma`. Dependent on your use-case other headers can be exposed and then set as a value consult the Access-Control-Allow-Headers documentation.
+* `routing_http_response_access_control_allow_credentials_header_value` - (Optional) Specifies which headers the browser can expose to the requesting client. Can only be set if protocol is `HTTP` or `HTTPS` for Application Load Balancers. Not supported for Network Load Balancer, or with a Gateway Load Balancer. The only valid value is `true`.
+* `routing_http_response_access_control_expose_headers_header_value` - (Optional) Specifies whether the browser should include credentials such as cookies or authentication when making requests. Can only be set if protocol is `HTTP` or `HTTPS` for Application Load Balancers. Not supported for Network Load Balancer, or with a Gateway Load Balancer. Valid values are `*`, `Cache-Control`, `Content-Language`, `Content-Length`, `Content-Type`, `Expires`, `Last-Modified`, or `Pragma`. Dependent on your use-case other headers can be exposed, consult the Access-Control-Expose-Headers documentation.
+* `routing_http_response_access_control_max_age_header_value` - (Optional) Specifies how long the results of a preflight request can be cached, in seconds. Can only be set if protocol is `HTTP` or `HTTPS` for Application Load Balancers. Not supported for Network Load Balancer, or with a Gateway Load Balancer. Valid values are between `0` and `86400`. This value is browser specific, consult the Access-Control-Max-Age documentation.
+* `routing_http_response_content_security_policy_header_value` - (Optional) Specifies restrictions enforced by the browser to help minimize the risk of certain types of security threats. Can only be set if protocol is `HTTP` or `HTTPS` for Application Load Balancers. Not supported for Network Load Balancer, or with a Gateway Load Balancer. Values for this are extensive, and can be impactful when set, consult Content-Security-Policy documentation.
+* `routing_http_response_x_content_type_options_header_value` - (Optional) Indicates whether the MIME types advertised in the Content-Type headers should be followed and not be changed. Can only be set if protocol is `HTTP` or `HTTPS` for Application Load Balancers. Not supported for Network Load Balancer, or with a Gateway Load Balancer. The only valid value is `nosniff`.
+* `routing_http_response_x_frame_options_header_value` - (Optional) Indicates whether the browser is allowed to render a page in a frame, iframe, embed or object. Can only be set if protocol is `HTTP` or `HTTPS` for Application Load Balancers. Not supported for Network Load Balancer, or with a Gateway Load Balancer. The only valid values are `DENY`, `SAMEORIGIN`, or `ALLOW-FROM https://example.com`.
+* `routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name` - (Optional) Enables you to modify the header name of the `X-Amzn-Mtls-Clientcert-Serial-Number` HTTP request header. Can only be set if protocol is `HTTPS` for Application Load Balancers.
+* `routing_http_request_x_amzn_mtls_clientcert_issuer_header_name` - (Optional) Enables you to modify the header name of the `X-Amzn-Mtls-Clientcert-Issuer` HTTP request header. Can only be set if protocol is `HTTPS` for Application Load Balancers.
+* `routing_http_request_x_amzn_mtls_clientcert_subject_header_name` - (Optional) Enables you to modify the header name of the `X-Amzn-Mtls-Clientcert-Subject` HTTP request header. Can only be set if protocol is `HTTPS` for Application Load Balancers.
+* `routing_http_request_x_amzn_mtls_clientcert_validity_header_name` - (Optional) Enables you to modify the header name of the `X-Amzn-Mtls-Clientcert-Validity` HTTP request header. Can only be set if protocol is `HTTPS` for Application Load Balancers.
+* `routing_http_request_x_amzn_mtls_clientcert_leaf_header_name` - (Optional) Enables you to modify the header name of the `X-Amzn-Mtls-Clientcert-Leaf` HTTP request header. Can only be set if protocol is `HTTPS` for Application Load Balancers.
+* `routing_http_request_x_amzn_mtls_clientcert_header_name` - (Optional) Enables you to modify the header name of the `X-Amzn-Mtls-Clientcert` HTTP request header. Can only be set if protocol is `HTTPS` for Application Load Balancers.
+* `routing_http_request_x_amzn_tls_version_header_name` - (Optional) Enables you to modify the header name of the `X-Amzn-Tls-Version` HTTP request header. Can only be set if protocol is `HTTPS` for Application Load Balancers.
+* `routing_http_request_x_amzn_tls_cipher_suite_header_name` - (Optional) Enables you to modify the header name of the `X-Amzn-Tls-Cipher-Suite` HTTP request header. Can only be set if protocol is `HTTPS` for Application Load Balancers.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### default_action
+
+The following arguments are required:
+
+* `type` - (Required) Type of routing action. Valid values are `forward`, `redirect`, `fixed-response`, `authenticate-cognito`, `authenticate-oidc` and `jwt-validation`.
+
+The following arguments are optional:
+
+* `authenticate_cognito` - (Optional) Configuration block for using Amazon Cognito to authenticate users. Specify only when `type` is `authenticate-cognito`. See below.
+* `authenticate_oidc` - (Optional) Configuration block for an identity provider that is compliant with OpenID Connect (OIDC). Specify only when `type` is `authenticate-oidc`. See below.
+* `fixed_response` - (Optional) Information for creating an action that returns a custom HTTP response. Required if `type` is `fixed-response`.
+* `forward` - (Optional) Configuration block for creating an action that distributes requests among one or more target groups. Specify only if `type` is `forward`. See below.
+* `jwt_validation` - (Optional) Configuration block for creating a JWT validation action. Required if `type` is `jwt-validation`.
+* `order` - (Optional) Order for the action. The action with the lowest value for order is performed first. Valid values are between `1` and `50000`. Defaults to the position in the list of actions.
+* `redirect` - (Optional) Configuration block for creating a redirect action. Required if `type` is `redirect`. See below.
+* `target_group_arn` - (Optional) ARN of the Target Group to which to route traffic. Specify only if `type` is `forward` and you want to route to a single target group. To route to one or more target groups, use a `forward` block instead. Can be specified with `forward` but ARNs must match.
+
+#### authenticate_cognito
+
+The following arguments are required:
+
+* `user_pool_arn` - (Required) ARN of the Cognito user pool.
+* `user_pool_client_id` - (Required) ID of the Cognito user pool client.
+* `user_pool_domain` - (Required) Domain prefix or fully-qualified domain name of the Cognito user pool.
+
+The following arguments are optional:
+
+* `authentication_request_extra_params` - (Optional) Query parameters to include in the redirect request to the authorization endpoint. Max: 10. See below.
+* `on_unauthenticated_request` - (Optional) Behavior if the user is not authenticated. Valid values are `deny`, `allow` and `authenticate`.
+* `scope` - (Optional) Set of user claims to be requested from the IdP.
+* `session_cookie_name` - (Optional) Name of the cookie used to maintain session information.
+* `session_timeout` - (Optional) Maximum duration of the authentication session, in seconds.
+
+##### authentication_request_extra_params
+
+* `key` - (Required) Key of query parameter.
+* `value` - (Required) Value of query parameter.
+
+#### authenticate_oidc
+
+The following arguments are required:
+
+* `authorization_endpoint` - (Required) Authorization endpoint of the IdP.
+* `client_id` - (Required) OAuth 2.0 client identifier.
+* `client_secret` - (Required) OAuth 2.0 client secret.
+* `issuer` - (Required) OIDC issuer identifier of the IdP.
+* `token_endpoint` - (Required) Token endpoint of the IdP.
+* `user_info_endpoint` - (Required) User info endpoint of the IdP.
+
+The following arguments are optional:
+
+* `authentication_request_extra_params` - (Optional) Query parameters to include in the redirect request to the authorization endpoint. Max: 10.
+* `on_unauthenticated_request` - (Optional) Behavior if the user is not authenticated. Valid values: `deny`, `allow` and `authenticate`
+* `scope` - (Optional) Set of user claims to be requested from the IdP.
+* `session_cookie_name` - (Optional) Name of the cookie used to maintain session information.
+* `session_timeout` - (Optional) Maximum duration of the authentication session, in seconds.
+
+#### fixed_response
+
+The following arguments are required:
+
+* `content_type` - (Required) Content type. Valid values are `text/plain`, `text/css`, `text/html`, `application/javascript` and `application/json`.
+
+The following arguments are optional:
+
+* `message_body` - (Optional) Message body.
+* `status_code` - (Optional) HTTP response code. Valid values are `2XX`, `4XX`, or `5XX`.
+
+#### forward
+
+The following arguments are required:
+
+* `target_group` - (Required) Set of 1-5 target group blocks. See below.
+
+The following arguments are optional:
+
+* `stickiness` - (Optional) Configuration block for target group stickiness for the rule. See below.
+
+##### target_group
+
+The following arguments are required:
+
+* `arn` - (Required) ARN of the target group.
+
+The following arguments are optional:
+
+* `weight` - (Optional) Weight. The range is 0 to 999.
+
+##### stickiness
+
+The following arguments are required:
+
+* `duration` - (Required) Time period, in seconds, during which requests from a client should be routed to the same target group. The range is 1-604800 seconds (7 days).
+
+The following arguments are optional:
+
+* `enabled` - (Optional) Whether target group stickiness is enabled. Default is `false`.
+
+#### jwt_validation
+
+The following arguments are required:
+
+* `issuer` - (Required) Issuer of the JWT.
+* `jwks_endpoint` - (Required) JSON Web Key Set (JWKS) endpoint. This endpoint contains JSON Web Keys (JWK) that are used to validate signatures from the provider. This must be a full URL, including the HTTPS protocol, the domain, and the path.
+
+The following arguments are optional:
+
+* `additional_claim` - (Optional) Repeatable configuration block for additional claims to validate.
+
+#### additional_claim
+
+The following arguments are required:
+
+* `format` - (Required) Format of the claim value. Valid values are `single-string`, `string-array` and `space-separated-values`.
+* `name` - (Required) Name of the claim to validate. `exp`, `iss`, `nbf`, or `iat` cannot be specified because they are validated by default.
+* `values` - (Required) List of expected values of the claim.
+
+#### redirect
+
+The following arguments are required:
+
+* `status_code` - (Required) HTTP redirect code. The redirect is either permanent (`HTTP_301`) or temporary (`HTTP_302`).
+
+The following arguments are optional:
+
+* `host` - (Optional) Hostname. This component is not percent-encoded. The hostname can contain `#{host}`. Defaults to `#{host}`.
+* `path` - (Optional) Absolute path, starting with the leading "/". This component is not percent-encoded. The path can contain #{host}, #{path}, and #{port}. Defaults to `/#{path}`.
+* `port` - (Optional) Port. Specify a value from `1` to `65535` or `#{port}`. Defaults to `#{port}`.
+* `protocol` - (Optional) Protocol. Valid values are `HTTP`, `HTTPS`, or `#{protocol}`. Defaults to `#{protocol}`.
+* `query` - (Optional) Query parameters, URL-encoded when necessary, but not percent-encoded. Do not include the leading "?". Defaults to `#{query}`.
+
+### mutual_authentication
+
+* `advertise_trust_store_ca_names` - (Optional when `mode` is `verify`, invalid otherwise) Valid values are `off` and `on`.
+* `ignore_client_certificate_expiry` - (Optional when `mode` is `verify`, invalid otherwise) Whether client certificate expiry is ignored.
+  Default is `false`.
+* `mode` - (Required) Valid values are `off`, `passthrough`, and `verify`.
+* `trust_store_arn` - (Required when `mode` is `verify`, invalid otherwise) ARN of the elbv2 Trust Store.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the listener.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_lb_listener.front_end arn:aws:elasticloadbalancing:us-west-2:187416307283:listener/app/front-end-alb/8e4497da625e2d8a/9ab28ade35828f96
 ```

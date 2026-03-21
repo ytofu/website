@@ -1,6 +1,6 @@
-# Networkmanager Connect Attachment
+# Resource: aws_networkmanager_connect_attachment
 
-Manage Networkmanager Connect Attachment resources using ytofu YAML.
+Manages an AWS Network Manager Connect Attachment.
 
 ## Basic Example
 
@@ -54,4 +54,50 @@ resource:
     example2:
       attachment_id: ${aws_networkmanager_connect_attachment.example.id}
       attachment_type: ${aws_networkmanager_connect_attachment.example.attachment_type}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `core_network_id` - (Required) ID of a core network where you want to create the attachment.
+* `edge_location` - (Required) Region where the edge is located.
+* `options` - (Required) Options block. See [options](#options) for more information.
+* `transport_attachment_id` - (Required) ID of the attachment between the two connections.
+
+The following arguments are optional:
+
+* `routing_policy_label` - (Optional) The routing policy label to apply to the Connect attachment for traffic routing decisions. Maximum length of 256 characters. Changing this value will force recreation of the resource.
+* `tags` - (Optional) Key-value tags for the attachment. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### options
+
+* `protocol` - (Optional) Protocol used for the attachment connection. Valid values: `GRE`, `NO_ENCAP`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the attachment.
+* `attachment_id` - ID of the attachment.
+* `attachment_policy_rule_number` - Policy rule number associated with the attachment.
+* `attachment_type` - Type of attachment.
+* `core_network_arn` - ARN of a core network.
+* `owner_account_id` - ID of the attachment account owner.
+* `resource_arn` - Attachment resource ARN.
+* `segment_name` - Name of the segment attachment.
+* `state` - State of the attachment.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `10m`)
+* `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_networkmanager_connect_attachment.example attachment-0f8fa60d2238d1bd8
 ```

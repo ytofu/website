@@ -1,6 +1,6 @@
-# DB Instance Role Association
+# Resource: aws_db_instance_role_association
 
-Manage DB Instance Role Association resources using ytofu YAML.
+Manages an RDS DB Instance association with an IAM Role. Example use cases:
 
 ## Basic Example
 
@@ -14,4 +14,32 @@ resource:
       lifecycle:
         replace_triggered_by:
           - ${aws_db_instance.example.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `db_instance_identifier` - (Required) DB Instance Identifier to associate with the IAM Role.
+* `feature_name` - (Required) Name of the feature for association. This can be found in the AWS documentation relevant to the integration or a full list is available in the `SupportedFeatureNames` list returned by [AWS CLI rds describe-db-engine-versions](https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-engine-versions.html).
+* `role_arn` - (Required) Amazon Resource Name (ARN) of the IAM Role to associate with the DB Instance.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - DB Instance Identifier and IAM Role ARN separated by a comma (`,`)
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `10m`)
+- `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_db_instance_role_association.example my-db-instance,arn:aws:iam::123456789012:role/my-role
 ```

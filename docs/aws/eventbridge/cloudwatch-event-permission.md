@@ -1,6 +1,6 @@
-# Cloudwatch Event Permission
+# Resource: aws_cloudwatch_event_permission
 
-Manage Cloudwatch Event Permission resources using ytofu YAML.
+Provides a resource to create an EventBridge permission to support cross-account events in the current account default event bus.
 
 ## Basic Example
 
@@ -24,4 +24,34 @@ resource:
         key: "aws:PrincipalOrgID"
         type: StringEquals
         value: ${aws_organizations_organization.example.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `principal` - (Required) The 12-digit AWS account ID that you are permitting to put events to your default event bus. Specify `*` to permit any account to put events to your default event bus, optionally limited by `condition`.
+* `statement_id` - (Required) An identifier string for the external account that you are granting permissions to.
+* `action` - (Optional) The action that you are enabling the other account to perform. Defaults to `events:PutEvents`.
+* `condition` - (Optional) Configuration block to limit the event bus permissions you are granting to only accounts that fulfill the condition. Specified below.
+* `event_bus_name` - (Optional) The name of the event bus to set the permissions on.
+  If you omit this, the permissions are set on the `default` event bus.
+
+### condition
+
+* `key` - (Required) Key for the condition. Valid values: `aws:PrincipalOrgID`.
+* `type` - (Required) Type of condition. Value values: `StringEquals`.
+* `value` - (Required) Value for the key.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The statement ID of the EventBridge permission.
+
+## Import
+
+```bash
+ytofu import aws_cloudwatch_event_permission.DevAccountAccess example-event-bus/DevAccountAccess
 ```

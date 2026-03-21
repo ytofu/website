@@ -1,6 +1,6 @@
-# VPC Peering Connection Options
+# Resource: aws_vpc_peering_connection_options
 
-Manage VPC Peering Connection Options resources using ytofu YAML.
+Provides a resource to manage VPC peering connection options.
 
 ## Basic Example
 
@@ -82,4 +82,29 @@ resource:
       vpc_peering_connection_id: ${aws_vpc_peering_connection_accepter.peer.id}
       accepter:
         allow_remote_vpc_dns_resolution: true
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `vpc_peering_connection_id` - (Required) The ID of the requester VPC peering connection.
+* `accepter` (Optional) - An optional configuration block that allows for [VPC Peering Connection](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) options to be set for the VPC that accepts the peering connection (a maximum of one).
+* `requester` (Optional) - A optional configuration block that allows for [VPC Peering Connection](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) options to be set for the VPC that requests the peering connection (a maximum of one).
+
+#### Accepter and Requester Arguments
+
+* `allow_remote_vpc_dns_resolution` - (Optional) Allow a local VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the peer VPC.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the VPC Peering Connection Options.
+
+## Import
+
+```bash
+ytofu import aws_vpc_peering_connection_options.foo pcx-111aaa111
 ```

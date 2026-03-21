@@ -1,6 +1,6 @@
-# RDS Reserved Instance
+# Resource: aws_rds_reserved_instance
 
-Manage RDS Reserved Instance resources using ytofu YAML.
+Manages an RDS DB Reserved Instance.
 
 ## Basic Example
 
@@ -20,4 +20,51 @@ resource:
       offering_id: ${data.aws_rds_reserved_instance_offering.test.offering_id}
       reservation_id: optionalCustomReservationID
       instance_count: 3
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `offering_id` - (Required) ID of the Reserved DB instance offering to purchase. To determine an `offering_id`, see the `aws_rds_reserved_instance_offering` data source.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `instance_count` - (Optional) Number of instances to reserve. Default value is `1`.
+* `reservation_id` - (Optional) Customer-specified identifier to track this reservation.
+* `tags` - (Optional) Map of tags to assign to the DB reservation. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN for the reserved DB instance.
+* `id` - Unique identifier for the reservation. same as `reservation_id`.
+* `currency_code` - Currency code for the reserved DB instance.
+* `duration` - Duration of the reservation in seconds.
+* `fixed_price` - Fixed price charged for this reserved DB instance.
+* `db_instance_class` - DB instance class for the reserved DB instance.
+* `lease_id` - Unique identifier for the lease associated with the reserved DB instance. Amazon Web Services Support might request the lease ID for an issue related to a reserved DB instance.
+* `multi_az` - Whether the reservation applies to Multi-AZ deployments.
+* `offering_type` - Offering type of this reserved DB instance.
+* `product_description` - Description of the reserved DB instance.
+* `recurring_charges` - Recurring price charged to run this reserved DB instance.
+* `start_time` - Time the reservation started.
+* `state` - State of the reserved DB instance.
+* `usage_price` - Hourly price charged for this reserved DB instance.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `30m`)
+- `update` - (Default `10m`)
+- `delete` - (Default `1m`)
+
+## Import
+
+```bash
+ytofu import aws_rds_reserved_instance.reservation_instance CustomReservationID
 ```

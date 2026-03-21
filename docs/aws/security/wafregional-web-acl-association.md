@@ -1,6 +1,6 @@
-# Wafregional Web Acl Association
+# Resource: aws_wafregional_web_acl_association
 
-Manage Wafregional Web Acl Association resources using ytofu YAML.
+Manages an association with WAF Regional Web ACL.
 
 ## Basic Example
 
@@ -135,4 +135,30 @@ resource:
     association:
       resource_arn: ${aws_api_gateway_stage.example.arn}
       web_acl_id: ${aws_wafregional_web_acl.foo.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `web_acl_id` - (Required) The ID of the WAF Regional WebACL to create an association.
+* `resource_arn` - (Required) ARN of the resource to associate with. For example, an Application Load Balancer or API Gateway Stage.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the association
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_wafregional_web_acl_association.foo web_acl_id:resource_arn
 ```

@@ -1,6 +1,6 @@
-# Workspacesweb Network Settings Association
+# Resource: aws_workspacesweb_network_settings_association
 
-Manage Workspacesweb Network Settings Association resources using ytofu YAML.
+ytofu resource for managing an AWS WorkSpaces Web Network Settings Association.
 
 ## Basic Example
 
@@ -60,3 +60,18 @@ resource:
       network_settings_arn: ${aws_workspacesweb_network_settings.example.network_settings_arn}
       portal_arn: ${aws_workspacesweb_portal.example.portal_arn}
 ```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `network_settings_arn` - (Required) ARN of the network settings to associate with the portal. Forces replacement if changed.
+* `portal_arn` - (Required) ARN of the portal to associate with the network settings. Forces replacement if changed.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+
+## Attribute Reference
+
+This resource exports no additional attributes.

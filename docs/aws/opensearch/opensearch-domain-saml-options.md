@@ -1,6 +1,6 @@
-# Opensearch Domain SAML Options
+# Resource: aws_opensearch_domain_saml_options
 
-Manage Opensearch Domain SAML Options resources using ytofu YAML.
+Manages SAML authentication options for an AWS OpenSearch Domain.
 
 ## Basic Example
 
@@ -26,4 +26,49 @@ resource:
         idp:
           entity_id: "https://example.com"
           metadata_content: file-content
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `domain_name` - (Required) Name of the domain.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `saml_options` - (Optional) SAML authentication options for an AWS OpenSearch Domain.
+
+### saml_options
+
+* `enabled` - (Required) Whether SAML authentication is enabled.
+* `idp` - (Optional) Information from your identity provider.
+* `master_backend_role` - (Optional) This backend role from the SAML IdP receives full permissions to the cluster, equivalent to a new master user.
+* `master_user_name` - (Optional) This username from the SAML IdP receives full permissions to the cluster, equivalent to a new master user.
+* `roles_key` - (Optional) Element of the SAML assertion to use for backend roles. Default is roles.
+* `session_timeout_minutes` - (Optional) Duration of a session in minutes after a user logs in. Default is 60. Maximum value is 1,440.
+* `subject_key` - (Optional) Element of the SAML assertion to use for username. Default is NameID.
+
+#### idp
+
+* `entity_id` - (Required) Unique Entity ID of the application in SAML Identity Provider.
+* `metadata_content` - (Required) Metadata of the SAML application in xml format.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Name of the domain the SAML options are associated with.
+
+## Timeouts
+
+Configuration options:
+
+* `update` - (Default `180m`)
+* `delete` - (Default `90m`)
+
+## Import
+
+```bash
+ytofu import aws_opensearch_domain_saml_options.example domain_name
 ```

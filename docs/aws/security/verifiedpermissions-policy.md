@@ -1,6 +1,6 @@
-# Verifiedpermissions Policy
+# Resource: aws_verifiedpermissions_policy
 
-Manage Verifiedpermissions Policy resources using ytofu YAML.
+ytofu resource for managing an AWS Verified Permissions Policy.
 
 ## Basic Example
 
@@ -12,4 +12,45 @@ resource:
       definition:
         static:
           statement: "permit (principal, action == Action::\"view\", resource in Album:: \"test_album\");"
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `policy_store_id` - (Required) The Policy Store ID of the policy store.
+* `definition`- (Required) The definition of the policy. See [Definition](#definition) below.
+
+### Definition
+
+* `static` - (Optional) The static policy statement. See [Static](#static) below.
+* `template_linked` - (Optional) The template linked policy. See [Template Linked](#template-linked) below.
+
+#### Static
+
+* `description` - (Optional) The description of the static policy.
+* `statement` - (Required) The statement of the static policy.
+
+#### Template Linked
+
+* `policy_template_id` - (Required) The ID of the template.
+* `principal` - (Optional) The principal of the template linked policy.
+    * `entity_id` - (Required) The entity ID of the principal.
+    * `entity_type` - (Required) The entity type of the principal.
+* `resource` - (Optional) The resource of the template linked policy.
+    * `entity_id` - (Required) The entity ID of the resource.
+    * `entity_type` - (Required) The entity type of the resource.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `created_date` - The date the policy was created.
+* `policy_id` - The Policy ID of the policy.
+
+## Import
+
+```bash
+ytofu import aws_verifiedpermissions_policy.example policy-id-12345678,policy-store-id-12345678
 ```

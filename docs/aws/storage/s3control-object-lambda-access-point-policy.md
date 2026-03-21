@@ -1,6 +1,6 @@
-# S3control Object Lambda Access Point Policy
+# Resource: aws_s3control_object_lambda_access_point_policy
 
-Manage S3control Object Lambda Access Point Policy resources using ytofu YAML.
+Provides a resource to manage an S3 Object Lambda Access Point resource policy.
 
 ## Basic Example
 
@@ -34,4 +34,26 @@ resource:
     example:
       name: ${aws_s3control_object_lambda_access_point.example.name}
       policy: '{ "Version": "2008-10-17" "Statement": [{ "Effect": "Allow" "Action": "s3-object-lambda:GetObject" "Principal": { "AWS": data.aws_caller_identity.current.account_id } "Resource": aws_s3control_object_lambda_access_point.example.arn }] }'
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `account_id` - (Optional) The AWS account ID for the account that owns the Object Lambda Access Point. Defaults to automatically determined account ID of the ytofu AWS provider.
+* `name` - (Required) The name of the Object Lambda Access Point.
+* `policy` - (Required) The Object Lambda Access Point resource policy document.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `has_public_access_policy` - Indicates whether this access point currently has a policy that allows public access.
+* `id` - The AWS account ID and access point name separated by a colon (`:`).
+
+## Import
+
+```bash
+ytofu import aws_s3control_object_lambda_access_point_policy.example 123456789012:example
 ```

@@ -1,6 +1,6 @@
-# Prometheus Query Logging Configuration
+# Resource: aws_prometheus_query_logging_configuration
 
-Manage Prometheus Query Logging Configuration resources using ytofu YAML.
+Manages an Amazon Managed Service for Prometheus (AMP) Query Logging Configuration.
 
 ## Basic Example
 
@@ -25,3 +25,39 @@ resource:
         filters:
           qsp_threshold: 1000
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `destination` - (Required) Configuration block for the logging destinations. See [`destinations`](#destinations).
+* `workspace_id` - (Required) The ID of the AMP workspace for which to configure query logging.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+
+### `destination`
+
+* `cloudwatch_logs` - (Required) Configuration block for CloudWatch Logs destination. See [`cloudwatch_logs`](#cloudwatch_logs).
+* `filters` - (Required) A list of filter configurations that specify which logs should be sent to the destination. See [`filters`](#filters).
+
+#### `cloudwatch_logs`
+
+* `log_group_arn` - (Required) The ARN of the CloudWatch log group to which query logs will be sent. The ARN must end with `:*`
+
+#### `filters`
+
+* `qsp_threshold` - (Required) The Query Samples Processed (QSP) threshold above which queries will be logged. Queries processing more samples than this threshold will be captured in logs.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `5m`)
+- `update` - (Default `5m`)
+- `delete` - (Default `5m`)

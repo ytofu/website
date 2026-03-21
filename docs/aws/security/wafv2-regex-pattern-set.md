@@ -1,6 +1,6 @@
-# Wafv2 Regex Pattern Set
+# Resource: aws_wafv2_regex_pattern_set
 
-Manage Wafv2 Regex Pattern Set resources using ytofu YAML.
+Provides an AWS WAFv2 Regex Pattern Set Resource
 
 ## Basic Example
 
@@ -18,4 +18,34 @@ resource:
       tags:
         Tag1: Value1
         Tag2: Value2
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Optional, Forces new resource) A friendly name of the regular expression pattern set. If omitted, ytofu will assign a random, unique name. Conflicts with `name_prefix`.
+* `name_prefix` - (Optional) Creates a unique name beginning with the specified prefix. Conflicts with `name`.
+* `description` - (Optional) A friendly description of the regular expression pattern set.
+* `scope` - (Required) Specifies whether this is for an AWS CloudFront distribution or for a regional application. Valid values are `CLOUDFRONT` or `REGIONAL`. To work with CloudFront, you must also specify the region `us-east-1` (N. Virginia) on the AWS provider.
+* `regular_expression` - (Optional) One or more blocks of regular expression patterns that you want AWS WAF to search for, such as `B[a@]dB[o0]t`. See [Regular Expression](#regular-expression) below for details.
+* `tags` - (Optional) An array of key:value pairs to associate with the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### Regular Expression
+
+* `regex_string` - (Required) The string representing the regular expression, see the AWS WAF [documentation](https://docs.aws.amazon.com/waf/latest/developerguide/waf-regex-pattern-set-creating.html) for more information.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - A unique identifier for the set.
+* `arn` - The Amazon Resource Name (ARN) that identifies the cluster.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_wafv2_regex_pattern_set.example a1b2c3d4-d5f6-7777-8888-9999aaaabbbbcccc/example/REGIONAL
 ```

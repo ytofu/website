@@ -1,6 +1,6 @@
-# Acmpca Certificate Authority Certificate
+# Resource: aws_acmpca_certificate_authority_certificate
 
-Manage Acmpca Certificate Authority Certificate resources using ytofu YAML.
+Associates a certificate with an AWS Certificate Manager Private Certificate Authority (ACM PCA Certificate Authority). An ACM PCA Certificate Authority is unable to issue certificates until it has a certificate associated with it. A root level ACM PCA Certificate Authority is able to self-sign its own root certificate.
 
 ## Basic Example
 
@@ -85,3 +85,16 @@ data:
   aws_partition:
     current:
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `certificate` - (Required) PEM-encoded certificate for the Certificate Authority.
+* `certificate_authority_arn` - (Required) ARN of the Certificate Authority.
+* `certificate_chain` - (Optional) PEM-encoded certificate chain that includes any intermediate certificates and chains up to root CA. Required for subordinate Certificate Authorities. Not allowed for root Certificate Authorities.
+
+## Attribute Reference
+
+This resource exports no additional attributes.

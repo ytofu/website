@@ -1,6 +1,6 @@
-# Media Store Container Policy
+# Resource: aws_media_store_container_policy
 
-Manage Media Store Container Policy resources using ytofu YAML.
+Provides a MediaStore Container Policy.
 
 ## Basic Example
 
@@ -42,4 +42,22 @@ resource:
     example:
       container_name: ${aws_media_store_container.example.name}
       policy: ${data.aws_iam_policy_document.example.json}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `container_name` - (Required) The name of the container.
+* `policy` - (Required) The contents of the policy. For more information about building AWS IAM policy documents with ytofu, see the [AWS IAM Policy Document Guide](https://learn.hashicorp.com/terraform/aws/iam-policy).
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_media_store_container_policy.example example
 ```

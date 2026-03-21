@@ -1,6 +1,6 @@
-# VPC Dhcp Options
+# Resource: aws_vpc_dhcp_options
 
-Manage VPC Dhcp Options resources using ytofu YAML.
+Provides a VPC DHCP Options resource.
 
 ## Basic Example
 
@@ -11,4 +11,35 @@ resource:
       domain_name_servers: 
         - 8.8.8.8
         - 8.8.4.4
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `domain_name` - (Optional) the suffix domain name to use by default when resolving non Fully Qualified Domain Names. In other words, this is what ends up being the `search` value in the `/etc/resolv.conf` file.
+* `domain_name_servers` - (Optional) List of name servers to configure in `/etc/resolv.conf`. If you want to use the default AWS nameservers you should set this to `AmazonProvidedDNS`.
+* `ipv6_address_preferred_lease_time` - (Optional) How frequently, in seconds, a running instance with an IPv6 assigned to it goes through DHCPv6 lease renewal. Acceptable values are between 140 and 2147483647 (approximately 68 years). If no value is entered, the default lease time is 140 seconds. If you use long-term addressing for EC2 instances, you can increase the lease time and avoid frequent lease renewal requests. Lease renewal typically occurs when half of the lease time has elapsed.
+* `ntp_servers` - (Optional) List of NTP servers to configure.
+* `netbios_name_servers` - (Optional) List of NETBIOS name servers.
+* `netbios_node_type` - (Optional) The NetBIOS node type (1, 2, 4, or 8). AWS recommends to specify 2 since broadcast and multicast are not supported in their network. For more information about these node types, see [RFC 2132](http://www.ietf.org/rfc/rfc2132.txt).
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the DHCP Options Set.
+* `arn` - The ARN of the DHCP Options Set.
+* `owner_id` - The ID of the AWS account that owns the DHCP options set.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+You can find more technical documentation about DHCP Options Set in the
+official [AWS User Guide](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html).
+
+## Import
+
+```bash
+ytofu import aws_vpc_dhcp_options.my_options dopt-d9070ebb
 ```

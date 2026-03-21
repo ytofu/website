@@ -1,6 +1,6 @@
-# Bedrockagentcore Memory Strategy
+# Resource: aws_bedrockagentcore_memory_strategy
 
-Manage Bedrockagentcore Memory Strategy resources using ytofu YAML.
+Manages an AWS Bedrock AgentCore Memory Strategy. Memory strategies define how the agent processes and organizes information within a memory, such as semantic understanding, summarization, or custom processing logic.
 
 ## Basic Example
 
@@ -106,4 +106,61 @@ resource:
         extraction:
           append_to_prompt: Extract user preferences and interaction patterns
           model_id: "anthropic.claude-3-haiku-20240307-v1:0"
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `name` - (Required) Name of the memory strategy.
+* `memory_id` - (Required) ID of the memory to associate with this strategy. Changing this forces a new resource.
+* `type` - (Required) Type of memory strategy. Valid values: `SEMANTIC`, `SUMMARIZATION`, `USER_PREFERENCE`, `CUSTOM`. Changing this forces a new resource. Note that only one strategy of each built-in type (`SEMANTIC`, `SUMMARIZATION`, `USER_PREFERENCE`) can exist per memory.
+* `namespaces` - (Required) Set of namespace identifiers where this strategy applies. Namespaces help organize and scope memory content.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) Description of the memory strategy.
+* `configuration` - (Optional) Custom configuration block. Required when `type` is `CUSTOM`, must be omitted for other types. See [`configuration`](#configuration) below.
+
+### `configuration`
+
+The `configuration` block supports the following:
+
+* `type` - (Required) Type of custom override. Valid values: `SEMANTIC_OVERRIDE`, `SUMMARY_OVERRIDE`, `USER_PREFERENCE_OVERRIDE`. Changing this forces a new resource.
+* `consolidation` - (Optional) Consolidation configuration for processing and organizing memory content. See [`consolidation`](#consolidation) below. Once added, this block cannot be removed without recreating the resource.
+* `extraction` - (Optional) Extraction configuration for identifying and extracting relevant information. See [`extraction`](#extraction) below. Cannot be used with `type` set to `SUMMARY_OVERRIDE`. Once added, this block cannot be removed without recreating the resource.
+
+### `consolidation`
+
+The `consolidation` block supports the following:
+
+* `append_to_prompt` - (Required) Additional text to append to the model prompt for consolidation processing.
+* `model_id` - (Required) ID of the foundation model to use for consolidation processing.
+
+### `extraction`
+
+The `extraction` block supports the following:
+
+* `append_to_prompt` - (Required) Additional text to append to the model prompt for extraction processing.
+* `model_id` - (Required) ID of the foundation model to use for extraction processing.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `memory_strategy_id` - Unique identifier of the Memory Strategy. This corresponds to the service `strategyId` identifier (AWS API / CloudFormation terminology).
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_bedrockagentcore_memory_strategy.example MEMORY1234567890,STRATEGY0987654321
 ```

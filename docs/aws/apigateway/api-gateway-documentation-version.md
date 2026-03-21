@@ -1,6 +1,6 @@
-# API Gateway Documentation Version
+# Resource: aws_api_gateway_documentation_version
 
-Manage API Gateway Documentation Version resources using ytofu YAML.
+Provides a resource to manage an API Gateway Documentation Version.
 
 ## Basic Example
 
@@ -26,4 +26,23 @@ resource:
         type: API
       properties: "{\"description\":\"Example\"}"
       rest_api_id: ${aws_api_gateway_rest_api.example.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `version` - (Required) Version identifier of the API documentation snapshot.
+* `rest_api_id` - (Required) ID of the associated Rest API
+* `description` - (Optional) Description of the API documentation version.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+## Import
+
+```bash
+ytofu import aws_api_gateway_documentation_version.example 5i4e1ko720/example-version
 ```

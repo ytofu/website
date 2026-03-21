@@ -1,6 +1,6 @@
-# Snapshot Create Volume Permission
+# Resource: aws_snapshot_create_volume_permission
 
-Manage Snapshot Create Volume Permission resources using ytofu YAML.
+Adds permission to create volumes off of a given EBS Snapshot.
 
 ## Basic Example
 
@@ -22,3 +22,17 @@ resource:
     example_snapshot:
       volume_id: ${aws_ebs_volume.example.id}
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `snapshot_id` - (Required) A snapshot ID
+* `account_id` - (Required) An AWS Account ID to add create volume permissions. The AWS Account cannot be the snapshot's owner
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - A combination of "`snapshot_id`-`account_id`".

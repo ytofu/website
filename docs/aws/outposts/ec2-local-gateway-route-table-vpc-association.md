@@ -1,6 +1,6 @@
-# EC2 Local Gateway Route Table VPC Association
+# Resource: aws_ec2_local_gateway_route_table_vpc_association
 
-Manage EC2 Local Gateway Route Table VPC Association resources using ytofu YAML.
+Manages an EC2 Local Gateway Route Table VPC Association. More information can be found in the [Outposts User Guide](https://docs.aws.amazon.com/outposts/latest/userguide/outposts-local-gateways.html#vpc-associations).
 
 ## Basic Example
 
@@ -20,4 +20,29 @@ resource:
     example:
       local_gateway_route_table_id: ${data.aws_ec2_local_gateway_route_table.example.id}
       vpc_id: ${aws_vpc.example.id}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `local_gateway_route_table_id` - (Required) Identifier of EC2 Local Gateway Route Table.
+* `vpc_id` - (Required) Identifier of EC2 VPC.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Identifier of EC2 Local Gateway Route Table VPC Association.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_ec2_local_gateway_route_table_vpc_association.example lgw-vpc-assoc-1234567890abcdef
 ```

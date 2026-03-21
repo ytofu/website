@@ -1,6 +1,6 @@
-# Cognito User Pool Domain
+# Resource: aws_cognito_user_pool_domain
 
-Manage Cognito User Pool Domain resources using ytofu YAML.
+Provides a Cognito User Pool Domain resource.
 
 ## Basic Example
 
@@ -47,4 +47,31 @@ resource:
         evaluate_target_health: false
         name: ${aws_cognito_user_pool_domain.main.cloudfront_distribution}
         zone_id: ${aws_cognito_user_pool_domain.main.cloudfront_distribution_zone_id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `domain` - (Required) For custom domains, this is the fully-qualified domain name, such as auth.example.com. For Amazon Cognito prefix domains, this is the prefix alone, such as auth.
+* `user_pool_id` - (Required) The user pool ID.
+* `certificate_arn` - (Optional) The ARN of an ISSUED ACM certificate in us-east-1 for a custom domain.
+* `managed_login_version` - (Optional) A version number that indicates the state of managed login for your domain. Valid values: `1` for hosted UI (classic), `2` for the newer managed login with the branding designer.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `aws_account_id` - The AWS account ID for the user pool owner.
+* `cloudfront_distribution` - The Amazon CloudFront endpoint (e.g. `dpp0gtxikpq3y.cloudfront.net`) that you use as the target of the alias that you set up with your Domain Name Service (DNS) provider.
+* `cloudfront_distribution_arn` - The URL of the CloudFront distribution. This is required to generate the ALIAS `aws_route53_record`
+* `cloudfront_distribution_zone_id` - The Route 53 hosted zone ID of the CloudFront distribution.
+* `s3_bucket` - The S3 bucket where the static files for this domain are stored.
+* `version` - The app version.
+
+## Import
+
+```bash
+ytofu import aws_cognito_user_pool_domain.main auth.example.org
 ```

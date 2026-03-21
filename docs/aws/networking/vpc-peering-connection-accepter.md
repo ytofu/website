@@ -1,6 +1,6 @@
-# VPC Peering Connection Accepter
+# Resource: aws_vpc_peering_connection_accepter
 
-Manage VPC Peering Connection Accepter resources using ytofu YAML.
+Provides a resource to manage the accepter's side of a VPC Peering Connection.
 
 ## Basic Example
 
@@ -71,4 +71,48 @@ resource:
       auto_accept: true
       tags:
         Side: Accepter
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `vpc_peering_connection_id` - (Required) The VPC Peering Connection ID to manage.
+* `auto_accept` - (Optional) Whether or not to accept the peering request. Defaults to `false`.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### Removing `aws_vpc_peering_connection_accepter` from your configuration
+
+AWS allows a cross-account VPC Peering Connection to be deleted from either the requester's or accepter's side.
+However, ytofu only allows the VPC Peering Connection to be deleted from the requester's side
+by removing the corresponding `aws_vpc_peering_connection` resource from your configuration.
+Removing a `aws_vpc_peering_connection_accepter` resource from your configuration will remove it
+from your statefile and management, **but will not destroy the VPC Peering Connection.**
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the VPC Peering Connection.
+* `accept_status` - The status of the VPC Peering Connection request.
+* `vpc_id` - The ID of the accepter VPC.
+* `peer_vpc_id` - The ID of the requester VPC.
+* `peer_owner_id` - The AWS account ID of the owner of the requester VPC.
+* `peer_region` - The region of the accepter VPC.
+* `accepter` - A configuration block that describes [VPC Peering Connection]
+(https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) options set for the accepter VPC.
+* `requester` - A configuration block that describes [VPC Peering Connection]
+(https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) options set for the requester VPC.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+#### Accepter and Requester Attribute Reference
+
+* `allow_remote_vpc_dns_resolution` - Indicates whether a local VPC can resolve public DNS hostnames to
+private IP addresses when queried from instances in a peer VPC.
+
+## Import
+
+```bash
+ytofu import aws_vpc_peering_connection_accepter.example pcx-12345678
 ```

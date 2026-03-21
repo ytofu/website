@@ -1,6 +1,6 @@
-# Glue Connection
+# Resource: aws_glue_connection
 
-Manage Glue Connection resources using ytofu YAML.
+Provides a Glue Connection resource.
 
 ## Basic Example
 
@@ -214,4 +214,47 @@ resource:
         lambda_function_arn: "arn:aws:lambda:us-east-1:123456789012:function:athenafederatedcatalog_athena_abcdefgh"
         disable_spill_encryption: false
         spill_bucket: example-bucket
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) Name of the connection.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `catalog_id` - (Optional) ID of the Data Catalog in which to create the connection. If none is supplied, the AWS account ID is used by default.
+* `athena_properties` - (Optional) Map of key-value pairs used as connection properties specific to the Athena compute environment.
+* `connection_properties` - (Optional) Map of key-value pairs used as parameters for this connection. For more information, see the [AWS Documentation](https://docs.aws.amazon.com/glue/latest/dg/connection-properties.html).
+
+  **Note:** Some connection types require the `SparkProperties` property with a JSON document that contains the actual connection properties. For specific examples, refer to [Example Usage](#example-usage).
+* `connection_type` - (Optional) Type of the connection. Valid values: `AZURECOSMOS`, `AZURESQL`, `BIGQUERY`, `CUSTOM`, `DYNAMODB`, `JDBC`, `KAFKA`, `MARKETPLACE`, `MONGODB`, `NETWORK`, `OPENSEARCH`, `SNOWFLAKE`. Defaults to `JDBC`.
+* `description` - (Optional) Description of the connection.
+* `match_criteria` - (Optional) List of criteria that can be used in selecting this connection.
+* `physical_connection_requirements` - (Optional) Map of physical connection requirements, such as VPC and SecurityGroup. See [`physical_connection_requirements` Block](#physical_connection_requirements-block) for details.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### `physical_connection_requirements` Block
+
+The `physical_connection_requirements` configuration block supports the following arguments:
+
+* `availability_zone` - (Optional) The availability zone of the connection. This field is redundant and implied by `subnet_id`, but is currently an api requirement.
+* `security_group_id_list` - (Optional) The security group ID list used by the connection.
+* `subnet_id` - (Optional) The subnet ID used by the connection.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the Glue Connection.
+* `id` - Catalog ID and name of the connection.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_glue_connection.MyConnection 123456789012:MyConnection
 ```

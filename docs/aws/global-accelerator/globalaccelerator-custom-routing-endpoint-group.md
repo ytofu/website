@@ -1,6 +1,6 @@
-# Globalaccelerator Custom Routing Endpoint Group
+# Resource: aws_globalaccelerator_custom_routing_endpoint_group
 
-Manage Globalaccelerator Custom Routing Endpoint Group resources using ytofu YAML.
+Provides a Global Accelerator custom routing endpoint group.
 
 ## Basic Example
 
@@ -16,4 +16,44 @@ resource:
           - TCP
       endpoint_configuration:
         endpoint_id: ${aws_subnet.example.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `listener_arn` - (Required) The Amazon Resource Name (ARN) of the custom routing listener.
+* `destination_configuration` - (Required) The port ranges and protocols for all endpoints in a custom routing endpoint group to accept client traffic on. Fields documented below.
+* `endpoint_configuration` - (Optional) The list of endpoint objects. Fields documented below.
+* `endpoint_group_region` (Optional) - The name of the AWS Region where the custom routing endpoint group is located.
+
+`destination_configuration` supports the following arguments:
+
+* `from_port` - (Required) The first port, inclusive, in the range of ports for the endpoint group that is associated with a custom routing accelerator.
+* `protocols` - (Required) The protocol for the endpoint group that is associated with a custom routing accelerator. The protocol can be either `"TCP"` or `"UDP"`.
+* `to_port` - (Required) The last port, inclusive, in the range of ports for the endpoint group that is associated with a custom routing accelerator.
+
+`endpoint_configuration` supports the following arguments:
+
+* `endpoint_id` - (Optional) An ID for the endpoint. For custom routing accelerators, this is the virtual private cloud (VPC) subnet ID.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The Amazon Resource Name (ARN) of the custom routing endpoint group.
+* `arn` - The Amazon Resource Name (ARN) of the custom routing endpoint group.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_globalaccelerator_custom_routing_endpoint_group.example arn:aws:globalaccelerator::111111111111:accelerator/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/listener/xxxxxxx/endpoint-group/xxxxxxxx
 ```

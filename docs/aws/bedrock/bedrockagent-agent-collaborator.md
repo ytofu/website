@@ -1,6 +1,6 @@
-# Bedrockagent Agent Collaborator
+# Resource: aws_bedrockagent_agent_collaborator
 
-Manage Bedrockagent Agent Collaborator resources using ytofu YAML.
+ytofu resource for managing an AWS Bedrock Agents Agent Collaborator.
 
 ## Basic Example
 
@@ -100,4 +100,44 @@ resource:
       relay_conversation_history: TO_COLLABORATOR
       agent_descriptor:
         alias_arn: ${aws_bedrockagent_agent_alias.example.agent_alias_arn}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `agent_id` - (Required) ID if the agent to associate the collaborator.
+* `collaboration_instruction` - (Required) Instruction to give the collaborator.
+* `collaborator_name` - (Required) Name of this collaborator.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `prepare_agent` (Optional) Whether to prepare the agent after creation or modification. Defaults to `true`.
+* `relay_conversation_history` - (Optional) Configure relaying the history to the collaborator.
+
+### `agent_descriptor` Block
+
+The `agent_descriptor` configuration block supports the following arguments:
+
+* `alias_arn` - (Required) ARN of the Alias of an Agent to use as the collaborator.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `collaborator_id` - ID of the Agent Collaborator.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `5m`)
+* `update` - (Default `5m`)
+* `delete` - (Default `5m`)
+
+## Import
+
+```bash
+ytofu import aws_bedrockagent_agent_collaborator.example 9LSJO0BFI8,DRAFT,AG3TN4RQIY
 ```

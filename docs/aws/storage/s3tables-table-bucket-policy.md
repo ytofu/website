@@ -1,6 +1,6 @@
-# S3tables Table Bucket Policy
+# Resource: aws_s3tables_table_bucket_policy
 
-Manage S3tables Table Bucket Policy resources using ytofu YAML.
+ytofu resource for managing an Amazon S3 Tables Table Bucket Policy.
 
 ## Basic Example
 
@@ -20,4 +20,22 @@ resource:
   aws_s3tables_table_bucket:
     example:
       name: example-bucket
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `resource_policy` - (Required) Amazon Web Services resource-based policy document in JSON format.
+* `table_bucket_arn` - (Required, Forces new resource) ARN referencing the Table Bucket that owns this policy.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_s3tables_table_bucket_policy.example 'arn:aws:s3tables:us-west-2:123456789012:bucket/example-bucket;example-namespace'
 ```

@@ -1,6 +1,6 @@
-# VPC Security Group Rules Exclusive
+# Resource: aws_vpc_security_group_rules_exclusive
 
-Manage VPC Security Group Rules Exclusive resources using ytofu YAML.
+ytofu resource for managing an exclusive set of AWS VPC (Virtual Private Cloud) Security Group Rules.
 
 ## Basic Example
 
@@ -51,4 +51,23 @@ resource:
       security_group_id: ${aws_security_group.example.id}
       ingress_rule_ids: []
       egress_rule_ids: []
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `egress_rule_ids` - (Required) Egress rule IDs.
+* `ingress_rule_ids` - (Required) Ingress rule IDs.
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `security_group_id` - (Required, Forces new resource) ID of the security group.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_vpc_security_group_rules_exclusive.example sg-1234567890abcdef0
 ```

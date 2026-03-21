@@ -1,6 +1,6 @@
-# Load Balancer Policy
+# Resource: aws_load_balancer_policy
 
-Manage Load Balancer Policy resources using ytofu YAML.
+Provides a load balancer policy, which can be attached to an ELB listener or backend server.
 
 ## Basic Example
 
@@ -79,3 +79,22 @@ resource:
       policy_names:
         - ${aws_load_balancer_policy.wu-tang-ssl.policy_name}
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `load_balancer_name` - (Required) The load balancer on which the policy is defined.
+* `policy_name` - (Required) The name of the load balancer policy.
+* `policy_type_name` - (Required) The policy type.
+* `policy_attribute` - (Optional) Policy attribute to apply to the policy.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the policy.
+* `policy_name` - The name of the stickiness policy.
+* `policy_type_name` - The policy type of the policy.
+* `load_balancer_name` - The load balancer on which the policy is defined.

@@ -1,6 +1,6 @@
-# LB Target Group Attachment
+# Resource: aws_lb_target_group_attachment
 
-Manage LB Target Group Attachment resources using ytofu YAML.
+Provides the ability to register instances and containers with an Application Load Balancer (ALB) or Network Load Balancer (NLB) target group. For attaching resources with Elastic Load Balancer (ELB), see the `aws_elb_attachment` resource.
 
 ## Basic Example
 
@@ -92,4 +92,30 @@ resource:
       target_group_arn: ${aws_lb_target_group.example.arn}
       target_id: example-id
       port: 80
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `target_group_arn` - (Required) The ARN of the target group with which to register targets.
+* `target_id` (Required) The ID of the target. This is the Instance ID for an instance, or the container ID for an ECS container. If the target type is `ip`, specify an IP address. If the target type is `lambda`, specify the Lambda function ARN. If the target type is `alb`, specify the ALB ARN.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `availability_zone` - (Optional) The Availability Zone where the IP address of the target is to be registered. If the private IP address is outside of the VPC scope, this value must be set to `all`.
+* `port` - (Optional) The port on which targets receive traffic.
+* `quic_server_id` - (Optional) Server ID for the targets, consisting of the 0x prefix followed by 16 hexadecimal characters. The value must be unique at the listener level. Required if `aws_lb_target_group` protocol is `QUIC` or `TCP_QUIC`. Not valid with other protocols. Forces replacement if modified.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - A unique identifier for the attachment.
+
+## Import
+
+```bash
+ytofu import aws_lb_target_group_attachment.example arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-tg/abc123,i-0123456789abcdef0,8080
 ```

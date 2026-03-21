@@ -1,6 +1,6 @@
-# Redshift Partner
+# Resource: aws_redshift_partner
 
-Manage Redshift Partner resources using ytofu YAML.
+Creates a new Amazon Redshift Partner Integration.
 
 ## Basic Example
 
@@ -12,4 +12,28 @@ resource:
       account_id: 01234567910
       database_name: ${aws_redshift_cluster.example.database_name}
       partner_name: example
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `account_id` - (Required) The Amazon Web Services account ID that owns the cluster.
+* `cluster_identifier` - (Required) The cluster identifier of the cluster that receives data from the partner.
+* `database_name` - (Required) The name of the database that receives data from the partner.
+* `partner_name` - (Required) The name of the partner that is authorized to send data.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The identifier of the Redshift partner, `account_id`, `cluster_identifier`, `database_name`, `partner_name` separated by a colon (`:`).
+* `status` - (Optional) The partner integration status.
+* `status_message` - (Optional) The status message provided by the partner.
+
+## Import
+
+```bash
+ytofu import aws_redshift_partner.example 01234567910:cluster-example-id:example:example
 ```

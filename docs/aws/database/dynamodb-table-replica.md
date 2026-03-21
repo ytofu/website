@@ -1,6 +1,6 @@
-# Dynamodb Table Replica
+# Resource: aws_dynamodb_table_replica
 
-Manage Dynamodb Table Replica resources using ytofu YAML.
+Provides a DynamoDB table replica resource for [DynamoDB Global Tables V2 (version 2019.11.21)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html).
 
 ## Basic Example
 
@@ -27,4 +27,41 @@ resource:
       tags:
         Name: IZPAWS
         Pozo: Amargo
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `global_table_arn` - (Required) ARN of the _main_ or global table which this resource will replicate.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `kms_key_arn` - (Optional, Forces new resource) ARN of the CMK that should be used for the AWS KMS encryption. This argument should only be used if the key is different from the default KMS-managed DynamoDB key, `alias/aws/dynamodb`. **Note:** This attribute will _not_ be populated with the ARN of _default_ keys.
+* `deletion_protection_enabled` - (Optional) Whether deletion protection is enabled (true) or disabled (false) on the table replica.
+* `point_in_time_recovery` - (Optional) Whether to enable Point In Time Recovery for the table replica. Default is `false`.
+* `table_class_override` - (Optional, Forces new resource) Storage class of the table replica. Valid values are `STANDARD` and `STANDARD_INFREQUENT_ACCESS`. If not used, the table replica will use the same class as the global table.
+* `tags` - (Optional) Map of tags to populate on the created table. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the table replica.
+* `id` - Name of the table and region of the main global table joined with a semicolon (_e.g._, `TableName:us-east-1`).
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `20m`)
+
+## Import
+
+```bash
+ytofu import aws_dynamodb_table_replica.example TestTable:us-west-2
 ```

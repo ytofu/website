@@ -1,6 +1,6 @@
-# Datazone Environment
+# Resource: aws_datazone_environment
 
-Manage Datazone Environment resources using ytofu YAML.
+ytofu resource for managing an AWS DataZone Environment.
 
 ## Basic Example
 
@@ -22,4 +22,55 @@ resource:
       user_parameters:
         name: workgroupName
         value: workgroup
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `domain_identifier` - (Required) The ID of the domain where the environment exists.
+* `name` - (Required) The name of the environment.
+* `profile_identifier` - (Required) The ID of the profile with which the environment is created.
+* `project_identifier` - (Required) The ID of the project where the environment exists.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `account_identifier` - (Optional) The ID of the Amazon Web Services account where the environment exists
+* `account_region` - (Optional) The Amazon Web Services region where the environment exists.
+* `blueprint_identifier` - (Optional) The blueprint with which the environment is created.
+* `description` - (Optional) The description of the environment.
+* `glossary_terms` - (Optional) The business glossary terms that can be used in this environment.
+* `user_parameters` - (Optional) The user parameters that are used in the environment.
+  See [User Parameters](#user-parameters) for more information.
+  Changing these values recreates the resource.
+
+### User Parameters
+
+* `name` - (Required) The name of an environment profile parameter.
+* `value` - (Required) The value of an environment profile parameter.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `created_at` - The time the environment was created.
+* `created_by` - The user who created the environment.
+* `id` - The ID of the environment.
+* `last_deployment` - The details of the last deployment of the environment.
+* `provider_environment` - The provider of the environment.
+* `provisioned_resource` - The provisioned resources of this environment
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `10m`)
+* `update` - (Default `10m`)
+* `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_datazone_environment.example dzd_d2i7tzk3tnjjf4,5vpywijpwryec0
 ```

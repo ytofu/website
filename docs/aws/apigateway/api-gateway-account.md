@@ -1,6 +1,6 @@
-# API Gateway Account
+# Resource: aws_api_gateway_account
 
-Manage API Gateway Account resources using ytofu YAML.
+Provides a settings of an API Gateway Account. Settings is applied region-wide per `provider` block.
 
 ## Basic Example
 
@@ -50,4 +50,30 @@ resource:
       name: default
       role: ${aws_iam_role.cloudwatch.id}
       policy: ${data.aws_iam_policy_document.cloudwatch.json}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `cloudwatch_role_arn` - (Optional) ARN of an IAM role for CloudWatch (to allow logging & monitoring). See more [in AWS Docs](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-stage-settings.html#how-to-stage-settings-console). Logging & monitoring can be enabled/disabled and otherwise tuned on the API Gateway Stage level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `api_key_version` - The version of the API keys used for the account.
+* `throttle_settings` - Account-Level throttle settings. See exported fields below.
+* `features` - A list of features supported for the account.
+
+`throttle_settings` block exports the following:
+
+* `burst_limit` - Absolute maximum number of times API Gateway allows the API to be called per second (RPS).
+* `rate_limit` - Number of times API Gateway allows the API to be called per second on average (RPS).
+
+## Import
+
+```bash
+ytofu import aws_api_gateway_account.demo 123456789012
 ```

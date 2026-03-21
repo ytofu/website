@@ -1,6 +1,6 @@
-# S3 Bucket
+# Resource: aws_s3_bucket
 
-Manage S3 Bucket resources using ytofu YAML.
+Provides a S3 bucket resource.
 
 ## Basic Example
 
@@ -30,4 +30,257 @@ resource:
     example:
       bucket: example-formatted
       bucket_namespace: account-regional
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `bucket` - (Optional, Forces new resource) Name of the bucket. If omitted, ytofu will assign a random, unique name. Must be lowercase and less than or equal to 63 characters in length. A full list of bucket naming rules [may be found here](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html). The name must not be in the format `[bucket_name]--[azid]--x-s3`. Use the [`aws_s3_directory_bucket`](s3_directory_bucket.html) resource to manage S3 Express buckets.
+* `bucket_namespace` - (Optional, Forces new resource) Namespace for the bucket. Determines bucket naming scope. Valid values: `account-regional`, `global`. Defaults to `global` (AWS).
+* `bucket_prefix` - (Optional, Forces new resource) Creates a unique bucket name beginning with the specified prefix. Conflicts with `bucket`. Must be lowercase and less than or equal to 37 characters in length. A full list of bucket naming rules [may be found here](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html).
+* `force_destroy` - (Optional, Default:`false`) Boolean that indicates all objects (including any [locked objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock-overview.html)) should be deleted from the bucket *when the bucket is destroyed* so that the bucket can be destroyed without error. These objects are *not* recoverable. This only deletes objects when the bucket is destroyed, *not* when setting this parameter to `true`. Once this parameter is set to `true`, there must be a successful `ytofu apply` run before a destroy is required to update this value in the resource state. Without a successful `ytofu apply` after this parameter is set, this flag will have no effect. If setting this field in the same operation that would require replacing the bucket or destroying the bucket, this flag will not work. Additionally when importing a bucket, a successful `ytofu apply` is required to set this value in state before it will take effect on a destroy operation.
+* `object_lock_enabled` - (Optional, Forces new resource) Indicates whether this bucket has an Object Lock configuration enabled. Valid values are `true` or `false`. This argument is not supported in all regions or partitions.
+* `tags` - (Optional) Map of tags to assign to the bucket. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+The following arguments are deprecated, and will be removed in a future major version:
+
+  Use the resource [`aws_s3_bucket_accelerate_configuration`](s3_bucket_accelerate_configuration.html) instead.
+  Use the resource [`aws_s3_bucket_lifecycle_configuration`](s3_bucket_lifecycle_configuration.html) instead.
+  Use the resource [`aws_s3_bucket_logging`](s3_bucket_logging.html.markdown) instead.
+  ytofu wil only perform drift detection if a configuration value is provided.
+  Use the `object_lock_enabled` parameter and the resource [`aws_s3_bucket_object_lock_configuration`](s3_bucket_object_lock_configuration.html.markdown) instead.
+  ytofu will only perform drift detection if a configuration value is provided.
+  Use the resource [`aws_s3_bucket_policy`](s3_bucket_policy.html) instead.
+  Use the resource [`aws_s3_bucket_replication_configuration`](s3_bucket_replication_configuration.html) instead.
+  Can be either `BucketOwner` or `Requester`. By default, the owner of the S3 bucket would incur the costs of any data transfer.
+  See [Requester Pays Buckets](http://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html) developer guide for more information.
+  ytofu will only perform drift detection if a configuration value is provided.
+  Use the resource [`aws_s3_bucket_request_payment_configuration`](s3_bucket_request_payment_configuration.html) instead.
+  ytofu will only perform drift detection if a configuration value is provided.
+  Use the resource [`aws_s3_bucket_server_side_encryption_configuration`](s3_bucket_server_side_encryption_configuration.html) instead.
+  Use the resource [`aws_s3_bucket_website_configuration`](s3_bucket_website_configuration.html.markdown) instead.
+
+### CORS Rule
+
+The `cors_rule` configuration block supports the following arguments:
+
+* `allowed_headers` - (Optional) List of headers allowed.
+* `allowed_methods` - (Required) One or more HTTP methods that you allow the origin to execute. Can be `GET`, `PUT`, `POST`, `DELETE` or `HEAD`.
+* `allowed_origins` - (Required) One or more origins you want customers to be able to access the bucket from.
+* `expose_headers` - (Optional) One or more headers in the response that you want customers to be able to access from their applications (for example, from a JavaScript `XMLHttpRequest` object).
+* `max_age_seconds` - (Optional) Specifies time in seconds that browser can cache the response for a preflight request.
+
+### Grant
+
+The `grant` configuration block supports the following arguments:
+
+* `id` - (Optional) Canonical user id to grant for. Used only when `type` is `CanonicalUser`.
+* `type` - (Required) Type of grantee to apply for. Valid values are `CanonicalUser` and `Group`. `AmazonCustomerByEmail` is not supported.
+* `permissions` - (Required) List of permissions to apply for grantee. Valid values are `READ`, `WRITE`, `READ_ACP`, `WRITE_ACP`, `FULL_CONTROL`.
+* `uri` - (Optional) Uri address to grant for. Used only when `type` is `Group`.
+
+### Lifecycle Rule
+
+The `lifecycle_rule` configuration block supports the following arguments:
+
+* `id` - (Optional) Unique identifier for the rule. Must be less than or equal to 255 characters in length.
+* `prefix` - (Optional) Object key prefix identifying one or more objects to which the rule applies.
+* `tags` - (Optional) Specifies object tags key and value.
+* `enabled` - (Required) Specifies lifecycle rule status.
+* `abort_incomplete_multipart_upload_days` (Optional) Specifies the number of days after initiating a multipart upload when the multipart upload must be completed.
+* `expiration` - (Optional) Specifies a period in the object's expire. See [Expiration](#expiration) below for details.
+* `transition` - (Optional) Specifies a period in the object's transitions. See [Transition](#transition) below for details.
+* `noncurrent_version_expiration` - (Optional) Specifies when noncurrent object versions expire. See [Noncurrent Version Expiration](#noncurrent-version-expiration) below for details.
+* `noncurrent_version_transition` - (Optional) Specifies when noncurrent object versions transitions. See [Noncurrent Version Transition](#noncurrent-version-transition) below for details.
+
+### Expiration
+
+The `expiration` configuration block supports the following arguments:
+
+* `date` - (Optional) Specifies the date after which you want the corresponding action to take effect.
+* `days` - (Optional) Specifies the number of days after object creation when the specific rule action takes effect.
+* `expired_object_delete_marker` - (Optional) On a versioned bucket (versioning-enabled or versioning-suspended bucket), you can add this element in the lifecycle configuration to direct Amazon S3 to delete expired object delete markers. This cannot be specified with Days or Date in a Lifecycle Expiration Policy.
+
+### Transition
+
+The `transition` configuration block supports the following arguments:
+
+* `date` - (Optional) Specifies the date after which you want the corresponding action to take effect.
+* `days` - (Optional) Specifies the number of days after object creation when the specific rule action takes effect.
+* `storage_class` - (Required) Specifies the Amazon S3 [storage class](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Transition.html#AmazonS3-Type-Transition-StorageClass) to which you want the object to transition.
+
+### Noncurrent Version Expiration
+
+The `noncurrent_version_expiration` configuration block supports the following arguments:
+
+* `days` - (Required) Specifies the number of days noncurrent object versions expire.
+
+### Noncurrent Version Transition
+
+The `noncurrent_version_transition` configuration supports the following arguments:
+
+* `days` - (Required) Specifies the number of days noncurrent object versions transition.
+* `storage_class` - (Required) Specifies the Amazon S3 [storage class](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Transition.html#AmazonS3-Type-Transition-StorageClass) to which you want the object to transition.
+
+### Logging
+
+The `logging` configuration block supports the following arguments:
+
+* `target_bucket` - (Required) Name of the bucket that will receive the log objects.
+* `target_prefix` - (Optional) To specify a key prefix for log objects.
+
+### Object Lock Configuration
+
+The `object_lock_configuration` configuration block supports the following arguments:
+
+* `rule` - (Optional) Object Lock rule in place for this bucket ([documented below](#rule)).
+
+#### Rule
+
+The `rule` configuration block supports the following argument:
+
+* `default_retention` - (Required) Default retention period that you want to apply to new objects placed in this bucket ([documented below](#default-retention)).
+
+#### Default Retention
+
+The `default_retention` configuration block supports the following arguments:
+
+* `mode` - (Required) Default Object Lock retention mode you want to apply to new objects placed in this bucket. Valid values are `GOVERNANCE` and `COMPLIANCE`.
+* `days` - (Optional) Number of days that you want to specify for the default retention period.
+* `years` - (Optional) Number of years that you want to specify for the default retention period.
+
+### Replication Configuration
+
+The `replication_configuration` configuration block supports the following arguments:
+
+* `role` - (Required) ARN of the IAM role for Amazon S3 to assume when replicating the objects.
+* `rules` - (Required) Specifies the rules managing the replication ([documented below](#rules)).
+
+#### Rules
+
+The `rules` configuration block supports the following arguments:
+
+* `delete_marker_replication_status` - (Optional) Whether delete markers are replicated. The only valid value is `Enabled`. To disable, omit this argument. This argument is only valid with V2 replication configurations (i.e., when `filter` is used).
+* `destination` - (Required) Specifies the destination for the rule ([documented below](#destination)).
+* `filter` - (Optional, Conflicts with `prefix`) Filter that identifies subset of objects to which the replication rule applies ([documented below](#filter)).
+* `id` - (Optional) Unique identifier for the rule. Must be less than or equal to 255 characters in length.
+* `prefix` - (Optional, Conflicts with `filter`) Object keyname prefix identifying one or more objects to which the rule applies. Must be less than or equal to 1024 characters in length.
+* `priority` - (Optional) Priority associated with the rule. Priority should only be set if `filter` is configured. If not provided, defaults to `0`. Priority must be unique between multiple rules.
+* `source_selection_criteria` - (Optional) Specifies special object selection criteria ([documented below](#source-selection-criteria)).
+* `status` - (Required) Status of the rule. Either `Enabled` or `Disabled`. The rule is ignored if status is not Enabled.
+
+#### Filter
+
+The `filter` configuration block supports the following arguments:
+
+* `prefix` - (Optional) Object keyname prefix that identifies subset of objects to which the rule applies. Must be less than or equal to 1024 characters in length.
+* `tags` - (Optional)  A map of tags that identifies subset of objects to which the rule applies.
+  The rule applies only to objects having all the tags in its tagset.
+
+#### Destination
+
+The `destination` configuration block supports the following arguments:
+
+* `bucket` - (Required) ARN of the S3 bucket where you want Amazon S3 to store replicas of the object identified by the rule.
+* `storage_class` - (Optional) The [storage class](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Destination.html#AmazonS3-Type-Destination-StorageClass) used to store the object. By default, Amazon S3 uses the storage class of the source object to create the object replica.
+* `replica_kms_key_id` - (Optional) Destination KMS encryption key ARN for SSE-KMS replication. Must be used in conjunction with
+  `sse_kms_encrypted_objects` source selection criteria.
+* `access_control_translation` - (Optional) Specifies the overrides to use for object owners on replication ([documented below](#access_control_translation-block)). Must be used in conjunction with `account_id` owner override configuration.
+* `account_id` - (Optional) Account ID to use for overriding the object owner on replication. Must be used in conjunction with `access_control_translation` override configuration.
+* `replication_time` - (Optional) Enables S3 Replication Time Control (S3 RTC) ([documented below](#replication-time)).
+* `metrics` - (Optional) Enables replication metrics (required for S3 RTC) ([documented below](#metrics)).
+
+#### `access_control_translation` Block
+
+The `access_control_translation` configuration block supports the following arguments:
+
+* `owner` - (Required) Specifies the replica ownership. For default and valid values, see [PUT bucket replication](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketReplication.html) in the Amazon S3 API Reference. The only valid value is `Destination`.
+
+#### Replication Time
+
+The `replication_time` configuration block supports the following arguments:
+
+* `status` - (Optional) Status of RTC. Either `Enabled` or `Disabled`.
+* `minutes` - (Optional) Threshold within which objects are to be replicated. The only valid value is `15`.
+
+#### Metrics
+
+The `metrics` configuration block supports the following arguments:
+
+* `status` - (Optional) Status of replication metrics. Either `Enabled` or `Disabled`.
+* `minutes` - (Optional) Threshold within which objects are to be replicated. The only valid value is `15`.
+
+#### Source Selection Criteria
+
+The `source_selection_criteria` configuration block supports the following argument:
+
+* `sse_kms_encrypted_objects` - (Optional) Match SSE-KMS encrypted objects ([documented below](#sse-kms-encrypted-objects)). If specified, `replica_kms_key_id`
+  in `destination` must be specified as well.
+
+#### SSE KMS Encrypted Objects
+
+The `sse_kms_encrypted_objects` configuration block supports the following argument:
+
+* `enabled` - (Required) Boolean which indicates if this criteria is enabled.
+
+### Server Side Encryption Configuration
+
+The `server_side_encryption_configuration` configuration block supports the following argument:
+
+* `rule` - (Required) Single object for server-side encryption by default configuration. (documented below)
+
+The `rule` configuration block supports the following arguments:
+
+* `apply_server_side_encryption_by_default` - (Required) Single object for setting server-side encryption by default. (documented below)
+* `bucket_key_enabled` - (Optional) Whether or not to use [Amazon S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html) for SSE-KMS.
+
+The `apply_server_side_encryption_by_default` configuration block supports the following arguments:
+
+* `sse_algorithm` - (Required) Server-side encryption algorithm to use. Valid values are `AES256` and `aws:kms`
+* `kms_master_key_id` - (Optional) AWS KMS master key ID used for the SSE-KMS encryption. This can only be used when you set the value of `sse_algorithm` as `aws:kms`. The default `aws/s3` AWS KMS master key is used if this element is absent while the `sse_algorithm` is `aws:kms`.
+
+### Versioning
+
+The `versioning` configuration block supports the following arguments:
+
+* `enabled` - (Optional) Enable versioning. Once you version-enable a bucket, it can never return to an unversioned state. You can, however, suspend versioning on that bucket.
+* `mfa_delete` - (Optional) Enable MFA delete for either `Change the versioning state of your bucket` or `Permanently delete an object version`. Default is `false`. This cannot be used to toggle this setting but is available to allow managed buckets to reflect the state in AWS
+
+### Website
+
+The `website` configuration block supports the following arguments:
+
+* `index_document` - (Required, unless using `redirect_all_requests_to`) Amazon S3 returns this index document when requests are made to the root domain or any of the subfolders.
+* `error_document` - (Optional) Absolute path to the document to return in case of a 4XX error.
+* `redirect_all_requests_to` - (Optional) Hostname to redirect all website requests for this bucket to. Hostname can optionally be prefixed with a protocol (`http://` or `https://`) to use when redirecting requests. The default is the protocol that is used in the original request.
+* `routing_rules` - (Optional) JSON array containing [routing rules](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration-routingrules.html)
+  describing redirect behavior and when redirects are applied.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Name of the bucket.
+* `arn` - ARN of the bucket. Will be of format `arn:aws:s3:::bucketname`.
+* `bucket_domain_name` - Bucket domain name. Will be of format `bucketname.s3.amazonaws.com`.
+* `bucket_region` - AWS region this bucket resides in.
+* `bucket_regional_domain_name` - The bucket region-specific domain name. The bucket domain name including the region name. Please refer to the [S3 endpoints reference](https://docs.aws.amazon.com/general/latest/gr/s3.html#s3_region) for format. Note: AWS CloudFront allows specifying an S3 region-specific endpoint when creating an S3 origin. This will prevent redirect issues from CloudFront to the S3 Origin URL. For more information, see the [Virtual Hosted-Style Requests for Other Regions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/VirtualHosting.html#deprecated-global-endpoint) section in the AWS S3 User Guide.
+* `hosted_zone_id` - [Route 53 Hosted Zone ID](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_website_region_endpoints) for this bucket's region.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `20m`)
+- `read` - (Default `20m`)
+- `update` - (Default `20m`)
+- `delete` - (Default `60m`)
+
+## Import
+
+```bash
+ytofu import aws_s3_bucket.example bucket-name
 ```

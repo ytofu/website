@@ -1,6 +1,6 @@
-# Route53 Delegation Set
+# Resource: aws_route53_delegation_set
 
-Manage Route53 Delegation Set resources using ytofu YAML.
+Provides a [Route53 Delegation Set](https://docs.aws.amazon.com/Route53/latest/APIReference/API-actions-by-function.html#actions-by-function-reusable-delegation-sets) resource.
 
 ## Basic Example
 
@@ -21,4 +21,26 @@ resource:
     secondary:
       name: terraform.io
       delegation_set_id: ${aws_route53_delegation_set.main.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `reference_name` - (Optional) This is a reference name used in Caller Reference
+  (helpful for identifying single delegation set amongst others)
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The Amazon Resource Name (ARN) of the Delegation Set.
+* `id` - The delegation set ID
+* `name_servers` - A list of authoritative name servers for the hosted zone
+  (effectively a list of NS records).
+
+## Import
+
+```bash
+ytofu import aws_route53_delegation_set.set1 N1PA6795SAMPLE
 ```

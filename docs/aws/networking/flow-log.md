@@ -1,6 +1,7 @@
-# Flow Log
+# Resource: aws_flow_log
 
-Manage Flow Log resources using ytofu YAML.
+Provides a VPC/Subnet/ENI/Transit Gateway/Transit Gateway Attachment Flow Log to capture IP traffic for a specific network
+interface, subnet, or VPC. Logs are sent to a CloudWatch Log Group, a S3 Bucket, or Amazon Data Firehose
 
 ## Basic Example
 
@@ -282,4 +283,49 @@ resource:
     dst:
       tags:
         LogDeliveryEnabled: true
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `deliver_cross_account_role` - (Optional) ARN of the IAM role in the destination account used for cross-account delivery of flow logs.
+* `destination_options` - (Optional) Describes the destination options for a flow log. More details below.
+* `eni_id` - (Optional) Elastic Network Interface ID to attach to.
+* `iam_role_arn` - (Optional) ARN of the IAM role used to post flow logs. Corresponds to `DeliverLogsPermissionArn` in the [AWS API](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateFlowLogs.html).
+* `log_destination_type` - (Optional) Logging destination type. Valid values: `cloud-watch-logs`, `s3`, `kinesis-data-firehose`. Default: `cloud-watch-logs`.
+* `log_destination` - (Optional) ARN of the logging destination.
+* `log_format` - (Optional) The fields to include in the flow log record. Accepted format example: `"$${interface-id} $${srcaddr} $${dstaddr} $${srcport} $${dstport}"`.
+* `max_aggregation_interval` - (Optional) The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record.
+  Valid Values: `60` seconds (1 minute) or `600` seconds (10 minutes). Default: `600`.
+  When `transit_gateway_id` or `transit_gateway_attachment_id` is specified, `max_aggregation_interval` *must* be 60 seconds (1 minute).
+* `regional_nat_gateway_id` - (Optional) Regional NAT Gateway ID to attach to.
+* `subnet_id` - (Optional) Subnet ID to attach to.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `traffic_type` - (Optional) The type of traffic to capture. Valid values: `ACCEPT`,`REJECT`, `ALL`. Required if `eni_id`, `regional_nat_gateway_id`, `subnet_id`, or `vpc_id` is specified.
+* `transit_gateway_id` - (Optional) Transit Gateway ID to attach to.
+* `transit_gateway_attachment_id` - (Optional) Transit Gateway Attachment ID to attach to.
+* `vpc_id` - (Optional) VPC ID to attach to.
+
+### destination_options
+
+Describes the destination options for a flow log.
+
+* `file_format` - (Optional) File format for the flow log. Default value: `plain-text`. Valid values: `plain-text`, `parquet`.
+* `hive_compatible_partitions` - (Optional) Indicates whether to use Hive-compatible prefixes for flow logs stored in Amazon S3. Default value: `false`.
+* `per_hour_partition` - (Optional) Indicates whether to partition the flow log per hour. This reduces the cost and response time for queries. Default value: `false`.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Flow Log ID.
+* `arn` - ARN of the Flow Log.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_flow_log.test_flow_log fl-1a2b3c4d
 ```

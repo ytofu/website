@@ -1,6 +1,6 @@
-# Ssoadmin Permissions Boundary Attachment
+# Resource: aws_ssoadmin_permissions_boundary_attachment
 
-Manage Ssoadmin Permissions Boundary Attachment resources using ytofu YAML.
+Attaches a permissions boundary policy to a Single Sign-On (SSO) Permission Set resource.
 
 ## Basic Example
 
@@ -43,4 +43,46 @@ resource:
       permission_set_arn: ${aws_ssoadmin_permission_set.example.arn}
       permissions_boundary:
         managed_policy_arn: "arn:aws:iam::aws:policy/ReadOnlyAccess"
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `instance_arn` - (Required, Forces new resource) The Amazon Resource Name (ARN) of the SSO Instance under which the operation will be executed.
+* `permission_set_arn` - (Required, Forces new resource) The Amazon Resource Name (ARN) of the Permission Set.
+* `permissions_boundary` - (Required, Forces new resource) The permissions boundary policy. See below.
+
+### Permissions Boundary
+
+The `permissions_boundary` config block describes the permissions boundary policy to attach. You can reference either an AWS-managed policy, or a customer managed policy, but only one may be set.
+
+* `managed_policy_arn` - (Optional) AWS-managed IAM policy ARN to use as the permissions boundary.
+* `customer_managed_policy_reference` - (Optional) Specifies the name and path of a customer managed policy. See below.
+
+### Customer Managed Policy Reference
+
+The `customer_managed_policy_reference` config block describes a customer managed IAM policy. You must have an IAM policy that matches the name and path in each AWS account where you want to deploy your specified permission set.
+
+* `name` - (Required, Forces new resource) Name of the customer managed IAM Policy to be attached.
+* `path` - (Optional, Forces new resource) The path to the IAM policy to be attached. The default is `/`. See [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names) for more information.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Permission Set Amazon Resource Name (ARN) and SSO Instance ARN, separated by a comma (`,`).
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `10m`)
+- `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_ssoadmin_permissions_boundary_attachment.example arn:aws:sso:::permissionSet/ssoins-2938j0x8920sbj72/ps-80383020jr9302rk,arn:aws:sso:::instance/ssoins-2938j0x8920sbj72
 ```

@@ -1,6 +1,6 @@
-# Datazone Form Type
+# Resource: aws_datazone_form_type
 
-Manage Datazone Form Type resources using ytofu YAML.
+ytofu resource for managing an AWS DataZone Form Type.
 
 ## Basic Example
 
@@ -56,4 +56,37 @@ resource:
           @required
           creationTime: String
           }
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `domain_identifier` - (Required) Identifier of the domain.
+* `name` - (Required) Name of the form type. Must be the name of the structure in smithy document.
+* `owning_project_identifier` - (Required) Identifier of project that owns the form type. Must follow regex of ^[a-zA-Z0-9_-]{1,36}.
+* `model` - (Required) Object of the model of the form type that contains the following attributes.
+    * `smithy` - (Required) Smithy document that indicates the model of the API. Must be between the lengths 1 and 100,000 and be encoded as a smithy document.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) Description of form type. Must have a length of between 1 and 2048 characters.
+* `status` - (Optional) Status of form type. Must be "ENABLED" or "DISABLED" If status is set to "ENABLED" terraform cannot delete the resource until it is manually changed in the AWS console.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `created_at` - Creation time of the Form Type.
+* `created_by` - Creator of the Form Type.
+* `origin_domain_id` - Origin domain id of the Form Type.
+* `origin_project_id` - Origin project id of the Form Type.
+* `owning_project_id` - Owning project id of the Form Type.
+* `revision` - Revision of the Form Type.
+
+## Import
+
+```bash
+ytofu import aws_datazone_form_type.example domain_identifier,name,revision
 ```

@@ -1,6 +1,6 @@
-# Elasticache User Group Association
+# Resource: aws_elasticache_user_group_association
 
-Manage Elasticache User Group Association resources using ytofu YAML.
+Associate an existing ElastiCache user and an existing user group.
 
 ## Basic Example
 
@@ -41,4 +41,29 @@ resource:
     example:
       user_group_id: ${aws_elasticache_user_group.example.user_group_id}
       user_id: ${aws_elasticache_user.example.user_id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `user_group_id` - (Required) ID of the user group.
+* `user_id` - (Required) ID of the user to associated with the user group.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `10m`)
+* `delete` - (Default `10m`)
+
+## Import
+
+```bash
+ytofu import aws_elasticache_user_group_association.example userGoupId1,userId
 ```

@@ -1,6 +1,6 @@
-# SES Domain Mail From
+# Resource: aws_ses_domain_mail_from
 
-Manage SES Domain Mail From resources using ytofu YAML.
+Provides an SES domain MAIL FROM resource.
 
 ## Basic Example
 
@@ -50,4 +50,28 @@ resource:
     example:
       domain: ${aws_ses_email_identity.example.email}
       mail_from_domain: mail.example.com
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `domain` - (Required) Verified domain name or email identity to generate DKIM tokens for.
+* `mail_from_domain` - (Required) Subdomain (of above domain) which is to be used as MAIL FROM address (Required for DMARC validation)
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `behavior_on_mx_failure` - (Optional) The action that you want Amazon SES to take if it cannot successfully read the required MX record when you send an email. Defaults to `UseDefaultValue`. See the [SES API documentation](https://docs.aws.amazon.com/ses/latest/APIReference/API_SetIdentityMailFromDomain.html) for more information.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The domain name.
+
+## Import
+
+```bash
+ytofu import aws_ses_domain_mail_from.example example.com
 ```

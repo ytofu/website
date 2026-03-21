@@ -1,6 +1,6 @@
-# Sagemaker Project
+# Resource: aws_sagemaker_project
 
-Manage Sagemaker Project resources using ytofu YAML.
+Provides a SageMaker AI Project resource.
 
 ## Basic Example
 
@@ -11,4 +11,41 @@ resource:
       project_name: example
       service_catalog_provisioning_details:
         product_id: ${aws_servicecatalog_product.example.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `project_name` - (Required) The name of the Project.
+* `project_description` - (Optional) A description for the project.
+* `service_catalog_provisioning_details` - (Required) The product ID and provisioning artifact ID to provision a service catalog. See [Service Catalog Provisioning Details](#service-catalog-provisioning-details) below.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### Service Catalog Provisioning Details
+
+* `path_id` - (Optional) The path identifier of the product. This value is optional if the product has a default path, and required if the product has more than one path.
+* `product_id` - (Required) The ID of the product to provision.
+* `provisioning_artifact_id` - (Optional) The ID of the provisioning artifact.
+* `provisioning_parameter` - (Optional) A list of key value pairs that you specify when you provision a product. See [Provisioning Parameter](#provisioning-parameter) below.
+
+#### Provisioning Parameter
+
+* `key` - (Required) The key that identifies a provisioning parameter.
+* `value` - (Optional) The value of the provisioning parameter.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The Amazon Resource Name (ARN) assigned by AWS to this Project.
+* `id` - The name of the Project.
+* `project_id` - The ID of the project.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_sagemaker_project.example example
 ```

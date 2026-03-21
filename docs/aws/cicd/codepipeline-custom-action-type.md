@@ -1,6 +1,6 @@
-# Codepipeline Custom Action Type
+# Resource: aws_codepipeline_custom_action_type
 
-Manage Codepipeline Custom Action Type resources using ytofu YAML.
+Provides a CodeDeploy CustomActionType
 
 ## Basic Example
 
@@ -17,4 +17,64 @@ resource:
         minimum_count: 0
       provider_name: example
       version: 1
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `category` - (Required) The category of the custom action. Valid values: `Source`, `Build`, `Deploy`, `Test`, `Invoke`, `Approval`
+* `configuration_property` - (Optional) The configuration properties for the custom action. Max 10 items.
+
+The `configuration_property` object supports the following:
+
+* `description` - (Optional) The description of the action configuration property.
+* `key` - (Required) Whether the configuration property is a key.
+* `name` - (Required) The name of the action configuration property.
+* `queryable` - (Optional) Indicates that the property will be used in conjunction with PollForJobs.
+* `required` - (Required) Whether the configuration property is a required value.
+* `secret`- (Required) Whether the configuration property is secret.
+* `type`- (Optional) The type of the configuration property. Valid values: `String`, `Number`, `Boolean`
+
+* `input_artifact_details` - (Required) The details of the input artifact for the action.
+
+The `input_artifact_details` object supports the following:
+
+* `maximum_count` - (Required) The maximum number of artifacts allowed for the action type. Min: 0, Max: 5
+* `minimum_count` - (Required) The minimum number of artifacts allowed for the action type. Min: 0, Max: 5
+
+* `output_artifact_details` - (Required) The details of the output artifact of the action.
+
+The `output_artifact_details` object supports the following:
+
+* `maximum_count` - (Required) The maximum number of artifacts allowed for the action type. Min: 0, Max: 5
+* `minimum_count` - (Required) The minimum number of artifacts allowed for the action type. Min: 0, Max: 5
+
+* `provider_name` - (Required) The provider of the service used in the custom action
+* `settings` - (Optional) The settings for an action type.
+
+The `settings` object supports the following:
+
+* `entity_url_template` - (Optional) The URL returned to the AWS CodePipeline console that provides a deep link to the resources of the external system.
+* `execution_url_template` - (Optional) The URL returned to the AWS CodePipeline console that contains a link to the top-level landing page for the external system.
+* `revision_url_template` - (Optional) The URL returned to the AWS CodePipeline console that contains a link to the page where customers can update or change the configuration of the external action.
+* `third_party_configuration_url` - (Optional) The URL of a sign-up page where users can sign up for an external service and perform initial configuration of the action provided by that service.
+
+* `tags` - (Optional) Map of tags to assign to this resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+* `version` - (Required) The version identifier of the custom action.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Composed of category, provider and version. For example, `Build:terraform:1`
+* `arn` - The action ARN.
+* `owner` - The creator of the action being called.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Import
+
+```bash
+ytofu import aws_codepipeline_custom_action_type.example Build:terraform:1
 ```

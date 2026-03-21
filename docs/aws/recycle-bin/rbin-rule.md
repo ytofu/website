@@ -1,6 +1,6 @@
-# Rbin Rule
+# Resource: aws_rbin_rule
 
-Manage Rbin Rule resources using ytofu YAML.
+ytofu resource for managing an AWS RBin Rule.
 
 ## Basic Example
 
@@ -34,4 +34,74 @@ resource:
         retention_period_value: 10
         retention_period_unit: DAYS
       tags: 
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `resource_type` - (Required) Resource type to be retained by the retention rule. Valid values are `EBS_SNAPSHOT` and `EC2_IMAGE`.
+* `retention_period` - (Required) Information about the retention period for which the retention rule is to retain resources. See [`retention_period`](#retention_period) below.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) Retention rule description.
+* `exclude_resource_tags` - (Optional) Exclusion tags to use to identify resources that are to be excluded, or ignored, by a Region-level retention rule. See [`exclude_resource_tags`](#exclude_resource_tags) below.
+* `lock_configuration` - (Optional) Information about the retention rule lock configuration. See [`lock_configuration`](#lock_configuration) below.
+* `resource_tags` - (Optional) Resource tags to use to identify resources that are to be retained by a tag-level retention rule. See [`resource_tags`](#resource_tags) below.
+
+### retention_period
+
+The following arguments are required:
+
+* `retention_period_unit` - (Required) Unit of time in which the retention period is measured. Currently, only DAYS is supported.
+* `retention_period_value` - (Required) Period value for which the retention rule is to retain resources. The period is measured using the unit specified for RetentionPeriodUnit.
+
+### exclude_resource_tags
+
+The following argument is required:
+
+* `resource_tag_key` - (Required) Tag key.
+
+The following argument is optional:
+
+* `resource_tag_value` - (Optional) Tag value.
+
+### lock_configuration
+
+The following argument is required:
+
+* `unlock_delay` - (Required) Information about the retention rule unlock delay. See [`unlock_delay`](#unlock_delay) below.
+
+### unlock_delay
+
+The following arguments are required:
+
+* `unlock_delay_unit` - (Required) Unit of time in which to measure the unlock delay. Currently, the unlock delay can be measure only in days.
+* `unlock_delay_value` - (Required) Unlock delay period, measured in the unit specified for UnlockDelayUnit.
+
+### resource_tags
+
+The following argument is required:
+
+* `resource_tag_key` - (Required) Tag key.
+
+The following argument is optional:
+
+* `resource_tag_value` - (Optional) Tag value.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - (String) ID of the Rule.
+* `lock_end_time` - (Timestamp) Date and time at which the unlock delay is set to expire. Only returned for retention rules that have been unlocked and that are still within the unlock delay period.
+* `lock_state` - (Optional) Lock state of the retention rules to list. Only retention rules with the specified lock state are returned. Valid values are `locked`, `pending_unlock`, `unlocked`.
+* `status` - (String) State of the retention rule. Only retention rules that are in the `available` state retain resources. Valid values include `pending` and `available`.
+
+## Import
+
+```bash
+ytofu import aws_rbin_rule.example examplerule
 ```

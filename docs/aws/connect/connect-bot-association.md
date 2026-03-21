@@ -1,6 +1,7 @@
-# Connect Bot Association
+# Resource: aws_connect_bot_association
 
-Manage Connect Bot Association resources using ytofu YAML.
+Allows the specified Amazon Connect instance to access the specified Amazon Lex (V1) bot. For more information see
+[Amazon Connect: Getting Started](https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-get-started.html) and [Add an Amazon Lex bot](https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html).
 
 ## Basic Example
 
@@ -57,4 +58,31 @@ resource:
       lex_bot:
         lex_region: ${data.aws_region.current.region}
         name: ${aws_lex_bot.example.name}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `instance_id` - (Required) The identifier of the Amazon Connect instance. You can find the instanceId in the ARN of the instance.
+* `lex_bot` - (Required) Configuration information of an Amazon Lex (V1) bot. Detailed below.
+
+### lex_bot
+
+The `lex_bot` configuration block supports the following:
+
+* `name` - (Required) The name of the Amazon Lex (V1) bot.
+* `lex_region` - (Optional) The Region that the Amazon Lex (V1) bot was created in. Defaults to current region.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The Amazon Connect instance ID, Lex (V1) bot name, and Lex (V1) bot region separated by colons (`:`).
+
+## Import
+
+```bash
+ytofu import aws_connect_bot_association.example aaaaaaaa-bbbb-cccc-dddd-111111111111:Example:us-west-2
 ```

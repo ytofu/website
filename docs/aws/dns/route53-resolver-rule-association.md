@@ -1,6 +1,6 @@
-# Route53 Resolver Rule Association
+# Resource: aws_route53_resolver_rule_association
 
-Manage Route53 Resolver Rule Association resources using ytofu YAML.
+Provides a Route53 Resolver rule association.
 
 ## Basic Example
 
@@ -10,4 +10,25 @@ resource:
     example:
       resolver_rule_id: ${aws_route53_resolver_rule.sys.id}
       vpc_id: ${aws_vpc.foo.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `resolver_rule_id` - (Required) The ID of the resolver rule that you want to associate with the VPC.
+* `vpc_id` - (Required) The ID of the VPC that you want to associate the resolver rule with.
+* `name` - (Optional) A name for the association that you're creating between a resolver rule and a VPC.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the resolver rule association.
+
+## Import
+
+```bash
+ytofu import aws_route53_resolver_rule_association.example rslvr-rrassoc-97242eaf88example
 ```

@@ -1,6 +1,6 @@
-# Ecrpublic Repository
+# Resource: aws_ecrpublic_repository
 
-Manage Ecrpublic Repository resources using ytofu YAML.
+Provides a Public Elastic Container Registry Repository.
 
 ## Basic Example
 
@@ -20,4 +20,44 @@ resource:
         usage_text: Usage Text
       tags:
         env: production
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `repository_name` - (Required) Name of the repository.
+* `catalog_data` - (Optional) Catalog data configuration for the repository. See [below for schema](#catalog_data).
+* `tags` - (Optional) Key-value mapping of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### catalog_data
+
+* `about_text` - (Optional) A detailed description of the contents of the repository. It is publicly visible in the Amazon ECR Public Gallery. The text must be in markdown format.
+* `architectures` - (Optional) The system architecture that the images in the repository are compatible with. On the Amazon ECR Public Gallery, the following supported architectures will appear as badges on the repository and are used as search filters: `ARM`, `ARM 64`, `x86`, `x86-64`
+* `description` - (Optional) A short description of the contents of the repository. This text appears in both the image details and also when searching for repositories on the Amazon ECR Public Gallery.
+* `logo_image_blob` - (Optional) The base64-encoded repository logo payload. (Only visible for verified accounts) Note that drift detection is disabled for this attribute.
+* `operating_systems` -  (Optional) The operating systems that the images in the repository are compatible with. On the Amazon ECR Public Gallery, the following supported operating systems will appear as badges on the repository and are used as search filters: `Linux`, `Windows`
+* `usage_text` -  (Optional) Detailed information on how to use the contents of the repository. It is publicly visible in the Amazon ECR Public Gallery. The usage text provides context, support information, and additional usage details for users of the repository. The text must be in markdown format.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Full ARN of the repository.
+* `id` - The repository name.
+* `registry_id` - The registry ID where the repository was created.
+* `repository_uri` - The URI of the repository.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+- `delete` - (Default `20m`)
+
+## Import
+
+```bash
+ytofu import aws_ecrpublic_repository.example example
 ```

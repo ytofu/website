@@ -1,6 +1,7 @@
-# EC2 Client VPN Network Association
+# Resource: aws_ec2_client_vpn_network_association
 
-Manage EC2 Client VPN Network Association resources using ytofu YAML.
+Provides network associations for AWS Client VPN endpoints. For more information on usage, please see the
+[AWS Client VPN Administrator's Guide](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/what-is.html).
 
 ## Basic Example
 
@@ -10,4 +11,33 @@ resource:
     example:
       client_vpn_endpoint_id: ${aws_ec2_client_vpn_endpoint.example.id}
       subnet_id: ${aws_subnet.example.id}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `client_vpn_endpoint_id` - (Required) The ID of the Client VPN endpoint.
+* `subnet_id` - (Required) The ID of the subnet to associate with the Client VPN endpoint.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The unique ID of the target network association.
+* `association_id` - The unique ID of the target network association.
+* `vpc_id` - The ID of the VPC in which the target subnet is located.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `30m`)
+- `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_ec2_client_vpn_network_association.example cvpn-endpoint-0ac3a1abbccddd666,cvpn-assoc-0b8db902465d069ad
 ```

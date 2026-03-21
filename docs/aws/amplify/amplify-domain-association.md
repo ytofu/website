@@ -1,6 +1,6 @@
-# Amplify Domain Association
+# Resource: aws_amplify_domain_association
 
-Manage Amplify Domain Association resources using ytofu YAML.
+Provides an Amplify Domain Association resource.
 
 ## Basic Example
 
@@ -31,4 +31,46 @@ resource:
       sub_domain:
         branch_name: ${aws_amplify_branch.master.branch_name}
         prefix: www
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `app_id` - (Required) Unique ID for an Amplify app.
+* `certificate_settings` - (Optional) The type of SSL/TLS certificate to use for your custom domain. If you don't specify a certificate type, Amplify uses the default certificate that it provisions and manages for you.
+* `domain_name` - (Required) Domain name for the domain association.
+* `enable_auto_sub_domain` - (Optional) Enables the automated creation of subdomains for branches.
+* `sub_domain` - (Required) Setting for the subdomain. Documented below.
+* `wait_for_verification` - (Optional) If enabled, the resource will wait for the domain association status to change to `PENDING_DEPLOYMENT` or `AVAILABLE`. Setting this to `false` will skip the process. Default: `true`.
+
+The `certificate_settings` configuration block supports the following arguments:
+
+* `type` - (Required) The certificate type.
+  Valid values are `AMPLIFY_MANAGED` and `CUSTOM`.
+* `custom_certificate_arn` - (Optional) The Amazon resource name (ARN) for the custom certificate.
+  Required when `type` is `CUSTOM`.
+
+The `sub_domain` configuration block supports the following arguments:
+
+* `branch_name` - (Required) Branch name setting for the subdomain.
+* `prefix` - (Required) Prefix setting for the subdomain.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN for the domain association.
+* `certificate_verification_dns_record` - DNS records for certificate verification in a space-delimited format (`<record> CNAME <target>`).
+
+The `sub_domain` configuration block exports the following attributes:
+
+* `dns_record` - DNS record for the subdomain in a space-prefixed and space-delimited format (` CNAME <target>`).
+* `verified` - Verified status of the subdomain.
+
+## Import
+
+```bash
+ytofu import aws_amplify_domain_association.app d2ypk4k47z8u6/example.com
 ```

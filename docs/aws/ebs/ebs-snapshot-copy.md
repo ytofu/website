@@ -1,6 +1,6 @@
-# EBS Snapshot Copy
+# Resource: aws_ebs_snapshot_copy
 
-Manage EBS Snapshot Copy resources using ytofu YAML.
+Creates a Snapshot of a snapshot.
 
 ## Basic Example
 
@@ -28,3 +28,38 @@ resource:
       tags:
         Name: HelloWorld_copy_snap
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) A description of what the snapshot is.
+* `encrypted` - Whether the snapshot is encrypted.
+* `kms_key_id` - The ARN for the KMS encryption key.
+* `source_snapshot_id` The ARN for the snapshot to be copied.
+* `source_region` The region of the source snapshot.
+* `storage_tier` - (Optional) The name of the storage tier. Valid values are `archive` and `standard`. Default value is `standard`.
+* `permanent_restore` - (Optional) Indicates whether to permanently restore an archived snapshot.
+* `temporary_restore_days` - (Optional) Specifies the number of days for which to temporarily restore an archived snapshot. Required for temporary restores only. The snapshot will be automatically re-archived after this period.
+* `completion_duration_minutes` - (Optional) Specifies a completion duration to initiate a time-based snapshot copy. Time-based snapshot copy operations complete within the specified duration.  Value must be between 15 and 2880 minutes, in 15 minute increments only.
+* `tags` - A map of tags for the snapshot. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Amazon Resource Name (ARN) of the EBS Snapshot.
+* `id` - The snapshot ID (e.g., snap-59fcb34e).
+* `owner_id` - The AWS account ID of the snapshot owner.
+* `owner_alias` - Value from an Amazon-maintained list (`amazon`, `aws-marketplace`, `microsoft`) of snapshot owners.
+* `volume_size` - The size of the drive in GiBs.
+* `data_encryption_key_id` - The data encryption key identifier for the snapshot.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+- `create` - (Default `10m`)
+- `delete` - (Default `10m`)

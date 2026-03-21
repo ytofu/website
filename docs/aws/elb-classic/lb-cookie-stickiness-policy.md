@@ -1,6 +1,6 @@
-# LB Cookie Stickiness Policy
+# Resource: aws_lb_cookie_stickiness_policy
 
-Manage LB Cookie Stickiness Policy resources using ytofu YAML.
+Provides a load balancer cookie stickiness policy, which allows an ELB to control the sticky session lifetime of the browser.
 
 ## Basic Example
 
@@ -25,3 +25,27 @@ resource:
       lb_port: 80
       cookie_expiration_period: 600
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `name` - (Required) The name of the stickiness policy.
+* `load_balancer` - (Required) The load balancer to which the policy
+  should be attached.
+* `lb_port` - (Required) The load balancer port to which the policy
+  should be applied. This must be an active listener on the load
+balancer.
+* `cookie_expiration_period` - (Optional) The time period after which
+  the session cookie should be considered stale, expressed in seconds.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the policy.
+* `name` - The name of the stickiness policy.
+* `load_balancer` - The load balancer to which the policy is attached.
+* `lb_port` - The load balancer port to which the policy is applied.
+* `cookie_expiration_period` - The time period after which the session cookie is considered stale, expressed in seconds.

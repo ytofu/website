@@ -1,6 +1,6 @@
-# Proxy Protocol Policy
+# Resource: aws_proxy_protocol_policy
 
-Manage Proxy Protocol Policy resources using ytofu YAML.
+Provides a proxy protocol policy, which allows an ELB to carry a client connection information to a backend.
 
 ## Basic Example
 
@@ -30,3 +30,20 @@ resource:
         - 25
         - 587
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `load_balancer` - (Required) The load balancer to which the policy
+  should be attached.
+* `instance_ports` - (Required) List of instance ports to which the policy
+  should be applied. This can be specified if the protocol is SSL or TCP.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The ID of the policy.
+* `load_balancer` - The load balancer to which the policy is attached.

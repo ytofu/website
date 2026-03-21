@@ -1,6 +1,6 @@
-# Networkmanager DX Gateway Attachment
+# Resource: aws_networkmanager_dx_gateway_attachment
 
-Manage Networkmanager DX Gateway Attachment resources using ytofu YAML.
+Manages a Network Manager Direct Connect Gateway Attachment.
 
 ## Basic Example
 
@@ -12,4 +12,45 @@ resource:
       direct_connect_gateway_arn: "arn:aws:directconnect::${data.aws_caller_identity.current.account_id}:dx-gateway/${aws_dx_gateway.test.id}"
       edge_locations: 
         - ${data.aws_region.current.region}
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `core_network_id` - (Required) ID of the Cloud WAN core network to which the Direct Connect gateway attachment should be attached.
+* `direct_connect_gateway_arn` - (Required) ARN of the Direct Connect gateway attachment.
+* `edge_locations` - (Required) One or more core network edge locations to associate with the Direct Connect gateway attachment.
+
+The following arguments are optional:
+
+* `routing_policy_label` - (Optional) The routing policy label to apply to the Direct Connect Gateway attachment for traffic routing decisions. Maximum length of 256 characters. Changing this value will force recreation of the resource.
+* `tags` - (Optional) Key-value tags for the attachment. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the attachment.
+* `attachment_policy_rule_number` - Policy rule number associated with the attachment.
+* `attachment_type` - Type of attachment.
+* `core_network_arn` - ARN of the core network for the attachment.
+* `id` - ID of the attachment.
+* `owner_account_id` - ID of the attachment account owner.
+* `segment_name` - Name of the segment attachment.
+* `state` - State of the attachment.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_networkmanager_dx_gateway_attachment.example attachment-1a2b3c4d5e6f7g
 ```

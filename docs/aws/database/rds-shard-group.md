@@ -1,6 +1,6 @@
-# RDS Shard Group
+# Resource: aws_rds_shard_group
 
-Manage RDS Shard Group resources using ytofu YAML.
+ytofu resource for managing an Amazon Aurora Limitless Database DB shard group
 
 ## Basic Example
 
@@ -29,4 +29,45 @@ resource:
       db_shard_group_identifier: example-shard-group
       db_cluster_identifier: ${aws_rds_cluster.example.id}
       max_acu: 1200
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `compute_redundancy` - (Optional) Specifies whether to create standby DB shard groups for the DB shard group. Valid values are:
+    * `0` - Creates a DB shard group without a standby DB shard group. This is the default value.
+    * `1` - Creates a DB shard group with a standby DB shard group in a different Availability Zone (AZ).
+    * `2` - Creates a DB shard group with two standby DB shard groups in two different AZs.
+* `db_cluster_identifier` - (Required) The name of the primary DB cluster for the DB shard group.
+* `db_shard_group_identifier` - (Required) The name of the DB shard group.
+* `max_acu` - (Required) The maximum capacity of the DB shard group in Aurora capacity units (ACUs).
+* `min_acu` - (Optional) The minimum capacity of the DB shard group in Aurora capacity units (ACUs).
+* `publicly_accessible` - (Optional) Indicates whether the DB shard group is publicly accessible.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+For more detailed documentation about each argument, refer to the [AWS official documentation](https://docs.aws.amazon.com/cli/latest/reference/rds/create-shard-group.html).
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the shard group.
+* `db_shard_group_resource_id` - The AWS Region-unique, immutable identifier for the DB shard group.
+* `endpoint` - The connection endpoint for the DB shard group.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `45m`)
+* `update` - (Default `45m`)
+* `delete` - (Default `45m`)
+
+## Import
+
+```bash
+ytofu import aws_rds_shard_group.example example-shard-group
 ```

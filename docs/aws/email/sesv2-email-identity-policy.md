@@ -1,6 +1,6 @@
-# Sesv2 Email Identity Policy
+# Resource: aws_sesv2_email_identity_policy
 
-Manage Sesv2 Email Identity Policy resources using ytofu YAML.
+ytofu resource for managing an AWS SESv2 (Simple Email V2) Email Identity Policy.
 
 ## Basic Example
 
@@ -37,4 +37,23 @@ resource:
         }
         ]
         }
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `email_identity` - (Required) The email identity.
+* `policy_name` - (Required) - The name of the policy.
+* `policy` - (Required) - The text of the policy in JSON format.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_sesv2_email_identity_policy.example example_email_identity|example_policy_name
 ```

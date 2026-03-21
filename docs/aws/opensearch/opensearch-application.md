@@ -1,6 +1,6 @@
-# Opensearch Application
+# Resource: aws_opensearch_application
 
-Manage Opensearch Application resources using ytofu YAML.
+Provides an AWS OpenSearch Application resource. OpenSearch Applications provide a user interface for interacting with OpenSearch data and managing OpenSearch resources.
 
 ## Basic Example
 
@@ -98,4 +98,62 @@ resource:
         iam_role_for_identity_center_application_arn: ${aws_iam_role.opensearch_application.arn}
       tags:
         Environment: production
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `name` - (Required) The unique name of the OpenSearch application. Names must be unique within an AWS Region for each account. Must be between 3 and 30 characters, start with a lowercase letter, and contain only lowercase letters, numbers, and hyphens.
+* `app_config` - (Optional) Configuration block(s) for OpenSearch application settings. See [App Config](#app-config) below.
+* `data_source` - (Optional) Configuration block(s) for data sources to link to the OpenSearch application. See [Data Source](#data-source) below.
+* `kms_key_arn` - (Optional) ARN of the KMS key used to encrypt the application's data at rest.
+* `iam_identity_center_options` - (Optional) Configuration block for integrating AWS IAM Identity Center with the OpenSearch application. See [IAM Identity Center Options](#iam-identity-center-options) below.
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### App Config
+
+The `app_config` block supports the following arguments:
+
+* `key` - (Optional) The configuration item to set. Valid values are `opensearchDashboards.dashboardAdmin.users` and `opensearchDashboards.dashboardAdmin.groups`.
+* `value` - (Optional) The value assigned to the configuration key, such as an IAM user ARN or group name. Must be between 1 and 4096 characters.
+
+### Data Source
+
+The `data_source` block supports the following arguments:
+
+* `data_source_arn` - (Optional) The Amazon Resource Name (ARN) of the OpenSearch domain or collection. Must be between 20 and 2048 characters.
+* `data_source_description` - (Optional) A detailed description of the data source. Must be at most 1000 characters and contain only alphanumeric characters, underscores, spaces, and the following special characters: `@#%*+=:?./!-`.
+
+### IAM Identity Center Options
+
+The `iam_identity_center_options` block supports the following arguments:
+
+* `enabled` - (Optional) Specifies whether IAM Identity Center is enabled or disabled.
+* `iam_identity_center_instance_arn` - (Optional) The Amazon Resource Name (ARN) of the IAM Identity Center instance. Must be between 20 and 2048 characters.
+* `iam_role_for_identity_center_application_arn` - (Optional) The ARN of the IAM role associated with the IAM Identity Center application. Must be between 20 and 2048 characters and match the pattern for IAM role ARNs.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - The Amazon Resource Name (ARN) of the OpenSearch application.
+* `endpoint` - Endpoint URL of the OpenSearch application.
+* `id` - The unique identifier of the OpenSearch application.
+* `iam_identity_center_options[0].iam_identity_center_application_arn` - If `iam_identity_center_options.enabled` is true this will hold the Amazon Resource Name (ARN) of the IAM Identity Center application.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_opensearch_application.example app-1234567890abcdef0
 ```

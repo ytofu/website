@@ -1,6 +1,6 @@
-# Backup Vault Lock Configuration
+# Resource: aws_backup_vault_lock_configuration
 
-Manage Backup Vault Lock Configuration resources using ytofu YAML.
+Provides an AWS Backup vault lock configuration resource.
 
 ## Basic Example
 
@@ -12,4 +12,27 @@ resource:
       changeable_for_days: 3
       max_retention_days: 1200
       min_retention_days: 7
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `backup_vault_name` - (Required) Name of the backup vault to add a lock configuration for.
+* `changeable_for_days` - (Optional) The number of days before the lock date. If omitted creates a vault lock in `governance` mode, otherwise it will create a vault lock in `compliance` mode.
+* `max_retention_days` - (Optional) The maximum retention period that the vault retains its recovery points.
+* `min_retention_days` - (Optional) The minimum retention period that the vault retains its recovery points.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `backup_vault_name` - The name of the vault.
+* `backup_vault_arn` - The ARN of the vault.
+
+## Import
+
+```bash
+ytofu import aws_backup_vault_lock_configuration.test TestVault
 ```

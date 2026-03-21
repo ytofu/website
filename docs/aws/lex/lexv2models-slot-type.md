@@ -1,6 +1,6 @@
-# Lexv2models Slot Type
+# Resource: aws_lexv2models_slot_type
 
-Manage Lexv2models Slot Type resources using ytofu YAML.
+ytofu resource for managing an AWS Lex V2 Models Slot Type.
 
 ## Basic Example
 
@@ -55,4 +55,113 @@ resource:
       slot_type_values:
         sample_value:
           value: exampleValue
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `bot_id` - (Required) Identifier of the bot associated with this slot type.
+* `bot_version` - (Required) Version of the bot associated with this slot type.
+* `locale_id` - (Required) Identifier of the language and locale where this slot type is used.
+All of the bots, slot types, and slots used by the intent must have the same locale.
+* `name` - (Required) Name of the slot type.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) Description of the slot type.
+* `composite_slot_type_setting` - (Optional) Specifications for a composite slot type.
+See [`composite_slot_type_setting` argument reference](#composite_slot_type_setting-argument-reference) below.
+* `external_source_setting` - (Optional) Type of external information used to create the slot type.
+See [`external_source_setting` argument reference](#external_source_setting-argument-reference) below.
+* `parent_slot_type_signature` - (Optional) Built-in slot type used as a parent of this slot type.
+When you define a parent slot type, the new slot type has the configuration of the parent slot type.
+Only `AMAZON.AlphaNumeric` is supported.
+* `slot_type_values` - (Optional) List of SlotTypeValue objects that defines the values that the slot type can take.
+Each value can have a list of synonyms, additional values that help train the machine learning model about the values that it resolves for a slot.
+See [`slot_type_values` argument reference](#slot_type_values-argument-reference) below.
+* `value_selection_setting` - (Optional) Determines the strategy that Amazon Lex uses to select a value from the list of possible values.
+See [`value_selection_setting` argument reference](#value_selection_setting-argument-reference) below.
+
+### `composite_slot_type_setting` Argument Reference
+
+* `sub_slots` - (Optional) Sub slots in the composite slot.
+See [`sub_slots` argument reference](#sub_slots-argument-reference) below.
+
+#### `sub_slots` Argument Reference
+
+* `name` - (Required) Name of a constituent sub slot inside a composite slot.
+* `slot_type_id` - (Required) Unique identifier assigned to a slot type.
+This refers to either a built-in slot type or the unique `slot_type_id` of a custom slot type.
+
+### `external_source_setting` Argument Reference
+
+*`grammar_slot_type_setting` - (Optional) Settings required for a slot type based on a grammar that you provide.
+See [`grammar_slot_type_setting` argument reference](#grammar_slot_type_setting-argument-reference) below.
+
+#### `grammar_slot_type_setting` Argument Reference
+
+* `source` - (Optional) Source of the grammar used to create the slot type.
+See [`source` argument reference](#source-argument-reference) below.
+
+##### `source` Argument Reference
+
+* `s3_bucket_name` - (Required) Name of the Amazon S3 bucket that contains the grammar source.
+* `s3_object_key` - (Required) Path to the grammar in the Amazon S3 bucket.
+* `kms_key_arn` - (Optional) KMS key required to decrypt the contents of the grammar, if any.
+
+### `slot_type_values` Argument Reference
+
+* `sample_value` - (Optional) Value of the slot type entry.
+See [`sample_value` argument reference](#sample_value-argument-reference) below.
+* `synonyms` - (Optional) A list of additional values related to the slot type entry.
+See [`synonyms` argument reference](#synonyms-argument-reference) below.
+
+#### `sample_value` Argument Reference
+
+* `value` - (Required) Value that can be used for a slot type.
+
+#### `synonyms` Argument Reference
+
+* `value` - (Required) Value that can be used for a slot type.
+
+### `value_selection_setting` Argument Reference
+
+* `resolution_strategy` - (Required) Determines the slot resolution strategy that Amazon Lex uses to return slot type values.
+Valid values are `OriginalValue`, `TopResolution`, and `Concatenation`.
+* `advanced_recognition_setting` - (Optional) Provides settings that enable advanced recognition settings for slot values.
+You can use this to enable using slot values as a custom vocabulary for recognizing user utterances.
+See [`advanced_recognition_setting` argument reference](#advanced_recognition_setting-argument-reference) below.
+* `regex_filter` - (Optional) Used to validate the value of the slot.
+See [`regex_filter` argument reference](#regexfilter-argument-reference) below.
+
+#### `advanced_recognition_setting` Argument Reference
+
+* `audio_recognition_strategy` - (Optional) Enables using the slot values as a custom vocabulary for recognizing user utterances.
+Valid value is `UseSlotValuesAsCustomVocabulary`.
+
+#### `regex_filter` Argument Reference
+
+* `pattern` - (Required) A regular expression used to validate the value of a slot.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Comma-delimited string concatenating `bot_id`, `bot_version`, `locale_id`, and `slot_type_id`.
+* `slot_type_id` - Unique identifier for the slot type.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_lexv2models_slot_type.example bot-1234,DRAFT,en_US,slot_type-id-12345678
 ```

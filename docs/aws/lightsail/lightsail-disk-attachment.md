@@ -1,6 +1,6 @@
-# Lightsail Disk Attachment
+# Resource: aws_lightsail_disk_attachment
 
-Manage Lightsail Disk Attachment resources using ytofu YAML.
+Manages a Lightsail disk attachment. Use this resource to attach additional storage disks to your Lightsail instances for expanded storage capacity.
 
 ## Basic Example
 
@@ -35,4 +35,25 @@ resource:
       disk_name: ${aws_lightsail_disk.example.name}
       instance_name: ${aws_lightsail_instance.example.name}
       disk_path: /dev/xvdf
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `disk_name` - (Required) Name of the Lightsail disk.
+* `disk_path` - (Required) Disk path to expose to the instance.
+* `instance_name` - (Required) Name of the Lightsail instance to attach to.
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Combination of attributes to create a unique id: `disk_name`,`instance_name`.
+
+## Import
+
+```bash
+ytofu import aws_lightsail_disk_attachment.example example-disk,example-instance
 ```

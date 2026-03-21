@@ -1,6 +1,6 @@
-# Sesv2 Account Suppression Attributes
+# Resource: aws_sesv2_account_suppression_attributes
 
-Manage Sesv2 Account Suppression Attributes resources using ytofu YAML.
+Manages AWS SESv2 (Simple Email V2) account-level suppression attributes.
 
 ## Basic Example
 
@@ -10,4 +10,21 @@ resource:
     example:
       suppressed_reasons: 
         - COMPLAINT
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `suppressed_reasons` - (Required) A list that contains the reasons that email addresses will be automatically added to the suppression list for your account. Valid values: `COMPLAINT`, `BOUNCE`.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Import
+
+```bash
+ytofu import aws_sesv2_account_suppression_attributes.example 123456789012
 ```

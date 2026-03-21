@@ -1,6 +1,6 @@
-# Datazone Glossary Term
+# Resource: aws_datazone_glossary_term
 
-Manage Datazone Glossary Term resources using ytofu YAML.
+ytofu resource for managing an AWS DataZone Glossary Term.
 
 ## Basic Example
 
@@ -50,4 +50,42 @@ resource:
       glossary_identifier: ${aws_datazone_glossary.example.id}
       name: example
       status: ENABLED
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `domain_identifier` - (Required) Identifier of domain.
+* `glossary_identifier` - (Required) Identifier of glossary.
+* `name` - (Required) Name of glossary term.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `long_description` - (Optional) Long description of entry.
+* `short_description` - (Optional) Short description of entry.
+* `status` - (Optional) If glossary term is ENABLED or DISABLED.
+* `term_relations` - (Optional) Object classifying the term relations through the following attributes:
+    * `classifies` - (Optional) String array that calssifies the term relations.
+    * `is_as` - (Optional) The isA property of the term relations.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - Id of the glossary term.
+* `created_at` - Time of glossary term creation.
+* `created_by` - Creator of glossary term.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30s`)
+
+## Import
+
+```bash
+ytofu import aws_datazone_glossary_term.example domain-id,glossary-term-id,glossary-id
 ```

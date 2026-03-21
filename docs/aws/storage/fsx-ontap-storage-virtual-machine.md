@@ -1,6 +1,7 @@
-# FSX Ontap Storage Virtual Machine
+# Resource: aws_fsx_ontap_storage_virtual_machine
 
-Manage FSX Ontap Storage Virtual Machine resources using ytofu YAML.
+Manages a FSx Storage Virtual Machine.
+See the [FSx ONTAP User Guide](https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-svms.html) for more information.
 
 ## Basic Example
 
@@ -29,4 +30,71 @@ resource:
           domain_name: corp.example.com
           password: avoid-plaintext-passwords
           username: Admin
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `active_directory_configuration` - (Optional) Configuration block that Amazon FSx uses to join the FSx ONTAP Storage Virtual Machine(SVM) to your Microsoft Active Directory (AD) directory. Detailed below.
+* `file_system_id` - (Required) The ID of the Amazon FSx ONTAP File System that this SVM will be created on.
+* `name` - (Required) The name of the SVM. You can use a maximum of 47 alphanumeric characters, plus the underscore (_) special character.
+* `root_volume_security_style` - (Optional) Specifies the root volume security style, Valid values are `UNIX`, `NTFS`, and `MIXED`. All volumes created under this SVM will inherit the root security style unless the security style is specified on the volume. Default value is `UNIX`.
+* `svm_admin_password` - (Optional) Specifies the password to use when logging on to the SVM using a secure shell (SSH) connection to the SVM's management endpoint. Doing so enables you to manage the SVM using the NetApp ONTAP CLI or REST API. If you do not specify a password, you can still use the file system's fsxadmin user to manage the SVM.
+* `tags` - (Optional) A map of tags to assign to the storage virtual machine. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### active_directory_configuration
+
+The `active_directory_configuration` configuration block supports the following arguments:
+
+* `netbios_name` - (Required) The NetBIOS name of the Active Directory computer object that will be created for your SVM. This is often the same as the SVM name but can be different. AWS limits to 15 characters because of standard NetBIOS naming limits.
+* `self_managed_active_directory` - (Optional) Configuration block that Amazon FSx uses to join the SVM to your self-managed (including on-premises) Microsoft Active Directory (AD) directory.
+
+### self_managed_active_directory
+
+The `self_managed_active_directory` configuration block supports the following arguments:
+
+* `dns_ips` - (Required) A list of up to three IP addresses of DNS servers or domain controllers in the self-managed AD directory.
+* `domain_name` - (Required) The fully qualified domain name of the self-managed AD directory. For example, `corp.example.com`.
+* `password` - (Required) The password for the service account on your self-managed AD domain that Amazon FSx will use to join to your AD domain.
+* `username` - (Required) The user name for the service account on your self-managed AD domain that Amazon FSx will use to join to your AD domain.
+* `file_system_administrators_group` - (Optional) The name of the domain group whose members are granted administrative privileges for the SVM. The group that you specify must already exist in your domain. Defaults to `Domain Admins`.
+* `organizational_unit_distinguished_name` - (Optional) The fully qualified distinguished name of the organizational unit within your self-managed AD directory that the Windows File Server instance will join. For example, `OU=FSx,DC=yourdomain,DC=corp,DC=com`. Only accepts OU as the direct parent of the SVM. If none is provided, the SVM is created in the default location of your self-managed AD directory. To learn more, see [RFC 2253](https://tools.ietf.org/html/rfc2253).
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - Amazon Resource Name of the storage virtual machine.
+* `endpoints` - The endpoints that are used to access data or to manage the storage virtual machine using the NetApp ONTAP CLI, REST API, or NetApp SnapMirror. See [Endpoints](#endpoints) below.
+* `id` - Identifier of the storage virtual machine, e.g., `svm-12345678`
+* `subtype` - Describes the SVM's subtype, e.g. `DEFAULT`
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+* `uuid` - The SVM's UUID (universally unique identifier).
+
+### Endpoints
+
+* `iscsi` - An endpoint for accessing data on your storage virtual machine via iSCSI protocol. See [Endpoint](#endpoint).
+* `management` - An endpoint for managing your file system using the NetApp ONTAP CLI and NetApp ONTAP API. See [Endpoint](#endpoint).
+* `nfs` - An endpoint for accessing data on your storage virtual machine via NFS protocol. See [Endpoint](#endpoint).
+* `smb` - An endpoint for accessing data on your storage virtual machine via SMB protocol. This is only set if an active_directory_configuration has been set. See [Endpoint](#endpoint).
+
+#### Endpoint
+
+* `dns_name` - The Domain Name Service (DNS) name for the storage virtual machine. You can mount your storage virtual machine using its DNS name.
+* `ip_addresses` - IP addresses of the storage virtual machine endpoint.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `delete` - (Default `30m`)
+* `update` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_fsx_ontap_storage_virtual_machine.example svm-12345678abcdef123
 ```

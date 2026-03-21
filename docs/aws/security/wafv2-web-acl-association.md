@@ -1,6 +1,6 @@
-# Wafv2 Web Acl Association
+# Resource: aws_wafv2_web_acl_association
 
-Manage Wafv2 Web Acl Association resources using ytofu YAML.
+Creates a WAFv2 Web ACL Association.
 
 ## Basic Example
 
@@ -44,4 +44,28 @@ resource:
     example:
       resource_arn: ${aws_api_gateway_stage.example.arn}
       web_acl_arn: ${aws_wafv2_web_acl.example.arn}
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `resource_arn` - (Required) The Amazon Resource Name (ARN) of the resource to associate with the web ACL. This must be an ARN of an Application Load Balancer, an Amazon API Gateway stage (REST only, HTTP is unsupported), an Amazon Cognito User Pool, an Amazon AppSync GraphQL API, an Amazon App Runner service, or an Amazon Verified Access instance.
+* `web_acl_arn` - (Required) The Amazon Resource Name (ARN) of the Web ACL that you want to associate with the resource.
+
+## Attribute Reference
+
+This resource exports no additional attributes.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `5m`)
+
+## Import
+
+```bash
+ytofu import aws_wafv2_web_acl_association.example arn:aws:wafv2:...7ce849ea,arn:aws:apigateway:...ages/name
 ```

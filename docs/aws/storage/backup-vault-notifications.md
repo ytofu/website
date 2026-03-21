@@ -1,6 +1,6 @@
-# Backup Vault Notifications
+# Resource: aws_backup_vault_notifications
 
-Manage Backup Vault Notifications resources using ytofu YAML.
+Provides an AWS Backup vault notifications resource.
 
 ## Basic Example
 
@@ -40,4 +40,26 @@ resource:
       backup_vault_events: 
         - BACKUP_JOB_STARTED
         - RESTORE_JOB_COMPLETED
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `backup_vault_name` - (Required) Name of the backup vault to add notifications for.
+* `sns_topic_arn` - (Required) The Amazon Resource Name (ARN) that specifies the topic for a backup vault’s events
+* `backup_vault_events` - (Required) An array of events that indicate the status of jobs to back up resources to the backup vault.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The name of the vault.
+* `backup_vault_arn` - The ARN of the vault.
+
+## Import
+
+```bash
+ytofu import aws_backup_vault_notifications.test TestVault
 ```

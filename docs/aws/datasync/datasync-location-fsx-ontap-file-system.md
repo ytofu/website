@@ -1,6 +1,6 @@
-# Datasync Location FSX Ontap File System
+# Resource: aws_datasync_location_fsx_ontap_file_system
 
-Manage Datasync Location FSX Ontap File System resources using ytofu YAML.
+ytofu resource for managing an AWS DataSync Location FSx Ontap File System.
 
 ## Basic Example
 
@@ -16,4 +16,58 @@ resource:
         nfs:
           mount_options:
             version: NFS3
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `protocol` - (Required) The data transfer protocol that DataSync uses to access your Amazon FSx file system. See [Protocol](#protocol) below.
+* `security_group_arns` - (Required) The security groups that provide access to your file system's preferred subnet. The security groups must allow outbbound traffic on the following ports (depending on the protocol you use):
+    * Network File System (NFS): TCP ports 111, 635, and 2049
+    * Server Message Block (SMB): TCP port 445
+* `storage_virtual_machine_arn` - (Required) The ARN of the SVM in your file system where you want to copy data to of from.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `subdirectory` - (Optional) Path to the file share in the SVM where you'll copy your data. You can specify a junction path (also known as a mount point), qtree path (for NFS file shares), or share name (for SMB file shares) (e.g. `/vol1`, `/vol1/tree1`, `share1`).
+* `tags` - (Optional) Key-value pairs of resource tags to assign to the DataSync Location. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+### Protocol
+
+* `nfs` - Network File System (NFS) protocol that DataSync uses to access your FSx ONTAP file system. See [NFS](#nfs) below.
+* `smb` - Server Message Block (SMB) protocol that DataSync uses to access your FSx ONTAP file system. See [SMB] (#smb) below.
+
+### NFS
+
+* `mount_options` - (Required) Mount options that are available for DataSync to access an NFS location. See [NFS Mount Options](#nfs-mount-options) below.
+
+### NFS Mount Options
+
+* `version` - (Optional) The specific NFS version that you want DataSync to use for mounting your NFS share. Valid values: `NFS3`. Default: `NFS3`
+
+### SMB
+
+* `domain` - Fully qualified domain name of the Microsoft Active Directory (AD) that your storage virtual machine belongs to.
+* `mount_options` - Mount options that are available for DataSync to access an SMB location. See [SMB Mount Options](#smb-mount-options) below.
+* `password` - Password of a user who has permission to access your SVM.
+* `user` - Username that can mount the location and access the files, folders, and metadata that you need in the SVM.
+
+### SMB Mount Options
+
+* `version` - (Optional) SMB version that you want DataSync to use for mounting your SMB share. Valid values: `AUTOMATIC`, `SMB3`, `SMB2` `SMB2_0`. Default: `AUTOMATIC`
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the DataSync Location for the FSx Ontap File System.
+* `fsx_filesystem_arn` - ARN of the FSx Ontap File System.
+* `uri` - URI of the FSx ONTAP file system location
+
+## Import
+
+```bash
+ytofu import aws_datasync_location_fsx_ontap_file_system.example arn:aws:datasync:us-west-2:123456789012:location/loc-12345678901234567#arn:aws:fsx:us-west-2:123456789012:storage-virtual-machine/svm-12345678abcdef123
 ```

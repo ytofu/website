@@ -1,6 +1,6 @@
-# Redshiftdata Statement
+# Resource: aws_redshiftdata_statement
 
-Manage Redshiftdata Statement resources using ytofu YAML.
+Executes a Redshift Data Statement.
 
 ## Basic Example
 
@@ -23,4 +23,33 @@ resource:
       workgroup_name: ${aws_redshiftserverless_workgroup.example.workgroup_name}
       database: dev
       sql: CREATE GROUP group_name;
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `database` - (Required) The name of the database.
+* `sql` - (Required) The SQL statement text to run.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `cluster_identifier` - (Optional) The cluster identifier. This parameter is required when connecting to a cluster and authenticating using either Secrets Manager or temporary credentials.
+* `db_user` - (Optional) The database user name.
+* `secret_arn` - (Optional) The name or ARN of the secret that enables access to the database.
+* `statement_name` - (Optional) The name of the SQL statement. You can name the SQL statement when you create it to identify the query.
+* `with_event` - (Optional) A value that indicates whether to send an event to the Amazon EventBridge event bus after the SQL statement runs.
+* `workgroup_name` - (Optional) The serverless workgroup name. This parameter is required when connecting to a serverless workgroup and authenticating using either Secrets Manager or temporary credentials.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - The Redshift Data Statement ID.
+
+## Import
+
+```bash
+ytofu import aws_redshiftdata_statement.example example
 ```

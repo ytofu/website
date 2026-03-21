@@ -1,6 +1,6 @@
-# Kendra Query Suggestions Block List
+# Resource: aws_kendra_query_suggestions_block_list
 
-Manage Kendra Query Suggestions Block List resources using ytofu YAML.
+Use the `aws_kendra_index_block_list` resource to manage an AWS Kendra block list used for query suggestions for an index.
 
 ## Basic Example
 
@@ -16,4 +16,46 @@ resource:
         key: example/suggestions.txt
       tags:
         Name: Example Kendra Index
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `index_id` - (Required, Forces New Resource) Identifier of the index for a block list.
+* `name` - (Required) Name for the block list.
+* `role_arn` - (Required) IAM (Identity and Access Management) role used to access the block list text file in S3.
+* `source_s3_path` - (Required) S3 path where your block list text file is located. See details below.
+
+The `source_s3_path` configuration block supports the following arguments:
+
+* `bucket` - (Required) Name of the S3 bucket that contains the file.
+* `key` - (Required) Name of the file.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) Description for a block list.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the block list.
+* `query_suggestions_block_list_id` - Unique identifier of the block list.
+* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider's default_tags configuration block.
+
+## Timeouts
+
+Configuration options for operation timeouts can be found here.
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_kendra_query_suggestions_block_list.example blocklist-123456780/idx-8012925589
 ```

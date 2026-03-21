@@ -1,6 +1,6 @@
-# Kendra Thesaurus
+# Resource: aws_kendra_thesaurus
 
-Manage Kendra Thesaurus resources using ytofu YAML.
+ytofu resource for managing an AWS Kendra Thesaurus.
 
 ## Basic Example
 
@@ -16,4 +16,47 @@ resource:
         key: ${aws_s3_object.example.key}
       tags:
         Name: Example Kendra Thesaurus
+```
+
+## Argument Reference
+
+The following arguments are required:
+
+* `index_id`- (Required, Forces new resource) The identifier of the index for a thesaurus.
+* `name` - (Required) The name for the thesaurus.
+* `role_arn` - (Required) The IAM (Identity and Access Management) role used to access the thesaurus file in S3.
+* `source_s3_path` - (Required) The S3 path where your thesaurus file sits in S3. Detailed below.
+
+The `source_s3_path` configuration block supports the following arguments:
+
+* `bucket` - (Required) The name of the S3 bucket that contains the file.
+* `key` - (Required) The name of the file.
+
+The following arguments are optional:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `description` - (Optional) The description for a thesaurus.
+* `tags` - (Optional) Key-value map of resource tags. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `arn` - ARN of the thesaurus.
+* `id` - The unique identifiers of the thesaurus and index separated by a slash (`/`).
+* `status` - The current status of the thesaurus.
+* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block.
+
+## Timeouts
+
+Configuration options:
+
+* `create` - (Default `30m`)
+* `update` - (Default `30m`)
+* `delete` - (Default `30m`)
+
+## Import
+
+```bash
+ytofu import aws_kendra_thesaurus.example thesaurus-123456780/idx-8012925589
 ```

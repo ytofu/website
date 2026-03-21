@@ -1,6 +1,6 @@
-# Elasticsearch Domain Policy
+# Resource: aws_elasticsearch_domain_policy
 
-Manage Elasticsearch Domain Policy resources using ytofu YAML.
+Allows setting policy to an Elasticsearch domain while referencing domain attributes (e.g., ARN)
 
 ## Basic Example
 
@@ -31,3 +31,15 @@ resource:
         ]
         }
 ```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `domain_name` - (Required) Name of the domain.
+* `access_policies` - (Optional) IAM policy document specifying the access policies for the domain
+
+## Attribute Reference
+
+This resource exports no additional attributes.

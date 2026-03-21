@@ -1,6 +1,6 @@
-# Appsync API Cache
+# Resource: aws_appsync_api_cache
 
-Manage Appsync API Cache resources using ytofu YAML.
+Provides an AppSync API Cache.
 
 ## Basic Example
 
@@ -18,4 +18,28 @@ resource:
       api_caching_behavior: FULL_REQUEST_CACHING
       type: LARGE
       ttl: 900
+```
+
+## Argument Reference
+
+This resource supports the following arguments:
+
+* `region` - (Optional) Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the provider configuration.
+* `api_id` - (Required) GraphQL API ID.
+* `api_caching_behavior` - (Required) Caching behavior. Valid values are `FULL_REQUEST_CACHING` and `PER_RESOLVER_CACHING`.
+* `type` - (Required) Cache instance type. Valid values are `SMALL`, `MEDIUM`, `LARGE`, `XLARGE`, `LARGE_2X`, `LARGE_4X`, `LARGE_8X`, `LARGE_12X`, `T2_SMALL`, `T2_MEDIUM`, `R4_LARGE`, `R4_XLARGE`, `R4_2XLARGE`, `R4_4XLARGE`, `R4_8XLARGE`.
+* `ttl` - (Required) TTL in seconds for cache entries.
+* `at_rest_encryption_enabled` - (Optional) At-rest encryption flag for cache. You cannot update this setting after creation.
+* `transit_encryption_enabled` - (Optional) Transit encryption flag when connecting to cache. You cannot update this setting after creation.
+
+## Attribute Reference
+
+This resource exports the following attributes in addition to the arguments above:
+
+* `id` - AppSync API ID.
+
+## Import
+
+```bash
+ytofu import aws_appsync_api_cache.example xxxxx
 ```
