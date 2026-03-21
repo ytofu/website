@@ -12,14 +12,12 @@ resource:
       tags:
         Name: example
 
-resource:
   aws_vpn_concentrator:
     example:
       type: ipsec.1
       transit_gateway_id: ${aws_ec2_transit_gateway.example.id}
       tags:
-        Name: example
-```
+        Name: example```
 
 ## Argument Reference
 

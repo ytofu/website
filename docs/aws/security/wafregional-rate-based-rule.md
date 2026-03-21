@@ -13,7 +13,6 @@ resource:
         type: IPV4
         value: 192.0.7.0/24
 
-resource:
   aws_wafregional_rate_based_rule:
     wafrule:
       depends_on: 
@@ -25,8 +24,7 @@ resource:
       predicate:
         data_id: ${aws_wafregional_ipset.ipset.id}
         negated: false
-        type: IPMatch
-```
+        type: IPMatch```
 
 ## Argument Reference
 

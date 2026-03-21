@@ -29,6 +29,16 @@ resource:
         all_regions: true
         role_arn: ${aws_iam_role.organization.arn}
 
+  aws_iam_role:
+    organization:
+      name: example
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
+  aws_iam_role_policy_attachment:
+    organization:
+      role: ${aws_iam_role.organization.name}
+      policy_arn: "arn:aws:iam::aws:policy/service-role/AWSConfigRoleForOrganizations"
+
 data:
   aws_iam_policy_document:
     assume_role:
@@ -39,20 +49,7 @@ data:
           identifiers: 
             - config.amazonaws.com
         actions: 
-          - "sts:AssumeRole"
-
-resource:
-  aws_iam_role:
-    organization:
-      name: example
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-resource:
-  aws_iam_role_policy_attachment:
-    organization:
-      role: ${aws_iam_role.organization.name}
-      policy_arn: "arn:aws:iam::aws:policy/service-role/AWSConfigRoleForOrganizations"
-```
+          - "sts:AssumeRole"```
 
 ## Argument Reference
 

@@ -11,7 +11,6 @@ resource:
       name: example
       description: example configuration
 
-resource:
   aws_notifications_event_rule:
     example:
       event_pattern: '{ "detail": { "state": { "value": ["ALARM"] } } }'
@@ -20,8 +19,7 @@ resource:
       regions: 
         - us-east-1
         - us-west-2
-      source: aws.cloudwatch
-```
+      source: aws.cloudwatch```
 
 ## Argument Reference
 

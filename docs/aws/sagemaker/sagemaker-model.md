@@ -13,7 +13,6 @@ resource:
       primary_container:
         image: ${data.aws_sagemaker_prebuilt_ecr_image.test.registry_path}
 
-resource:
   aws_iam_role:
     example:
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
@@ -29,11 +28,9 @@ data:
           identifiers: 
             - sagemaker.amazonaws.com
 
-data:
   aws_sagemaker_prebuilt_ecr_image:
     test:
-      repository_name: kmeans
-```
+      repository_name: kmeans```
 
 ## Argument Reference
 

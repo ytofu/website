@@ -9,7 +9,6 @@ resource:
   aws_prometheus_workspace:
     example:
 
-resource:
   aws_prometheus_workspace_configuration:
     example:
       workspace_id: ${aws_prometheus_workspace.example.id}
@@ -21,8 +20,7 @@ resource:
       limits_per_label_set:
         label_set: 
         limits:
-          max_series: 400000
-```
+          max_series: 400000```
 
 ## Setting up default bucket
 
@@ -31,15 +29,13 @@ resource:
   aws_prometheus_workspace:
     example:
 
-resource:
   aws_prometheus_workspace_configuration:
     example:
       workspace_id: ${aws_prometheus_workspace.example.id}
       limits_per_label_set:
         label_set: {}
         limits:
-          max_series: 50000
-```
+          max_series: 50000```
 
 ## Argument Reference
 

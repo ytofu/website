@@ -23,7 +23,6 @@ data:
   aws_region:
     current:
 
-data:
   aws_caller_identity:
     current:
 
@@ -45,8 +44,7 @@ resource:
         }
         }
         ]
-        }
-```
+        }```
 
 ## Log Publishing to CloudWatch Logs
 
@@ -55,6 +53,17 @@ resource:
   aws_cloudwatch_log_group:
     example:
       name: example
+
+  aws_cloudwatch_log_resource_policy:
+    example:
+      policy_name: example
+      policy_document: ${data.aws_iam_policy_document.example.json}
+
+  aws_elasticsearch_domain:
+    example:
+      log_publishing_options:
+        cloudwatch_log_group_arn: ${aws_cloudwatch_log_group.example.arn}
+        log_type: INDEX_SLOW_LOGS
 
 data:
   aws_iam_policy_document:
@@ -70,21 +79,7 @@ data:
           - "logs:PutLogEventsBatch"
           - "logs:CreateLogStream"
         resources: 
-          - "arn:aws:logs:*"
-
-resource:
-  aws_cloudwatch_log_resource_policy:
-    example:
-      policy_name: example
-      policy_document: ${data.aws_iam_policy_document.example.json}
-
-resource:
-  aws_elasticsearch_domain:
-    example:
-      log_publishing_options:
-        cloudwatch_log_group_arn: ${aws_cloudwatch_log_group.example.arn}
-        log_type: INDEX_SLOW_LOGS
-```
+          - "arn:aws:logs:*"```
 
 ## VPC based ES
 
@@ -95,7 +90,6 @@ data:
       tags:
         Name: example-vpc
 
-data:
   aws_subnets:
     selected:
       filter:
@@ -105,11 +99,9 @@ data:
       tags:
         Tier: private
 
-data:
   aws_region:
     current:
 
-data:
   aws_caller_identity:
     current:
 
@@ -126,12 +118,10 @@ resource:
         cidr_blocks:
           - ${data.aws_vpc.selected.cidr_block}
 
-resource:
   aws_iam_service_linked_role:
     es:
       aws_service_name: opensearchservice.amazonaws.com
 
-resource:
   aws_elasticsearch_domain:
     es:
       domain_name: example-domain
@@ -161,8 +151,7 @@ resource:
       tags:
         Domain: TestDomain
       depends_on: 
-        - ${aws_iam_service_linked_role.es}
-```
+        - ${aws_iam_service_linked_role.es}```
 
 ## Argument Reference
 

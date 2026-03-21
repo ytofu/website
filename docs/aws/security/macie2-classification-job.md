@@ -9,7 +9,6 @@ resource:
   aws_macie2_account:
     test:
 
-resource:
   aws_macie2_classification_job:
     test:
       job_type: ONE_TIME
@@ -20,8 +19,7 @@ resource:
           buckets: 
             - S3 BUCKET NAME
       depends_on: 
-        - ${aws_macie2_account.test}
-```
+        - ${aws_macie2_account.test}```
 
 ## Argument Reference
 

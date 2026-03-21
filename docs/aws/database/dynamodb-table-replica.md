@@ -20,14 +20,12 @@ resource:
         ignore_changes: 
           - replica
 
-resource:
   aws_dynamodb_table_replica:
     example:
       global_table_arn: ${aws_dynamodb_table.example.arn}
       tags:
         Name: IZPAWS
-        Pozo: Amargo
-```
+        Pozo: Amargo```
 
 ## Argument Reference
 

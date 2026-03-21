@@ -11,7 +11,6 @@ resource:
       authentication_type: API_KEY
       name: example
 
-resource:
   aws_appsync_type:
     example:
       api_id: ${aws_appsync_graphql_api.example.id}
@@ -22,8 +21,7 @@ resource:
         {
         putPost(id: ID!,title: String! ): Post
         
-        }
-```
+        }```
 
 ## Argument Reference
 

@@ -17,13 +17,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    dlm_lifecycle_role:
-      name: dlm-lifecycle-role
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-data:
   aws_iam_policy_document:
     dlm_lifecycle:
       statement:
@@ -45,13 +38,17 @@ data:
           - "arn:aws:ec2:*::snapshot/*"
 
 resource:
+  aws_iam_role:
+    dlm_lifecycle_role:
+      name: dlm-lifecycle-role
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
   aws_iam_role_policy:
     dlm_lifecycle:
       name: dlm-lifecycle-policy
       role: ${aws_iam_role.dlm_lifecycle_role.id}
       policy: ${data.aws_iam_policy_document.dlm_lifecycle.json}
 
-resource:
   aws_dlm_lifecycle_policy:
     example:
       description: example DLM lifecycle policy
@@ -72,8 +69,7 @@ resource:
             SnapshotCreator: DLM
           copy_tags: false
         target_tags:
-          Snapshot: true
-```
+          Snapshot: true```
 
 ## Example Cross-Region Snapshot Copy Usage
 
@@ -82,7 +78,6 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_iam_policy_document:
     key:
       statement:
@@ -103,7 +98,6 @@ resource:
       description: Example Alternate Region KMS Key
       policy: ${data.aws_iam_policy_document.key.json}
 
-resource:
   aws_dlm_lifecycle_policy:
     example:
       description: example DLM lifecycle policy
@@ -132,8 +126,7 @@ resource:
               interval: 30
               interval_unit: DAYS
         target_tags:
-          Snapshot: true
-```
+          Snapshot: true```
 
 ## Example Event Based Policy Usage
 
@@ -141,6 +134,10 @@ resource:
 data:
   aws_caller_identity:
     current:
+
+  aws_iam_policy:
+    example:
+      name: AWSDataLifecycleManagerServiceRole
 
 resource:
   aws_dlm_lifecycle_policy:
@@ -165,17 +162,10 @@ resource:
               snapshot_owner: 
                 - ${data.aws_caller_identity.current.account_id}
 
-data:
-  aws_iam_policy:
-    example:
-      name: AWSDataLifecycleManagerServiceRole
-
-resource:
   aws_iam_role_policy_attachment:
     example:
       role: ${aws_iam_role.example.id}
-      policy_arn: ${data.aws_iam_policy.example.arn}
-```
+      policy_arn: ${data.aws_iam_policy.example.arn}```
 
 ## Argument Reference
 

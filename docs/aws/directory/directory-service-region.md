@@ -10,9 +10,16 @@ data:
   aws_region:
     example:
 
-data:
   aws_availability_zones:
     available:
+      state: available
+      filter:
+        name: opt-in-status
+        values: 
+          - opt-in-not-required
+
+  aws_availability_zones:
+    available-secondary:
       state: available
       filter:
         name: opt-in-status
@@ -26,7 +33,6 @@ resource:
       tags:
         Name: Primary
 
-resource:
   aws_subnet:
     example:
       vpc_id: ${aws_vpc.example.id}
@@ -35,7 +41,6 @@ resource:
       tags:
         Name: Primary
 
-resource:
   aws_directory_service_directory:
     example:
       name: example.com
@@ -45,23 +50,12 @@ resource:
         vpc_id: ${aws_vpc.example.id}
         subnet_ids: ${aws_subnet.example[*].id}
 
-data:
-  aws_availability_zones:
-    available-secondary:
-      state: available
-      filter:
-        name: opt-in-status
-        values: 
-          - opt-in-not-required
-
-resource:
   aws_vpc:
     example-secondary:
       cidr_block: "10.1.0.0/16" # Can't overlap with primary's VPC.
       tags:
         Name: Secondary
 
-resource:
   aws_subnet:
     example-secondary:
       vpc_id: ${aws_vpc.example-secondary.id}
@@ -70,7 +64,6 @@ resource:
       tags:
         Name: Secondary
 
-resource:
   aws_directory_service_region:
     example:
       directory_id: ${aws_directory_service_directory.example.id}
@@ -79,8 +72,7 @@ resource:
         vpc_id: ${aws_vpc.example-secondary.id}
         subnet_ids: ${aws_subnet.example-secondary[*].id}
       tags:
-        Name: Secondary
-```
+        Name: Secondary```
 
 ## Argument Reference
 

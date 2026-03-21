@@ -23,25 +23,21 @@ resource:
       description: KMS key 1
       deletion_window_in_days: 7
 
-resource:
   aws_s3_bucket:
     examplebucket:
       bucket: examplebuckettftest
 
-resource:
   aws_s3_bucket_acl:
     example:
       bucket: ${aws_s3_bucket.examplebucket.id}
       acl: private
 
-resource:
   aws_s3_bucket_object:
     example:
       key: someobject
       bucket: ${aws_s3_bucket.examplebucket.id}
       source: index.html
-      kms_key_id: ${aws_kms_key.examplekms.arn}
-```
+      kms_key_id: ${aws_kms_key.examplekms.arn}```
 
 ## Server Side Encryption with S3 Default Master Key
 
@@ -51,20 +47,17 @@ resource:
     examplebucket:
       bucket: examplebuckettftest
 
-resource:
   aws_s3_bucket_acl:
     example:
       bucket: ${aws_s3_bucket.examplebucket.id}
       acl: private
 
-resource:
   aws_s3_bucket_object:
     example:
       key: someobject
       bucket: ${aws_s3_bucket.examplebucket.id}
       source: index.html
-      server_side_encryption: "aws:kms"
-```
+      server_side_encryption: "aws:kms"```
 
 ## Server Side Encryption with AWS-Managed Key
 
@@ -74,20 +67,17 @@ resource:
     examplebucket:
       bucket: examplebuckettftest
 
-resource:
   aws_s3_bucket_acl:
     example:
       bucket: ${aws_s3_bucket.examplebucket.id}
       acl: private
 
-resource:
   aws_s3_bucket_object:
     example:
       key: someobject
       bucket: ${aws_s3_bucket.examplebucket.id}
       source: index.html
-      server_side_encryption: AES256
-```
+      server_side_encryption: AES256```
 
 ## S3 Object Lock
 
@@ -98,20 +88,17 @@ resource:
       bucket: examplebuckettftest
       object_lock_enabled: true
 
-resource:
   aws_s3_bucket_acl:
     example:
       bucket: ${aws_s3_bucket.examplebucket.id}
       acl: private
 
-resource:
   aws_s3_bucket_versioning:
     example:
       bucket: ${aws_s3_bucket.examplebucket.id}
       versioning_configuration:
         status: Enabled
 
-resource:
   aws_s3_bucket_object:
     example:
       depends_on: 
@@ -122,8 +109,7 @@ resource:
       object_lock_legal_hold_status: ON
       object_lock_mode: GOVERNANCE
       object_lock_retain_until_date: "2021-12-31T23:59:60Z"
-      force_destroy: true
-```
+      force_destroy: true```
 
 ## Argument Reference
 

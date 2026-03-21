@@ -22,7 +22,6 @@ resource:
       blueprint_id: amazon_linux_2
       bundle_id: nano_3_0
 
-resource:
   aws_lightsail_instance_public_ports:
     example:
       instance_name: ${aws_lightsail_instance.example.name}
@@ -35,8 +34,7 @@ resource:
         from_port: 443
         to_port: 443
         cidrs: 
-          - 192.168.1.0/24
-```
+          - 192.168.1.0/24```
 
 ## Argument Reference
 

@@ -14,7 +14,6 @@ resource:
       handler: index.handler
       runtime: python3.12
 
-resource:
   aws_lambda_invocation:
     example:
       function_name: ${aws_lambda_function.example.function_name}
@@ -22,8 +21,7 @@ resource:
 
 output:
   initialization_result:
-    value: ${jsondecode(aws_lambda_invocation.example.result)["status"]}
-```
+    value: ${jsondecode(aws_lambda_invocation.example.result)["status"]}```
 
 ## Dynamic Invocation with Triggers
 

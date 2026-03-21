@@ -20,15 +20,13 @@ resource:
           ignore_changes: 
             - rule
 
-resource:
   aws_wafv2_web_acl_rule_group_association:
     example:
       rule_name: example-rule-group-rule
       priority: 100
       web_acl_arn: ${aws_wafv2_web_acl.example.arn}
       rule_group_reference:
-        arn: ${aws_wafv2_rule_group.example.arn}
-```
+        arn: ${aws_wafv2_rule_group.example.arn}```
 
 ## Managed Rule Group
 

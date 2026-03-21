@@ -10,7 +10,6 @@ resource:
     example:
       name: example-repo
 
-resource:
   aws_ecr_lifecycle_policy:
     example:
       repository: ${aws_ecr_repository.example.name}
@@ -31,8 +30,7 @@ resource:
         }
         }
         ]
-        }
-```
+        }```
 
 ## Policy on Tagged Images
 
@@ -42,7 +40,6 @@ resource:
     example:
       name: example-repo
 
-resource:
   aws_ecr_lifecycle_policy:
     example:
       repository: ${aws_ecr_repository.example.name}
@@ -63,8 +60,7 @@ resource:
         }
         }
         ]
-        }
-```
+        }```
 
 ## Policy to Archive and Delete
 
@@ -74,7 +70,6 @@ resource:
     example:
       name: example-repo
 
-resource:
   aws_ecr_lifecycle_policy:
     example:
       repository: ${aws_ecr_repository.example.name}
@@ -110,8 +105,7 @@ resource:
         }
         }
         ]
-        }
-```
+        }```
 
 ## Argument Reference
 

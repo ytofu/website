@@ -19,24 +19,20 @@ resource:
         - server_auth
       is_ca_certificate: true
 
-resource:
   tls_private_key:
     ca:
       algorithm: RSA
 
-resource:
   tls_cert_request:
     verification:
       private_key_pem: ${tls_private_key.verification.private_key_pem}
       subject:
         common_name: ${data.aws_iot_registration_code.example.registration_code}
 
-resource:
   tls_private_key:
     verification:
       algorithm: RSA
 
-resource:
   tls_locally_signed_cert:
     verification:
       cert_request_pem: ${tls_cert_request.verification.cert_request_pem}
@@ -48,7 +44,6 @@ resource:
         - digital_signature
         - server_auth
 
-resource:
   aws_iot_ca_certificate:
     example:
       active: true
@@ -58,8 +53,7 @@ resource:
 
 data:
   aws_iot_registration_code:
-    example:
-```
+    example:```
 
 ## Argument Reference
 

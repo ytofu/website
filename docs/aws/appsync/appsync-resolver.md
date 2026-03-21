@@ -29,7 +29,6 @@ resource:
         mutation: Mutation
         }
 
-resource:
   aws_appsync_datasource:
     test:
       api_id: ${aws_appsync_graphql_api.test.id}
@@ -38,7 +37,6 @@ resource:
       http_config:
         endpoint: "http://example.com"
 
-resource:
   aws_appsync_resolver:
     test:
       api_id: ${aws_appsync_graphql_api.test.id}
@@ -66,7 +64,6 @@ resource:
           - $context.arguments.id
         ttl: 60
 
-resource:
   aws_appsync_resolver:
     Mutation_pipelineTest:
       type: Mutation
@@ -79,8 +76,7 @@ resource:
         functions:
           - ${aws_appsync_function.test1.function_id}
           - ${aws_appsync_function.test2.function_id}
-          - ${aws_appsync_function.test3.function_id}
-```
+          - ${aws_appsync_function.test3.function_id}```
 
 ## Argument Reference
 

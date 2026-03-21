@@ -58,18 +58,15 @@ resource:
             StackName: MyStack
             TemplatePath: "build_output::sam-templated.yaml"
 
-resource:
   aws_codestarconnections_connection:
     example:
       name: example-connection
       provider_type: GitHub
 
-resource:
   aws_s3_bucket:
     codepipeline_bucket:
       bucket: test-bucket
 
-resource:
   aws_s3_bucket_public_access_block:
     codepipeline_bucket_pab:
       bucket: ${aws_s3_bucket.codepipeline_bucket.id}
@@ -77,6 +74,17 @@ resource:
       block_public_policy: true
       ignore_public_acls: true
       restrict_public_buckets: true
+
+  aws_iam_role:
+    codepipeline_role:
+      name: test-role
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
+  aws_iam_role_policy:
+    codepipeline_policy:
+      name: codepipeline_policy
+      role: ${aws_iam_role.codepipeline_role.id}
+      policy: ${data.aws_iam_policy_document.codepipeline_policy.json}
 
 data:
   aws_iam_policy_document:
@@ -90,13 +98,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    codepipeline_role:
-      name: test-role
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-data:
   aws_iam_policy_document:
     codepipeline_policy:
       statement:
@@ -124,18 +125,9 @@ data:
         resources: 
           - "*"
 
-resource:
-  aws_iam_role_policy:
-    codepipeline_policy:
-      name: codepipeline_policy
-      role: ${aws_iam_role.codepipeline_role.id}
-      policy: ${data.aws_iam_policy_document.codepipeline_policy.json}
-
-data:
   aws_kms_alias:
     s3kmskey:
-      name: alias/myKmsKey
-```
+      name: alias/myKmsKey```
 
 ## Argument Reference
 

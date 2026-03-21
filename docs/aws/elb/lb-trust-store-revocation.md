@@ -12,13 +12,11 @@ resource:
       ca_certificates_bundle_s3_bucket: ...
       ca_certificates_bundle_s3_key: ...
 
-resource:
   aws_lb_trust_store_revocation:
     test:
       trust_store_arn: ${aws_lb_trust_store.test.arn}
       revocations_s3_bucket: ...
-      revocations_s3_key: ...
-```
+      revocations_s3_key: ...```
 
 ## Argument Reference
 

@@ -12,14 +12,12 @@ resource:
   aws_s3control_access_grants_instance:
     example:
 
-resource:
   aws_s3control_access_grants_location:
     example:
       depends_on: 
         - ${aws_s3control_access_grants_instance.example}
       iam_role_arn: ${aws_iam_role.example.arn}
-      location_scope: "s3://" # Default scope.
-```
+      location_scope: "s3://" # Default scope.```
 
 ## Argument Reference
 

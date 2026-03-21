@@ -23,20 +23,17 @@ resource:
         - 10.0.0.10
         - 10.0.0.11
 
-resource:
   aws_eip:
     one:
       domain: vpc
       network_interface: ${aws_network_interface.multi-ip.id}
       associate_with_private_ip: 10.0.0.10
 
-resource:
   aws_eip:
     two:
       domain: vpc
       network_interface: ${aws_network_interface.multi-ip.id}
-      associate_with_private_ip: 10.0.0.11
-```
+      associate_with_private_ip: 10.0.0.11```
 
 ## Attaching an EIP to an Instance with a pre-assigned private ip (VPC Only)
 
@@ -47,12 +44,10 @@ resource:
       cidr_block: 10.0.0.0/16
       enable_dns_hostnames: true
 
-resource:
   aws_internet_gateway:
     gw:
       vpc_id: ${aws_vpc.default.id}
 
-resource:
   aws_subnet:
     tf_test_subnet:
       vpc_id: ${aws_vpc.default.id}
@@ -61,7 +56,6 @@ resource:
       depends_on: 
         - ${aws_internet_gateway.gw}
 
-resource:
   aws_instance:
     foo:
       ami: ami-5189a661
@@ -69,15 +63,13 @@ resource:
       private_ip: 10.0.0.12
       subnet_id: ${aws_subnet.tf_test_subnet.id}
 
-resource:
   aws_eip:
     bar:
       domain: vpc
       instance: ${aws_instance.foo.id}
       associate_with_private_ip: 10.0.0.12
       depends_on: 
-        - ${aws_internet_gateway.gw}
-```
+        - ${aws_internet_gateway.gw}```
 
 ## Allocating EIP from the BYOIP pool
 

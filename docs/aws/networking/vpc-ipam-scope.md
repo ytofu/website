@@ -15,12 +15,10 @@ resource:
       operating_regions:
         region_name: ${data.aws_region.current.region}
 
-resource:
   aws_vpc_ipam_scope:
     example:
       ipam_id: ${aws_vpc_ipam.example.id}
-      description: Another Scope
-```
+      description: Another Scope```
 
 ## Argument Reference
 

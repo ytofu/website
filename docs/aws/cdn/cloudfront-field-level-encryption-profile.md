@@ -12,7 +12,6 @@ resource:
       encoded_key: file-content
       name: test_key
 
-resource:
   aws_cloudfront_field_level_encryption_profile:
     test:
       comment: test comment
@@ -23,8 +22,7 @@ resource:
           provider_id: test provider
           field_patterns:
             items: 
-              - DateOfBirth
-```
+              - DateOfBirth```
 
 ## Argument Reference
 

@@ -10,7 +10,6 @@ resource:
     example:
       domain_name: example.com
 
-resource:
   aws_route53_record:
     example:
       zone_id: ${aws_route53_zone.example.zone_id}
@@ -18,8 +17,7 @@ resource:
       type: TXT
       ttl: 300
       records: 
-        - ${aws_vpclattice_domain_verification.example.txt_record_value}
-```
+        - ${aws_vpclattice_domain_verification.example.txt_record_value}```
 
 ## With Tags
 

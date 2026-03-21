@@ -15,11 +15,15 @@ resource:
       s3_key_prefix: prefix
       include_global_service_events: false
 
-resource:
   aws_s3_bucket:
     example:
       bucket: tf-test-trail
       force_destroy: true
+
+  aws_s3_bucket_policy:
+    example:
+      bucket: ${aws_s3_bucket.example.id}
+      policy: ${data.aws_iam_policy_document.example.json}
 
 data:
   aws_iam_policy_document:
@@ -59,24 +63,14 @@ data:
           values: 
             - "arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:trail/example"
 
-resource:
-  aws_s3_bucket_policy:
-    example:
-      bucket: ${aws_s3_bucket.example.id}
-      policy: ${data.aws_iam_policy_document.example.json}
-
-data:
   aws_caller_identity:
     current:
 
-data:
   aws_partition:
     current:
 
-data:
   aws_region:
-    current:
-```
+    current:```
 
 ## Data Event Logging
 

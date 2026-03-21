@@ -11,11 +11,9 @@ resource:
     example:
       domain_name: example
 
-resource:
   aws_customerprofiles_profile:
     example:
-      domain_name: ${aws_customerprofiles_domain.example.domain_name}
-```
+      domain_name: ${aws_customerprofiles_domain.example.domain_name}```
 
 ## Argument Reference
 

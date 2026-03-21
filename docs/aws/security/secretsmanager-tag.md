@@ -13,13 +13,11 @@ resource:
         ignore_changes: 
           - tags
 
-resource:
   aws_secretsmanager_tag:
     test:
       secret_id: ${aws_secretsmanager_secret.test.id}
       key: ExampleKey
-      value: ExampleValue
-```
+      value: ExampleValue```
 
 ## Argument Reference
 

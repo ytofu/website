@@ -11,15 +11,13 @@ resource:
       cluster_name: example
       node_group_name: example
 
-resource:
   aws_autoscaling_group_tag:
     example:
       autoscaling_group_name: example-value
       tag:
         key: k8s.io/cluster-autoscaler/node-template/label/eks.amazonaws.com/capacityType
         value: SPOT
-        propagate_at_launch: false
-```
+        propagate_at_launch: false```
 
 ## Argument Reference
 

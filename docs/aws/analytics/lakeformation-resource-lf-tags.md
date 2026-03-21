@@ -19,15 +19,13 @@ resource:
         - stowe
         - club
 
-resource:
   aws_lakeformation_resource_lf_tags:
     example:
       database:
         name: ${aws_glue_catalog_database.example.name}
       lf_tag:
         key: ${aws_lakeformation_lf_tag.example.key}
-        value: stowe
-```
+        value: stowe```
 
 ## Multiple Tags Example
 
@@ -46,7 +44,6 @@ resource:
         - stowe
         - club
 
-resource:
   aws_lakeformation_lf_tag:
     example2:
       key: left
@@ -59,7 +56,6 @@ resource:
         - becketts
         - vale
 
-resource:
   aws_lakeformation_resource_lf_tags:
     example:
       database:
@@ -69,8 +65,7 @@ resource:
         value: luffield
       lf_tag:
         key: left
-        value: aintree
-```
+        value: aintree```
 
 ## Argument Reference
 

@@ -10,19 +10,16 @@ resource:
     example:
       name: app
 
-resource:
   aws_amplify_branch:
     master:
       app_id: ${aws_amplify_app.example.id}
       branch_name: master
 
-resource:
   aws_amplify_webhook:
     master:
       app_id: ${aws_amplify_app.example.id}
       branch_name: ${aws_amplify_branch.master.branch_name}
-      description: triggermaster
-```
+      description: triggermaster```
 
 ## Argument Reference
 

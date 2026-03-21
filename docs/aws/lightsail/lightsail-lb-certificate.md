@@ -14,13 +14,11 @@ resource:
       tags:
         foo: bar
 
-resource:
   aws_lightsail_lb_certificate:
     example:
       name: example-load-balancer-certificate
       lb_name: ${aws_lightsail_lb.example.id}
-      domain_name: example.com
-```
+      domain_name: example.com```
 
 ## Argument Reference
 

@@ -12,7 +12,6 @@ resource:
       path: /
       force_destroy: true
 
-resource:
   aws_iam_user_login_profile:
     example:
       user: ${aws_iam_user.example.name}
@@ -20,8 +19,7 @@ resource:
 
 output:
   password:
-    value: ${aws_iam_user_login_profile.example.encrypted_password}
-```
+    value: ${aws_iam_user_login_profile.example.encrypted_password}```
 
 ## Argument Reference
 

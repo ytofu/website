@@ -10,13 +10,11 @@ resource:
     example:
       bucket: my-bucket
 
-resource:
   aws_s3_bucket_acl:
     example:
       bucket: ${aws_s3_bucket.example.id}
       acl: private
 
-resource:
   aws_fsx_lustre_file_system:
     example:
       storage_capacity: 1200
@@ -25,7 +23,6 @@ resource:
       deployment_type: PERSISTENT_2
       per_unit_storage_throughput: 125
 
-resource:
   aws_fsx_data_repository_association:
     example:
       file_system_id: ${aws_fsx_lustre_file_system.example.id}
@@ -41,8 +38,7 @@ resource:
           events: 
             - NEW
             - CHANGED
-            - DELETED
-```
+            - DELETED```
 
 ## Argument Reference
 

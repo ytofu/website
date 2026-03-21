@@ -25,13 +25,11 @@ resource:
         - 210.52.109.0/24
         - 175.45.176.0/22
 
-resource:
   aws_dx_hosted_public_virtual_interface_accepter:
     accepter:
       virtual_interface_id: ${aws_dx_hosted_public_virtual_interface.creator.id}
       tags:
-        Side: Accepter
-```
+        Side: Accepter```
 
 ## Argument Reference
 

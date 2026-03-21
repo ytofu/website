@@ -14,7 +14,6 @@ resource:
       scalable_dimension: "dynamodb:table:ReadCapacityUnits"
       service_namespace: dynamodb
 
-resource:
   aws_appautoscaling_scheduled_action:
     dynamodb:
       name: dynamodb
@@ -24,8 +23,7 @@ resource:
       schedule: "at(2006-01-02T15:04:05)"
       scalable_target_action:
         min_capacity: 1
-        max_capacity: 200
-```
+        max_capacity: 200```
 
 ## ECS Service Autoscaling
 
@@ -39,7 +37,6 @@ resource:
       scalable_dimension: "ecs:service:DesiredCount"
       service_namespace: ecs
 
-resource:
   aws_appautoscaling_scheduled_action:
     ecs:
       name: ecs
@@ -49,8 +46,7 @@ resource:
       schedule: "at(2006-01-02T15:04:05)"
       scalable_target_action:
         min_capacity: 1
-        max_capacity: 10
-```
+        max_capacity: 10```
 
 ## Argument Reference
 

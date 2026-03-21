@@ -15,13 +15,11 @@ resource:
       name: botens_namn
       assume_role_policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": "sts:AssumeRole" "Effect": "Allow" "Sid": "" "Principal": { "Service": "lexv2.amazonaws.com" } }, ] }'
 
-resource:
   aws_iam_role_policy_attachment:
     test:
       role: ${aws_iam_role.test.name}
       policy_arn: "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonLexFullAccess"
 
-resource:
   aws_lexv2models_bot:
     test:
       name: botens_namn
@@ -30,7 +28,6 @@ resource:
       data_privacy:
         child_directed: true
 
-resource:
   aws_lexv2models_bot_locale:
     test:
       locale_id: en_US
@@ -38,21 +35,18 @@ resource:
       bot_version: DRAFT
       n_lu_intent_confidence_threshold: 0.7
 
-resource:
   aws_lexv2models_bot_version:
     test:
       bot_id: ${aws_lexv2models_bot.test.id}
       locale_specification:
         source_bot_version: DRAFT
 
-resource:
   aws_lexv2models_intent:
     example:
       bot_id: ${aws_lexv2models_bot.test.id}
       bot_version: ${aws_lexv2models_bot_locale.test.bot_version}
       name: botens_namn
-      locale_id: ${aws_lexv2models_bot_locale.test.locale_id}
-```
+      locale_id: ${aws_lexv2models_bot_locale.test.locale_id}```
 
 ## `confirmation_setting` Example
 

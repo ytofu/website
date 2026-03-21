@@ -9,7 +9,6 @@ resource:
   aws_securityhub_account:
     example:
 
-resource:
   aws_securityhub_insight:
     example:
       filters:
@@ -22,8 +21,7 @@ resource:
       group_by_attribute: AwsAccountId
       name: example-insight
       depends_on: 
-        - ${aws_securityhub_account.example}
-```
+        - ${aws_securityhub_account.example}```
 
 ## Filter by date range
 
@@ -32,7 +30,6 @@ resource:
   aws_securityhub_account:
     example:
 
-resource:
   aws_securityhub_insight:
     example:
       filters:
@@ -43,8 +40,7 @@ resource:
       group_by_attribute: CreatedAt
       name: example-insight
       depends_on: 
-        - ${aws_securityhub_account.example}
-```
+        - ${aws_securityhub_account.example}```
 
 ## Filter by destination IPv4 address
 
@@ -53,7 +49,6 @@ resource:
   aws_securityhub_account:
     example:
 
-resource:
   aws_securityhub_insight:
     example:
       filters:
@@ -62,8 +57,7 @@ resource:
       group_by_attribute: NetworkDestinationIpV4
       name: example-insight
       depends_on: 
-        - ${aws_securityhub_account.example}
-```
+        - ${aws_securityhub_account.example}```
 
 ## Filter by finding's confidence
 
@@ -72,7 +66,6 @@ resource:
   aws_securityhub_account:
     example:
 
-resource:
   aws_securityhub_insight:
     example:
       filters:
@@ -81,8 +74,7 @@ resource:
       group_by_attribute: Confidence
       name: example-insight
       depends_on: 
-        - ${aws_securityhub_account.example}
-```
+        - ${aws_securityhub_account.example}```
 
 ## Filter by resource tags
 
@@ -91,7 +83,6 @@ resource:
   aws_securityhub_account:
     example:
 
-resource:
   aws_securityhub_insight:
     example:
       filters:
@@ -102,8 +93,7 @@ resource:
       group_by_attribute: ResourceTags
       name: example-insight
       depends_on: 
-        - ${aws_securityhub_account.example}
-```
+        - ${aws_securityhub_account.example}```
 
 ## Argument Reference
 

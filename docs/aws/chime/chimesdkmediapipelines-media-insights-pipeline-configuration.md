@@ -23,11 +23,15 @@ resource:
         Key1: Value1
         Key2: Value2
 
-resource:
   aws_kinesis_stream:
     example:
       name: example
       shard_count: 2
+
+  aws_iam_role:
+    call_analytics_role:
+      name: CallAnalyticsRole
+      assume_role_policy: ${data.aws_iam_policy_document.media_pipelines_assume_role.json}
 
 data:
   aws_iam_policy_document:
@@ -39,14 +43,7 @@ data:
           identifiers: 
             - mediapipelines.chime.amazonaws.com
         actions: 
-          - "sts:AssumeRole"
-
-resource:
-  aws_iam_role:
-    call_analytics_role:
-      name: CallAnalyticsRole
-      assume_role_policy: ${data.aws_iam_policy_document.media_pipelines_assume_role.json}
-```
+          - "sts:AssumeRole"```
 
 ## Transcribe Call Analytics processor usage
 
@@ -82,6 +79,11 @@ resource:
         kinesis_data_stream_sink_configuration:
           insights_target: ${aws_kinesis_stream.example.arn}
 
+  aws_iam_role:
+    post_call_role:
+      name: PostCallAccessRole
+      assume_role_policy: ${data.aws_iam_policy_document.transcribe_assume_role.json}
+
 data:
   aws_iam_policy_document:
     transcribe_assume_role:
@@ -92,14 +94,7 @@ data:
           identifiers: 
             - transcribe.amazonaws.com
         actions: 
-          - "sts:AssumeRole"
-
-resource:
-  aws_iam_role:
-    post_call_role:
-      name: PostCallAccessRole
-      assume_role_policy: ${data.aws_iam_policy_document.transcribe_assume_role.json}
-```
+          - "sts:AssumeRole"```
 
 ## Real time alerts usage
 

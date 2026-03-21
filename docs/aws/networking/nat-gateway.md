@@ -63,17 +63,14 @@ resource:
     example:
       cidr_block: 10.0.0.0/16
 
-resource:
   aws_internet_gateway:
     example:
       vpc_id: ${aws_vpc.example.id}
 
-resource:
   aws_nat_gateway:
     example:
       vpc_id: ${aws_vpc.example.id}
-      availability_mode: regional
-```
+      availability_mode: regional```
 
 ## Regional NAT Gateway with manual mode
 
@@ -87,17 +84,14 @@ resource:
     example:
       cidr_block: 10.0.0.0/16
 
-resource:
   aws_internet_gateway:
     example:
       vpc_id: ${aws_vpc.example.id}
 
-resource:
   aws_eip:
     example:
       domain: vpc
 
-resource:
   aws_nat_gateway:
     example:
       vpc_id: ${aws_vpc.example.id}
@@ -110,8 +104,7 @@ resource:
         allocation_ids: 
           - ${aws_eip.example[1].id}
           - ${aws_eip.example[2].id}
-        availability_zone: ${data.aws_availability_zones.available.names[1]}
-```
+        availability_zone: ${data.aws_availability_zones.available.names[1]}```
 
 ## Argument Reference
 

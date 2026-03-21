@@ -23,7 +23,6 @@ resource:
       maintenance_window:
         preference: NO_PREFERENCE
 
-resource:
   aws_odb_cloud_autonomous_vm_cluster:
     avmc_with_all_params:
       description: my first avmc
@@ -58,8 +57,7 @@ resource:
         weeks_of_month: 
           - 2
           - 4
-      tags: 
-```
+      tags: ```
 
 ## Argument Reference
 

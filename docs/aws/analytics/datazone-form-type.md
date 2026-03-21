@@ -14,18 +14,15 @@ resource:
         name: example-policy
         policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": [ "datazone:*", "ram:*", "sso:*", "kms:*", ] "Effect": "Allow" "Resource": "*" }, ] }'
 
-resource:
   aws_datazone_domain:
     test:
       name: example
       domain_execution_role: ${aws_iam_role.domain_execution_role.arn}
 
-resource:
   aws_security_group:
     test:
       name: example
 
-resource:
   aws_datazone_project:
     test:
       domain_identifier: ${aws_datazone_domain.test.id}
@@ -35,7 +32,6 @@ resource:
       description: desc
       skip_deletion_check: true
 
-resource:
   aws_datazone_form_type:
     test:
       description: desc
@@ -55,8 +51,7 @@ resource:
           
           @required
           creationTime: String
-          }
-```
+          }```
 
 ## Argument Reference
 

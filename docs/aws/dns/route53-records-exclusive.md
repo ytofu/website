@@ -11,7 +11,6 @@ resource:
       name: example.com
       force_destroy: true
 
-resource:
   aws_route53_records_exclusive:
     test:
       zone_id: ${aws_route53_zone.test.zone_id}
@@ -22,8 +21,7 @@ resource:
         resource_records:
           value: 127.0.0.1
         resource_records:
-          value: 127.0.0.27
-```
+          value: 127.0.0.27```
 
 ## Disallow Record Sets
 

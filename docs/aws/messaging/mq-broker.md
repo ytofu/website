@@ -65,7 +65,6 @@ resource:
         password: <password>
         replication_user: true
 
-resource:
   aws_mq_broker:
     example:
       apply_immediately: true
@@ -84,8 +83,7 @@ resource:
       user:
         username: example_replication_user
         password: <password>
-        replication_user: true
-```
+        replication_user: true```
 
 ## Argument Reference
 

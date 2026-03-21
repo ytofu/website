@@ -38,7 +38,6 @@ resource:
       name: example-kvs
       comment: Example key value store
 
-resource:
   aws_cloudfront_connection_function:
     example:
       name: example-connection-function
@@ -47,8 +46,7 @@ resource:
         runtime: cloudfront-js-2.0
         comment: Example connection function
         key_value_store_association:
-          key_value_store_arn: ${aws_cloudfront_key_value_store.example.arn}
-```
+          key_value_store_arn: ${aws_cloudfront_key_value_store.example.arn}```
 
 ## With Tags
 

@@ -10,7 +10,6 @@ resource:
     test:
       repository_name: test
 
-resource:
   aws_codecommit_trigger:
     test:
       repository_name: ${aws_codecommit_repository.test.repository_name}
@@ -18,8 +17,7 @@ resource:
         name: all
         events: 
           - all
-        destination_arn: ${aws_sns_topic.test.arn}
-```
+        destination_arn: ${aws_sns_topic.test.arn}```
 
 ## Argument Reference
 

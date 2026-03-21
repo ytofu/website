@@ -10,6 +10,19 @@ resource:
     main:
       name: identity pool
 
+  aws_iam_role:
+    group_role:
+      name: user-group-role
+      assume_role_policy: ${data.aws_iam_policy_document.group_role.json}
+
+  aws_cognito_user_group:
+    main:
+      name: user-group
+      user_pool_id: ${aws_cognito_user_pool.main.id}
+      description: Managed by Terraform
+      precedence: 42
+      role_arn: ${aws_iam_role.group_role.arn}
+
 data:
   aws_iam_policy_document:
     group_role:
@@ -28,23 +41,7 @@ data:
         condition:
           test: "ForAnyValue:StringLike"
           values: 
-            - authenticated
-
-resource:
-  aws_iam_role:
-    group_role:
-      name: user-group-role
-      assume_role_policy: ${data.aws_iam_policy_document.group_role.json}
-
-resource:
-  aws_cognito_user_group:
-    main:
-      name: user-group
-      user_pool_id: ${aws_cognito_user_pool.main.id}
-      description: Managed by Terraform
-      precedence: 42
-      role_arn: ${aws_iam_role.group_role.arn}
-```
+            - authenticated```
 
 ## Argument Reference
 

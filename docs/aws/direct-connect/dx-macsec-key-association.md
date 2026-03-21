@@ -26,7 +26,6 @@ data:
     example:
       name: tf-dx-connection
 
-data:
   aws_secretsmanager_secret:
     example:
       name: directconnect!prod/us-east-1/directconnect/0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
@@ -35,8 +34,7 @@ resource:
   aws_dx_macsec_key_association:
     test:
       connection_id: ${data.aws_dx_connection.example.id}
-      secret_arn: ${data.aws_secretsmanager_secret.example.arn}
-```
+      secret_arn: ${data.aws_secretsmanager_secret.example.arn}```
 
 ## Argument Reference
 

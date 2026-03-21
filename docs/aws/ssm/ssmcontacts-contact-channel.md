@@ -24,15 +24,13 @@ resource:
       alias: example_contact
       type: PERSONAL
 
-resource:
   aws_ssmcontacts_contact_channel:
     example:
       contact_id: ${aws_ssmcontacts_contact.example_contact.arn}
       delivery_address:
         simple_address: email@example.com
       name: Example contact channel
-      type: EMAIL
-```
+      type: EMAIL```
 
 ## Argument Reference
 

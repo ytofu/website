@@ -20,14 +20,12 @@ resource:
       aws_service_access_principals: 
         - access-analyzer.amazonaws.com
 
-resource:
   aws_accessanalyzer_analyzer:
     example:
       depends_on: 
         - ${aws_organizations_organization.example}
       analyzer_name: example
-      type: ORGANIZATION
-```
+      type: ORGANIZATION```
 
 ## Organization Unused Access Analyzer With Analysis Rule
 

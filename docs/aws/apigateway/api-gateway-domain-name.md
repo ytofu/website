@@ -12,7 +12,6 @@ resource:
       certificate_arn: ${aws_acm_certificate_validation.example.certificate_arn}
       domain_name: api.example.com
 
-resource:
   aws_route53_record:
     example:
       name: ${aws_api_gateway_domain_name.example.domain_name}
@@ -21,8 +20,7 @@ resource:
       alias:
         evaluate_target_health: true
         name: ${aws_api_gateway_domain_name.example.cloudfront_domain_name}
-        zone_id: ${aws_api_gateway_domain_name.example.cloudfront_zone_id}
-```
+        zone_id: ${aws_api_gateway_domain_name.example.cloudfront_zone_id}```
 
 ## Edge Optimized (IAM Certificate)
 
@@ -36,7 +34,6 @@ resource:
       certificate_chain: file-content
       certificate_private_key: file-content
 
-resource:
   aws_route53_record:
     example:
       zone_id: ${aws_route53_zone.example.id}
@@ -45,8 +42,7 @@ resource:
       alias:
         name: ${aws_api_gateway_domain_name.example.cloudfront_domain_name}
         zone_id: ${aws_api_gateway_domain_name.example.cloudfront_zone_id}
-        evaluate_target_health: true
-```
+        evaluate_target_health: true```
 
 ## Regional (ACM Certificate)
 
@@ -60,7 +56,6 @@ resource:
         types: 
           - REGIONAL
 
-resource:
   aws_route53_record:
     example:
       name: ${aws_api_gateway_domain_name.example.domain_name}
@@ -69,8 +64,7 @@ resource:
       alias:
         evaluate_target_health: true
         name: ${aws_api_gateway_domain_name.example.regional_domain_name}
-        zone_id: ${aws_api_gateway_domain_name.example.regional_zone_id}
-```
+        zone_id: ${aws_api_gateway_domain_name.example.regional_zone_id}```
 
 ## Regional (IAM Certificate)
 
@@ -87,7 +81,6 @@ resource:
         types: 
           - REGIONAL
 
-resource:
   aws_route53_record:
     example:
       name: ${aws_api_gateway_domain_name.example.domain_name}
@@ -96,8 +89,7 @@ resource:
       alias:
         evaluate_target_health: true
         name: ${aws_api_gateway_domain_name.example.regional_domain_name}
-        zone_id: ${aws_api_gateway_domain_name.example.regional_zone_id}
-```
+        zone_id: ${aws_api_gateway_domain_name.example.regional_zone_id}```
 
 ## Enhanced Security Policy
 

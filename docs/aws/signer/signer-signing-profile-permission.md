@@ -17,14 +17,12 @@ resource:
         tag1: value1
         tag2: value2
 
-resource:
   aws_signer_signing_profile_permission:
     sp_permission_1:
       profile_name: ${aws_signer_signing_profile.prod_sp.name}
       action: "signer:StartSigningJob"
       principal: example-aws_account
 
-resource:
   aws_signer_signing_profile_permission:
     sp_permission_2:
       profile_name: ${aws_signer_signing_profile.prod_sp.name}
@@ -32,15 +30,13 @@ resource:
       principal: example-aws_team_role_arn
       statement_id: ProdAccountStartSigningJob_StatementId
 
-resource:
   aws_signer_signing_profile_permission:
     sp_permission_3:
       profile_name: ${aws_signer_signing_profile.prod_sp.name}
       action: "signer:RevokeSignature"
       principal: 123456789012
       profile_version: ${aws_signer_signing_profile.prod_sp.version}
-      statement_id_prefix: version-permission-
-```
+      statement_id_prefix: version-permission-```
 
 ## Argument Reference
 

@@ -9,7 +9,6 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_iam_policy_document:
     example:
       statement:
@@ -31,12 +30,10 @@ resource:
       deletion_window_in_days: 7
       policy: ${data.aws_iam_policy_document.example.json}
 
-resource:
   aws_s3_bucket:
     example:
       bucket: my-test
 
-resource:
   aws_codebuild_report_group:
     example:
       name: my test report group
@@ -48,8 +45,7 @@ resource:
           encryption_disabled: false
           encryption_key: ${aws_kms_key.example.arn}
           packaging: NONE
-          path: /some
-```
+          path: /some```
 
 ## Argument Reference
 

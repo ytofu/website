@@ -11,14 +11,12 @@ resource:
     example:
       bucket: example-flink-application
 
-resource:
   aws_s3_object:
     example:
       bucket: ${aws_s3_bucket.example.id}
       key: example-flink-application
       source: flink-app.jar
 
-resource:
   aws_kinesisanalyticsv2_application:
     example:
       name: example-flink-application
@@ -54,8 +52,7 @@ resource:
             parallelism: 10
             parallelism_per_kpu: 4
       tags:
-        Environment: test
-```
+        Environment: test```
 
 ## SQL Application
 
@@ -65,13 +62,11 @@ resource:
     example:
       name: example-sql-application
 
-resource:
   aws_cloudwatch_log_stream:
     example:
       name: example-sql-application
       log_group_name: ${aws_cloudwatch_log_group.example.name}
 
-resource:
   aws_kinesisanalyticsv2_application:
     example:
       name: example-sql-application
@@ -130,8 +125,7 @@ resource:
               bucket_arn: ${aws_s3_bucket.example.arn}
               file_key: KEY-1
       cloudwatch_logging_options:
-        log_stream_arn: ${aws_cloudwatch_log_stream.example.arn}
-```
+        log_stream_arn: ${aws_cloudwatch_log_stream.example.arn}```
 
 ## VPC Configuration
 
@@ -141,14 +135,12 @@ resource:
     example:
       bucket: example-flink-application
 
-resource:
   aws_s3_object:
     example:
       bucket: ${aws_s3_bucket.example.id}
       key: example-flink-application
       source: flink-app.jar
 
-resource:
   aws_kinesisanalyticsv2_application:
     example:
       name: example-flink-application
@@ -166,8 +158,7 @@ resource:
             - ${aws_security_group.example[0].id}
             - ${aws_security_group.example[1].id}
           subnet_ids: 
-            - ${aws_subnet.example.id}
-```
+            - ${aws_subnet.example.id}```
 
 ## Argument Reference
 

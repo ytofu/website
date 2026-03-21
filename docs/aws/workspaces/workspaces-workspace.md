@@ -10,7 +10,6 @@ data:
     value_windows_10:
       bundle_id: "wsb-bh8rsxt14" # Value with Windows 10 (English)
 
-data:
   aws_kms_key:
     workspaces:
       key_id: alias/aws/workspaces
@@ -31,8 +30,7 @@ resource:
         running_mode: AUTO_STOP
         running_mode_auto_stop_timeout_in_minutes: 60
       tags:
-        Department: IT
-```
+        Department: IT```
 
 ## Argument Reference
 

@@ -18,7 +18,6 @@ resource:
         name: myAttribute
         type: S
 
-resource:
   aws_dynamodb_table:
     us-west-2:
       hash_key: myAttribute
@@ -31,7 +30,6 @@ resource:
         name: myAttribute
         type: S
 
-resource:
   aws_dynamodb_global_table:
     myTable:
       depends_on:
@@ -41,8 +39,7 @@ resource:
       replica:
         region_name: us-east-1
       replica:
-        region_name: us-west-2
-```
+        region_name: us-west-2```
 
 ## Argument Reference
 

@@ -229,7 +229,6 @@ resource:
               metric_name: friendly-metric-name
               sampled_requests_enabled: false
 
-resource:
   aws_wafv2_web_acl:
     test:
       name: rule-group-example
@@ -259,8 +258,7 @@ resource:
               visibility_config:
                 cloudwatch_metrics_enabled: false
                 metric_name: friendly-metric-name
-                sampled_requests_enabled: false
-```
+                sampled_requests_enabled: false```
 
 ## Large Request Body Inspections for Regional Resources
 

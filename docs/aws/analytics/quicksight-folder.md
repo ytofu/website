@@ -42,13 +42,11 @@ resource:
       folder_id: parent-id
       name: parent-name
 
-resource:
   aws_quicksight_folder:
     example:
       folder_id: example-id
       name: example-name
-      parent_folder_arn: ${aws_quicksight_folder.parent.arn}
-```
+      parent_folder_arn: ${aws_quicksight_folder.parent.arn}```
 
 ## Argument Reference
 

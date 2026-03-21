@@ -11,6 +11,11 @@ resource:
       name: example
       role_arn: ${aws_iam_role.r.arn}
 
+  aws_iam_role:
+    r:
+      name: awsconfig-example
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
 data:
   aws_iam_policy_document:
     assume_role:
@@ -21,14 +26,7 @@ data:
           identifiers: 
             - config.amazonaws.com
         actions: 
-          - "sts:AssumeRole"
-
-resource:
-  aws_iam_role:
-    r:
-      name: awsconfig-example
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-```
+          - "sts:AssumeRole"```
 
 ## Exclude Resources Types Usage
 

@@ -10,12 +10,10 @@ resource:
     example:
       bucket: example
 
-resource:
   aws_s3_access_point:
     example:
       bucket: ${aws_s3_bucket.example.id}
-      name: example
-```
+      name: example```
 
 ## S3 on Outposts Bucket
 
@@ -25,7 +23,6 @@ resource:
     example:
       bucket: example
 
-resource:
   aws_s3_access_point:
     example:
       bucket: ${aws_s3control_bucket.example.arn}
@@ -33,11 +30,9 @@ resource:
       vpc_configuration:
         vpc_id: ${aws_vpc.example.id}
 
-resource:
   aws_vpc:
     example:
-      cidr_block: 10.0.0.0/16
-```
+      cidr_block: 10.0.0.0/16```
 
 ## AWS Partition Directory Bucket
 
@@ -54,12 +49,10 @@ resource:
       location:
         name: ${data.aws_availability_zones.available.zone_ids[0]}
 
-resource:
   aws_s3_access_point:
     example:
       bucket: ${aws_s3_directory_bucket.test.bucket}
-      name: example--zoneId--xa-s3
-```
+      name: example--zoneId--xa-s3```
 
 ## Argument Reference
 

@@ -9,15 +9,12 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_partition:
     current:
 
-data:
   aws_region:
     current:
 
-data:
   aws_iam_policy_document:
     example_agent_trust:
       statement:
@@ -36,7 +33,6 @@ data:
           values: 
             - "arn:${data.aws_partition.current.partition}:bedrock:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:agent/*"
 
-data:
   aws_iam_policy_document:
     example_agent_permissions:
       statement:
@@ -58,13 +54,11 @@ resource:
       assume_role_policy: ${data.aws_iam_policy_document.example_agent_trust.json}
       name_prefix: AmazonBedrockExecutionRoleForAgents_
 
-resource:
   aws_iam_role_policy:
     example:
       policy: ${data.aws_iam_policy_document.example_agent_permissions.json}
       role: ${aws_iam_role.example.id}
 
-resource:
   aws_bedrockagent_agent:
     example_collaborator:
       agent_name: my-agent-collaborator
@@ -73,7 +67,6 @@ resource:
       foundation_model: "anthropic.claude-3-5-sonnet-20241022-v2:0"
       instruction: do what the supervisor tells you to do
 
-resource:
   aws_bedrockagent_agent:
     example_supervisor:
       agent_name: my-agent-supervisor
@@ -84,14 +77,12 @@ resource:
       instruction: tell the sub agent what to do
       prepare_agent: false
 
-resource:
   aws_bedrockagent_agent_alias:
     example:
       agent_alias_name: my-agent-alias
       agent_id: ${aws_bedrockagent_agent.example_collaborator.agent_id}
       description: Test Alias
 
-resource:
   aws_bedrockagent_agent_collaborator:
     example:
       agent_id: ${aws_bedrockagent_agent.example_supervisor.agent_id}
@@ -99,8 +90,7 @@ resource:
       collaborator_name: my-collab-example
       relay_conversation_history: TO_COLLABORATOR
       agent_descriptor:
-        alias_arn: ${aws_bedrockagent_agent_alias.example.agent_alias_arn}
-```
+        alias_arn: ${aws_bedrockagent_agent_alias.example.agent_alias_arn}```
 
 ## Argument Reference
 

@@ -10,12 +10,10 @@ resource:
     messenger:
       name: chat-messages
 
-resource:
   aws_schemas_discoverer:
     test:
       source_arn: ${aws_cloudwatch_event_bus.messenger.arn}
-      description: Auto discover event schemas
-```
+      description: Auto discover event schemas```
 
 ## Argument Reference
 

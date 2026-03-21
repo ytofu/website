@@ -14,12 +14,10 @@ resource:
       application: ${aws_elastic_beanstalk_application.example.name}
       solution_stack_name: 64bit Amazon Linux 2015.09 v2.0.8 running Go 1.4
 
-resource:
   aws_elastic_beanstalk_application:
     example:
       name: tf-test-name
-      description: tf-test-desc
-```
+      description: tf-test-desc```
 
 ## Argument Reference
 

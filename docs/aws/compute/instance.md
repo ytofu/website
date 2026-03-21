@@ -70,7 +70,6 @@ resource:
       tags:
         Name: tf-example
 
-resource:
   aws_subnet:
     my_subnet:
       vpc_id: ${aws_vpc.my_vpc.id}
@@ -79,7 +78,6 @@ resource:
       tags:
         Name: tf-example
 
-resource:
   aws_network_interface:
     example:
       subnet_id: ${aws_subnet.my_subnet.id}
@@ -88,7 +86,6 @@ resource:
       tags:
         Name: primary_network_interface
 
-resource:
   aws_instance:
     example:
       ami: "ami-005e54dee72cc1d00" # us-west-2
@@ -96,8 +93,7 @@ resource:
       primary_network_interface:
         network_interface_id: ${aws_network_interface.example.id}
       credit_specification:
-        cpu_credits: unlimited
-```
+        cpu_credits: unlimited```
 
 ## CPU options example
 
@@ -109,12 +105,22 @@ resource:
       tags:
         Name: tf-example
 
-resource:
   aws_subnet:
     example:
       vpc_id: ${aws_vpc.example.id}
       cidr_block: 172.16.10.0/24
       availability_zone: us-east-2a
+      tags:
+        Name: tf-example
+
+  aws_instance:
+    example:
+      ami: ${data.aws_ami.amzn-linux-2023-ami.id}
+      instance_type: c6a.2xlarge
+      subnet_id: ${aws_subnet.example.id}
+      cpu_options:
+        core_count: 2
+        threads_per_core: 2
       tags:
         Name: tf-example
 
@@ -127,20 +133,7 @@ data:
       filter:
         name: name
         values: 
-          - "al2023-ami-2023.*-x86_64"
-
-resource:
-  aws_instance:
-    example:
-      ami: ${data.aws_ami.amzn-linux-2023-ami.id}
-      instance_type: c6a.2xlarge
-      subnet_id: ${aws_subnet.example.id}
-      cpu_options:
-        core_count: 2
-        threads_per_core: 2
-      tags:
-        Name: tf-example
-```
+          - "al2023-ami-2023.*-x86_64"```
 
 ## Host resource group or License Manager registered AMI example
 

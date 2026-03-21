@@ -12,13 +12,11 @@ resource:
       deletion_window_in_days: 30
       multi_region: true
 
-resource:
   aws_kms_replica_key:
     replica:
       description: Multi-Region replica key
       deletion_window_in_days: 7
-      primary_key_arn: ${aws_kms_key.primary.arn}
-```
+      primary_key_arn: ${aws_kms_key.primary.arn}```
 
 ## Terraform AWS Provider v6 (and above)
 
@@ -31,13 +29,11 @@ resource:
       deletion_window_in_days: 30
       multi_region: true
 
-resource:
   aws_kms_replica_key:
     replica:
       description: Multi-Region replica key
       deletion_window_in_days: 7
-      primary_key_arn: ${aws_kms_key.primary.arn}
-```
+      primary_key_arn: ${aws_kms_key.primary.arn}```
 
 ## Argument Reference
 

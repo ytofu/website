@@ -17,13 +17,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    example:
-      name: cloudfront-realtime-log-config-example
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-data:
   aws_iam_policy_document:
     example:
       statement:
@@ -37,13 +30,17 @@ data:
           - ${aws_kinesis_stream.example.arn}
 
 resource:
+  aws_iam_role:
+    example:
+      name: cloudfront-realtime-log-config-example
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
   aws_iam_role_policy:
     example:
       name: cloudfront-realtime-log-config-example
       role: ${aws_iam_role.example.id}
       policy: ${data.aws_iam_policy_document.example.json}
 
-resource:
   aws_cloudfront_realtime_log_config:
     example:
       name: example
@@ -57,8 +54,7 @@ resource:
           role_arn: ${aws_iam_role.example.arn}
           stream_arn: ${aws_kinesis_stream.example.arn}
       depends_on: 
-        - ${aws_iam_role_policy.example}
-```
+        - ${aws_iam_role_policy.example}```
 
 ## Argument Reference
 

@@ -12,14 +12,11 @@ resource:
       target_id: ${aws_instance.test.id}
       port: 80
 
-resource:
   aws_lb_target_group:
     test:
 
-resource:
   aws_instance:
-    test:
-```
+    test:```
 
 ## Lambda Target
 
@@ -33,24 +30,20 @@ resource:
       principal: elasticloadbalancing.amazonaws.com
       source_arn: ${aws_lb_target_group.test.arn}
 
-resource:
   aws_lb_target_group:
     test:
       name: test
       target_type: lambda
 
-resource:
   aws_lambda_function:
     test:
 
-resource:
   aws_lb_target_group_attachment:
     test:
       target_group_arn: ${aws_lb_target_group.test.arn}
       target_id: ${aws_lambda_function.test.arn}
       depends_on: 
-        - ${aws_lambda_permission.with_lb}
-```
+        - ${aws_lambda_permission.with_lb}```
 
 ## Target using QUIC
 
@@ -62,7 +55,6 @@ resource:
       port: 443
       protocol: QUIC
 
-resource:
   aws_lb_target_group_attachment:
     test:
       target_group_arn: ${aws_lb_target_group.test.arn}
@@ -70,10 +62,8 @@ resource:
       port: 443
       quic_server_id: 0x1a2b3c4d5e6f7a8b
 
-resource:
   aws_instance:
-    test:
-```
+    test:```
 
 ## Registering Multiple Targets
 
@@ -82,17 +72,14 @@ resource:
   aws_instance:
     example:
 
-resource:
   aws_lb_target_group:
     example:
 
-resource:
   aws_lb_target_group_attachment:
     example:
       target_group_arn: ${aws_lb_target_group.example.arn}
       target_id: example-id
-      port: 80
-```
+      port: 80```
 
 ## Argument Reference
 

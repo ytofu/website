@@ -10,7 +10,6 @@ resource:
     default:
       name: tf-pipeline-default
 
-resource:
   aws_datapipeline_pipeline_definition:
     example:
       pipeline_id: ${aws_datapipeline_pipeline.default.id}
@@ -49,8 +48,7 @@ resource:
           string_value: Default
         field:
           key: schedule
-          string_value: Schedule
-```
+          string_value: Schedule```
 
 ## Argument Reference
 

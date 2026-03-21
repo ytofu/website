@@ -28,7 +28,6 @@ resource:
         endpoint_type: REGIONAL
         security_policy: TLS_1_2
 
-resource:
   aws_route53_record:
     example:
       name: ${aws_apigatewayv2_domain_name.example.domain_name}
@@ -37,8 +36,7 @@ resource:
       alias:
         name: ${aws_apigatewayv2_domain_name.example.domain_name_configuration[0].target_domain_name}
         zone_id: ${aws_apigatewayv2_domain_name.example.domain_name_configuration[0].hosted_zone_id}
-        evaluate_target_health: false
-```
+        evaluate_target_health: false```
 
 ## Argument Reference
 

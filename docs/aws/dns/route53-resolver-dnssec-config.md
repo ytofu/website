@@ -12,11 +12,9 @@ resource:
       enable_dns_support: true
       enable_dns_hostnames: true
 
-resource:
   aws_route53_resolver_dnssec_config:
     example:
-      resource_id: ${aws_vpc.example.id}
-```
+      resource_id: ${aws_vpc.example.id}```
 
 ## Argument Reference
 

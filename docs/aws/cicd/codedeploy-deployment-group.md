@@ -23,23 +23,19 @@ resource:
       name: example-role
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
 
-resource:
   aws_iam_role_policy_attachment:
     AWSCodeDeployRole:
       policy_arn: "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"
       role: ${aws_iam_role.example.name}
 
-resource:
   aws_codedeploy_app:
     example:
       name: example-app
 
-resource:
   aws_sns_topic:
     example:
       name: example-topic
 
-resource:
   aws_codedeploy_deployment_group:
     example:
       app_name: ${aws_codedeploy_app.example.name}
@@ -67,8 +63,7 @@ resource:
         alarms: 
           - my-alarm-name
         enabled: true
-      outdated_instances_strategy: UPDATE
-```
+      outdated_instances_strategy: UPDATE```
 
 ## Blue Green Deployments with ECS
 
@@ -79,7 +74,6 @@ resource:
       compute_platform: ECS
       name: example
 
-resource:
   aws_codedeploy_deployment_group:
     example:
       app_name: ${aws_codedeploy_app.example.name}
@@ -110,8 +104,7 @@ resource:
           target_group:
             name: ${aws_lb_target_group.blue.name}
           target_group:
-            name: ${aws_lb_target_group.green.name}
-```
+            name: ${aws_lb_target_group.green.name}```
 
 ## Blue Green Deployments with Servers and Classic ELB
 
@@ -121,7 +114,6 @@ resource:
     example:
       name: example-app
 
-resource:
   aws_codedeploy_deployment_group:
     example:
       app_name: ${aws_codedeploy_app.example.name}
@@ -140,8 +132,7 @@ resource:
         green_fleet_provisioning_option:
           action: DISCOVER_EXISTING
         terminate_blue_instances_on_deployment_success:
-          action: KEEP_ALIVE
-```
+          action: KEEP_ALIVE```
 
 ## Argument Reference
 

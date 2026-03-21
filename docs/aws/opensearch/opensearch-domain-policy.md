@@ -11,6 +11,11 @@ resource:
       domain_name: tf-test
       engine_version: OpenSearch_1.1
 
+  aws_opensearch_domain_policy:
+    main:
+      domain_name: ${aws_opensearch_domain.example.domain_name}
+      access_policies: ${data.aws_iam_policy_document.main.json}
+
 data:
   aws_iam_policy_document:
     main:
@@ -27,14 +32,7 @@ data:
         condition:
           test: IpAddress
           values: 
-            - 127.0.0.1/32
-
-resource:
-  aws_opensearch_domain_policy:
-    main:
-      domain_name: ${aws_opensearch_domain.example.domain_name}
-      access_policies: ${data.aws_iam_policy_document.main.json}
-```
+            - 127.0.0.1/32```
 
 ## Argument Reference
 

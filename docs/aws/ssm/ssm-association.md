@@ -81,7 +81,6 @@ resource:
         Environment: demo
         Purpose: maintenance
 
-resource:
   aws_instance:
     web_server_1:
       ami: ${data.aws_ami.amazon_linux.id}
@@ -97,7 +96,6 @@ resource:
         systemctl enable amazon-ssm-agent
         systemctl start amazon-ssm-agent
 
-resource:
   aws_instance:
     web_server_2:
       ami: ${data.aws_ami.amazon_linux.id}
@@ -111,8 +109,7 @@ resource:
         yum update -y
         yum install -y amazon-ssm-agent
         systemctl enable amazon-ssm-agent
-        systemctl start amazon-ssm-agent
-```
+        systemctl start amazon-ssm-agent```
 
 ## Create an association with multiple instances with their values matching their tags
 
@@ -130,7 +127,6 @@ resource:
         restartServices: true
       schedule_expression: "cron(0 3 ? * SUN *)" # Run every Sunday at 3 AM
 
-resource:
   aws_instance:
     web_server:
       ami: ${data.aws_ami.amazon_linux.id}
@@ -155,7 +151,6 @@ resource:
         Environment: production
         Owner: team
 
-resource:
   aws_instance:
     database_server:
       ami: ${data.aws_ami.amazon_linux.id}
@@ -177,8 +172,7 @@ resource:
         Name: "example-database-server"
         Role: Database
         Environment: production
-        Owner: team
-```
+        Owner: team```
 
 ## Argument Reference
 

@@ -10,6 +10,11 @@ resource:
     example:
       name: example-repo
 
+  aws_ecr_repository_policy:
+    example:
+      repository: ${aws_ecr_repository.example.name}
+      policy: ${data.aws_iam_policy_document.example.json}
+
 data:
   aws_iam_policy_document:
     example:
@@ -34,14 +39,7 @@ data:
           - "ecr:DeleteRepository"
           - "ecr:BatchDeleteImage"
           - "ecr:SetRepositoryPolicy"
-          - "ecr:DeleteRepositoryPolicy"
-
-resource:
-  aws_ecr_repository_policy:
-    example:
-      repository: ${aws_ecr_repository.example.name}
-      policy: ${data.aws_iam_policy_document.example.json}
-```
+          - "ecr:DeleteRepositoryPolicy"```
 
 ## Argument Reference
 

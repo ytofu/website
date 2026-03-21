@@ -13,11 +13,9 @@ resource:
       protocol: HTTP
       vpc_id: ${aws_vpc.main.id}
 
-resource:
   aws_vpc:
     main:
-      cidr_block: 10.0.0.0/16
-```
+      cidr_block: 10.0.0.0/16```
 
 ## IP Target Group
 
@@ -31,11 +29,9 @@ resource:
       target_type: ip
       vpc_id: ${aws_vpc.main.id}
 
-resource:
   aws_vpc:
     main:
-      cidr_block: 10.0.0.0/16
-```
+      cidr_block: 10.0.0.0/16```
 
 ## Lambda Target Group
 

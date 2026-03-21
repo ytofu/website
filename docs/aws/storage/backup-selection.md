@@ -23,17 +23,14 @@ resource:
       name: example
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
 
-resource:
   aws_iam_role_policy_attachment:
     example:
       policy_arn: "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
       role: ${aws_iam_role.example.name}
 
-resource:
   aws_backup_selection:
     example:
-      iam_role_arn: ${aws_iam_role.example.arn}
-```
+      iam_role_arn: ${aws_iam_role.example.arn}```
 
 ## Selecting Backups By Tag
 

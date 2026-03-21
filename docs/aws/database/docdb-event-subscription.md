@@ -17,12 +17,10 @@ resource:
       master_password: mustbeeightcharaters
       skip_final_snapshot: true
 
-resource:
   aws_sns_topic:
     example:
       name: example-events
 
-resource:
   aws_docdb_event_subscription:
     example:
       name: example
@@ -33,8 +31,7 @@ resource:
       source_type: db-cluster
       source_ids: 
         - ${aws_docdb_cluster.example.id}
-      sns_topic_arn: ${aws_sns_topic.example.arn}
-```
+      sns_topic_arn: ${aws_sns_topic.example.arn}```
 
 ## Argument Reference
 

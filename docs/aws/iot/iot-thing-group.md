@@ -10,7 +10,6 @@ resource:
     parent:
       name: parent
 
-resource:
   aws_iot_thing_group:
     example:
       name: example
@@ -22,8 +21,7 @@ resource:
             Two: TwoTwo
         description: This is my thing group
       tags:
-        terraform: true
-```
+        terraform: true```
 
 ## Argument Reference
 

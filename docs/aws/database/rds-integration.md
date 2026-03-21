@@ -10,7 +10,6 @@ resource:
     example:
       namespace_name: redshift-example
 
-resource:
   aws_redshiftserverless_workgroup:
     example:
       namespace_name: ${aws_redshiftserverless_namespace.example.namespace_name}
@@ -25,7 +24,6 @@ resource:
         parameter_key: enable_case_sensitive_identifier
         parameter_value: true
 
-resource:
   aws_rds_integration:
     example:
       integration_name: example
@@ -33,8 +31,7 @@ resource:
       target_arn: ${aws_redshiftserverless_namespace.example.arn}
       lifecycle:
         ignore_changes:
-          - kms_key_id
-```
+          - kms_key_id```
 
 ## Use own KMS key
 
@@ -43,13 +40,6 @@ data:
   aws_caller_identity:
     current:
 
-resource:
-  aws_kms_key:
-    example:
-      deletion_window_in_days: 10
-      policy: ${data.aws_iam_policy_document.key_policy.json}
-
-data:
   aws_iam_policy_document:
     key_policy:
       statement:
@@ -72,14 +62,18 @@ data:
             - redshift.amazonaws.com
 
 resource:
+  aws_kms_key:
+    example:
+      deletion_window_in_days: 10
+      policy: ${data.aws_iam_policy_document.key_policy.json}
+
   aws_rds_integration:
     example:
       integration_name: example
       source_arn: ${aws_rds_cluster.example.arn}
       target_arn: ${aws_redshiftserverless_namespace.example.arn}
       kms_key_id: ${aws_kms_key.example.arn}
-      additional_encryption_context: 
-```
+      additional_encryption_context: ```
 
 ## Argument Reference
 

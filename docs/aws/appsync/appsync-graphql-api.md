@@ -59,15 +59,13 @@ resource:
       lambda_authorizer_config:
         authorizer_uri: "arn:aws:lambda:us-east-1:123456789012:function:custom_lambda_authorizer"
 
-resource:
   aws_lambda_permission:
     appsync_lambda_authorizer:
       statement_id: appsync_lambda_authorizer
       action: "lambda:InvokeFunction"
       function_name: custom_lambda_authorizer
       principal: appsync.amazonaws.com
-      source_arn: ${aws_appsync_graphql_api.example.arn}
-```
+      source_arn: ${aws_appsync_graphql_api.example.arn}```
 
 ## With Multiple Authentication Providers
 
@@ -119,19 +117,16 @@ resource:
       name: example
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
 
-resource:
   aws_iam_role_policy_attachment:
     example:
       policy_arn: "arn:aws:iam::aws:policy/service-role/AWSAppSyncPushToCloudWatchLogs"
       role: ${aws_iam_role.example.name}
 
-resource:
   aws_appsync_graphql_api:
     example:
       log_config:
         cloudwatch_logs_role_arn: ${aws_iam_role.example.arn}
-        field_log_level: ERROR
-```
+        field_log_level: ERROR```
 
 ## Associate Web ACL (v2)
 
@@ -142,13 +137,11 @@ resource:
       authentication_type: API_KEY
       name: example
 
-resource:
   aws_wafv2_web_acl_association:
     example:
       resource_arn: ${aws_appsync_graphql_api.example.arn}
       web_acl_arn: ${aws_wafv2_web_acl.example.arn}
 
-resource:
   aws_wafv2_web_acl:
     example:
       name: managed-rule-example
@@ -172,8 +165,7 @@ resource:
           visibility_config:
             cloudwatch_metrics_enabled: false
             metric_name: friendly-metric-name
-            sampled_requests_enabled: false
-```
+            sampled_requests_enabled: false```
 
 ## GraphQL run complexity, query depth, and introspection
 

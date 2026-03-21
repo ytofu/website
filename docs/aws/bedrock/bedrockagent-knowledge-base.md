@@ -89,7 +89,6 @@ resource:
     example:
       vector_bucket_name: example-bucket
 
-resource:
   aws_s3vectors_index:
     example:
       index_name: example-index
@@ -98,7 +97,6 @@ resource:
       dimension: 256
       distance_metric: euclidean
 
-resource:
   aws_bedrockagent_knowledge_base:
     example:
       name: example-s3vectors-kb
@@ -114,8 +112,7 @@ resource:
       storage_configuration:
         type: S3_VECTORS
         s3_vectors_configuration:
-          index_arn: ${aws_s3vectors_index.example.index_arn}
-```
+          index_arn: ${aws_s3vectors_index.example.index_arn}```
 
 ## Argument Reference
 

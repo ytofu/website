@@ -10,7 +10,6 @@ resource:
     example:
       name: example
 
-resource:
   aws_vpclattice_listener:
     example:
       name: example
@@ -18,8 +17,7 @@ resource:
       service_identifier: ${aws_vpclattice_service.example.id}
       default_action:
         fixed_response:
-          status_code: 404
-```
+          status_code: 404```
 
 ## Forward action
 
@@ -29,7 +27,6 @@ resource:
     example:
       name: example
 
-resource:
   aws_vpclattice_target_group:
     example:
       name: example-target-group-1
@@ -39,7 +36,6 @@ resource:
         protocol: HTTP
         vpc_identifier: ${aws_vpc.example.id}
 
-resource:
   aws_vpclattice_listener:
     example:
       name: example
@@ -48,8 +44,7 @@ resource:
       default_action:
         forward:
           target_groups:
-            target_group_identifier: ${aws_vpclattice_target_group.example.id}
-```
+            target_group_identifier: ${aws_vpclattice_target_group.example.id}```
 
 ## Forward action with weighted target groups
 
@@ -59,7 +54,6 @@ resource:
     example:
       name: example
 
-resource:
   aws_vpclattice_target_group:
     example1:
       name: example-target-group-1
@@ -69,7 +63,6 @@ resource:
         protocol: HTTP
         vpc_identifier: ${aws_vpc.example.id}
 
-resource:
   aws_vpclattice_target_group:
     example2:
       name: example-target-group-2
@@ -79,7 +72,6 @@ resource:
         protocol: HTTP
         vpc_identifier: ${aws_vpc.example.id}
 
-resource:
   aws_vpclattice_listener:
     example:
       name: example
@@ -92,8 +84,7 @@ resource:
             weight: 80
           target_groups:
             target_group_identifier: ${aws_vpclattice_target_group.example2.id}
-            weight: 20
-```
+            weight: 20```
 
 ## Argument Reference
 

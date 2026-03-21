@@ -11,14 +11,6 @@ resource:
       name: example_domain
       domain_execution_role: ${aws_iam_role.domain_execution_role.arn}
 
-data:
-  aws_datazone_environment_blueprint:
-    default_data_lake:
-      domain_id: ${aws_datazone_domain.example.id}
-      name: DefaultDataLake
-      managed: true
-
-resource:
   aws_datazone_environment_blueprint_configuration:
     example:
       domain_id: ${aws_datazone_domain.example.id}
@@ -28,7 +20,13 @@ resource:
       regional_parameters:
         us-east-1: 
           S3Location: "s3://my-amazon-datazone-bucket"
-```
+
+data:
+  aws_datazone_environment_blueprint:
+    default_data_lake:
+      domain_id: ${aws_datazone_domain.example.id}
+      name: DefaultDataLake
+      managed: true```
 
 ## Argument Reference
 

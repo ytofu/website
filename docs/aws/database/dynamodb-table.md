@@ -141,11 +141,9 @@ data:
   aws_region:
     current:
 
-data:
   aws_region:
     alternate:
 
-data:
   aws_region:
     third:
 
@@ -169,13 +167,11 @@ resource:
         Architect: Eleanor
         Zone: SW
 
-resource:
   aws_dynamodb_tag:
     example:
       resource_arn: replaced-value
       key: Architect
-      value: Gigi
-```
+      value: Gigi```
 
 ## Argument Reference
 

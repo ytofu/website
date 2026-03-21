@@ -47,20 +47,17 @@ resource:
     example:
       cidr_block: 10.0.0.0/16
 
-resource:
   aws_subnet:
     example:
       cidr_block: 10.0.1.0/24
       availability_zone: ${data.aws_availability_zones.available.names[count.index]}
       vpc_id: ${aws_vpc.example.id}
 
-resource:
   aws_db_proxy:
     example:
       name: example
       vpc_subnet_ids: 
-        - ${aws_subnet.example.id}
-```
+        - ${aws_subnet.example.id}```
 
 ## Argument Reference
 

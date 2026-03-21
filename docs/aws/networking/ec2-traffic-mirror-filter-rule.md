@@ -13,7 +13,6 @@ resource:
       network_services: 
         - amazon-dns
 
-resource:
   aws_ec2_traffic_mirror_filter_rule:
     ruleout:
       description: test rule
@@ -24,7 +23,6 @@ resource:
       rule_action: accept
       traffic_direction: egress
 
-resource:
   aws_ec2_traffic_mirror_filter_rule:
     rulein:
       description: test rule
@@ -40,8 +38,7 @@ resource:
         to_port: 53
       source_port_range:
         from_port: 0
-        to_port: 10
-```
+        to_port: 10```
 
 ## Argument Reference
 

@@ -153,7 +153,6 @@ resource:
         target_on_demand_capacity: 2
         target_spot_capacity: 2
 
-resource:
   aws_emr_instance_fleet:
     task:
       cluster_id: ${aws_emr_cluster.example.id}
@@ -181,8 +180,7 @@ resource:
           timeout_duration_minutes: 10
       name: task fleet
       target_on_demand_capacity: 1
-      target_spot_capacity: 1
-```
+      target_spot_capacity: 1```
 
 ## Enable Debug Logging
 
@@ -210,7 +208,6 @@ resource:
     example:
       map_public_ip_on_launch: true
 
-resource:
   aws_emr_cluster:
     example:
       release_label: emr-5.24.1
@@ -219,8 +216,7 @@ resource:
         subnet_id: ${aws_subnet.example.id}
       master_instance_group:
         instance_count: 3
-      core_instance_group:
-```
+      core_instance_group:```
 
 ## Bootable Cluster
 
@@ -282,7 +278,6 @@ resource:
         ]
       service_role: ${aws_iam_role.iam_emr_service_role.arn}
 
-resource:
   aws_security_group:
     allow_access:
       name: allow_access
@@ -309,7 +304,6 @@ resource:
       tags:
         name: emr_test
 
-resource:
   aws_vpc:
     main:
       cidr_block: 168.31.0.0/16
@@ -317,7 +311,6 @@ resource:
       tags:
         name: emr_test
 
-resource:
   aws_subnet:
     main:
       vpc_id: ${aws_vpc.main.id}
@@ -325,12 +318,10 @@ resource:
       tags:
         name: emr_test
 
-resource:
   aws_internet_gateway:
     gw:
       vpc_id: ${aws_vpc.main.id}
 
-resource:
   aws_route_table:
     r:
       vpc_id: ${aws_vpc.main.id}
@@ -338,11 +329,37 @@ resource:
         cidr_block: 0.0.0.0/0
         gateway_id: ${aws_internet_gateway.gw.id}
 
-resource:
   aws_main_route_table_association:
     a:
       vpc_id: ${aws_vpc.main.id}
       route_table_id: ${aws_route_table.r.id}
+
+  aws_iam_role:
+    iam_emr_service_role:
+      name: iam_emr_service_role
+      assume_role_policy: ${data.aws_iam_policy_document.emr_assume_role.json}
+
+  aws_iam_role_policy:
+    iam_emr_service_policy:
+      name: iam_emr_service_policy
+      role: ${aws_iam_role.iam_emr_service_role.id}
+      policy: ${data.aws_iam_policy_document.iam_emr_service_policy.json}
+
+  aws_iam_role:
+    iam_emr_profile_role:
+      name: iam_emr_profile_role
+      assume_role_policy: ${data.aws_iam_policy_document.ec2_assume_role.json}
+
+  aws_iam_instance_profile:
+    emr_profile:
+      name: emr_profile
+      role: ${aws_iam_role.iam_emr_profile_role.name}
+
+  aws_iam_role_policy:
+    iam_emr_profile_policy:
+      name: iam_emr_profile_policy
+      role: ${aws_iam_role.iam_emr_profile_role.id}
+      policy: ${data.aws_iam_policy_document.iam_emr_profile_policy.json}
 
 data:
   aws_iam_policy_document:
@@ -355,13 +372,6 @@ data:
             - elasticmapreduce.amazonaws.com
         actions: "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    iam_emr_service_role:
-      name: iam_emr_service_role
-      assume_role_policy: ${data.aws_iam_policy_document.emr_assume_role.json}
-
-data:
   aws_iam_policy_document:
     iam_emr_service_policy:
       statement:
@@ -423,14 +433,6 @@ data:
         resources: 
           - "*"
 
-resource:
-  aws_iam_role_policy:
-    iam_emr_service_policy:
-      name: iam_emr_service_policy
-      role: ${aws_iam_role.iam_emr_service_role.id}
-      policy: ${data.aws_iam_policy_document.iam_emr_service_policy.json}
-
-data:
   aws_iam_policy_document:
     ec2_assume_role:
       statement:
@@ -441,19 +443,6 @@ data:
             - ec2.amazonaws.com
         actions: "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    iam_emr_profile_role:
-      name: iam_emr_profile_role
-      assume_role_policy: ${data.aws_iam_policy_document.ec2_assume_role.json}
-
-resource:
-  aws_iam_instance_profile:
-    emr_profile:
-      name: emr_profile
-      role: ${aws_iam_role.iam_emr_profile_role.name}
-
-data:
   aws_iam_policy_document:
     iam_emr_profile_policy:
       statement:
@@ -482,15 +471,7 @@ data:
           - "sns:*"
           - "sqs:*"
         resources: 
-          - "*"
-
-resource:
-  aws_iam_role_policy:
-    iam_emr_profile_policy:
-      name: iam_emr_profile_policy
-      role: ${aws_iam_role.iam_emr_profile_role.id}
-      policy: ${data.aws_iam_policy_document.iam_emr_profile_policy.json}
-```
+          - "*"```
 
 ## Argument Reference
 

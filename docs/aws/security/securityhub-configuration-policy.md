@@ -10,7 +10,6 @@ resource:
     example:
       linking_mode: ALL_REGIONS
 
-resource:
   aws_securityhub_organization_configuration:
     example:
       auto_enable: false
@@ -20,7 +19,6 @@ resource:
       depends_on: 
         - ${aws_securityhub_finding_aggregator.example}
 
-resource:
   aws_securityhub_configuration_policy:
     example:
       name: Example
@@ -33,8 +31,7 @@ resource:
         security_controls_configuration:
           disabled_control_identifiers: []
       depends_on: 
-        - ${aws_securityhub_organization_configuration.example}
-```
+        - ${aws_securityhub_organization_configuration.example}```
 
 ## Disabled Policy
 

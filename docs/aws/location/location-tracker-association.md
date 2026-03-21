@@ -10,17 +10,14 @@ resource:
     example:
       collection_name: example
 
-resource:
   aws_location_tracker:
     example:
       tracker_name: example
 
-resource:
   aws_location_tracker_association:
     example:
       consumer_arn: ${aws_location_geofence_collection.example.collection_arn}
-      tracker_name: ${aws_location_tracker.example.tracker_name}
-```
+      tracker_name: ${aws_location_tracker.example.tracker_name}```
 
 ## Argument Reference
 

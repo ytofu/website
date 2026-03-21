@@ -14,13 +14,11 @@ resource:
       tags:
         foo: bar
 
-resource:
   aws_lightsail_lb_stickiness_policy:
     example:
       lb_name: ${aws_lightsail_lb.example.name}
       cookie_duration: 900
-      enabled: true
-```
+      enabled: true```
 
 ## Argument Reference
 

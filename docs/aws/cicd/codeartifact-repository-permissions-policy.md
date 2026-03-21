@@ -10,17 +10,21 @@ resource:
     example:
       description: domain key
 
-resource:
   aws_codeartifact_domain:
     example:
       domain: example
       encryption_key: ${aws_kms_key.example.arn}
 
-resource:
   aws_codeartifact_repository:
     example:
       repository: example
       domain: ${aws_codeartifact_domain.example.domain}
+
+  aws_codeartifact_repository_permissions_policy:
+    example:
+      repository: ${aws_codeartifact_repository.example.repository}
+      domain: ${aws_codeartifact_domain.example.domain}
+      policy_document: ${data.aws_iam_policy_document.example.json}
 
 data:
   aws_iam_policy_document:
@@ -34,15 +38,7 @@ data:
         actions: 
           - "codeartifact:ReadFromRepository"
         resources: 
-          - ${aws_codeartifact_repository.example.arn}
-
-resource:
-  aws_codeartifact_repository_permissions_policy:
-    example:
-      repository: ${aws_codeartifact_repository.example.repository}
-      domain: ${aws_codeartifact_domain.example.domain}
-      policy_document: ${data.aws_iam_policy_document.example.json}
-```
+          - ${aws_codeartifact_repository.example.arn}```
 
 ## Argument Reference
 

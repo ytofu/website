@@ -25,7 +25,6 @@ resource:
       git_config:
         repository_url: "https://github.com/hashicorp/terraform-provider-aws.git"
 
-resource:
   aws_sagemaker_notebook_instance:
     ni:
       name: my-notebook-instance
@@ -33,8 +32,7 @@ resource:
       instance_type: ml.t2.medium
       default_code_repository: ${aws_sagemaker_code_repository.example.code_repository_name}
       tags:
-        Name: foo
-```
+        Name: foo```
 
 ## Argument Reference
 

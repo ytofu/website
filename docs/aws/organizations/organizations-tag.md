@@ -18,13 +18,11 @@ resource:
         ignore_changes: 
           - tags
 
-resource:
   aws_organizations_tag:
     example:
       resource_id: ${aws_organizations_organizational_unit.example.id}
       key: ExampleKey
-      value: ExampleValue
-```
+      value: ExampleValue```
 
 ## Argument Reference
 

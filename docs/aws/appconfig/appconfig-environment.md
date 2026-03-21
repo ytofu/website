@@ -17,14 +17,12 @@ resource:
       tags:
         Type: AppConfig Environment
 
-resource:
   aws_appconfig_application:
     example:
       name: example-application-tf
       description: Example AppConfig Application
       tags:
-        Type: AppConfig Application
-```
+        Type: AppConfig Application```
 
 ## Argument Reference
 

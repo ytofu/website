@@ -47,7 +47,6 @@ resource:
       instance_type: m1.small
       key_name: some-key
 
-resource:
   aws_spot_fleet_request:
     foo:
       iam_fleet_role: "arn:aws:iam::12345678:role/spot-fleet"
@@ -59,8 +58,7 @@ resource:
           id: ${aws_launch_template.foo.id}
           version: ${aws_launch_template.foo.latest_version}
       depends_on: 
-        - ${aws_iam_policy_attachment.test-attach}
-```
+        - ${aws_iam_policy_attachment.test-attach}```
 
 ## Using multiple launch specifications
 
@@ -103,7 +101,6 @@ resource:
       instance_type: m1.small
       key_name: some-key
 
-resource:
   aws_spot_fleet_request:
     foo:
       iam_fleet_role: "arn:aws:iam::12345678:role/spot-fleet"
@@ -121,8 +118,7 @@ resource:
         overrides:
           subnet_id: ${data.aws_subnets.example.ids[2]}
       depends_on: 
-        - ${aws_iam_policy_attachment.test-attach}
-```
+        - ${aws_iam_policy_attachment.test-attach}```
 
 ## Argument Reference
 

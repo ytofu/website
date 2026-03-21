@@ -22,7 +22,6 @@ resource:
       ip_address: 172.0.0.1
       type: ipsec.1
 
-resource:
   aws_vpn_connection:
     test:
       customer_gateway_id: ${aws_customer_gateway.test.id}
@@ -30,17 +29,27 @@ resource:
       tags:
         Name: test
 
-resource:
   aws_networkmanager_global_network:
     test:
       tags:
         Name: test
 
-resource:
   awscc_networkmanager_core_network:
     test:
       global_network_id: ${aws_networkmanager_global_network.test.id}
       policy_document: example-value
+
+  aws_networkmanager_site_to_site_vpn_attachment:
+    test:
+      core_network_id: ${awscc_networkmanager_core_network.test.id}
+      vpn_connection_arn: ${aws_vpn_connection.test.arn}
+      tags:
+        segment: shared
+
+  aws_networkmanager_attachment_accepter:
+    test:
+      attachment_id: ${aws_networkmanager_site_to_site_vpn_attachment.test.id}
+      attachment_type: ${aws_networkmanager_site_to_site_vpn_attachment.test.attachment_type}
 
 data:
   aws_networkmanager_core_network_policy_document:
@@ -72,22 +81,7 @@ data:
           value: shared
         action:
           association_method: constant
-          segment: shared
-
-resource:
-  aws_networkmanager_site_to_site_vpn_attachment:
-    test:
-      core_network_id: ${awscc_networkmanager_core_network.test.id}
-      vpn_connection_arn: ${aws_vpn_connection.test.arn}
-      tags:
-        segment: shared
-
-resource:
-  aws_networkmanager_attachment_accepter:
-    test:
-      attachment_id: ${aws_networkmanager_site_to_site_vpn_attachment.test.id}
-      attachment_type: ${aws_networkmanager_site_to_site_vpn_attachment.test.attachment_type}
-```
+          segment: shared```
 
 ## Argument Reference
 

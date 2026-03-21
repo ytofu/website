@@ -46,7 +46,6 @@ resource:
         ]
         }
 
-resource:
   aws_bedrock_model_invocation_logging_configuration:
     example:
       depends_on:
@@ -58,8 +57,7 @@ resource:
         video_data_delivery_enabled: true
         s3_config:
           bucket_name: ${aws_s3_bucket.example.id}
-          key_prefix: bedrock
-```
+          key_prefix: bedrock```
 
 ## Argument Reference
 

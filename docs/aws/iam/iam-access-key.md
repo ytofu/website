@@ -11,11 +11,16 @@ resource:
       user: ${aws_iam_user.lb.name}
       pgp_key: "keybase:some_person_that_exists"
 
-resource:
   aws_iam_user:
     lb:
       name: loadbalancer
       path: /system/
+
+  aws_iam_user_policy:
+    lb_ro:
+      name: test
+      user: ${aws_iam_user.lb.name}
+      policy: ${data.aws_iam_policy_document.lb_ro.json}
 
 data:
   aws_iam_policy_document:
@@ -27,17 +32,9 @@ data:
         resources: 
           - "*"
 
-resource:
-  aws_iam_user_policy:
-    lb_ro:
-      name: test
-      user: ${aws_iam_user.lb.name}
-      policy: ${data.aws_iam_policy_document.lb_ro.json}
-
 output:
   secret:
-    value: ${aws_iam_access_key.lb.encrypted_secret}
-```
+    value: ${aws_iam_access_key.lb.encrypted_secret}```
 
 ## Argument Reference
 

@@ -10,13 +10,11 @@ resource:
     example:
       bucket: example
 
-resource:
   aws_s3_bucket_ownership_controls:
     example:
       bucket: ${aws_s3_bucket.example.id}
       rule:
-        object_ownership: BucketOwnerPreferred
-```
+        object_ownership: BucketOwnerPreferred```
 
 ## Argument Reference
 

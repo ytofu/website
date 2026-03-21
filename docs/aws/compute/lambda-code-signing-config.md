@@ -13,7 +13,6 @@ resource:
       tags:
         Environment: production
 
-resource:
   aws_signer_signing_profile:
     dev:
       platform_id: AWSLambda-SHA384-ECDSA
@@ -21,7 +20,6 @@ resource:
       tags:
         Environment: development
 
-resource:
   aws_lambda_code_signing_config:
     example:
       description: Code signing configuration for Lambda functions
@@ -33,8 +31,7 @@ resource:
         untrusted_artifact_on_deployment: "Enforce" # Block deployments that fail code signing validation
       tags:
         Environment: production
-        Purpose: code-signing
-```
+        Purpose: code-signing```
 
 ## Warning Only Configuration
 
@@ -69,7 +66,6 @@ resource:
         Environment: production
         Security: strict
 
-resource:
   aws_lambda_code_signing_config:
     dev:
       description: Development code signing configuration with warnings
@@ -81,8 +77,7 @@ resource:
         untrusted_artifact_on_deployment: Warn
       tags:
         Environment: development
-        Security: flexible
-```
+        Security: flexible```
 
 ## Argument Reference
 

@@ -12,41 +12,11 @@ resource:
       tags:
         Name: My bucket
 
-data:
-  aws_iam_policy_document:
-    origin_bucket_policy:
-      statement:
-        sid: AllowCloudFrontServicePrincipalReadWrite
-        effect: Allow
-        principals:
-          type: Service
-          identifiers: 
-            - cloudfront.amazonaws.com
-        actions:
-          - "s3:GetObject"
-          - "s3:PutObject"
-        resources:
-          - "${aws_s3_bucket.b.arn}/*"
-        condition:
-          test: StringEquals
-          values: 
-            - ${aws_cloudfront_distribution.s3_distribution.arn}
-
-resource:
   aws_s3_bucket_policy:
     b:
       bucket: ${aws_s3_bucket.b.bucket}
       policy: ${data.aws_iam_policy_document.origin_bucket_policy.json}
 
-data:
-  aws_acm_certificate:
-    my_domain:
-      region: us-east-1
-      domain: "*.example-my_domain"
-      statuses: 
-        - ISSUED
-
-resource:
   aws_cloudfront_origin_access_control:
     default:
       name: default-oac
@@ -54,7 +24,6 @@ resource:
       signing_behavior: always
       signing_protocol: sigv4
 
-resource:
   aws_cloudfront_distribution:
     s3_distribution:
       origin:
@@ -145,12 +114,6 @@ resource:
         acm_certificate_arn: ${data.aws_acm_certificate.my_domain.arn}
         ssl_support_method: sni-only
 
-data:
-  aws_route53_zone:
-    my_domain:
-      name: example-my_domain
-
-resource:
   aws_route53_record:
     cloudfront:
       zone_id: ${data.aws_route53_zone.my_domain.zone_id}
@@ -160,7 +123,37 @@ resource:
         name: ${aws_cloudfront_distribution.s3_distribution.domain_name}
         zone_id: ${aws_cloudfront_distribution.s3_distribution.hosted_zone_id}
         evaluate_target_health: false
-```
+
+data:
+  aws_iam_policy_document:
+    origin_bucket_policy:
+      statement:
+        sid: AllowCloudFrontServicePrincipalReadWrite
+        effect: Allow
+        principals:
+          type: Service
+          identifiers: 
+            - cloudfront.amazonaws.com
+        actions:
+          - "s3:GetObject"
+          - "s3:PutObject"
+        resources:
+          - "${aws_s3_bucket.b.arn}/*"
+        condition:
+          test: StringEquals
+          values: 
+            - ${aws_cloudfront_distribution.s3_distribution.arn}
+
+  aws_acm_certificate:
+    my_domain:
+      region: us-east-1
+      domain: "*.example-my_domain"
+      statuses: 
+        - ISSUED
+
+  aws_route53_zone:
+    my_domain:
+      name: example-my_domain```
 
 ## With Failover Routing
 
@@ -239,7 +232,6 @@ resource:
   aws_cloudfront_distribution:
     example:
 
-resource:
   aws_cloudwatch_log_delivery_source:
     example:
       region: us-east-1
@@ -247,13 +239,11 @@ resource:
       log_type: ACCESS_LOGS
       resource_arn: ${aws_cloudfront_distribution.example.arn}
 
-resource:
   aws_s3_bucket:
     example:
       bucket: testbucket
       force_destroy: true
 
-resource:
   aws_cloudwatch_log_delivery_destination:
     example:
       region: us-east-1
@@ -262,15 +252,13 @@ resource:
       delivery_destination_configuration:
         destination_resource_arn: "${aws_s3_bucket.example.arn}/prefix"
 
-resource:
   aws_cloudwatch_log_delivery:
     example:
       region: us-east-1
       delivery_source_name: ${aws_cloudwatch_log_delivery_source.example.name}
       delivery_destination_arn: ${aws_cloudwatch_log_delivery_destination.example.arn}
       s3_delivery_configuration:
-        suffix_path: "/123456678910/{DistributionId}/{yyyy}/{MM}/{dd}/{HH}"
-```
+        suffix_path: "/123456678910/{DistributionId}/{yyyy}/{MM}/{dd}/{HH}"```
 
 ## With V2 logging to Data Firehose
 
@@ -279,14 +267,12 @@ resource:
   aws_cloudfront_distribution:
     example:
 
-resource:
   aws_kinesis_firehose_delivery_stream:
     cloudfront_logs:
       region: us-east-1
       tags:
         LogDeliveryEnabled: true
 
-resource:
   aws_cloudwatch_log_delivery_source:
     example:
       region: us-east-1
@@ -294,7 +280,6 @@ resource:
       log_type: ACCESS_LOGS
       resource_arn: ${aws_cloudfront_distribution.example.arn}
 
-resource:
   aws_cloudwatch_log_delivery_destination:
     example:
       region: us-east-1
@@ -303,13 +288,11 @@ resource:
       delivery_destination_configuration:
         destination_resource_arn: ${aws_kinesis_firehose_delivery_stream.cloudfront_logs.arn}
 
-resource:
   aws_cloudwatch_log_delivery:
     example:
       region: us-east-1
       delivery_source_name: ${aws_cloudwatch_log_delivery_source.example.name}
-      delivery_destination_arn: ${aws_cloudwatch_log_delivery_destination.example.arn}
-```
+      delivery_destination_arn: ${aws_cloudwatch_log_delivery_destination.example.arn}```
 
 ## With Connection Function and Viewer mTLS
 
@@ -319,12 +302,10 @@ resource:
     example:
       name: example-connection-function
 
-resource:
   aws_cloudfront_trust_store:
     example:
       name: example-trust-store
 
-resource:
   aws_cloudfront_distribution:
     example:
       connection_function_association:
@@ -334,8 +315,7 @@ resource:
         trust_store_config:
           trust_store_id: ${aws_cloudfront_trust_store.example.id}
           advertise_trust_store_ca_names: true
-          ignore_certificate_expiry: false
-```
+          ignore_certificate_expiry: false```
 
 ## Argument Reference
 

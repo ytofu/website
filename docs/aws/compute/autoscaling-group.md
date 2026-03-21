@@ -11,7 +11,6 @@ resource:
       name: test
       strategy: cluster
 
-resource:
   aws_autoscaling_group:
     bar:
       name: foobar3-terraform-test
@@ -46,8 +45,7 @@ resource:
       tag:
         key: lorem
         value: ipsum
-        propagate_at_launch: false
-```
+        propagate_at_launch: false```
 
 ## With Latest Version Of Launch Template
 
@@ -59,7 +57,6 @@ resource:
       image_id: ami-1a2b3c
       instance_type: t2.micro
 
-resource:
   aws_autoscaling_group:
     bar:
       availability_zones: 
@@ -69,8 +66,7 @@ resource:
       min_size: 1
       launch_template:
         id: ${aws_launch_template.foobar.id}
-        version: $Latest
-```
+        version: $Latest```
 
 ## Mixed Instances Policy
 
@@ -82,7 +78,6 @@ resource:
       image_id: ${data.aws_ami.example.id}
       instance_type: c5.large
 
-resource:
   aws_autoscaling_group:
     example:
       availability_zones: 
@@ -99,8 +94,7 @@ resource:
             weighted_capacity: 3
           override:
             instance_type: c3.large
-            weighted_capacity: 2
-```
+            weighted_capacity: 2```
 
 ## Mixed Instances Policy with Spot Instances and Capacity Rebalance
 
@@ -112,7 +106,6 @@ resource:
       image_id: ${data.aws_ami.example.id}
       instance_type: c5.large
 
-resource:
   aws_autoscaling_group:
     example:
       capacity_rebalance: true
@@ -135,8 +128,7 @@ resource:
             weighted_capacity: 3
           override:
             instance_type: c3.large
-            weighted_capacity: 2
-```
+            weighted_capacity: 2```
 
 ## Mixed Instances Policy with Instance level LaunchTemplateSpecification Overrides
 
@@ -148,13 +140,11 @@ resource:
       image_id: ${data.aws_ami.example.id}
       instance_type: c5.large
 
-resource:
   aws_launch_template:
     example2:
       name_prefix: example2
       image_id: ${data.aws_ami.example2.id}
 
-resource:
   aws_autoscaling_group:
     example:
       availability_zones: 
@@ -173,8 +163,7 @@ resource:
             instance_type: c6g.large
             launch_template_specification:
               launch_template_id: ${aws_launch_template.example2.id}
-            weighted_capacity: 2
-```
+            weighted_capacity: 2```
 
 ## Mixed Instances Policy with Attribute-based Instance Type Selection
 
@@ -186,7 +175,6 @@ resource:
       image_id: ${data.aws_ami.example.id}
       instance_type: c5.large
 
-resource:
   aws_autoscaling_group:
     example:
       availability_zones: 
@@ -203,8 +191,7 @@ resource:
               memory_mib:
                 min: 1000
               vcpu_count:
-                min: 4
-```
+                min: 4```
 
 ## Dynamic tagging
 
@@ -253,6 +240,11 @@ resource:
         triggers: 
           - tag
 
+  aws_launch_template:
+    example:
+      image_id: ${data.aws_ami.example.id}
+      instance_type: t3.nano
+
 data:
   aws_ami:
     example:
@@ -262,14 +254,7 @@ data:
       filter:
         name: name
         values: 
-          - "amzn-ami-hvm-*-x86_64-gp2"
-
-resource:
-  aws_launch_template:
-    example:
-      image_id: ${data.aws_ami.example.id}
-      instance_type: t3.nano
-```
+          - "amzn-ami-hvm-*-x86_64-gp2"```
 
 ## Auto Scaling group with Warm Pool
 
@@ -281,7 +266,6 @@ resource:
       image_id: ${data.aws_ami.example.id}
       instance_type: c5.large
 
-resource:
   aws_autoscaling_group:
     example:
       availability_zones: 
@@ -294,8 +278,7 @@ resource:
         min_size: 1
         max_group_prepared_capacity: 10
         instance_reuse_policy:
-          reuse_on_scale_in: true
-```
+          reuse_on_scale_in: true```
 
 ## Auto Scaling group with Traffic Sources
 

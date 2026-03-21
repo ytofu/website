@@ -23,7 +23,6 @@ resource:
       tags:
         foo: bar
 
-resource:
   aws_lightsail_instance:
     example:
       name: example-instance
@@ -31,12 +30,10 @@ resource:
       blueprint_id: amazon_linux_2
       bundle_id: nano_3_0
 
-resource:
   aws_lightsail_lb_attachment:
     example:
       lb_name: ${aws_lightsail_lb.example.name}
-      instance_name: ${aws_lightsail_instance.example.name}
-```
+      instance_name: ${aws_lightsail_instance.example.name}```
 
 ## Argument Reference
 

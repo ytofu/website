@@ -11,7 +11,6 @@ resource:
       name: example-bucket
       bundle_id: small_1_0
 
-resource:
   aws_lightsail_distribution:
     example:
       name: example-distribution
@@ -32,8 +31,7 @@ resource:
         forwarded_headers:
           option: default
         forwarded_query_strings:
-          option: false
-```
+          option: false```
 
 ## Instance Origin
 
@@ -53,12 +51,10 @@ resource:
       static_ip_name: ${aws_lightsail_static_ip.example.name}
       instance_name: ${aws_lightsail_instance.example.name}
 
-resource:
   aws_lightsail_static_ip:
     example:
       name: example-static-ip
 
-resource:
   aws_lightsail_instance:
     example:
       name: example-instance
@@ -66,7 +62,6 @@ resource:
       blueprint_id: amazon_linux_2
       bundle_id: micro_1_0
 
-resource:
   aws_lightsail_distribution:
     example:
       name: example-distribution
@@ -77,8 +72,7 @@ resource:
         name: ${aws_lightsail_instance.example.name}
         region_name: ${data.aws_availability_zones.available.id}
       default_cache_behavior:
-        behavior: cache
-```
+        behavior: cache```
 
 ## Load Balancer Origin
 
@@ -101,7 +95,6 @@ resource:
       tags:
         foo: bar
 
-resource:
   aws_lightsail_instance:
     example:
       name: example-instance
@@ -109,13 +102,11 @@ resource:
       blueprint_id: amazon_linux_2
       bundle_id: nano_3_0
 
-resource:
   aws_lightsail_lb_attachment:
     example:
       lb_name: ${aws_lightsail_lb.example.name}
       instance_name: ${aws_lightsail_instance.example.name}
 
-resource:
   aws_lightsail_distribution:
     example:
       name: example-distribution
@@ -126,8 +117,7 @@ resource:
         name: ${aws_lightsail_lb.example.name}
         region_name: ${data.aws_availability_zones.available.id}
       default_cache_behavior:
-        behavior: cache
-```
+        behavior: cache```
 
 ## Argument Reference
 

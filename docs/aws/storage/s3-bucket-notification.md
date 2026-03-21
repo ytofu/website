@@ -29,12 +29,10 @@ resource:
       name: s3-event-notification-topic
       policy: ${data.aws_iam_policy_document.topic.json}
 
-resource:
   aws_s3_bucket:
     bucket:
       bucket: your-bucket-name
 
-resource:
   aws_s3_bucket_notification:
     bucket_notification:
       bucket: ${aws_s3_bucket.bucket.id}
@@ -42,8 +40,7 @@ resource:
         topic_arn: ${aws_sns_topic.topic.arn}
         events: 
           - "s3:ObjectCreated:*"
-        filter_suffix: .log
-```
+        filter_suffix: .log```
 
 ## Add notification configuration to SQS Queue
 
@@ -72,12 +69,10 @@ resource:
       name: s3-event-notification-queue
       policy: ${data.aws_iam_policy_document.queue.json}
 
-resource:
   aws_s3_bucket:
     bucket:
       bucket: your-bucket-name
 
-resource:
   aws_s3_bucket_notification:
     bucket_notification:
       bucket: ${aws_s3_bucket.bucket.id}
@@ -85,8 +80,7 @@ resource:
         queue_arn: ${aws_sqs_queue.queue.arn}
         events: 
           - "s3:ObjectCreated:*"
-        filter_suffix: .log
-```
+        filter_suffix: .log```
 
 ## Add notification configuration to Lambda Function
 
@@ -109,7 +103,6 @@ resource:
       name: iam_for_lambda
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
 
-resource:
   aws_lambda_permission:
     allow_bucket:
       statement_id: AllowExecutionFromS3Bucket
@@ -118,7 +111,6 @@ resource:
       principal: s3.amazonaws.com
       source_arn: ${aws_s3_bucket.bucket.arn}
 
-resource:
   aws_lambda_function:
     func:
       filename: your-function.zip
@@ -127,12 +119,10 @@ resource:
       handler: exports.example
       runtime: nodejs20.x
 
-resource:
   aws_s3_bucket:
     bucket:
       bucket: your-bucket-name
 
-resource:
   aws_s3_bucket_notification:
     bucket_notification:
       bucket: ${aws_s3_bucket.bucket.id}
@@ -143,8 +133,7 @@ resource:
         filter_prefix: AWSLogs/
         filter_suffix: .log
       depends_on: 
-        - ${aws_lambda_permission.allow_bucket}
-```
+        - ${aws_lambda_permission.allow_bucket}```
 
 ## Trigger multiple Lambda functions
 
@@ -167,7 +156,6 @@ resource:
       name: iam_for_lambda
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
 
-resource:
   aws_lambda_permission:
     allow_bucket1:
       statement_id: AllowExecutionFromS3Bucket1
@@ -176,7 +164,6 @@ resource:
       principal: s3.amazonaws.com
       source_arn: ${aws_s3_bucket.bucket.arn}
 
-resource:
   aws_lambda_function:
     func1:
       filename: your-function1.zip
@@ -185,7 +172,6 @@ resource:
       handler: exports.example
       runtime: nodejs20.x
 
-resource:
   aws_lambda_permission:
     allow_bucket2:
       statement_id: AllowExecutionFromS3Bucket2
@@ -194,7 +180,6 @@ resource:
       principal: s3.amazonaws.com
       source_arn: ${aws_s3_bucket.bucket.arn}
 
-resource:
   aws_lambda_function:
     func2:
       filename: your-function2.zip
@@ -202,12 +187,10 @@ resource:
       role: ${aws_iam_role.iam_for_lambda.arn}
       handler: exports.example
 
-resource:
   aws_s3_bucket:
     bucket:
       bucket: your-bucket-name
 
-resource:
   aws_s3_bucket_notification:
     bucket_notification:
       bucket: ${aws_s3_bucket.bucket.id}
@@ -225,8 +208,7 @@ resource:
         filter_suffix: .log
       depends_on:
         - ${aws_lambda_permission.allow_bucket1}
-        - ${aws_lambda_permission.allow_bucket2}
-```
+        - ${aws_lambda_permission.allow_bucket2}```
 
 ## Add multiple notification configurations to SQS Queue
 
@@ -255,12 +237,10 @@ resource:
       name: s3-event-notification-queue
       policy: ${data.aws_iam_policy_document.queue.json}
 
-resource:
   aws_s3_bucket:
     bucket:
       bucket: your-bucket-name
 
-resource:
   aws_s3_bucket_notification:
     bucket_notification:
       bucket: ${aws_s3_bucket.bucket.id}
@@ -275,8 +255,7 @@ resource:
         queue_arn: ${aws_sqs_queue.queue.arn}
         events: 
           - "s3:ObjectCreated:*"
-        filter_prefix: videos/
-```
+        filter_prefix: videos/```
 
 ## Emit events to EventBridge
 
@@ -286,12 +265,10 @@ resource:
     bucket:
       bucket: your-bucket-name
 
-resource:
   aws_s3_bucket_notification:
     bucket_notification:
       bucket: ${aws_s3_bucket.bucket.id}
-      eventbridge: true
-```
+      eventbridge: true```
 
 ## Argument Reference
 

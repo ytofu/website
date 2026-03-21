@@ -13,18 +13,15 @@ resource:
       depends_on:
         - ${aws_opensearch_domain.example}
 
-resource:
   aws_cognito_user_pool:
     example:
       name: example
 
-resource:
   aws_cognito_user_pool_domain:
     example:
       domain: example
       user_pool_id: ${aws_cognito_user_pool.example.id}
 
-resource:
   aws_cognito_identity_pool:
     example:
       identity_pool_name: example
@@ -32,7 +29,6 @@ resource:
         ignore_changes: 
           - cognito_identity_providers
 
-resource:
   aws_opensearch_domain:
     example:
       domain_name: example
@@ -48,12 +44,18 @@ resource:
         - ${aws_cognito_user_pool_domain.example}
         - ${aws_iam_role_policy_attachment.example}
 
-resource:
   aws_iam_role:
     example:
       name: example-role
       path: /service-role/
       assume_role_policy: ${data.aws_iam_policy_document.example.json}
+
+  aws_iam_role_policy_attachment:
+    example:
+      role: ${aws_iam_role.example.name}
+      policy_arn: "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonESCognitoAccess"
+      depends_on:
+        - ${aws_opensearch_domain.example}
 
 data:
   aws_iam_policy_document:
@@ -68,18 +70,8 @@ data:
           identifiers:
             - "es.${data.aws_partition.current.dns_suffix}"
 
-resource:
-  aws_iam_role_policy_attachment:
-    example:
-      role: ${aws_iam_role.example.name}
-      policy_arn: "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonESCognitoAccess"
-      depends_on:
-        - ${aws_opensearch_domain.example}
-
-data:
   aws_partition:
-    current:
-```
+    current:```
 
 ## Using Name Pattern
 

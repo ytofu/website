@@ -14,13 +14,11 @@ resource:
         status: 302
         target: "https://www.example.com"
 
-resource:
   aws_amplify_branch:
     master:
       app_id: ${aws_amplify_app.example.id}
       branch_name: master
 
-resource:
   aws_amplify_domain_association:
     example:
       app_id: ${aws_amplify_app.example.id}
@@ -30,8 +28,7 @@ resource:
         prefix: 
       sub_domain:
         branch_name: ${aws_amplify_branch.master.branch_name}
-        prefix: www
-```
+        prefix: www```
 
 ## Argument Reference
 

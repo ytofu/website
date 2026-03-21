@@ -161,15 +161,13 @@ resource:
             dns_name: example
             port: 8080
 
-resource:
   aws_cloudwatch_log_group:
     example:
       name: /ecs/example/service-connect
 
 data:
   aws_region:
-    current:
-```
+    current:```
 
 ## Argument Reference
 

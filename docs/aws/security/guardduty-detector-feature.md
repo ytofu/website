@@ -10,13 +10,11 @@ resource:
     example:
       enable: true
 
-resource:
   aws_guardduty_detector_feature:
     s3_protection:
       detector_id: ${aws_guardduty_detector.example.id}
       name: S3_DATA_EVENTS
-      status: ENABLED
-```
+      status: ENABLED```
 
 ## Argument Reference
 

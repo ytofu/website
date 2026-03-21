@@ -15,11 +15,21 @@ resource:
       depends_on: 
         - ${aws_config_configuration_recorder.foo}
 
-resource:
   aws_config_configuration_recorder:
     foo:
       name: example
       role_arn: ${aws_iam_role.r.arn}
+
+  aws_iam_role:
+    r:
+      name: my-awsconfig-role
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
+  aws_iam_role_policy:
+    p:
+      name: my-awsconfig-policy
+      role: ${aws_iam_role.r.id}
+      policy: ${data.aws_iam_policy_document.p.json}
 
 data:
   aws_iam_policy_document:
@@ -33,13 +43,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    r:
-      name: my-awsconfig-role
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-data:
   aws_iam_policy_document:
     p:
       statement:
@@ -47,15 +50,7 @@ data:
         actions: 
           - "config:Put*"
         resources: 
-          - "*"
-
-resource:
-  aws_iam_role_policy:
-    p:
-      name: my-awsconfig-policy
-      role: ${aws_iam_role.r.id}
-      policy: ${data.aws_iam_policy_document.p.json}
-```
+          - "*"```
 
 ## Custom Rules
 
@@ -64,11 +59,9 @@ resource:
   aws_config_configuration_recorder:
     example:
 
-resource:
   aws_lambda_function:
     example:
 
-resource:
   aws_lambda_permission:
     example:
       action: "lambda:InvokeFunction"
@@ -76,7 +69,6 @@ resource:
       principal: config.amazonaws.com
       statement_id: AllowExecutionFromConfig
 
-resource:
   aws_config_config_rule:
     example:
       source:
@@ -84,8 +76,7 @@ resource:
         source_identifier: ${aws_lambda_function.example.arn}
       depends_on:
         - ${aws_config_configuration_recorder.example}
-        - ${aws_lambda_permission.example}
-```
+        - ${aws_lambda_permission.example}```
 
 ## Custom Policies
 

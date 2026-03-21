@@ -13,7 +13,6 @@ resource:
         type: HOST_COUNT
         value: 2
 
-resource:
   aws_codedeploy_deployment_group:
     foo:
       app_name: ${aws_codedeploy_app.foo_app.name}
@@ -36,8 +35,7 @@ resource:
       alarm_configuration:
         alarms: 
           - my-alarm-name
-        enabled: true
-```
+        enabled: true```
 
 ## Lambda Usage
 
@@ -53,7 +51,6 @@ resource:
           interval: 10
           percentage: 10
 
-resource:
   aws_codedeploy_deployment_group:
     foo:
       app_name: ${aws_codedeploy_app.foo_app.name}
@@ -67,8 +64,7 @@ resource:
       alarm_configuration:
         alarms: 
           - my-alarm-name
-        enabled: true
-```
+        enabled: true```
 
 ## Argument Reference
 

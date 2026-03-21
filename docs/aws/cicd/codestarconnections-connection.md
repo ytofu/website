@@ -11,7 +11,6 @@ resource:
       name: example-connection
       provider_type: Bitbucket
 
-resource:
   aws_codepipeline:
     example:
       name: tf-test-pipeline
@@ -35,8 +34,7 @@ resource:
         action:
       stage:
         name: Deploy
-        action:
-```
+        action:```
 
 ## Argument Reference
 

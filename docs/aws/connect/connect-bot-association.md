@@ -32,7 +32,6 @@ resource:
       sample_utterances:
         - I would like to pick up flowers.
 
-resource:
   aws_lex_bot:
     example:
       abort_statement:
@@ -51,14 +50,12 @@ resource:
       name: connect_lex_bot
       process_behavior: BUILD
 
-resource:
   aws_connect_bot_association:
     example:
       instance_id: ${aws_connect_instance.example.id}
       lex_bot:
         lex_region: ${data.aws_region.current.region}
-        name: ${aws_lex_bot.example.name}
-```
+        name: ${aws_lex_bot.example.name}```
 
 ## Argument Reference
 

@@ -10,15 +10,13 @@ resource:
     example:
       display_name: example
 
-resource:
   aws_workspacesweb_identity_provider:
     example:
       identity_provider_name: example-saml
       identity_provider_type: SAML
       portal_arn: ${aws_workspacesweb_portal.example.portal_arn}
       identity_provider_details:
-        MetadataURL: "https://example.com/metadata"
-```
+        MetadataURL: "https://example.com/metadata"```
 
 ## OIDC Identity Provider
 
@@ -28,7 +26,6 @@ resource:
     test:
       display_name: test
 
-resource:
   aws_workspacesweb_identity_provider:
     test:
       identity_provider_name: test-updated
@@ -39,8 +36,7 @@ resource:
         client_secret: test-client-secret
         oidc_issuer: "https://accounts.google.com"
         attributes_request_method: POST
-        authorize_scopes: openid, email
-```
+        authorize_scopes: openid, email```
 
 ## Argument Reference
 

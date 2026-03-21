@@ -12,7 +12,6 @@ resource:
       tags:
         Name: tf-test
 
-resource:
   aws_subnet:
     foo:
       vpc_id: ${aws_vpc.foo.id}
@@ -21,13 +20,11 @@ resource:
       tags:
         Name: tf-test
 
-resource:
   aws_elasticache_subnet_group:
     bar:
       name: tf-test-cache-subnet
       subnet_ids: 
-        - ${aws_subnet.foo.id}
-```
+        - ${aws_subnet.foo.id}```
 
 ## Argument Reference
 

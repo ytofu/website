@@ -40,7 +40,6 @@ resource:
       description: KMS key for WorkSpaces Web Data Protection Settings
       deletion_window_in_days: 7
 
-resource:
   aws_workspacesweb_data_protection_settings:
     example:
       display_name: example-complete
@@ -75,8 +74,7 @@ resource:
             redaction_place_holder_type: CustomText
             redaction_place_holder_text: REDACTED-CUSTOM
       tags:
-        Name: example-data-protection-settings
-```
+        Name: example-data-protection-settings```
 
 ## Argument Reference
 

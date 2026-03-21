@@ -15,7 +15,6 @@ resource:
       passwords: 
         - password123456789
 
-resource:
   aws_elasticache_user_group:
     example:
       engine: REDIS
@@ -26,7 +25,6 @@ resource:
         ignore_changes: 
           - user_ids
 
-resource:
   aws_elasticache_user:
     example:
       user_id: exampleUserID
@@ -36,12 +34,10 @@ resource:
       passwords: 
         - password123456789
 
-resource:
   aws_elasticache_user_group_association:
     example:
       user_group_id: ${aws_elasticache_user_group.example.user_group_id}
-      user_id: ${aws_elasticache_user.example.user_id}
-```
+      user_id: ${aws_elasticache_user.example.user_id}```
 
 ## Argument Reference
 

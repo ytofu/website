@@ -12,15 +12,13 @@ resource:
       name: vc-name-test
       require_encryption: true
 
-resource:
   aws_chime_voice_connector_streaming:
     default:
       disabled: false
       voice_connector_id: ${aws_chime_voice_connector.default.id}
       data_retention: 7
       streaming_notification_targets: 
-        - SQS
-```
+        - SQS```
 
 ## Example Usage With Media Insights
 
@@ -31,7 +29,6 @@ resource:
       name: vc-name-test
       require_encryption: true
 
-resource:
   aws_chime_voice_connector_streaming:
     default:
       disabled: false
@@ -43,7 +40,6 @@ resource:
         disabled: false
         configuration_arn: ${aws_chimesdkmediapipelines_media_insights_pipeline_configuration.example.arn}
 
-resource:
   aws_chimesdkmediapipelines_media_insights_pipeline_configuration:
     example:
       name: ExampleConfig
@@ -57,6 +53,16 @@ resource:
         kinesis_data_stream_sink_configuration:
           insights_target: ${aws_kinesis_stream.example.arn}
 
+  aws_iam_role:
+    example:
+      name: ExampleResourceAccessRole
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
+  aws_kinesis_stream:
+    example:
+      name: ExampleStream
+      shard_count: 2
+
 data:
   aws_iam_policy_document:
     assume_role:
@@ -67,20 +73,7 @@ data:
           identifiers: 
             - mediapipelines.chime.amazonaws.com
         actions: 
-          - "sts:AssumeRole"
-
-resource:
-  aws_iam_role:
-    example:
-      name: ExampleResourceAccessRole
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-resource:
-  aws_kinesis_stream:
-    example:
-      name: ExampleStream
-      shard_count: 2
-```
+          - "sts:AssumeRole"```
 
 ## Argument Reference
 

@@ -22,13 +22,11 @@ resource:
       alias: alias
       type: PERSONAL
 
-resource:
   aws_ssmcontacts_plan:
     plan:
       contact_id: ${aws_ssmcontacts_contact.contact.arn}
       stage:
-        duration_in_minutes: 1
-```
+        duration_in_minutes: 1```
 
 ## Usage With All Fields
 
@@ -39,19 +37,16 @@ resource:
       alias: escalation-plan-alias
       type: ESCALATION
 
-resource:
   aws_ssmcontacts_contact:
     contact_one:
       alias: alias
       type: PERSONAL
 
-resource:
   aws_ssmcontacts_contact:
     contact_two:
       alias: alias
       type: PERSONAL
 
-resource:
   aws_ssmcontacts_plan:
     test:
       contact_id: ${aws_ssmcontacts_contact.escalation_plan.arn}
@@ -68,8 +63,7 @@ resource:
         target:
           channel_target_info:
             retry_interval_in_minutes: 2
-            contact_channel_id: ${aws_ssmcontacts_contact_channel.channel.arn}
-```
+            contact_channel_id: ${aws_ssmcontacts_contact_channel.channel.arn}```
 
 ## Argument Reference
 

@@ -10,6 +10,11 @@ resource:
     example:
       name: example-domain
 
+  aws_cloudsearch_domain_service_access_policy:
+    example:
+      domain_name: ${aws_cloudsearch_domain.example.id}
+      access_policy: ${data.aws_iam_policy_document.example.json}
+
 data:
   aws_iam_policy_document:
     example:
@@ -26,14 +31,7 @@ data:
         condition:
           test: IpAddress
           values: 
-            - 192.0.2.0/32
-
-resource:
-  aws_cloudsearch_domain_service_access_policy:
-    example:
-      domain_name: ${aws_cloudsearch_domain.example.id}
-      access_policy: ${data.aws_iam_policy_document.example.json}
-```
+            - 192.0.2.0/32```
 
 ## Argument Reference
 

@@ -42,12 +42,10 @@ resource:
       depends_on: 
         - ${aws_config_configuration_recorder.example}
 
-resource:
   aws_s3_bucket:
     example:
       bucket: example
 
-resource:
   aws_s3_object:
     example:
       bucket: ${aws_s3_bucket.example.id}
@@ -60,8 +58,7 @@ resource:
         Source:
         Owner: AWS
         SourceIdentifier: IAM_PASSWORD_POLICY
-        Type: AWS::Config::ConfigRule
-```
+        Type: AWS::Config::ConfigRule```
 
 ## Argument Reference
 

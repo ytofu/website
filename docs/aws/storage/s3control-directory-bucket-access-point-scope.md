@@ -17,13 +17,11 @@ resource:
       location:
         name: ${data.aws_availability_zones.available.zone_ids[0]}
 
-resource:
   aws_s3_access_point:
     example:
       bucket: ${aws_s3_directory_bucket.example.id}
       name: example--zoneId--xa-s3
 
-resource:
   aws_s3control_directory_bucket_access_point_scope:
     example:
       name: example--zoneId--xa-s3
@@ -34,8 +32,7 @@ resource:
           - ListBucket
         prefixes: 
           - myobject1.csv
-          - "myobject2*"
-```
+          - "myobject2*"```
 
 ## Argument Reference
 

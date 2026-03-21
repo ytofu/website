@@ -12,6 +12,27 @@ resource:
       tags:
         NAME: tf-acc-test-transfer-server
 
+  aws_iam_role:
+    foo:
+      name: tf-test-transfer-user-iam-role
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
+  aws_iam_role_policy:
+    foo:
+      name: tf-test-transfer-user-iam-policy
+      role: ${aws_iam_role.foo.id}
+      policy: ${data.aws_iam_policy_document.foo.json}
+
+  aws_transfer_user:
+    foo:
+      server_id: ${aws_transfer_server.foo.id}
+      user_name: tftestuser
+      role: ${aws_iam_role.foo.arn}
+      home_directory_type: LOGICAL
+      home_directory_mappings:
+        entry: /test.pdf
+        target: /bucket3/test-path/tftestuser.pdf
+
 data:
   aws_iam_policy_document:
     assume_role:
@@ -24,13 +45,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    foo:
-      name: tf-test-transfer-user-iam-role
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-data:
   aws_iam_policy_document:
     foo:
       statement:
@@ -39,26 +53,7 @@ data:
         actions: 
           - "s3:*"
         resources: 
-          - "*"
-
-resource:
-  aws_iam_role_policy:
-    foo:
-      name: tf-test-transfer-user-iam-policy
-      role: ${aws_iam_role.foo.id}
-      policy: ${data.aws_iam_policy_document.foo.json}
-
-resource:
-  aws_transfer_user:
-    foo:
-      server_id: ${aws_transfer_server.foo.id}
-      user_name: tftestuser
-      role: ${aws_iam_role.foo.arn}
-      home_directory_type: LOGICAL
-      home_directory_mappings:
-        entry: /test.pdf
-        target: /bucket3/test-path/tftestuser.pdf
-```
+          - "*"```
 
 ## Argument Reference
 

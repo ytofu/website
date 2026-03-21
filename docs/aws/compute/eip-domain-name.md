@@ -10,7 +10,6 @@ resource:
     example:
       domain: vpc
 
-resource:
   aws_route53_record:
     example:
       zone_id: ${aws_route53_zone.main.zone_id}
@@ -19,12 +18,10 @@ resource:
       records: 
         - ${aws_eip.example.public_ip}
 
-resource:
   aws_eip_domain_name:
     example:
       allocation_id: ${aws_eip.example.allocation_id}
-      domain_name: ${aws_route53_record.example.fqdn}
-```
+      domain_name: ${aws_route53_record.example.fqdn}```
 
 ## Argument Reference
 

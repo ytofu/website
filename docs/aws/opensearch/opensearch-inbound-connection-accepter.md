@@ -9,7 +9,6 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_region:
     current:
 
@@ -26,11 +25,9 @@ resource:
         region: ${data.aws_region.current.region}
         domain_name: ${aws_opensearch_domain.remote_domain.domain_name}
 
-resource:
   aws_opensearch_inbound_connection_accepter:
     foo:
-      connection_id: ${aws_opensearch_outbound_connection.foo.id}
-```
+      connection_id: ${aws_opensearch_outbound_connection.foo.id}```
 
 ## Argument Reference
 

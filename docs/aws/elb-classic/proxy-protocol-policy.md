@@ -22,14 +22,12 @@ resource:
         lb_port: 587
         lb_protocol: tcp
 
-resource:
   aws_proxy_protocol_policy:
     smtp:
       load_balancer: ${aws_elb.lb.name}
       instance_ports: 
         - 25
-        - 587
-```
+        - 587```
 
 ## Argument Reference
 

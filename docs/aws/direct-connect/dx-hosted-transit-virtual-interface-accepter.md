@@ -22,20 +22,17 @@ resource:
       depends_on: 
         - ${aws_dx_gateway.example}
 
-resource:
   aws_dx_gateway:
     example:
       name: tf-dxg-example
       amazon_side_asn: 64512
 
-resource:
   aws_dx_hosted_transit_virtual_interface_accepter:
     accepter:
       virtual_interface_id: ${aws_dx_hosted_transit_virtual_interface.creator.id}
       dx_gateway_id: ${aws_dx_gateway.example.id}
       tags:
-        Side: Accepter
-```
+        Side: Accepter```
 
 ## Argument Reference
 

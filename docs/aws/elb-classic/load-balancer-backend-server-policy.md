@@ -20,7 +20,6 @@ resource:
       tags:
         Name: wu-tang
 
-resource:
   aws_load_balancer_policy:
     wu-tang-ca-pubkey-policy:
       load_balancer_name: ${aws_elb.wu-tang.name}
@@ -30,7 +29,6 @@ resource:
         name: PublicKey
         value: file-content
 
-resource:
   aws_load_balancer_policy:
     wu-tang-root-ca-backend-auth-policy:
       load_balancer_name: ${aws_elb.wu-tang.name}
@@ -40,14 +38,12 @@ resource:
         name: PublicKeyPolicyName
         value: ${aws_load_balancer_policy.wu-tang-root-ca-pubkey-policy.policy_name}
 
-resource:
   aws_load_balancer_backend_server_policy:
     wu-tang-backend-auth-policies-443:
       load_balancer_name: ${aws_elb.wu-tang.name}
       instance_port: 443
       policy_names:
-        - ${aws_load_balancer_policy.wu-tang-root-ca-backend-auth-policy.policy_name}
-```
+        - ${aws_load_balancer_policy.wu-tang-root-ca-backend-auth-policy.policy_name}```
 
 ## Argument Reference
 

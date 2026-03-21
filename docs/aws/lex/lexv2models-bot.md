@@ -18,14 +18,12 @@ resource:
       tags:
         foo: bar
 
-resource:
   aws_iam_role:
     example:
       name: example
       assume_role_policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": "sts:AssumeRole" "Effect": "Allow" "Sid": "" "Principal": { "Service": "lexv2.amazonaws.com" } }, ] }'
       tags:
-        created_by: aws
-```
+        created_by: aws```
 
 ## Argument Reference
 

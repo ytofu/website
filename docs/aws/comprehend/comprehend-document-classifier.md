@@ -16,14 +16,11 @@ resource:
       depends_on:
         - ${aws_iam_role_policy.example}
 
-resource:
   aws_s3_object:
     documents:
 
-resource:
   aws_s3_object:
-    entities:
-```
+    entities:```
 
 ## Argument Reference
 

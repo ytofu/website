@@ -23,7 +23,6 @@ resource:
       name: bedrock-agentcore-gateway-role
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
 
-resource:
   aws_bedrockagentcore_gateway:
     example:
       name: example-gateway
@@ -35,8 +34,7 @@ resource:
           allowed_audience: 
             - test1
             - test2
-      protocol_type: MCP
-```
+      protocol_type: MCP```
 
 ## Gateway with advanced JWT Authorization and MCP Configuration
 
@@ -82,7 +80,6 @@ resource:
       handler: index.handler
       runtime: python3.12
 
-resource:
   aws_bedrockagentcore_gateway:
     example:
       name: gateway-with-interceptor
@@ -97,8 +94,7 @@ resource:
           lambda:
             arn: ${aws_lambda_function.interceptor.arn}
         input_configuration:
-          pass_request_headers: true
-```
+          pass_request_headers: true```
 
 ## Argument Reference
 

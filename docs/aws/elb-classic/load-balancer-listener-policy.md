@@ -20,7 +20,6 @@ resource:
       tags:
         Name: wu-tang
 
-resource:
   aws_load_balancer_policy:
     wu-tang-ssl:
       load_balancer_name: ${aws_elb.wu-tang.name}
@@ -33,14 +32,12 @@ resource:
         name: Protocol-TLSv1.2
         value: true
 
-resource:
   aws_load_balancer_listener_policy:
     wu-tang-listener-policies-443:
       load_balancer_name: ${aws_elb.wu-tang.name}
       load_balancer_port: 443
       policy_names:
-        - ${aws_load_balancer_policy.wu-tang-ssl.policy_name}
-```
+        - ${aws_load_balancer_policy.wu-tang-ssl.policy_name}```
 
 ## AWS Predefined Security Policy
 
@@ -60,7 +57,6 @@ resource:
       tags:
         Name: wu-tang
 
-resource:
   aws_load_balancer_policy:
     wu-tang-ssl-tls-1-1:
       load_balancer_name: ${aws_elb.wu-tang.name}
@@ -70,14 +66,12 @@ resource:
         name: Reference-Security-Policy
         value: ELBSecurityPolicy-TLS-1-1-2017-01
 
-resource:
   aws_load_balancer_listener_policy:
     wu-tang-listener-policies-443:
       load_balancer_name: ${aws_elb.wu-tang.name}
       load_balancer_port: 443
       policy_names:
-        - ${aws_load_balancer_policy.wu-tang-ssl-tls-1-1.policy_name}
-```
+        - ${aws_load_balancer_policy.wu-tang-ssl-tls-1-1.policy_name}```
 
 ## Argument Reference
 

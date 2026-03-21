@@ -13,7 +13,6 @@ resource:
       tags:
         ENVIRONMENT: prod
 
-resource:
   aws_medialive_input:
     example:
       name: example-input
@@ -21,8 +20,7 @@ resource:
         - ${aws_medialive_input_security_group.example.id}
       type: UDP_PUSH
       tags:
-        ENVIRONMENT: prod
-```
+        ENVIRONMENT: prod```
 
 ## Argument Reference
 

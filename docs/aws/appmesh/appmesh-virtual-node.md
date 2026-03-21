@@ -31,7 +31,6 @@ resource:
     example:
       name: example-ns
 
-resource:
   aws_appmesh_virtual_node:
     serviceb1:
       name: serviceBv1
@@ -49,8 +48,7 @@ resource:
             attributes:
               stack: blue
             service_name: serviceb1
-            namespace_name: ${aws_service_discovery_http_namespace.example.name}
-```
+            namespace_name: ${aws_service_discovery_http_namespace.example.name}```
 
 ## Listener Health Check
 

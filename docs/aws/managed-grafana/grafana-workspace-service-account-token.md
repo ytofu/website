@@ -12,14 +12,12 @@ resource:
       grafana_role: ADMIN
       workspace_id: ${aws_grafana_workspace.example.id}
 
-resource:
   aws_grafana_workspace_service_account_token:
     example:
       name: example-key
       service_account_id: ${aws_grafana_workspace_service_account.example.service_account_id}
       seconds_to_live: 3600
-      workspace_id: ${aws_grafana_workspace.example.id}
-```
+      workspace_id: ${aws_grafana_workspace.example.id}```
 
 ## Argument Reference
 

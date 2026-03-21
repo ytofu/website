@@ -12,7 +12,6 @@ resource:
       engine: neptune
       engine_version: 1.2.0.0
 
-resource:
   aws_neptune_cluster:
     primary:
       engine: ${aws_neptune_global_cluster.example.engine}
@@ -21,7 +20,6 @@ resource:
       global_cluster_identifier: ${aws_neptune_global_cluster.example.id}
       neptune_subnet_group_name: default
 
-resource:
   aws_neptune_cluster_instance:
     primary:
       engine: ${aws_neptune_global_cluster.example.engine}
@@ -31,7 +29,6 @@ resource:
       instance_class: db.r5.large
       neptune_subnet_group_name: default
 
-resource:
   aws_neptune_cluster:
     secondary:
       engine: ${aws_neptune_global_cluster.example.engine}
@@ -40,7 +37,6 @@ resource:
       global_cluster_identifier: ${aws_neptune_global_cluster.example.id}
       neptune_subnet_group_name: default
 
-resource:
   aws_neptune_cluster_instance:
     secondary:
       engine: ${aws_neptune_global_cluster.example.engine}
@@ -50,8 +46,7 @@ resource:
       instance_class: db.r5.large
       neptune_subnet_group_name: default
       depends_on:
-        - ${aws_neptune_cluster_instance.primary}
-```
+        - ${aws_neptune_cluster_instance.primary}```
 
 ## New Global Cluster From Existing DB Cluster
 
@@ -63,12 +58,10 @@ resource:
         ignore_changes: 
           - global_cluster_identifier
 
-resource:
   aws_neptune_global_cluster:
     example:
       global_cluster_identifier: example
-      source_db_cluster_identifier: ${aws_neptune_cluster.example.arn}
-```
+      source_db_cluster_identifier: ${aws_neptune_cluster.example.arn}```
 
 ## Argument Reference
 

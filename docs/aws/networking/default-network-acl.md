@@ -10,7 +10,6 @@ resource:
     mainvpc:
       cidr_block: 10.1.0.0/16
 
-resource:
   aws_default_network_acl:
     default:
       default_network_acl_id: ${aws_vpc.mainvpc.default_network_acl_id}
@@ -27,8 +26,7 @@ resource:
         action: allow
         cidr_block: 0.0.0.0/0
         from_port: 0
-        to_port: 0
-```
+        to_port: 0```
 
 ## Example: Deny All Egress Traffic, Allow Ingress
 
@@ -38,7 +36,6 @@ resource:
     mainvpc:
       cidr_block: 10.1.0.0/16
 
-resource:
   aws_default_network_acl:
     default:
       default_network_acl_id: ${aws_vpc.mainvpc.default_network_acl_id}
@@ -48,8 +45,7 @@ resource:
         action: allow
         cidr_block: ${aws_default_vpc.mainvpc.cidr_block}
         from_port: 0
-        to_port: 0
-```
+        to_port: 0```
 
 ## Example: Deny All Traffic To Any Subnet In The Default Network ACL
 
@@ -59,11 +55,9 @@ resource:
     mainvpc:
       cidr_block: 10.1.0.0/16
 
-resource:
   aws_default_network_acl:
     default:
-      default_network_acl_id: ${aws_vpc.mainvpc.default_network_acl_id}
-```
+      default_network_acl_id: ${aws_vpc.mainvpc.default_network_acl_id}```
 
 ## Managing Subnets In A Default Network ACL
 

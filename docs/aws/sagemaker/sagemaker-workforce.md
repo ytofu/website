@@ -13,24 +13,20 @@ resource:
         client_id: ${aws_cognito_user_pool_client.example.id}
         user_pool: ${aws_cognito_user_pool_domain.example.user_pool_id}
 
-resource:
   aws_cognito_user_pool:
     example:
       name: example
 
-resource:
   aws_cognito_user_pool_client:
     example:
       name: example
       generate_secret: true
       user_pool_id: ${aws_cognito_user_pool.example.id}
 
-resource:
   aws_cognito_user_pool_domain:
     example:
       domain: example
-      user_pool_id: ${aws_cognito_user_pool.example.id}
-```
+      user_pool_id: ${aws_cognito_user_pool.example.id}```
 
 ## Oidc Usage
 

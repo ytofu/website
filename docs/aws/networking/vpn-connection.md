@@ -10,20 +10,17 @@ resource:
   aws_ec2_transit_gateway:
     example:
 
-resource:
   aws_customer_gateway:
     example:
       bgp_asn: 65000
       ip_address: 172.0.0.1
       type: ipsec.1
 
-resource:
   aws_vpn_connection:
     example:
       customer_gateway_id: ${aws_customer_gateway.example.id}
       transit_gateway_id: ${aws_ec2_transit_gateway.example.id}
-      type: ${aws_customer_gateway.example.type}
-```
+      type: ${aws_customer_gateway.example.type}```
 
 ## Virtual Private Gateway
 
@@ -33,26 +30,22 @@ resource:
     vpc:
       cidr_block: 10.0.0.0/16
 
-resource:
   aws_vpn_gateway:
     vpn_gateway:
       vpc_id: ${aws_vpc.vpc.id}
 
-resource:
   aws_customer_gateway:
     customer_gateway:
       bgp_asn: 65000
       ip_address: 172.0.0.1
       type: ipsec.1
 
-resource:
   aws_vpn_connection:
     main:
       vpn_gateway_id: ${aws_vpn_gateway.vpn_gateway.id}
       customer_gateway_id: ${aws_customer_gateway.customer_gateway.id}
       type: ipsec.1
-      static_routes_only: true
-```
+      static_routes_only: true```
 
 ## AWS Site to Site Private VPN
 
@@ -63,7 +56,6 @@ resource:
       name: terraform_ipsec_vpn_example
       amazon_side_asn: 64512
 
-resource:
   aws_ec2_transit_gateway:
     example:
       amazon_side_asn: 64513
@@ -71,7 +63,6 @@ resource:
       transit_gateway_cidr_blocks:
         - 10.0.0.0/24
 
-resource:
   aws_customer_gateway:
     example:
       bgp_asn: 64514
@@ -80,7 +71,6 @@ resource:
       tags:
         Name: terraform_ipsec_vpn_example
 
-resource:
   aws_dx_gateway_association:
     example:
       dx_gateway_id: ${aws_dx_gateway.example.id}
@@ -88,15 +78,6 @@ resource:
       allowed_prefixes:
         - 10.0.0.0/8
 
-data:
-  aws_ec2_transit_gateway_dx_gateway_attachment:
-    example:
-      transit_gateway_id: ${aws_ec2_transit_gateway.example.id}
-      dx_gateway_id: ${aws_dx_gateway.example.id}
-      depends_on:
-        - ${aws_dx_gateway_association.example}
-
-resource:
   aws_vpn_connection:
     example:
       customer_gateway_id: ${aws_customer_gateway.example.id}
@@ -106,7 +87,14 @@ resource:
       type: ipsec.1
       tags:
         Name: terraform_ipsec_vpn_example
-```
+
+data:
+  aws_ec2_transit_gateway_dx_gateway_attachment:
+    example:
+      transit_gateway_id: ${aws_ec2_transit_gateway.example.id}
+      dx_gateway_id: ${aws_dx_gateway.example.id}
+      depends_on:
+        - ${aws_dx_gateway_association.example}```
 
 ## Argument Reference
 

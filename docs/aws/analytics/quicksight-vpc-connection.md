@@ -13,7 +13,6 @@ resource:
         name: QuickSightVPCConnectionRolePolicy
         policy: '{ "Version": "2012-10-17" "Statement": [ { "Effect": "Allow" "Action": [ "ec2:CreateNetworkInterface", "ec2:ModifyNetworkInterfaceAttribute", "ec2:DeleteNetworkInterface", "ec2:DescribeSubnets", "ec2:DescribeSecurityGroups" ] "Resource": ["*"] } ] }'
 
-resource:
   aws_quicksight_vpc_connection:
     example:
       vpc_connection_id: example-connection-id
@@ -23,8 +22,7 @@ resource:
         - sg-00000000000000000
       subnet_ids:
         - subnet-00000000000000000
-        - subnet-00000000000000001
-```
+        - subnet-00000000000000001```
 
 ## Argument Reference
 

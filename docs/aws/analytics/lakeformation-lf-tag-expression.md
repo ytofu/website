@@ -12,14 +12,12 @@ resource:
       values: 
         - value
 
-resource:
   aws_lakeformation_lf_tag_expression:
     example:
       name: example
       expression:
         tag_key: ${aws_lakeformation_lf_tag.example.key}
-        tag_values: ${aws_lakeformation_lf_tag.example.values}
-```
+        tag_values: ${aws_lakeformation_lf_tag.example.values}```
 
 ## Argument Reference
 

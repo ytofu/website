@@ -10,7 +10,6 @@ resource:
     example:
       bucket: mybucket
 
-resource:
   aws_s3_bucket_cors_configuration:
     example:
       bucket: ${aws_s3_bucket.example.id}
@@ -29,8 +28,7 @@ resource:
         allowed_methods: 
           - GET
         allowed_origins: 
-          - "*"
-```
+          - "*"```
 
 ## Argument Reference
 

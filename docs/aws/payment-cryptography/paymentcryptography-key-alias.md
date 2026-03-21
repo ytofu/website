@@ -19,12 +19,10 @@ resource:
           wrap: true
           unwrap: true
 
-resource:
   aws_paymentcryptography_key_alias:
     test:
       alias_name: alias/test-alias
-      key_arn: ${aws_paymentcryptography_key.test.arn}
-```
+      key_arn: ${aws_paymentcryptography_key.test.arn}```
 
 ## Argument Reference
 

@@ -16,7 +16,6 @@ resource:
       tags:
         Name: example-aws_cloudhsm_v2_cluster
 
-resource:
   aws_subnet:
     cloudhsm_v2_subnets:
       vpc_id: ${aws_vpc.cloudhsm_v2_vpc.id}
@@ -26,14 +25,12 @@ resource:
       tags:
         Name: example-aws_cloudhsm_v2_cluster
 
-resource:
   aws_cloudhsm_v2_cluster:
     cloudhsm_v2_cluster:
       hsm_type: hsm1.medium
       subnet_ids: ${aws_subnet.cloudhsm_v2_subnets[*].id}
       tags:
-        Name: example-aws_cloudhsm_v2_cluster
-```
+        Name: example-aws_cloudhsm_v2_cluster```
 
 ## Argument Reference
 

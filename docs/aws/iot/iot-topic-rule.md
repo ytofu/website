@@ -23,15 +23,24 @@ resource:
           role_arn: ${aws_iam_role.role.arn}
           target_arn: ${aws_sns_topic.myerrortopic.arn}
 
-resource:
   aws_sns_topic:
     mytopic:
       name: mytopic
 
-resource:
   aws_sns_topic:
     myerrortopic:
       name: myerrortopic
+
+  aws_iam_role:
+    myrole:
+      name: myrole
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
+  aws_iam_role_policy:
+    mypolicy:
+      name: mypolicy
+      role: ${aws_iam_role.myrole.id}
+      policy: ${data.aws_iam_policy_document.mypolicy.json}
 
 data:
   aws_iam_policy_document:
@@ -45,13 +54,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    myrole:
-      name: myrole
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-data:
   aws_iam_policy_document:
     mypolicy:
       statement:
@@ -59,15 +61,7 @@ data:
         actions: 
           - "sns:Publish"
         resources: 
-          - ${aws_sns_topic.mytopic.arn}
-
-resource:
-  aws_iam_role_policy:
-    mypolicy:
-      name: mypolicy
-      role: ${aws_iam_role.myrole.id}
-      policy: ${data.aws_iam_policy_document.mypolicy.json}
-```
+          - ${aws_sns_topic.mytopic.arn}```
 
 ## Argument Reference
 

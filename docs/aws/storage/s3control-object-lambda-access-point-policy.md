@@ -10,13 +10,11 @@ resource:
     example:
       bucket: example
 
-resource:
   aws_s3_access_point:
     example:
       bucket: ${aws_s3_bucket.example.id}
       name: example
 
-resource:
   aws_s3control_object_lambda_access_point:
     example:
       name: example
@@ -29,12 +27,10 @@ resource:
             aws_lambda:
               function_arn: ${aws_lambda_function.example.arn}
 
-resource:
   aws_s3control_object_lambda_access_point_policy:
     example:
       name: ${aws_s3control_object_lambda_access_point.example.name}
-      policy: '{ "Version": "2008-10-17" "Statement": [{ "Effect": "Allow" "Action": "s3-object-lambda:GetObject" "Principal": { "AWS": data.aws_caller_identity.current.account_id } "Resource": aws_s3control_object_lambda_access_point.example.arn }] }'
-```
+      policy: '{ "Version": "2008-10-17" "Statement": [{ "Effect": "Allow" "Action": "s3-object-lambda:GetObject" "Principal": { "AWS": data.aws_caller_identity.current.account_id } "Resource": aws_s3control_object_lambda_access_point.example.arn }] }'```
 
 ## Argument Reference
 

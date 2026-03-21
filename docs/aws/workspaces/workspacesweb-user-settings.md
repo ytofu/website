@@ -43,7 +43,6 @@ resource:
       description: KMS key for WorkSpaces Web User Settings
       deletion_window_in_days: 7
 
-resource:
   aws_workspacesweb_user_settings:
     example:
       copy_allowed: Enabled
@@ -71,8 +70,7 @@ resource:
         blocklist:
           domain: blocked.com
       tags:
-        Name: example-user-settings
-```
+        Name: example-user-settings```
 
 ## Argument Reference
 

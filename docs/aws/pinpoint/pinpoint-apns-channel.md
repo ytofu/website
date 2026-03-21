@@ -12,10 +12,8 @@ resource:
       certificate: file-content
       private_key: file-content
 
-resource:
   aws_pinpoint_app:
-    app:
-```
+    app:```
 
 ## Argument Reference
 

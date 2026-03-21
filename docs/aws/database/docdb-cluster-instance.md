@@ -12,7 +12,6 @@ resource:
       cluster_identifier: ${aws_docdb_cluster.default.id}
       instance_class: db.r5.large
 
-resource:
   aws_docdb_cluster:
     default:
       cluster_identifier: docdb-cluster-demo
@@ -21,8 +20,7 @@ resource:
         - us-west-2b
         - us-west-2c
       master_username: foo
-      master_password: barbut8chars
-```
+      master_password: barbut8chars```
 
 ## Argument Reference
 

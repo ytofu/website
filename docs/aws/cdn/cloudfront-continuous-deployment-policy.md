@@ -11,7 +11,6 @@ resource:
       enabled: true
       staging: true
 
-resource:
   aws_cloudfront_continuous_deployment_policy:
     example:
       enabled: true
@@ -24,12 +23,10 @@ resource:
         single_weight_config:
           weight: 0.01
 
-resource:
   aws_cloudfront_distribution:
     production:
       enabled: true
-      continuous_deployment_policy_id: ${aws_cloudfront_continuous_deployment_policy.example.id}
-```
+      continuous_deployment_policy_id: ${aws_cloudfront_continuous_deployment_policy.example.id}```
 
 ## Single Weight Config with Session Stickiness
 

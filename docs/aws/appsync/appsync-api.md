@@ -28,7 +28,6 @@ resource:
     example:
       name: example-user-pool
 
-resource:
   aws_appsync_api:
     example:
       name: example-event-api
@@ -47,8 +46,7 @@ resource:
 
 data:
   aws_region:
-    current:
-```
+    current:```
 
 ## With Lambda Authorizer
 

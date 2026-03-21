@@ -12,14 +12,22 @@ resource:
       from_address: user@example.com
       role_arn: ${aws_iam_role.role.arn}
 
-resource:
   aws_pinpoint_app:
     app:
 
-resource:
   aws_ses_domain_identity:
     identity:
       domain: example.com
+
+  aws_iam_role:
+    role:
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
+  aws_iam_role_policy:
+    role_policy:
+      name: role_policy
+      role: ${aws_iam_role.role.id}
+      policy: ${data.aws_iam_policy_document.role_policy.json}
 
 data:
   aws_iam_policy_document:
@@ -33,12 +41,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    role:
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-data:
   aws_iam_policy_document:
     role_policy:
       statement:
@@ -47,15 +49,7 @@ data:
           - "mobileanalytics:PutEvents"
           - "mobileanalytics:PutItems"
         resources: 
-          - "*"
-
-resource:
-  aws_iam_role_policy:
-    role_policy:
-      name: role_policy
-      role: ${aws_iam_role.role.id}
-      policy: ${data.aws_iam_policy_document.role_policy.json}
-```
+          - "*"```
 
 ## Argument Reference
 

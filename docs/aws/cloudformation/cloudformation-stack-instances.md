@@ -32,13 +32,6 @@ data:
             - ${aws_iam_role.AWSCloudFormationStackSetAdministrationRole.arn}
           type: AWS
 
-resource:
-  aws_iam_role:
-    AWSCloudFormationStackSetExecutionRole:
-      assume_role_policy: ${data.aws_iam_policy_document.AWSCloudFormationStackSetExecutionRole_assume_role_policy.json}
-      name: AWSCloudFormationStackSetExecutionRole
-
-data:
   aws_iam_policy_document:
     AWSCloudFormationStackSetExecutionRole_MinimumExecutionPolicy:
       statement:
@@ -51,12 +44,16 @@ data:
           - "*"
 
 resource:
+  aws_iam_role:
+    AWSCloudFormationStackSetExecutionRole:
+      assume_role_policy: ${data.aws_iam_policy_document.AWSCloudFormationStackSetExecutionRole_assume_role_policy.json}
+      name: AWSCloudFormationStackSetExecutionRole
+
   aws_iam_role_policy:
     AWSCloudFormationStackSetExecutionRole_MinimumExecutionPolicy:
       name: MinimumExecutionPolicy
       policy: ${data.aws_iam_policy_document.AWSCloudFormationStackSetExecutionRole_MinimumExecutionPolicy.json}
-      role: ${aws_iam_role.AWSCloudFormationStackSetExecutionRole.name}
-```
+      role: ${aws_iam_role.AWSCloudFormationStackSetExecutionRole.name}```
 
 ## Example Deployment across Organizations account
 

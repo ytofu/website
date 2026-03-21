@@ -30,7 +30,6 @@ resource:
         is_health_monitoring_enabled: false
         is_incident_logs_enabled: false
 
-resource:
   aws_odb_cloud_vm_cluster:
     with_all_parameters:
       display_name: my_vm_cluster
@@ -57,8 +56,7 @@ resource:
       data_collection_options:
         is_diagnostics_events_enabled: true
         is_health_monitoring_enabled: true
-        is_incident_logs_enabled: true
-```
+        is_incident_logs_enabled: true```
 
 ## Argument Reference
 

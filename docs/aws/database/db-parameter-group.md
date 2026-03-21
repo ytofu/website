@@ -32,12 +32,10 @@ resource:
       lifecycle:
         create_before_destroy: true
 
-resource:
   aws_db_instance:
     example:
       parameter_group_name: ${aws_db_parameter_group.example.name}
-      apply_immediately: true
-```
+      apply_immediately: true```
 
 ## Problematic Plan Changes
 

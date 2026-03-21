@@ -26,7 +26,6 @@ resource:
       tags:
         tag1: value1
 
-resource:
   aws_medialive_multiplex_program:
     example:
       program_name: example_program
@@ -35,8 +34,7 @@ resource:
         program_number: 1
         preferred_channel_pipeline: CURRENTLY_ACTIVE
         video_settings:
-          constant_bitrate: 100000
-```
+          constant_bitrate: 100000```
 
 ## Argument Reference
 

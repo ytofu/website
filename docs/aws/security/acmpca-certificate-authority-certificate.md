@@ -12,7 +12,6 @@ resource:
       certificate: ${aws_acmpca_certificate.example.certificate}
       certificate_chain: ${aws_acmpca_certificate.example.certificate_chain}
 
-resource:
   aws_acmpca_certificate:
     example:
       certificate_authority_arn: ${aws_acmpca_certificate_authority.example.arn}
@@ -23,7 +22,6 @@ resource:
         type: YEARS
         value: 1
 
-resource:
   aws_acmpca_certificate_authority:
     example:
       type: ROOT
@@ -35,8 +33,7 @@ resource:
 
 data:
   aws_partition:
-    current:
-```
+    current:```
 
 ## Certificate for Subordinate Certificate Authority
 
@@ -48,7 +45,6 @@ resource:
       certificate: ${aws_acmpca_certificate.subordinate.certificate}
       certificate_chain: ${aws_acmpca_certificate.subordinate.certificate_chain}
 
-resource:
   aws_acmpca_certificate:
     subordinate:
       certificate_authority_arn: ${aws_acmpca_certificate_authority.root.arn}
@@ -59,7 +55,6 @@ resource:
         type: YEARS
         value: 1
 
-resource:
   aws_acmpca_certificate_authority:
     subordinate:
       type: SUBORDINATE
@@ -69,22 +64,18 @@ resource:
         subject:
           common_name: sub.example.com
 
-resource:
   aws_acmpca_certificate_authority:
     root:
 
-resource:
   aws_acmpca_certificate_authority_certificate:
     root:
 
-resource:
   aws_acmpca_certificate:
     root:
 
 data:
   aws_partition:
-    current:
-```
+    current:```
 
 ## Argument Reference
 

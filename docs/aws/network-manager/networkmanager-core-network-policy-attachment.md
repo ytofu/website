@@ -10,12 +10,10 @@ resource:
     example:
       global_network_id: ${aws_networkmanager_global_network.example.id}
 
-resource:
   aws_networkmanager_core_network_policy_attachment:
     example:
       core_network_id: ${aws_networkmanager_core_network.example.id}
-      policy_document: ${data.aws_networkmanager_core_network_policy_document.example.json}
-```
+      policy_document: ${data.aws_networkmanager_core_network_policy_document.example.json}```
 
 ## With VPC Attachment (Single Region)
 
@@ -23,6 +21,23 @@ resource:
 resource:
   aws_networkmanager_global_network:
     example:
+
+  aws_networkmanager_core_network:
+    example:
+      global_network_id: ${aws_networkmanager_global_network.example.id}
+      base_policy_document: ${data.aws_networkmanager_core_network_policy_document.base.json}
+      create_base_policy: true
+
+  aws_networkmanager_core_network_policy_attachment:
+    example:
+      core_network_id: ${aws_networkmanager_core_network.example.id}
+      policy_document: ${data.aws_networkmanager_core_network_policy_document.example.json}
+
+  aws_networkmanager_vpc_attachment:
+    example:
+      core_network_id: ${aws_networkmanager_core_network.example.id}
+      subnet_arns: ${aws_subnet.example[*].arn}
+      vpc_arn: ${aws_vpc.example.arn}
 
 data:
   aws_networkmanager_core_network_policy_document:
@@ -36,14 +51,6 @@ data:
       segments:
         name: segment
 
-resource:
-  aws_networkmanager_core_network:
-    example:
-      global_network_id: ${aws_networkmanager_global_network.example.id}
-      base_policy_document: ${data.aws_networkmanager_core_network_policy_document.base.json}
-      create_base_policy: true
-
-data:
   aws_networkmanager_core_network_policy_document:
     example:
       core_network_configuration:
@@ -60,21 +67,7 @@ data:
         destination_cidr_blocks:
           - 0.0.0.0/0
         destinations:
-          - ${aws_networkmanager_vpc_attachment.example.id}
-
-resource:
-  aws_networkmanager_core_network_policy_attachment:
-    example:
-      core_network_id: ${aws_networkmanager_core_network.example.id}
-      policy_document: ${data.aws_networkmanager_core_network_policy_document.example.json}
-
-resource:
-  aws_networkmanager_vpc_attachment:
-    example:
-      core_network_id: ${aws_networkmanager_core_network.example.id}
-      subnet_arns: ${aws_subnet.example[*].arn}
-      vpc_arn: ${aws_vpc.example.arn}
-```
+          - ${aws_networkmanager_vpc_attachment.example.id}```
 
 ## With VPC Attachment (Multi-Region)
 
@@ -82,6 +75,29 @@ resource:
 resource:
   aws_networkmanager_global_network:
     example:
+
+  aws_networkmanager_core_network:
+    example:
+      global_network_id: ${aws_networkmanager_global_network.example.id}
+      base_policy_document: ${data.aws_networkmanager_core_network_policy_document.base.json}
+      create_base_policy: true
+
+  aws_networkmanager_core_network_policy_attachment:
+    example:
+      core_network_id: ${aws_networkmanager_core_network.example.id}
+      policy_document: ${data.aws_networkmanager_core_network_policy_document.example.json}
+
+  aws_networkmanager_vpc_attachment:
+    example_us_west_2:
+      core_network_id: ${aws_networkmanager_core_network.example.id}
+      subnet_arns: ${aws_subnet.example_us_west_2[*].arn}
+      vpc_arn: ${aws_vpc.example_us_west_2.arn}
+
+  aws_networkmanager_vpc_attachment:
+    example_us_east_1:
+      core_network_id: ${aws_networkmanager_core_network.example.id}
+      subnet_arns: ${aws_subnet.example_us_east_1[*].arn}
+      vpc_arn: ${aws_vpc.example_us_east_1.arn}
 
 data:
   aws_networkmanager_core_network_policy_document:
@@ -98,14 +114,6 @@ data:
       segments:
         name: segment
 
-resource:
-  aws_networkmanager_core_network:
-    example:
-      global_network_id: ${aws_networkmanager_global_network.example.id}
-      base_policy_document: ${data.aws_networkmanager_core_network_policy_document.base.json}
-      create_base_policy: true
-
-data:
   aws_networkmanager_core_network_policy_document:
     example:
       core_network_configuration:
@@ -134,28 +142,7 @@ data:
         destination_cidr_blocks:
           - 10.1.0.0/16
         destinations:
-          - ${aws_networkmanager_vpc_attachment.example_us_east_1.id}
-
-resource:
-  aws_networkmanager_core_network_policy_attachment:
-    example:
-      core_network_id: ${aws_networkmanager_core_network.example.id}
-      policy_document: ${data.aws_networkmanager_core_network_policy_document.example.json}
-
-resource:
-  aws_networkmanager_vpc_attachment:
-    example_us_west_2:
-      core_network_id: ${aws_networkmanager_core_network.example.id}
-      subnet_arns: ${aws_subnet.example_us_west_2[*].arn}
-      vpc_arn: ${aws_vpc.example_us_west_2.arn}
-
-resource:
-  aws_networkmanager_vpc_attachment:
-    example_us_east_1:
-      core_network_id: ${aws_networkmanager_core_network.example.id}
-      subnet_arns: ${aws_subnet.example_us_east_1[*].arn}
-      vpc_arn: ${aws_vpc.example_us_east_1.arn}
-```
+          - ${aws_networkmanager_vpc_attachment.example_us_east_1.id}```
 
 ## Argument Reference
 

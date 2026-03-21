@@ -30,7 +30,6 @@ resource:
       db_subnet_group_name: my_database_subnet_group
       parameter_group_name: default.mysql5.7
 
-resource:
   aws_ssm_parameter:
     secret:
       name: /production/database/password/master
@@ -38,8 +37,7 @@ resource:
       type: SecureString
       value: example-database_master_password
       tags:
-        environment: production
-```
+        environment: production```
 
 ## Argument Reference
 

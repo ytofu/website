@@ -10,24 +10,11 @@ resource:
     test:
       name: test
 
-data:
-  aws_iam_policy_document:
-    test:
-      statement:
-        actions: 
-          - "sts:AssumeRole"
-        principals:
-          type: Service
-          identifiers: 
-            - appconfig.amazonaws.com
-
-resource:
   aws_iam_role:
     test:
       name: test
       assume_role_policy: ${data.aws_iam_policy_document.test.json}
 
-resource:
   aws_appconfig_extension:
     test:
       name: test
@@ -40,7 +27,17 @@ resource:
           uri: ${aws_sns_topic.test.arn}
       tags:
         Type: AppConfig Extension
-```
+
+data:
+  aws_iam_policy_document:
+    test:
+      statement:
+        actions: 
+          - "sts:AssumeRole"
+        principals:
+          type: Service
+          identifiers: 
+            - appconfig.amazonaws.com```
 
 ## Argument Reference
 

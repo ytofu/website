@@ -33,10 +33,8 @@ resource:
       from_port: 0
       security_group_id: sg-123456
 
-resource:
   aws_vpc_endpoint:
-    my_endpoint:
-```
+    my_endpoint:```
 
 ## Argument Reference
 

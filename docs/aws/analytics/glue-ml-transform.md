@@ -20,12 +20,10 @@ resource:
       depends_on: 
         - ${aws_iam_role_policy_attachment.test}
 
-resource:
   aws_glue_catalog_database:
     test:
       name: example
 
-resource:
   aws_glue_catalog_table:
     test:
       name: example
@@ -78,8 +76,7 @@ resource:
         type: string
         comment: my_column_2_comment
       parameters:
-        param1: param1_val
-```
+        param1: param1_val```
 
 ## Argument Reference
 

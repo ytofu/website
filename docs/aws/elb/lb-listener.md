@@ -9,11 +9,9 @@ resource:
   aws_lb:
     front_end:
 
-resource:
   aws_lb_target_group:
     front_end:
 
-resource:
   aws_lb_listener:
     front_end:
       load_balancer_arn: ${aws_lb.front_end.arn}
@@ -23,8 +21,7 @@ resource:
       certificate_arn: "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
       default_action:
         type: forward
-        target_group_arn: ${aws_lb_target_group.front_end.arn}
-```
+        target_group_arn: ${aws_lb_target_group.front_end.arn}```
 
 ## Redirect Action
 
@@ -33,7 +30,6 @@ resource:
   aws_lb:
     front_end:
 
-resource:
   aws_lb_listener:
     front_end:
       load_balancer_arn: ${aws_lb.front_end.arn}
@@ -44,8 +40,7 @@ resource:
         redirect:
           port: 443
           protocol: HTTPS
-          status_code: HTTP_301
-```
+          status_code: HTTP_301```
 
 ## Fixed-response Action
 
@@ -54,7 +49,6 @@ resource:
   aws_lb:
     front_end:
 
-resource:
   aws_lb_listener:
     front_end:
       load_balancer_arn: ${aws_lb.front_end.arn}
@@ -65,8 +59,7 @@ resource:
         fixed_response:
           content_type: text/plain
           message_body: Fixed response content
-          status_code: 200
-```
+          status_code: 200```
 
 ## Authenticate-cognito Action
 
@@ -75,23 +68,18 @@ resource:
   aws_lb:
     front_end:
 
-resource:
   aws_lb_target_group:
     front_end:
 
-resource:
   aws_cognito_user_pool:
     pool:
 
-resource:
   aws_cognito_user_pool_client:
     client:
 
-resource:
   aws_cognito_user_pool_domain:
     domain:
 
-resource:
   aws_lb_listener:
     front_end:
       load_balancer_arn: ${aws_lb.front_end.arn}
@@ -105,8 +93,7 @@ resource:
           user_pool_domain: ${aws_cognito_user_pool_domain.domain.domain}
       default_action:
         type: forward
-        target_group_arn: ${aws_lb_target_group.front_end.arn}
-```
+        target_group_arn: ${aws_lb_target_group.front_end.arn}```
 
 ## Authenticate-OIDC Action
 
@@ -115,11 +102,9 @@ resource:
   aws_lb:
     front_end:
 
-resource:
   aws_lb_target_group:
     front_end:
 
-resource:
   aws_lb_listener:
     front_end:
       load_balancer_arn: ${aws_lb.front_end.arn}
@@ -136,8 +121,7 @@ resource:
           user_info_endpoint: "https://example.com/user_info_endpoint"
       default_action:
         type: forward
-        target_group_arn: ${aws_lb_target_group.front_end.arn}
-```
+        target_group_arn: ${aws_lb_target_group.front_end.arn}```
 
 ## JWT Validation Action
 
@@ -182,7 +166,6 @@ resource:
       subnet_mapping:
         subnet_id: ${aws_subnet.example.id}
 
-resource:
   aws_lb_target_group:
     example:
       name: example
@@ -193,14 +176,12 @@ resource:
         port: 80
         protocol: HTTP
 
-resource:
   aws_lb_listener:
     example:
       load_balancer_arn: ${aws_lb.example.id}
       default_action:
         target_group_arn: ${aws_lb_target_group.example.id}
-        type: forward
-```
+        type: forward```
 
 ## Mutual TLS Authentication
 
@@ -210,11 +191,9 @@ resource:
     example:
       load_balancer_type: application
 
-resource:
   aws_lb_target_group:
     example:
 
-resource:
   aws_lb_listener:
     example:
       load_balancer_arn: ${aws_lb.example.id}
@@ -223,8 +202,7 @@ resource:
         type: forward
       mutual_authentication:
         mode: verify
-        trust_store_arn: ...
-```
+        trust_store_arn: ...```
 
 ## Argument Reference
 

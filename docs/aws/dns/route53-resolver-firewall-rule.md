@@ -13,13 +13,11 @@ resource:
         - example.com
       tags: {}
 
-resource:
   aws_route53_resolver_firewall_rule_group:
     example:
       name: example
       tags: {}
 
-resource:
   aws_route53_resolver_firewall_rule:
     example:
       name: example
@@ -30,8 +28,7 @@ resource:
       block_response: OVERRIDE
       firewall_domain_list_id: ${aws_route53_resolver_firewall_domain_list.example.id}
       firewall_rule_group_id: ${aws_route53_resolver_firewall_rule_group.example.id}
-      priority: 100
-```
+      priority: 100```
 
 ## DNS Firewall Advanced Rule
 
@@ -42,7 +39,6 @@ resource:
       name: example
       tags: {}
 
-resource:
   aws_route53_resolver_firewall_rule:
     example:
       name: block-dga
@@ -51,8 +47,7 @@ resource:
       firewall_rule_group_id: ${aws_route53_resolver_firewall_rule_group.example.id}
       dns_threat_protection: DGA
       confidence_threshold: HIGH
-      priority: 100
-```
+      priority: 100```
 
 ## Argument Reference
 

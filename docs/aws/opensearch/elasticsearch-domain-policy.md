@@ -11,7 +11,6 @@ resource:
       domain_name: tf-test
       elasticsearch_version: 2.3
 
-resource:
   aws_elasticsearch_domain_policy:
     main:
       domain_name: ${aws_elasticsearch_domain.example.domain_name}
@@ -29,8 +28,7 @@ resource:
         "Resource": "${aws_elasticsearch_domain.example.arn}/*"
         }
         ]
-        }
-```
+        }```
 
 ## Argument Reference
 

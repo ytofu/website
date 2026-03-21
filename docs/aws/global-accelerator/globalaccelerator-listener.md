@@ -16,7 +16,6 @@ resource:
         flow_logs_s3_bucket: example-bucket
         flow_logs_s3_prefix: flow-logs/
 
-resource:
   aws_globalaccelerator_listener:
     example:
       accelerator_arn: ${aws_globalaccelerator_accelerator.example.arn}
@@ -24,8 +23,7 @@ resource:
       protocol: TCP
       port_range:
         from_port: 80
-        to_port: 80
-```
+        to_port: 80```
 
 ## Argument Reference
 

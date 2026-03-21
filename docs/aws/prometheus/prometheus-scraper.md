@@ -106,7 +106,6 @@ resource:
       tags:
         AMPAgentlessScraper: 
 
-resource:
   aws_prometheus_scraper:
     example:
       source:
@@ -116,8 +115,7 @@ resource:
       scrape_configuration: ...
       destination:
         amp:
-          workspace_arn: ${aws_prometheus_workspace.example.arn}
-```
+          workspace_arn: ${aws_prometheus_workspace.example.arn}```
 
 ## Cross-Account Configuration
 

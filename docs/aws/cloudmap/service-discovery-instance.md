@@ -12,14 +12,12 @@ resource:
       enable_dns_support: true
       enable_dns_hostnames: true
 
-resource:
   aws_service_discovery_private_dns_namespace:
     example:
       name: example.terraform.local
       description: example
       vpc: ${aws_vpc.example.id}
 
-resource:
   aws_service_discovery_service:
     example:
       name: example
@@ -32,15 +30,13 @@ resource:
       health_check_custom_config:
         failure_threshold: 1
 
-resource:
   aws_service_discovery_instance:
     example:
       instance_id: example-instance-id
       service_id: ${aws_service_discovery_service.example.id}
       attributes:
         AWS_INSTANCE_IPV4: 172.18.0.1
-        custom_attribute: custom
-```
+        custom_attribute: custom```
 
 ## Argument Reference
 

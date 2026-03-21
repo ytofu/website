@@ -9,7 +9,6 @@ resource:
   aws_detective_graph:
     primary:
 
-resource:
   aws_detective_member:
     primary:
       account_id: ACCOUNT ID
@@ -17,13 +16,11 @@ resource:
       graph_arn: ${aws_detective_graph.primary.graph_arn}
       message: Message of the invite
 
-resource:
   aws_detective_invitation_accepter:
     member:
       graph_arn: ${aws_detective_graph.primary.graph_arn}
       depends_on: 
-        - ${aws_detective_member.primary}
-```
+        - ${aws_detective_member.primary}```
 
 ## Argument Reference
 

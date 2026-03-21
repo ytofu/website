@@ -14,21 +14,17 @@ resource:
         - ${aws_iam_user.user_two.name}
       group: ${aws_iam_group.group.name}
 
-resource:
   aws_iam_group:
     group:
       name: test-group
 
-resource:
   aws_iam_user:
     user_one:
       name: test-user
 
-resource:
   aws_iam_user:
     user_two:
-      name: test-user-two
-```
+      name: test-user-two```
 
 ## Argument Reference
 

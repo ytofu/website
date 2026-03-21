@@ -22,12 +22,10 @@ resource:
       name: dynamodb-access-role
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
 
-resource:
   aws_iot_role_alias:
     alias:
       alias: Thermostat-dynamodb-access-role-alias
-      role_arn: ${aws_iam_role.role.arn}
-```
+      role_arn: ${aws_iam_role.role.arn}```
 
 ## Argument Reference
 

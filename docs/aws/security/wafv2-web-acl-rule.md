@@ -20,7 +20,6 @@ resource:
           ignore_changes: 
             - rule
 
-resource:
   aws_wafv2_web_acl_rule:
     block_countries:
       name: "block-countries" # Must match existing rule name
@@ -36,8 +35,7 @@ resource:
         visibility_config:
           cloudwatch_metrics_enabled: false
           metric_name: block-countries
-          sampled_requests_enabled: false
-```
+          sampled_requests_enabled: false```
 
 ## Basic Geo Match Rule
 
@@ -57,7 +55,6 @@ resource:
           ignore_changes: 
             - rule
 
-resource:
   aws_wafv2_web_acl_rule:
     block_countries:
       name: block-countries
@@ -73,8 +70,7 @@ resource:
         visibility_config:
           cloudwatch_metrics_enabled: false
           metric_name: block-countries
-          sampled_requests_enabled: false
-```
+          sampled_requests_enabled: false```
 
 ## IP Set Reference (Solves Deletion Ordering)
 
@@ -89,7 +85,6 @@ resource:
         - 1.2.3.4/32
         - 5.6.7.8/32
 
-resource:
   aws_wafv2_web_acl:
     example:
       name: example
@@ -104,7 +99,6 @@ resource:
           ignore_changes: 
             - rule
 
-resource:
   aws_wafv2_web_acl_rule:
     block_ips:
       name: block-bad-ips
@@ -118,8 +112,7 @@ resource:
         visibility_config:
           cloudwatch_metrics_enabled: true
           metric_name: block-bad-ips
-          sampled_requests_enabled: true
-```
+          sampled_requests_enabled: true```
 
 ## Rate-Based Rule
 

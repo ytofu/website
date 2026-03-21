@@ -21,7 +21,6 @@ resource:
       tags:
         Name: example
 
-resource:
   aws_subnet:
     example:
       vpc_id: ${aws_vpc.example.id}
@@ -30,7 +29,6 @@ resource:
       tags:
         Name: example
 
-resource:
   aws_security_group:
     example:
       vpc_id: ${aws_vpc.example.id}
@@ -38,12 +36,10 @@ resource:
       tags:
         Name: example
 
-resource:
   aws_workspacesweb_portal:
     example:
       display_name: example
 
-resource:
   aws_workspacesweb_network_settings:
     example:
       vpc_id: ${aws_vpc.example.id}
@@ -54,12 +50,10 @@ resource:
         - ${aws_security_group.example[0].id}
         - ${aws_security_group.example[1].id}
 
-resource:
   aws_workspacesweb_network_settings_association:
     example:
       network_settings_arn: ${aws_workspacesweb_network_settings.example.network_settings_arn}
-      portal_arn: ${aws_workspacesweb_portal.example.portal_arn}
-```
+      portal_arn: ${aws_workspacesweb_portal.example.portal_arn}```
 
 ## Argument Reference
 

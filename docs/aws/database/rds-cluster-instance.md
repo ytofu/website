@@ -16,7 +16,6 @@ resource:
       engine: ${aws_rds_cluster.default.engine}
       engine_version: ${aws_rds_cluster.default.engine_version}
 
-resource:
   aws_rds_cluster:
     default:
       cluster_identifier: aurora-cluster-demo
@@ -26,8 +25,7 @@ resource:
         - us-west-2c
       database_name: mydb
       master_username: foo
-      master_password: barbut8chars
-```
+      master_password: barbut8chars```
 
 ## Argument Reference
 

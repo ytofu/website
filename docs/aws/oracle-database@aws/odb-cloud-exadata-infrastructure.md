@@ -40,7 +40,6 @@ resource:
           - 4
       tags: 
 
-resource:
   aws_odb_cloud_exadata_infrastructure:
     example:
       display_name: my_exa_X9M
@@ -52,8 +51,7 @@ resource:
         custom_action_timeout_in_mins: 16
         is_custom_action_timeout_enabled: true
         patching_mode: ROLLING
-        preference: NO_PREFERENCE
-```
+        preference: NO_PREFERENCE```
 
 ## Argument Reference
 

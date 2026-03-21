@@ -10,12 +10,10 @@ resource:
     example:
       bucket: example-bucket
 
-resource:
   aws_sns_topic:
     example:
       name: example-topic
 
-resource:
   aws_kinesis_video_stream:
     example:
       name: example-kinesis-input
@@ -23,7 +21,6 @@ resource:
       device_name: kinesis-video-device-name
       media_type: video/h264
 
-resource:
   aws_iam_role:
     example:
       name: example-role
@@ -32,7 +29,6 @@ resource:
         policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": ["s3:PutObject"] "Effect": "Allow" "Resource": ["${aws_s3_bucket.example.arn}/*"] }, { "Action": ["sns:Publish"] "Effect": "Allow" "Resource": [aws_sns_topic.example.arn] }, { "Action": [ "kinesis:Get*", "kinesis:DescribeStreamSummary" ] "Effect": "Allow" "Resource": [aws_kinesis_video_stream.example.arn] }, ] }'
       assume_role_policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": "sts:AssumeRole" "Effect": "Allow" "Principal": { "Service": "rekognition.amazonaws.com" } }, ] }'
 
-resource:
   aws_rekognition_stream_processor:
     example:
       role_arn: ${aws_iam_role.example.arn}
@@ -51,8 +47,7 @@ resource:
         kinesis_video_stream:
           arn: ${aws_kinesis_video_stream.example.arn}
       notification_channel:
-        sns_topic_arn: ${aws_sns_topic.example.arn}
-```
+        sns_topic_arn: ${aws_sns_topic.example.arn}```
 
 ## Face Detection Usage
 
@@ -65,13 +60,11 @@ resource:
       device_name: kinesis-video-device-name
       media_type: video/h264
 
-resource:
   aws_kinesis_stream:
     example:
       name: terraform-kinesis-example
       shard_count: 1
 
-resource:
   aws_iam_role:
     example:
       name: example-role
@@ -80,12 +73,10 @@ resource:
         policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": [ "kinesis:Get*", "kinesis:DescribeStreamSummary" ] "Effect": "Allow" "Resource": [aws_kinesis_video_stream.example.arn] }, { "Action": [ "kinesis:PutRecord" ] "Effect": "Allow" "Resource": [aws_kinesis_stream.example.arn] }, ] }'
       assume_role_policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": "sts:AssumeRole" "Effect": "Allow" "Principal": { "Service": "rekognition.amazonaws.com" } }, ] }'
 
-resource:
   aws_rekognition_collection:
     example:
       collection_id: example-collection
 
-resource:
   aws_rekognition_stream_processor:
     example:
       role_arn: ${aws_iam_role.example.arn}
@@ -110,8 +101,7 @@ resource:
           arn: ${aws_kinesis_stream.example.arn}
       settings:
         face_search:
-          collection_id: ${aws_rekognition_collection.example.id}
-```
+          collection_id: ${aws_rekognition_collection.example.id}```
 
 ## Argument Reference
 

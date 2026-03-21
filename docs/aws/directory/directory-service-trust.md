@@ -14,7 +14,6 @@ resource:
       trust_password: Some0therPassword
       conditional_forwarder_ip_addrs: ${aws_directory_service_directory.two.dns_ip_addresses}
 
-resource:
   aws_directory_service_trust:
     two:
       directory_id: ${aws_directory_service_directory.two.id}
@@ -23,18 +22,15 @@ resource:
       trust_password: Some0therPassword
       conditional_forwarder_ip_addrs: ${aws_directory_service_directory.one.dns_ip_addresses}
 
-resource:
   aws_directory_service_directory:
     one:
       name: one.example.com
       type: MicrosoftAD
 
-resource:
   aws_directory_service_directory:
     two:
       name: two.example.com
-      type: MicrosoftAD
-```
+      type: MicrosoftAD```
 
 ## One-Way Trust
 
@@ -48,7 +44,6 @@ resource:
       trust_password: Some0therPassword
       conditional_forwarder_ip_addrs: ${aws_directory_service_directory.two.dns_ip_addresses}
 
-resource:
   aws_directory_service_trust:
     two:
       directory_id: ${aws_directory_service_directory.two.id}
@@ -57,18 +52,15 @@ resource:
       trust_password: Some0therPassword
       conditional_forwarder_ip_addrs: ${aws_directory_service_directory.one.dns_ip_addresses}
 
-resource:
   aws_directory_service_directory:
     one:
       name: one.example.com
       type: MicrosoftAD
 
-resource:
   aws_directory_service_directory:
     two:
       name: two.example.com
-      type: MicrosoftAD
-```
+      type: MicrosoftAD```
 
 ## Argument Reference
 

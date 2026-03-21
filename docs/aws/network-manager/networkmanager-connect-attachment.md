@@ -12,15 +12,13 @@ resource:
       core_network_id: ${awscc_networkmanager_core_network.example.id}
       vpc_arn: ${aws_vpc.example.arn}
 
-resource:
   aws_networkmanager_connect_attachment:
     example:
       core_network_id: ${awscc_networkmanager_core_network.example.id}
       transport_attachment_id: ${aws_networkmanager_vpc_attachment.example.id}
       edge_location: ${aws_networkmanager_vpc_attachment.example.edge_location}
       options:
-        protocol: GRE
-```
+        protocol: GRE```
 
 ## Usage with attachment accepter
 
@@ -32,13 +30,11 @@ resource:
       core_network_id: ${awscc_networkmanager_core_network.example.id}
       vpc_arn: ${aws_vpc.example.arn}
 
-resource:
   aws_networkmanager_attachment_accepter:
     example:
       attachment_id: ${aws_networkmanager_vpc_attachment.example.id}
       attachment_type: ${aws_networkmanager_vpc_attachment.example.attachment_type}
 
-resource:
   aws_networkmanager_connect_attachment:
     example:
       core_network_id: ${awscc_networkmanager_core_network.example.id}
@@ -49,12 +45,10 @@ resource:
       depends_on:
         - ${aws_networkmanager_attachment_accepter.example}
 
-resource:
   aws_networkmanager_attachment_accepter:
     example2:
       attachment_id: ${aws_networkmanager_connect_attachment.example.id}
-      attachment_type: ${aws_networkmanager_connect_attachment.example.attachment_type}
-```
+      attachment_type: ${aws_networkmanager_connect_attachment.example.attachment_type}```
 
 ## Argument Reference
 

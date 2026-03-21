@@ -10,12 +10,10 @@ resource:
     example:
       domain: example.com
 
-resource:
   aws_ses_domain_dkim:
     example:
       domain: ${aws_ses_domain_identity.example.domain}
 
-resource:
   aws_route53_record:
     example_amazonses_dkim_record:
       zone_id: ABCDEFGHIJ123
@@ -23,8 +21,7 @@ resource:
       type: CNAME
       ttl: 600
       records: 
-        - "${aws_ses_domain_dkim.example.dkim_tokens[count.index]}.dkim.amazonses.com"
-```
+        - "${aws_ses_domain_dkim.example.dkim_tokens[count.index]}.dkim.amazonses.com"```
 
 ## Argument Reference
 

@@ -9,15 +9,13 @@ resource:
   aws_securityhub_account:
     example:
 
-resource:
   aws_securityhub_action_target:
     example:
       depends_on: 
         - ${aws_securityhub_account.example}
       name: Send notification to chat
       identifier: SendToChat
-      description: This is custom action sends selected findings to chat
-```
+      description: This is custom action sends selected findings to chat```
 
 ## Argument Reference
 

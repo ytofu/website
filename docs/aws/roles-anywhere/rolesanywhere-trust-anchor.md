@@ -16,11 +16,6 @@ resource:
         subject:
           common_name: example.com
 
-data:
-  aws_partition:
-    current:
-
-resource:
   aws_acmpca_certificate:
     test:
       certificate_authority_arn: ${aws_acmpca_certificate_authority.example.arn}
@@ -31,14 +26,12 @@ resource:
         type: YEARS
         value: 1
 
-resource:
   aws_acmpca_certificate_authority_certificate:
     example:
       certificate_authority_arn: ${aws_acmpca_certificate_authority.example.arn}
       certificate: ${aws_acmpca_certificate.example.certificate}
       certificate_chain: ${aws_acmpca_certificate.example.certificate_chain}
 
-resource:
   aws_rolesanywhere_trust_anchor:
     test:
       name: example
@@ -48,7 +41,10 @@ resource:
         source_type: AWS_ACM_PCA
       depends_on: 
         - ${aws_acmpca_certificate_authority_certificate.example}
-```
+
+data:
+  aws_partition:
+    current:```
 
 ## Argument Reference
 

@@ -14,7 +14,6 @@ resource:
     example:
       assume_role_policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": "sts:AssumeRole" "Effect": "Allow" "Sid": "" "Principal": { "Service": "osis-pipelines.amazonaws.com" } }, ] }'
 
-resource:
   aws_osis_pipeline:
     example:
       pipeline_name: example
@@ -35,8 +34,7 @@ resource:
         codec:
         ndjson:
       max_units: 1
-      min_units: 1
-```
+      min_units: 1```
 
 ## Using file function
 

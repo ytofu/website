@@ -11,12 +11,10 @@ resource:
       description: Sample KMS Key
       deletion_window_in_days: 7
 
-resource:
   aws_finspace_kx_environment:
     example:
       name: my-tf-kx-environment
-      kms_key_id: ${aws_kms_key.example.arn}
-```
+      kms_key_id: ${aws_kms_key.example.arn}```
 
 ## With Transit Gateway Configuration
 
@@ -27,12 +25,10 @@ resource:
       description: Sample KMS Key
       deletion_window_in_days: 7
 
-resource:
   aws_ec2_transit_gateway:
     example:
       description: example
 
-resource:
   aws_finspace_kx_environment:
     example_env:
       name: my-tf-kx-environment
@@ -43,8 +39,7 @@ resource:
         routable_cidr_space: 100.64.0.0/26
       custom_dns_configuration:
         custom_dns_server_name: example.finspace.amazonaws.com
-        custom_dns_server_ip: 10.0.0.76
-```
+        custom_dns_server_ip: 10.0.0.76```
 
 ## With Transit Gateway Attachment Network ACL Configuration
 
@@ -55,12 +50,10 @@ resource:
       description: Sample KMS Key
       deletion_window_in_days: 7
 
-resource:
   aws_ec2_transit_gateway:
     example:
       description: example
 
-resource:
   aws_finspace_kx_environment:
     example_env:
       name: my-tf-kx-environment
@@ -82,8 +75,7 @@ resource:
             code: -1
       custom_dns_configuration:
         custom_dns_server_name: example.finspace.amazonaws.com
-        custom_dns_server_ip: 10.0.0.76
-```
+        custom_dns_server_ip: 10.0.0.76```
 
 ## Argument Reference
 

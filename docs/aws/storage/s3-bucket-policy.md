@@ -10,7 +10,6 @@ resource:
     example:
       bucket: my-tf-test-bucket
 
-resource:
   aws_s3_bucket_policy:
     allow_access_from_another_account:
       bucket: ${aws_s3_bucket.example.id}
@@ -29,8 +28,7 @@ data:
           - "s3:ListBucket"
         resources:
           - ${aws_s3_bucket.example.arn}
-          - "${aws_s3_bucket.example.arn}/*"
-```
+          - "${aws_s3_bucket.example.arn}/*"```
 
 ## Argument Reference
 

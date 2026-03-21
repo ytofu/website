@@ -19,18 +19,15 @@ resource:
       backup_retention_period: 0
       parameter_group_name: default.mysql5.6
 
-resource:
   aws_db_snapshot:
     example:
       db_instance_identifier: ${aws_db_instance.example.identifier}
       db_snapshot_identifier: testsnapshot1234
 
-resource:
   aws_db_snapshot_copy:
     example:
       source_db_snapshot_identifier: ${aws_db_snapshot.example.db_snapshot_arn}
-      target_db_snapshot_identifier: testsnapshot1234-copy
-```
+      target_db_snapshot_identifier: testsnapshot1234-copy```
 
 ## Argument Reference
 

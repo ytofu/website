@@ -12,7 +12,6 @@ resource:
       monitor_type: DIMENSIONAL
       monitor_dimension: SERVICE
 
-resource:
   aws_ce_anomaly_subscription:
     test:
       name: DAILYSUBSCRIPTION
@@ -28,8 +27,7 @@ resource:
           match_options: 
             - GREATER_THAN_OR_EQUAL
           values: 
-            - 100
-```
+            - 100```
 
 ## Threshold Expression Example
 
@@ -60,6 +58,29 @@ resource:
   aws_sns_topic:
     cost_anomaly_updates:
       name: CostAnomalyUpdates
+
+  aws_sns_topic_policy:
+    default:
+      arn: ${aws_sns_topic.cost_anomaly_updates.arn}
+      policy: ${data.aws_iam_policy_document.sns_topic_policy.json}
+
+  aws_ce_anomaly_monitor:
+    anomaly_monitor:
+      name: AWSServiceMonitor
+      monitor_type: DIMENSIONAL
+      monitor_dimension: SERVICE
+
+  aws_ce_anomaly_subscription:
+    realtime_subscription:
+      name: RealtimeAnomalySubscription
+      frequency: IMMEDIATE
+      monitor_arn_list:
+        - ${aws_ce_anomaly_monitor.anomaly_monitor.arn}
+      subscriber:
+        type: SNS
+        address: ${aws_sns_topic.cost_anomaly_updates.arn}
+      depends_on:
+        - ${aws_sns_topic_policy.default}
 
 data:
   aws_iam_policy_document:
@@ -98,34 +119,7 @@ data:
           identifiers: 
             - "*"
         resources:
-          - ${aws_sns_topic.cost_anomaly_updates.arn}
-
-resource:
-  aws_sns_topic_policy:
-    default:
-      arn: ${aws_sns_topic.cost_anomaly_updates.arn}
-      policy: ${data.aws_iam_policy_document.sns_topic_policy.json}
-
-resource:
-  aws_ce_anomaly_monitor:
-    anomaly_monitor:
-      name: AWSServiceMonitor
-      monitor_type: DIMENSIONAL
-      monitor_dimension: SERVICE
-
-resource:
-  aws_ce_anomaly_subscription:
-    realtime_subscription:
-      name: RealtimeAnomalySubscription
-      frequency: IMMEDIATE
-      monitor_arn_list:
-        - ${aws_ce_anomaly_monitor.anomaly_monitor.arn}
-      subscriber:
-        type: SNS
-        address: ${aws_sns_topic.cost_anomaly_updates.arn}
-      depends_on:
-        - ${aws_sns_topic_policy.default}
-```
+          - ${aws_sns_topic.cost_anomaly_updates.arn}```
 
 ## Argument Reference
 

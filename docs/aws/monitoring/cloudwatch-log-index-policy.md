@@ -10,12 +10,10 @@ resource:
     example:
       name: example
 
-resource:
   aws_cloudwatch_log_index_policy:
     example:
       log_group_name: ${aws_cloudwatch_log_group.example.name}
-      policy_document: '{ "Fields": ["eventName"] }'
-```
+      policy_document: '{ "Fields": ["eventName"] }'```
 
 ## Argument Reference
 

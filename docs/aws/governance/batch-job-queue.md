@@ -33,7 +33,6 @@ resource:
           share_identifier: "A1*"
           weight_factor: 0.1
 
-resource:
   aws_batch_job_queue:
     example:
       name: tf-test-batch-job-queue
@@ -45,8 +44,7 @@ resource:
         compute_environment: ${aws_batch_compute_environment.test_environment_1.arn}
       compute_environment_order:
         order: 2
-        compute_environment: ${aws_batch_compute_environment.test_environment_2.arn}
-```
+        compute_environment: ${aws_batch_compute_environment.test_environment_2.arn}```
 
 ## Argument Reference
 

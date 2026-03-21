@@ -10,7 +10,6 @@ resource:
     test:
       name: "testing-${count.index}"
 
-resource:
   aws_cloudwatch_log_anomaly_detector:
     test:
       detector_name: testing
@@ -18,8 +17,7 @@ resource:
         - ${aws_cloudwatch_log_group.test[0].arn}
       anomaly_visibility_time: 7
       evaluation_frequency: TEN_MIN
-      enabled: false
-```
+      enabled: false```
 
 ## Argument Reference
 

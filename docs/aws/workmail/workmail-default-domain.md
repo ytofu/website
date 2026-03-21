@@ -10,12 +10,10 @@ resource:
     example:
       organization_alias: example-org
 
-resource:
   aws_workmail_default_domain:
     example:
       organization_id: ${aws_workmail_organization.example.id}
-      domain_name: ${aws_workmail_organization.example.default_mail_domain}
-```
+      domain_name: ${aws_workmail_organization.example.default_mail_domain}```
 
 ## Argument Reference
 

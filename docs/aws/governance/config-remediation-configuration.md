@@ -13,7 +13,6 @@ resource:
         owner: AWS
         source_identifier: S3_BUCKET_VERSIONING_ENABLED
 
-resource:
   aws_config_remediation_configuration:
     this:
       config_rule_name: ${aws_config_config_rule.this.name}
@@ -36,8 +35,7 @@ resource:
       execution_controls:
         ssm_controls:
           concurrent_execution_rate_percentage: 25
-          error_percentage: 20
-```
+          error_percentage: 20```
 
 ## Argument Reference
 

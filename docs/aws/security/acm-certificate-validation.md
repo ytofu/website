@@ -12,13 +12,6 @@ resource:
       domain_name: example.com
       validation_method: DNS
 
-data:
-  aws_route53_zone:
-    example:
-      name: example.com
-      private_zone: false
-
-resource:
   aws_route53_record:
     example:
       allow_overwrite: true
@@ -29,17 +22,20 @@ resource:
       type: example-resource_record_type
       zone_id: ${data.aws_route53_zone.example.zone_id}
 
-resource:
   aws_acm_certificate_validation:
     example:
       certificate_arn: ${aws_acm_certificate.example.arn}
       validation_record_fqdns: 'example-list'
 
-resource:
   aws_lb_listener:
     example:
       certificate_arn: ${aws_acm_certificate_validation.example.certificate_arn}
-```
+
+data:
+  aws_route53_zone:
+    example:
+      name: example.com
+      private_zone: false```
 
 ## Alternative Domains DNS Validation with Route 53
 
@@ -53,19 +49,6 @@ resource:
         - example.org
       validation_method: DNS
 
-data:
-  aws_route53_zone:
-    example_com:
-      name: example.com
-      private_zone: false
-
-data:
-  aws_route53_zone:
-    example_org:
-      name: example.org
-      private_zone: false
-
-resource:
   aws_route53_record:
     example:
       allow_overwrite: true
@@ -76,17 +59,25 @@ resource:
       type: example-resource_record_type
       zone_id: data.aws_route53_zone.example_org.zone_id
 
-resource:
   aws_acm_certificate_validation:
     example:
       certificate_arn: ${aws_acm_certificate.example.arn}
       validation_record_fqdns: 'example-list'
 
-resource:
   aws_lb_listener:
     example:
       certificate_arn: ${aws_acm_certificate_validation.example.certificate_arn}
-```
+
+data:
+  aws_route53_zone:
+    example_com:
+      name: example.com
+      private_zone: false
+
+  aws_route53_zone:
+    example_org:
+      name: example.org
+      private_zone: false```
 
 ## Email Validation
 
@@ -97,11 +88,9 @@ resource:
       domain_name: example.com
       validation_method: EMAIL
 
-resource:
   aws_acm_certificate_validation:
     example:
-      certificate_arn: ${aws_acm_certificate.example.arn}
-```
+      certificate_arn: ${aws_acm_certificate.example.arn}```
 
 ## Argument Reference
 

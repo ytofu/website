@@ -88,15 +88,13 @@ resource:
       gateway_load_balancer_arns: 
         - ${aws_lb.example.arn}
 
-resource:
   aws_vpc_endpoint:
     example:
       service_name: ${aws_vpc_endpoint_service.example.service_name}
       subnet_ids: 
         - ${aws_subnet.example.id}
       vpc_endpoint_type: ${aws_vpc_endpoint_service.example.service_type}
-      vpc_id: ${aws_vpc.example.id}
-```
+      vpc_id: ${aws_vpc.example.id}```
 
 ## VPC Lattice Resource Configuration Endpoint Type
 
@@ -139,14 +137,6 @@ resource:
         - example-subnet_ids
       private_dns_enabled: false
 
-data:
-  aws_route53_zone:
-    internal:
-      name: vpc.internal.
-      private_zone: true
-      vpc_id: example-vpc_id
-
-resource:
   aws_route53_record:
     ptfe_service:
       zone_id: ${data.aws_route53_zone.internal.zone_id}
@@ -155,7 +145,13 @@ resource:
       ttl: 300
       records: 
         - ${aws_vpc_endpoint.ptfe_service.dns_entry[0]["dns_name"]}
-```
+
+data:
+  aws_route53_zone:
+    internal:
+      name: vpc.internal.
+      private_zone: true
+      vpc_id: example-vpc_id```
 
 ## Argument Reference
 

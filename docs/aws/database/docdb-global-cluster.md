@@ -12,7 +12,6 @@ resource:
       engine: docdb
       engine_version: 4.0.0
 
-resource:
   aws_docdb_cluster:
     primary:
       engine: ${aws_docdb_global_cluster.example.engine}
@@ -23,7 +22,6 @@ resource:
       global_cluster_identifier: ${aws_docdb_global_cluster.example.id}
       db_subnet_group_name: default
 
-resource:
   aws_docdb_cluster_instance:
     primary:
       engine: ${aws_docdb_global_cluster.example.engine}
@@ -31,7 +29,6 @@ resource:
       cluster_identifier: ${aws_docdb_cluster.primary.id}
       instance_class: db.r5.large
 
-resource:
   aws_docdb_cluster:
     secondary:
       engine: ${aws_docdb_global_cluster.example.engine}
@@ -42,7 +39,6 @@ resource:
       depends_on:
         - ${aws_docdb_cluster.primary}
 
-resource:
   aws_docdb_cluster_instance:
     secondary:
       engine: ${aws_docdb_global_cluster.example.engine}
@@ -50,8 +46,7 @@ resource:
       cluster_identifier: ${aws_docdb_cluster.secondary.id}
       instance_class: db.r5.large
       depends_on:
-        - ${aws_docdb_cluster_instance.primary}
-```
+        - ${aws_docdb_cluster_instance.primary}```
 
 ## New Global Cluster From Existing DB Cluster
 
@@ -63,12 +58,10 @@ resource:
         ignore_changes: 
           - global_cluster_identifier
 
-resource:
   aws_docdb_global_cluster:
     example:
       global_cluster_identifier: example
-      source_db_cluster_identifier: ${aws_docdb_cluster.example.arn}
-```
+      source_db_cluster_identifier: ${aws_docdb_cluster.example.arn}```
 
 ## Argument Reference
 

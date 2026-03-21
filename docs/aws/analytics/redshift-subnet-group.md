@@ -10,7 +10,6 @@ resource:
     foo:
       cidr_block: 10.1.0.0/16
 
-resource:
   aws_subnet:
     foo:
       cidr_block: 10.1.1.0/24
@@ -19,7 +18,6 @@ resource:
       tags:
         Name: tf-dbsubnet-test-1
 
-resource:
   aws_subnet:
     bar:
       cidr_block: 10.1.2.0/24
@@ -28,7 +26,6 @@ resource:
       tags:
         Name: tf-dbsubnet-test-2
 
-resource:
   aws_redshift_subnet_group:
     foo:
       name: foo
@@ -36,8 +33,7 @@ resource:
         - ${aws_subnet.foo.id}
         - ${aws_subnet.bar.id}
       tags:
-        environment: Production
-```
+        environment: Production```
 
 ## Argument Reference
 

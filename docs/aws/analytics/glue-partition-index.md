@@ -10,7 +10,6 @@ resource:
     example:
       name: example
 
-resource:
   aws_glue_catalog_table:
     example:
       name: example
@@ -65,7 +64,6 @@ resource:
       parameters:
         param1: param1_val
 
-resource:
   aws_glue_partition_index:
     example:
       database_name: ${aws_glue_catalog_database.example.name}
@@ -74,8 +72,7 @@ resource:
         index_name: example
         keys: 
           - my_column_1
-          - my_column_2
-```
+          - my_column_2```
 
 ## Argument Reference
 

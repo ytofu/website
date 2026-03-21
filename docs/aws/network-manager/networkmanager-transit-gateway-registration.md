@@ -10,16 +10,13 @@ resource:
     example:
       description: example
 
-resource:
   aws_ec2_transit_gateway:
     example:
 
-resource:
   aws_networkmanager_transit_gateway_registration:
     example:
       global_network_id: ${aws_networkmanager_global_network.example.id}
-      transit_gateway_arn: ${aws_ec2_transit_gateway.example.arn}
-```
+      transit_gateway_arn: ${aws_ec2_transit_gateway.example.arn}```
 
 ## Argument Reference
 

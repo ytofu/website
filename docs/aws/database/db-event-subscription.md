@@ -18,12 +18,10 @@ resource:
       db_subnet_group_name: my_database_subnet_group
       parameter_group_name: default.mysql5.6
 
-resource:
   aws_sns_topic:
     default:
       name: rds-events
 
-resource:
   aws_db_event_subscription:
     default:
       name: rds-event-sub
@@ -41,8 +39,7 @@ resource:
         - notification
         - read replica
         - recovery
-        - restoration
-```
+        - restoration```
 
 ## Argument Reference
 

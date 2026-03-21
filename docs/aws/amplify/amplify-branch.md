@@ -10,7 +10,6 @@ resource:
     example:
       name: app
 
-resource:
   aws_amplify_branch:
     master:
       app_id: ${aws_amplify_app.example.id}
@@ -18,8 +17,7 @@ resource:
       framework: React
       stage: PRODUCTION
       environment_variables:
-        REACT_APP_API_SERVER: "https://api.example.com"
-```
+        REACT_APP_API_SERVER: "https://api.example.com"```
 
 ## Basic Authentication
 
@@ -29,14 +27,12 @@ resource:
     example:
       name: app
 
-resource:
   aws_amplify_branch:
     master:
       app_id: ${aws_amplify_app.example.id}
       branch_name: master
       enable_basic_auth: true
-      basic_auth_credentials: base64-encoded-content
-```
+      basic_auth_credentials: base64-encoded-content```
 
 ## Notifications
 
@@ -46,21 +42,18 @@ resource:
     example:
       name: app
 
-resource:
   aws_amplify_branch:
     master:
       app_id: ${aws_amplify_app.example.id}
       branch_name: master
       enable_notification: true
 
-resource:
   aws_cloudwatch_event_rule:
     amplify_app_master:
       name: "amplify-${aws_amplify_app.app.id}-${aws_amplify_branch.master.branch_name}-branch-notification"
       description: "AWS Amplify build notifications for :  App: ${aws_amplify_app.app.id} Branch: ${aws_amplify_branch.master.branch_name}"
       event_pattern: '{ "detail" = { "appId" = [ aws_amplify_app.example.id ] "branchName" = [ aws_amplify_branch.master.branch_name ], "jobStatus" = [ "SUCCEED", "FAILED", "STARTED" ] } "detail-type" = [ "Amplify Deployment Status Change" ] "source" = [ "aws.amplify" ] }'
 
-resource:
   aws_cloudwatch_event_target:
     amplify_app_master:
       rule: ${aws_cloudwatch_event_rule.amplify_app_master.name}
@@ -75,10 +68,20 @@ resource:
           status: $.detail.jobStatus
         input_template: "\"Build notification from the AWS Amplify Console for app: https://<branch>.<appId>.amplifyapp.com/. Your build status is <status>. Go to https://console.aws.amazon.com/amplify/home?region=<region>#<appId>/<branch>/<jobId> to view details on your build. \""
 
-resource:
   aws_sns_topic:
     amplify_app_master:
       name: "amplify-${aws_amplify_app.app.id}_${aws_amplify_branch.master.branch_name}"
+
+  aws_sns_topic_policy:
+    amplify_app_master:
+      arn: ${aws_sns_topic.amplify_app_master.arn}
+      policy: ${data.aws_iam_policy_document.amplify_app_master.json}
+
+  aws_sns_topic_subscription:
+    this:
+      topic_arn: ${aws_sns_topic.amplify_app_master.arn}
+      protocol: email
+      endpoint: user@acme.com
 
 data:
   aws_iam_policy_document:
@@ -93,21 +96,7 @@ data:
           identifiers:
             - events.amazonaws.com
         resources:
-          - ${aws_sns_topic.amplify_app_master.arn}
-
-resource:
-  aws_sns_topic_policy:
-    amplify_app_master:
-      arn: ${aws_sns_topic.amplify_app_master.arn}
-      policy: ${data.aws_iam_policy_document.amplify_app_master.json}
-
-resource:
-  aws_sns_topic_subscription:
-    this:
-      topic_arn: ${aws_sns_topic.amplify_app_master.arn}
-      protocol: email
-      endpoint: user@acme.com
-```
+          - ${aws_sns_topic.amplify_app_master.arn}```
 
 ## Argument Reference
 

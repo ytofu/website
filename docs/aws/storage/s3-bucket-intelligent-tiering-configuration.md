@@ -17,11 +17,9 @@ resource:
         access_tier: ARCHIVE_ACCESS
         days: 125
 
-resource:
   aws_s3_bucket:
     example:
-      bucket: example
-```
+      bucket: example```
 
 ## Add intelligent tiering configuration with S3 object filter
 
@@ -41,11 +39,9 @@ resource:
         access_tier: ARCHIVE_ACCESS
         days: 125
 
-resource:
   aws_s3_bucket:
     example:
-      bucket: example
-```
+      bucket: example```
 
 ## Argument Reference
 

@@ -9,12 +9,6 @@ data:
   aws_caller_identity:
     current:
 
-resource:
-  aws_backup_vault:
-    example:
-      name: example
-
-data:
   aws_iam_policy_document:
     example:
       statement:
@@ -36,11 +30,14 @@ data:
           - ${aws_backup_vault.example.arn}
 
 resource:
+  aws_backup_vault:
+    example:
+      name: example
+
   aws_backup_vault_policy:
     example:
       backup_vault_name: ${aws_backup_vault.example.name}
-      policy: ${data.aws_iam_policy_document.example.json}
-```
+      policy: ${data.aws_iam_policy_document.example.json}```
 
 ## Argument Reference
 

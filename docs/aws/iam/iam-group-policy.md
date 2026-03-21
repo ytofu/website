@@ -12,12 +12,10 @@ resource:
       group: ${aws_iam_group.my_developers.name}
       policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": [ "ec2:Describe*", ] "Effect": "Allow" "Resource": "*" }, ] }'
 
-resource:
   aws_iam_group:
     my_developers:
       name: developers
-      path: /users/
-```
+      path: /users/```
 
 ## Argument Reference
 

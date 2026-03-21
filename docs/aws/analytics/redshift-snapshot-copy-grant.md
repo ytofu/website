@@ -10,13 +10,11 @@ resource:
     test:
       snapshot_copy_grant_name: my-grant
 
-resource:
   aws_redshift_cluster:
     test:
       snapshot_copy:
         destination_region: us-east-2
-        grant_name: ${aws_redshift_snapshot_copy_grant.test.snapshot_copy_grant_name}
-```
+        grant_name: ${aws_redshift_snapshot_copy_grant.test.snapshot_copy_grant_name}```
 
 ## Argument Reference
 

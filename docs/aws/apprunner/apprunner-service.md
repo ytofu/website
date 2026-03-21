@@ -70,13 +70,11 @@ resource:
       tags:
         Name: example-apprunner-service
 
-resource:
   aws_apprunner_observability_configuration:
     example:
       observability_configuration_name: example
       trace_configuration:
-        vendor: AWSXRAY
-```
+        vendor: AWSXRAY```
 
 ## Argument Reference
 

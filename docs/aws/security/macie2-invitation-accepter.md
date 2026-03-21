@@ -9,11 +9,9 @@ resource:
   aws_macie2_account:
     primary:
 
-resource:
   aws_macie2_account:
     member:
 
-resource:
   aws_macie2_member:
     primary:
       account_id: ACCOUNT ID
@@ -23,13 +21,11 @@ resource:
       depends_on: 
         - ${aws_macie2_account.primary}
 
-resource:
   aws_macie2_invitation_accepter:
     member:
       administrator_account_id: ADMINISTRATOR ACCOUNT ID
       depends_on: 
-        - ${aws_macie2_member.primary}
-```
+        - ${aws_macie2_member.primary}```
 
 ## Argument Reference
 

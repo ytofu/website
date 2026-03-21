@@ -10,29 +10,24 @@ resource:
     example:
       description: example
 
-resource:
   aws_networkmanager_site:
     example:
       global_network_id: ${aws_networkmanager_global_network.example.id}
 
-resource:
   aws_networkmanager_device:
     example:
       global_network_id: ${aws_networkmanager_global_network.example.id}
       site_id: ${aws_networkmanager_site.example.id}
 
-resource:
   aws_customer_gateway:
     example:
       bgp_asn: 65000
       ip_address: 172.83.124.10
       type: ipsec.1
 
-resource:
   aws_ec2_transit_gateway:
     example:
 
-resource:
   aws_vpn_connection:
     example:
       customer_gateway_id: ${aws_customer_gateway.example.id}
@@ -40,7 +35,6 @@ resource:
       type: ${aws_customer_gateway.example.type}
       static_routes_only: true
 
-resource:
   aws_networkmanager_transit_gateway_registration:
     example:
       global_network_id: ${aws_networkmanager_global_network.example.id}
@@ -48,15 +42,13 @@ resource:
       depends_on: 
         - ${aws_vpn_connection.example}
 
-resource:
   aws_networkmanager_customer_gateway_association:
     example:
       global_network_id: ${aws_networkmanager_global_network.example.id}
       customer_gateway_arn: ${aws_customer_gateway.example.arn}
       device_id: ${aws_networkmanager_device.example.id}
       depends_on: 
-        - ${aws_networkmanager_transit_gateway_registration.example}
-```
+        - ${aws_networkmanager_transit_gateway_registration.example}```
 
 ## Argument Reference
 

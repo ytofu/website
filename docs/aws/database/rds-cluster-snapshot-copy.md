@@ -15,18 +15,15 @@ resource:
       master_password: avoid-plaintext-passwords
       skip_final_snapshot: true
 
-resource:
   aws_db_cluster_snapshot:
     example:
       db_cluster_identifier: ${aws_rds_cluster.example.cluster_identifier}
       db_cluster_snapshot_identifier: example
 
-resource:
   aws_rds_cluster_snapshot_copy:
     example:
       source_db_cluster_snapshot_identifier: ${aws_db_cluster_snapshot.example.db_cluster_snapshot_arn}
-      target_db_cluster_snapshot_identifier: example-copy
-```
+      target_db_cluster_snapshot_identifier: example-copy```
 
 ## Argument Reference
 

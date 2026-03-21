@@ -10,11 +10,15 @@ resource:
     example:
       alias: example-workspace
 
+  aws_prometheus_resource_policy:
+    example:
+      workspace_id: ${aws_prometheus_workspace.example.id}
+      policy_document: ${data.aws_iam_policy_document.example.json}
+
 data:
   aws_caller_identity:
     current:
 
-data:
   aws_iam_policy_document:
     example:
       statement:
@@ -30,14 +34,7 @@ data:
           - "aps:GetLabels"
           - "aps:GetMetricMetadata"
         resources: 
-          - ${aws_prometheus_workspace.example.arn}
-
-resource:
-  aws_prometheus_resource_policy:
-    example:
-      workspace_id: ${aws_prometheus_workspace.example.id}
-      policy_document: ${data.aws_iam_policy_document.example.json}
-```
+          - ${aws_prometheus_workspace.example.arn}```
 
 ## Cross-Account Access
 
@@ -46,6 +43,11 @@ resource:
   aws_prometheus_workspace:
     example:
       alias: example-workspace
+
+  aws_prometheus_resource_policy:
+    cross_account:
+      workspace_id: ${aws_prometheus_workspace.example.id}
+      policy_document: ${data.aws_iam_policy_document.cross_account.json}
 
 data:
   aws_iam_policy_document:
@@ -60,14 +62,7 @@ data:
           - "aps:RemoteWrite"
           - "aps:QueryMetrics"
         resources: 
-          - ${aws_prometheus_workspace.example.arn}
-
-resource:
-  aws_prometheus_resource_policy:
-    cross_account:
-      workspace_id: ${aws_prometheus_workspace.example.id}
-      policy_document: ${data.aws_iam_policy_document.cross_account.json}
-```
+          - ${aws_prometheus_workspace.example.arn}```
 
 ## Service-Specific Access
 
@@ -76,6 +71,11 @@ resource:
   aws_prometheus_workspace:
     example:
       alias: example-workspace
+
+  aws_prometheus_resource_policy:
+    service_access:
+      workspace_id: ${aws_prometheus_workspace.example.id}
+      policy_document: ${data.aws_iam_policy_document.service_access.json}
 
 data:
   aws_iam_policy_document:
@@ -92,14 +92,7 @@ data:
           - "aps:GetLabels"
           - "aps:GetMetricMetadata"
         resources: 
-          - ${aws_prometheus_workspace.example.arn}
-
-resource:
-  aws_prometheus_resource_policy:
-    service_access:
-      workspace_id: ${aws_prometheus_workspace.example.id}
-      policy_document: ${data.aws_iam_policy_document.service_access.json}
-```
+          - ${aws_prometheus_workspace.example.arn}```
 
 ## Argument Reference
 

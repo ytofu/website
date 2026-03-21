@@ -10,13 +10,11 @@ resource:
     example:
       name: example
 
-resource:
   aws_devicefarm_upload:
     example:
       name: example
       project_arn: ${aws_devicefarm_project.example.arn}
-      type: APPIUM_JAVA_TESTNG_TEST_SPEC
-```
+      type: APPIUM_JAVA_TESTNG_TEST_SPEC```
 
 ## Argument Reference
 

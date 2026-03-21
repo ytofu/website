@@ -10,7 +10,6 @@ resource:
     example:
       name: my_database
 
-resource:
   aws_glue_user_defined_function:
     example:
       name: my_func
@@ -21,8 +20,7 @@ resource:
       owner_type: GROUP
       resource_uris:
         resource_type: ARCHIVE
-        uri: uri
-```
+        uri: uri```
 
 ## Argument Reference
 

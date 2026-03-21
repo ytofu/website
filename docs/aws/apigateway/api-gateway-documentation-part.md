@@ -15,11 +15,9 @@ resource:
       properties: "{\"description\":\"Example description\"}"
       rest_api_id: ${aws_api_gateway_rest_api.example.id}
 
-resource:
   aws_api_gateway_rest_api:
     example:
-      name: example_api
-```
+      name: example_api```
 
 ## Argument Reference
 

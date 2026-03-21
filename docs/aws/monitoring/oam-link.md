@@ -17,15 +17,12 @@ resource:
       depends_on:
         - ${aws_oam_sink_policy.example}
 
-resource:
   aws_oam_sink:
     example:
 
-resource:
   aws_oam_sink_policy:
     example:
-      sink_identifier: ${aws_oam_sink.example.arn}
-```
+      sink_identifier: ${aws_oam_sink.example.arn}```
 
 ## Log Group Filtering
 

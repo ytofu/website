@@ -10,6 +10,17 @@ resource:
     demo:
       cloudwatch_role_arn: ${aws_iam_role.cloudwatch.arn}
 
+  aws_iam_role:
+    cloudwatch:
+      name: api_gateway_cloudwatch_global
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
+  aws_iam_role_policy:
+    cloudwatch:
+      name: default
+      role: ${aws_iam_role.cloudwatch.id}
+      policy: ${data.aws_iam_policy_document.cloudwatch.json}
+
 data:
   aws_iam_policy_document:
     assume_role:
@@ -22,13 +33,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    cloudwatch:
-      name: api_gateway_cloudwatch_global
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-data:
   aws_iam_policy_document:
     cloudwatch:
       statement:
@@ -42,15 +46,7 @@ data:
           - "logs:GetLogEvents"
           - "logs:FilterLogEvents"
         resources: 
-          - "*"
-
-resource:
-  aws_iam_role_policy:
-    cloudwatch:
-      name: default
-      role: ${aws_iam_role.cloudwatch.id}
-      policy: ${data.aws_iam_policy_document.cloudwatch.json}
-```
+          - "*"```
 
 ## Argument Reference
 

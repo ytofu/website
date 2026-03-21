@@ -11,12 +11,10 @@ resource:
       validation_settings:
         mode: STRICT
 
-resource:
   aws_cognito_user_pool:
     example:
       name: example
 
-resource:
   aws_cognito_user_pool_client:
     example:
       name: example
@@ -24,7 +22,6 @@ resource:
       explicit_auth_flows: 
         - ADMIN_NO_SRP_AUTH
 
-resource:
   aws_verifiedpermissions_identity_source:
     example:
       policy_store_id: ${aws_verifiedpermissions_policy_store.example.id}
@@ -32,8 +29,7 @@ resource:
         cognito_user_pool_configuration:
           user_pool_arn: ${aws_cognito_user_pool.example.arn}
           client_ids: 
-            - ${aws_cognito_user_pool_client.example.id}
-```
+            - ${aws_cognito_user_pool_client.example.id}```
 
 ## OpenID Connect Configuration Usage
 
@@ -44,7 +40,6 @@ resource:
       validation_settings:
         mode: STRICT
 
-resource:
   aws_verifiedpermissions_identity_source:
     example:
       policy_store_id: ${aws_verifiedpermissions_policy_store.example.id}
@@ -60,8 +55,7 @@ resource:
           group_configuration:
             group_claim: groups
             group_entity_type: "MyCorp::UserGroup"
-      principal_entity_type: "MyCorp::User"
-```
+      principal_entity_type: "MyCorp::User"```
 
 ## Argument Reference
 

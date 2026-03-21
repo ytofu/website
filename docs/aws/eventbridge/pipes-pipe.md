@@ -14,27 +14,22 @@ resource:
     example:
       assume_role_policy: '{ "Version": "2012-10-17" "Statement": { "Effect": "Allow" "Action": "sts:AssumeRole" "Principal": { "Service": "pipes.amazonaws.com" } "Condition": { "StringEquals": { "aws:SourceAccount" = data.aws_caller_identity.main.account_id } } } }'
 
-resource:
   aws_iam_role_policy:
     source:
       role: ${aws_iam_role.example.id}
       policy: '{ "Version": "2012-10-17" "Statement": [ { "Effect": "Allow" "Action": [ "sqs:DeleteMessage", "sqs:GetQueueAttributes", "sqs:ReceiveMessage", ], "Resource": [ aws_sqs_queue.source.arn, ] }, ] }'
 
-resource:
   aws_sqs_queue:
     source:
 
-resource:
   aws_iam_role_policy:
     target:
       role: ${aws_iam_role.example.id}
       policy: '{ "Version": "2012-10-17" "Statement": [ { "Effect": "Allow" "Action": [ "sqs:SendMessage", ], "Resource": [ aws_sqs_queue.target.arn, ] }, ] }'
 
-resource:
   aws_sqs_queue:
     target:
 
-resource:
   aws_pipes_pipe:
     example:
       depends_on: 
@@ -43,8 +38,7 @@ resource:
       name: example-pipe
       role_arn: ${aws_iam_role.example.arn}
       source: ${aws_sqs_queue.source.arn}
-      target: ${aws_sqs_queue.target.arn}
-```
+      target: ${aws_sqs_queue.target.arn}```
 
 ## Enrichment Usage
 
@@ -89,7 +83,6 @@ resource:
     example:
       name: example-pipe-target
 
-resource:
   aws_pipes_pipe:
     example:
       depends_on: 
@@ -104,8 +97,7 @@ resource:
           - ALL
         level: INFO
         cloudwatch_logs_log_destination:
-          log_group_arn: ${aws_cloudwatch_log_group.target.arn}
-```
+          log_group_arn: ${aws_cloudwatch_log_group.target.arn}```
 
 ## SQS Source and Target Configuration Usage
 

@@ -21,7 +21,6 @@ resource:
       size_in_gb: 8
       availability_zone: ${data.aws_availability_zones.available.names[0]}
 
-resource:
   aws_lightsail_instance:
     example:
       name: example-instance
@@ -29,13 +28,11 @@ resource:
       blueprint_id: amazon_linux_2
       bundle_id: nano_3_0
 
-resource:
   aws_lightsail_disk_attachment:
     example:
       disk_name: ${aws_lightsail_disk.example.name}
       instance_name: ${aws_lightsail_instance.example.name}
-      disk_path: /dev/xvdf
-```
+      disk_path: /dev/xvdf```
 
 ## Argument Reference
 

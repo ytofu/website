@@ -9,7 +9,6 @@ resource:
   aws_macie2_account:
     example:
 
-resource:
   aws_macie2_custom_data_identifier:
     example:
       name: NAME OF CUSTOM DATA IDENTIFIER
@@ -21,8 +20,7 @@ resource:
       ignore_words: 
         - ignore
       depends_on: 
-        - ${aws_macie2_account.test}
-```
+        - ${aws_macie2_account.test}```
 
 ## Argument Reference
 

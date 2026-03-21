@@ -20,7 +20,6 @@ resource:
       description: KMS key for WorkSpaces Web Browser Settings
       deletion_window_in_days: 7
 
-resource:
   aws_workspacesweb_browser_settings:
     example:
       browser_policy: '{ "chromePolicies": { "DefaultDownloadDirectory": { "value": "/home/as2-streaming-user/MyFiles/TemporaryFiles1" } } }'
@@ -28,8 +27,7 @@ resource:
       additional_encryption_context:
         Environment: Production
       tags:
-        Name: example-browser-settings
-```
+        Name: example-browser-settings```
 
 ## Argument Reference
 

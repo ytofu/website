@@ -58,6 +58,19 @@ resource:
       name: tf_test_batch_exec_role
       assume_role_policy: ${data.aws_iam_policy_document.assume_role_policy.json}
 
+  aws_iam_role_policy_attachment:
+    ecs_task_execution_role_policy:
+      role: ${aws_iam_role.ecs_task_execution_role.name}
+      policy_arn: "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+
+  aws_batch_job_definition:
+    test:
+      name: tf_test_batch_job_definition
+      type: container
+      platform_capabilities:
+        - FARGATE
+      container_properties: '{ "command": ["echo", "test"] "image": "busybox" "jobRoleArn": "arn:aws:iam::123456789012:role/AWSBatchS3ReadOnly" "fargatePlatformConfiguration": { "platformVersion": "LATEST" } "resourceRequirements": [ { "type": "VCPU" "value": "0.25" }, { "type": "MEMORY" "value": "512" } ] "executionRoleArn": aws_iam_role.ecs_task_execution_role.arn }'
+
 data:
   aws_iam_policy_document:
     assume_role_policy:
@@ -67,23 +80,7 @@ data:
         principals:
           type: Service
           identifiers: 
-            - ecs-tasks.amazonaws.com
-
-resource:
-  aws_iam_role_policy_attachment:
-    ecs_task_execution_role_policy:
-      role: ${aws_iam_role.ecs_task_execution_role.name}
-      policy_arn: "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-
-resource:
-  aws_batch_job_definition:
-    test:
-      name: tf_test_batch_job_definition
-      type: container
-      platform_capabilities:
-        - FARGATE
-      container_properties: '{ "command": ["echo", "test"] "image": "busybox" "jobRoleArn": "arn:aws:iam::123456789012:role/AWSBatchS3ReadOnly" "fargatePlatformConfiguration": { "platformVersion": "LATEST" } "resourceRequirements": [ { "type": "VCPU" "value": "0.25" }, { "type": "MEMORY" "value": "512" } ] "executionRoleArn": aws_iam_role.ecs_task_execution_role.arn }'
-```
+            - ecs-tasks.amazonaws.com```
 
 ## Job definition of type container using `ecs_properties`
 

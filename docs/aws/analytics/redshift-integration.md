@@ -18,12 +18,10 @@ resource:
       point_in_time_recovery:
         enabled: true
 
-resource:
   aws_redshiftserverless_namespace:
     example:
       namespace_name: redshift-example
 
-resource:
   aws_redshiftserverless_workgroup:
     example:
       namespace_name: ${aws_redshiftserverless_namespace.example.namespace_name}
@@ -38,13 +36,11 @@ resource:
         parameter_key: enable_case_sensitive_identifier
         parameter_value: true
 
-resource:
   aws_redshift_integration:
     example:
       integration_name: example
       source_arn: ${aws_dynamodb_table.example.arn}
-      target_arn: ${aws_redshiftserverless_namespace.example.arn}
-```
+      target_arn: ${aws_redshiftserverless_namespace.example.arn}```
 
 ## Use own KMS key
 
@@ -59,21 +55,18 @@ resource:
       description: example
       deletion_window_in_days: 10
 
-resource:
   aws_kms_key_policy:
     example:
       key_id: ${aws_kms_key.example.id}
       policy: '{ "Version": "2008-10-17" "Statement": [ { "Effect": "Allow" "Principal": { "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" } "Action": "kms:*" "Resource": "*" }, { "Effect": "Allow" "Principal": { "Service": "redshift.amazonaws.com" } "Action": [ "kms:Decrypt", "kms:CreateGrant" ] "Resource": "*" "Condition": { "StringEquals": { "aws:SourceAccount" = data.aws_caller_identity.current.account_id } "ArnEquals": { "aws:SourceArn" = "arn:aws:redshift:*:${data.aws_caller_identity.current.account_id}:integration:*" } } } ] }'
 
-resource:
   aws_redshift_integration:
     example:
       integration_name: example
       source_arn: ${aws_dynamodb_table.example.arn}
       target_arn: ${aws_redshiftserverless_namespace.example.arn}
       kms_key_id: ${aws_kms_key.example.arn}
-      additional_encryption_context: 
-```
+      additional_encryption_context: ```
 
 ## Argument Reference
 

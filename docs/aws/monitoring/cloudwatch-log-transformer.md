@@ -12,11 +12,9 @@ resource:
       transformer_config:
         parse_json:
 
-resource:
   aws_cloudwatch_log_group:
     example:
-      name: example
-```
+      name: example```
 
 ## Argument Reference
 

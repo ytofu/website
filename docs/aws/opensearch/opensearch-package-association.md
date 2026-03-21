@@ -13,7 +13,6 @@ resource:
       cluster_config:
         instance_type: r4.large.search
 
-resource:
   aws_opensearch_package:
     example:
       package_name: example-txt
@@ -22,12 +21,10 @@ resource:
         s3_key: ${aws_s3_object.example.key}
       package_type: TXT-DICTIONARY
 
-resource:
   aws_opensearch_package_association:
     example:
       package_id: ${aws_opensearch_package.example.id}
-      domain_name: ${aws_opensearch_domain.my_domain.domain_name}
-```
+      domain_name: ${aws_opensearch_domain.my_domain.domain_name}```
 
 ## Argument Reference
 

@@ -14,7 +14,6 @@ resource:
       scalable_dimension: "dynamodb:table:ReadCapacityUnits"
       service_namespace: dynamodb
 
-resource:
   aws_appautoscaling_policy:
     dynamodb_table_read_policy:
       name: "DynamoDBReadCapacityUtilization:${aws_appautoscaling_target.dynamodb_table_read_target.resource_id}"
@@ -25,8 +24,7 @@ resource:
       target_tracking_scaling_policy_configuration:
         predefined_metric_specification:
           predefined_metric_type: DynamoDBReadCapacityUtilization
-        target_value: 70
-```
+        target_value: 70```
 
 ## ECS Service Autoscaling
 
@@ -40,7 +38,6 @@ resource:
       scalable_dimension: "ecs:service:DesiredCount"
       service_namespace: ecs
 
-resource:
   aws_appautoscaling_policy:
     ecs_policy:
       name: scale-down
@@ -54,8 +51,7 @@ resource:
         metric_aggregation_type: Maximum
         step_adjustment:
           metric_interval_upper_bound: 0
-          scaling_adjustment: -1
-```
+          scaling_adjustment: -1```
 
 ## Preserve desired count when updating an autoscaled ECS Service
 
@@ -84,7 +80,6 @@ resource:
       min_capacity: 1
       max_capacity: 15
 
-resource:
   aws_appautoscaling_policy:
     replicas:
       name: cpu-auto-scaling
@@ -97,8 +92,7 @@ resource:
           predefined_metric_type: RDSReaderAverageCPUUtilization
         target_value: 75
         scale_in_cooldown: 300
-        scale_out_cooldown: 300
-```
+        scale_out_cooldown: 300```
 
 ## Create target tracking scaling policy using metric math
 
@@ -112,7 +106,6 @@ resource:
       scalable_dimension: "ecs:service:DesiredCount"
       service_namespace: ecs
 
-resource:
   aws_appautoscaling_policy:
     example:
       name: foo
@@ -154,8 +147,7 @@ resource:
             label: Calculate the backlog per instance
             id: e1
             expression: m1 / m2
-            return_data: true
-```
+            return_data: true```
 
 ## Predictive Scaling
 

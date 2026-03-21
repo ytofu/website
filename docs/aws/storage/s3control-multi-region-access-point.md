@@ -10,12 +10,10 @@ resource:
     foo_bucket:
       bucket: example-bucket-foo
 
-resource:
   aws_s3_bucket:
     bar_bucket:
       bucket: example-bucket-bar
 
-resource:
   aws_s3control_multi_region_access_point:
     example:
       details:
@@ -23,8 +21,7 @@ resource:
         region:
           bucket: ${aws_s3_bucket.foo_bucket.id}
         region:
-          bucket: ${aws_s3_bucket.bar_bucket.id}
-```
+          bucket: ${aws_s3_bucket.bar_bucket.id}```
 
 ## Argument Reference
 

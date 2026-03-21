@@ -10,7 +10,6 @@ resource:
     example:
       configuration_set_name: example
 
-resource:
   aws_sesv2_configuration_set_event_destination:
     example:
       configuration_set_name: ${aws_sesv2_configuration_set.example.configuration_set_name}
@@ -23,8 +22,7 @@ resource:
             dimension_value_source: MESSAGE_TAG
         enabled: true
         matching_event_types: 
-          - SEND
-```
+          - SEND```
 
 ## EventBridge Destination
 
@@ -55,7 +53,6 @@ resource:
     example:
       configuration_set_name: example
 
-resource:
   aws_sesv2_configuration_set_event_destination:
     example:
       configuration_set_name: ${aws_sesv2_configuration_set.example.configuration_set_name}
@@ -66,8 +63,7 @@ resource:
           iam_role_arn: ${aws_iam_role.example.arn}
         enabled: true
         matching_event_types: 
-          - SEND
-```
+          - SEND```
 
 ## Pinpoint Destination
 
@@ -77,7 +73,6 @@ resource:
     example:
       configuration_set_name: example
 
-resource:
   aws_sesv2_configuration_set_event_destination:
     example:
       configuration_set_name: ${aws_sesv2_configuration_set.example.configuration_set_name}
@@ -87,8 +82,7 @@ resource:
           application_arn: ${aws_pinpoint_app.example.arn}
         enabled: true
         matching_event_types: 
-          - SEND
-```
+          - SEND```
 
 ## SNS Destination
 
@@ -98,7 +92,6 @@ resource:
     example:
       configuration_set_name: example
 
-resource:
   aws_sesv2_configuration_set_event_destination:
     example:
       configuration_set_name: ${aws_sesv2_configuration_set.example.configuration_set_name}
@@ -108,8 +101,7 @@ resource:
           topic_arn: ${aws_sns_topic.example.arn}
         enabled: true
         matching_event_types: 
-          - SEND
-```
+          - SEND```
 
 ## Argument Reference
 

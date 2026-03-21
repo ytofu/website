@@ -9,7 +9,6 @@ resource:
   aws_macie2_account:
     example:
 
-resource:
   aws_macie2_findings_filter:
     test:
       name: NAME OF THE FINDINGS FILTER
@@ -22,8 +21,7 @@ resource:
           eq: 
             - ${data.aws_region.current.region}
       depends_on: 
-        - ${aws_macie2_account.test}
-```
+        - ${aws_macie2_account.test}```
 
 ## Argument Reference
 

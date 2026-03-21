@@ -91,12 +91,10 @@ resource:
             credentials_parameter: ${aws_secretsmanager_secret_version.test.arn}
             domain: ${aws_directory_service_directory.test.name}
 
-resource:
   aws_secretsmanager_secret_version:
     test:
       secret_id: ${aws_secretsmanager_secret.test.id}
-      secret_string: '{ username : "admin", password : aws_directory_service_directory.test.password }'
-```
+      secret_string: '{ username : "admin", password : aws_directory_service_directory.test.password }'```
 
 ## Example Using `container_definitions`
 

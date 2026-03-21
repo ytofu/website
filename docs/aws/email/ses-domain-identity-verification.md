@@ -10,7 +10,6 @@ resource:
     example:
       domain: example.com
 
-resource:
   aws_route53_record:
     example_amazonses_verification_record:
       zone_id: ${aws_route53_zone.example.zone_id}
@@ -20,13 +19,11 @@ resource:
       records: 
         - ${aws_ses_domain_identity.example.verification_token}
 
-resource:
   aws_ses_domain_identity_verification:
     example_verification:
       domain: ${aws_ses_domain_identity.example.domain}
       depends_on: 
-        - ${aws_route53_record.example_amazonses_verification_record}
-```
+        - ${aws_route53_record.example_amazonses_verification_record}```
 
 ## Argument Reference
 

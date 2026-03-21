@@ -11,6 +11,12 @@ resource:
       name: test_profile
       role: ${aws_iam_role.role.name}
 
+  aws_iam_role:
+    role:
+      name: test_role
+      path: /
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
 data:
   aws_iam_policy_document:
     assume_role:
@@ -21,15 +27,7 @@ data:
           identifiers: 
             - ec2.amazonaws.com
         actions: 
-          - "sts:AssumeRole"
-
-resource:
-  aws_iam_role:
-    role:
-      name: test_role
-      path: /
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-```
+          - "sts:AssumeRole"```
 
 ## Argument Reference
 

@@ -10,12 +10,10 @@ resource:
     example:
       name: example
 
-resource:
   aws_sns_topic_data_protection_policy:
     example:
       arn: ${aws_sns_topic.example.arn}
-      policy: 'example-json-policy'
-```
+      policy: 'example-json-policy'```
 
 ## Argument Reference
 

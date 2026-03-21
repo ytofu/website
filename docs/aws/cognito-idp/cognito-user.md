@@ -10,12 +10,10 @@ resource:
     example:
       name: MyExamplePool
 
-resource:
   aws_cognito_user:
     example:
       user_pool_id: ${aws_cognito_user_pool.example.id}
-      username: example
-```
+      username: example```
 
 ## Setting user attributes
 
@@ -38,7 +36,6 @@ resource:
         developer_only_attribute: false
         string_attribute_constraints:
 
-resource:
   aws_cognito_user:
     example:
       user_pool_id: ${aws_cognito_user_pool.example.id}
@@ -47,8 +44,7 @@ resource:
         terraform: true
         foo: bar
         email: no-reply@hashicorp.com
-        email_verified: true
-```
+        email_verified: true```
 
 ## Argument Reference
 

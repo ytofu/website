@@ -45,7 +45,6 @@ resource:
         - ${aws_iam_role_policy_attachment.workspaces_default_service_access}
         - ${aws_iam_role_policy_attachment.workspaces_default_self_service_access}
 
-resource:
   aws_directory_service_directory:
     example:
       name: corp.example.com
@@ -57,6 +56,49 @@ resource:
           - ${aws_subnet.example_a.id}
           - ${aws_subnet.example_b.id}
 
+  aws_iam_role:
+    workspaces_default:
+      name: workspaces_DefaultRole
+      assume_role_policy: ${data.aws_iam_policy_document.workspaces.json}
+
+  aws_iam_role_policy_attachment:
+    workspaces_default_service_access:
+      role: ${aws_iam_role.workspaces_default.name}
+      policy_arn: "arn:aws:iam::aws:policy/AmazonWorkSpacesServiceAccess"
+
+  aws_iam_role_policy_attachment:
+    workspaces_default_self_service_access:
+      role: ${aws_iam_role.workspaces_default.name}
+      policy_arn: "arn:aws:iam::aws:policy/AmazonWorkSpacesSelfServiceAccess"
+
+  aws_vpc:
+    example:
+      cidr_block: 10.0.0.0/16
+
+  aws_subnet:
+    example_a:
+      vpc_id: ${aws_vpc.example.id}
+      availability_zone: us-east-1a
+      cidr_block: 10.0.0.0/24
+
+  aws_subnet:
+    example_b:
+      vpc_id: ${aws_vpc.example.id}
+      availability_zone: us-east-1b
+      cidr_block: 10.0.1.0/24
+
+  aws_subnet:
+    example_c:
+      vpc_id: ${aws_vpc.example.id}
+      availability_zone: us-east-1c
+      cidr_block: 10.0.2.0/24
+
+  aws_subnet:
+    example_d:
+      vpc_id: ${aws_vpc.example.id}
+      availability_zone: us-east-1d
+      cidr_block: 10.0.3.0/24
+
 data:
   aws_iam_policy_document:
     workspaces:
@@ -66,59 +108,7 @@ data:
         principals:
           type: Service
           identifiers: 
-            - workspaces.amazonaws.com
-
-resource:
-  aws_iam_role:
-    workspaces_default:
-      name: workspaces_DefaultRole
-      assume_role_policy: ${data.aws_iam_policy_document.workspaces.json}
-
-resource:
-  aws_iam_role_policy_attachment:
-    workspaces_default_service_access:
-      role: ${aws_iam_role.workspaces_default.name}
-      policy_arn: "arn:aws:iam::aws:policy/AmazonWorkSpacesServiceAccess"
-
-resource:
-  aws_iam_role_policy_attachment:
-    workspaces_default_self_service_access:
-      role: ${aws_iam_role.workspaces_default.name}
-      policy_arn: "arn:aws:iam::aws:policy/AmazonWorkSpacesSelfServiceAccess"
-
-resource:
-  aws_vpc:
-    example:
-      cidr_block: 10.0.0.0/16
-
-resource:
-  aws_subnet:
-    example_a:
-      vpc_id: ${aws_vpc.example.id}
-      availability_zone: us-east-1a
-      cidr_block: 10.0.0.0/24
-
-resource:
-  aws_subnet:
-    example_b:
-      vpc_id: ${aws_vpc.example.id}
-      availability_zone: us-east-1b
-      cidr_block: 10.0.1.0/24
-
-resource:
-  aws_subnet:
-    example_c:
-      vpc_id: ${aws_vpc.example.id}
-      availability_zone: us-east-1c
-      cidr_block: 10.0.2.0/24
-
-resource:
-  aws_subnet:
-    example_d:
-      vpc_id: ${aws_vpc.example.id}
-      availability_zone: us-east-1d
-      cidr_block: 10.0.3.0/24
-```
+            - workspaces.amazonaws.com```
 
 ## WorkSpaces Pools
 
@@ -165,11 +155,9 @@ resource:
       ip_group_ids:
         - ${aws_workspaces_ip_group.example.id}
 
-resource:
   aws_workspaces_ip_group:
     example:
-      name: example
-```
+      name: example```
 
 ## Argument Reference
 

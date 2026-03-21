@@ -17,7 +17,6 @@ resource:
       tags:
         Domain: TestDomain
 
-resource:
   aws_elasticsearch_domain_saml_options:
     example:
       domain_name: ${aws_elasticsearch_domain.example.domain_name}
@@ -25,8 +24,7 @@ resource:
         enabled: true
         idp:
           entity_id: "https://example.com"
-          metadata_content: file-content
-```
+          metadata_content: file-content```
 
 ## Argument Reference
 

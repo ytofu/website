@@ -10,14 +10,12 @@ resource:
     example:
       domain_name: example.com
 
-resource:
   aws_lightsail_domain_entry:
     example:
       domain_name: ${aws_lightsail_domain.example.domain_name}
       name: www
       type: A
-      target: 127.0.0.1
-```
+      target: 127.0.0.1```
 
 ## Argument Reference
 

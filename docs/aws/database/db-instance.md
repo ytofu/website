@@ -36,7 +36,6 @@ data:
         - db.r5.2xlarge
         - db.r5.4xlarge
 
-data:
   aws_kms_key:
     by_id:
       key_id: "example-ef278353ceba4a5a97de6784565b9f78" # KMS key associated with the CEV
@@ -64,7 +63,6 @@ resource:
         delete: 3h
         update: 3h
 
-resource:
   aws_db_instance:
     test-replica:
       replicate_source_db: ${aws_db_instance.default.identifier}
@@ -81,8 +79,7 @@ resource:
       timeouts:
         create: 3h
         delete: 3h
-        update: 3h
-```
+        update: 3h```
 
 ## RDS Custom for SQL Server
 
@@ -98,7 +95,6 @@ data:
         - db.r5.2xlarge
         - db.r5.4xlarge
 
-data:
   aws_kms_key:
     by_id:
       key_id: "example-ef278353ceba4a5a97de6784565b9f78" # KMS key
@@ -123,8 +119,7 @@ resource:
       timeouts:
         create: 3h
         delete: 3h
-        update: 3h
-```
+        update: 3h```
 
 ## RDS Db2 Usage
 
@@ -134,7 +129,6 @@ data:
     default:
       engine: "db2-se" #Standard Edition
 
-data:
   aws_rds_orderable_db_instance:
     example:
       engine: ${data.aws_rds_engine_version.default.engine}
@@ -160,7 +154,6 @@ resource:
         name: rds.ibm_site_id
         value: 0000000000
 
-resource:
   aws_db_instance:
     example:
       allocated_storage: 100
@@ -172,8 +165,7 @@ resource:
       instance_class: ${data.aws_rds_orderable_db_instance.example.instance_class}
       parameter_group_name: ${aws_db_parameter_group.example.name}
       password: avoid-plaintext-passwords
-      username: test
-```
+      username: test```
 
 ## Storage Autoscaling
 
@@ -209,7 +201,6 @@ resource:
     example:
       description: Example KMS Key
 
-resource:
   aws_db_instance:
     default:
       allocated_storage: 10
@@ -220,8 +211,7 @@ resource:
       manage_master_user_password: true
       master_user_secret_kms_key_id: ${aws_kms_key.example.key_id}
       username: foo
-      parameter_group_name: default.mysql8.0
-```
+      parameter_group_name: default.mysql8.0```
 
 ## Argument Reference
 

@@ -10,6 +10,11 @@ resource:
     q:
       name: examplequeue
 
+  aws_sqs_queue_policy:
+    test:
+      queue_url: ${aws_sqs_queue.q.id}
+      policy: ${data.aws_iam_policy_document.test.json}
+
 data:
   aws_iam_policy_document:
     test:
@@ -27,14 +32,7 @@ data:
         condition:
           test: ArnEquals
           values: 
-            - ${aws_sns_topic.example.arn}
-
-resource:
-  aws_sqs_queue_policy:
-    test:
-      queue_url: ${aws_sqs_queue.q.id}
-      policy: ${data.aws_iam_policy_document.test.json}
-```
+            - ${aws_sns_topic.example.arn}```
 
 ## Argument Reference
 

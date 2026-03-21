@@ -13,7 +13,6 @@ resource:
         type: IPV4
         value: 192.0.7.0/24
 
-resource:
   aws_waf_rule:
     wafrule:
       depends_on: 
@@ -25,7 +24,6 @@ resource:
         negated: false
         type: IPMatch
 
-resource:
   aws_waf_web_acl:
     waf_acl:
       depends_on:
@@ -40,8 +38,7 @@ resource:
           type: BLOCK
         priority: 1
         rule_id: ${aws_waf_rule.wafrule.id}
-        type: REGULAR
-```
+        type: REGULAR```
 
 ## Logging
 

@@ -27,14 +27,12 @@ resource:
     test:
       cidr_block: 10.1.0.0/16
 
-resource:
   aws_route_table:
     test:
       vpc_id: ${aws_vpc.test.id}
       route:
         cidr_block: 10.1.0.0/16
-        gateway_id: local
-```
+        gateway_id: local```
 
 ## Argument Reference
 

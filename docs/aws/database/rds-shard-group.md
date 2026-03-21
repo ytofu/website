@@ -23,13 +23,11 @@ resource:
       monitoring_interval: 5
       monitoring_role_arn: ${aws_iam_role.example.arn}
 
-resource:
   aws_rds_shard_group:
     example:
       db_shard_group_identifier: example-shard-group
       db_cluster_identifier: ${aws_rds_cluster.example.id}
-      max_acu: 1200
-```
+      max_acu: 1200```
 
 ## Argument Reference
 

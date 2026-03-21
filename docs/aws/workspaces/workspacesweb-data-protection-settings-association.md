@@ -10,17 +10,14 @@ resource:
     example:
       display_name: example
 
-resource:
   aws_workspacesweb_data_protection_settings:
     example:
       display_name: example
 
-resource:
   aws_workspacesweb_data_protection_settings_association:
     example:
       data_protection_settings_arn: ${aws_workspacesweb_data_protection_settings.example.data_protection_settings_arn}
-      portal_arn: ${aws_workspacesweb_portal.example.portal_arn}
-```
+      portal_arn: ${aws_workspacesweb_portal.example.portal_arn}```
 
 ## Argument Reference
 

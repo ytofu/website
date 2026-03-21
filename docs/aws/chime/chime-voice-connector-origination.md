@@ -11,7 +11,6 @@ resource:
       name: test
       require_encryption: true
 
-resource:
   aws_chime_voice_connector_origination:
     default:
       disabled: false
@@ -27,8 +26,7 @@ resource:
         port: 8082
         protocol: TCP
         priority: 2
-        weight: 10
-```
+        weight: 10```
 
 ## Argument Reference
 

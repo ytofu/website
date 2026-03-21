@@ -15,14 +15,12 @@ resource:
       passwords: 
         - password123456789
 
-resource:
   aws_elasticache_user_group:
     test:
       engine: redis
       user_group_id: userGroupId
       user_ids: 
-        - ${aws_elasticache_user.test.user_id}
-```
+        - ${aws_elasticache_user.test.user_id}```
 
 ## Argument Reference
 

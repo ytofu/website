@@ -10,7 +10,6 @@ resource:
     test_sp:
       platform_id: AWSLambda-SHA384-ECDSA
 
-resource:
   aws_signer_signing_profile:
     prod_sp:
       platform_id: AWSLambda-SHA384-ECDSA
@@ -20,8 +19,7 @@ resource:
         type: YEARS
       tags:
         tag1: value1
-        tag2: value2
-```
+        tag2: value2```
 
 ## Argument Reference
 

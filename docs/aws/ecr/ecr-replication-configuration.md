@@ -9,7 +9,6 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_regions:
     example:
 
@@ -20,8 +19,7 @@ resource:
         rule:
           destination:
             region: ${data.aws_regions.example.names[0]}
-            registry_id: ${data.aws_caller_identity.current.account_id}
-```
+            registry_id: ${data.aws_caller_identity.current.account_id}```
 
 ## Argument Reference
 

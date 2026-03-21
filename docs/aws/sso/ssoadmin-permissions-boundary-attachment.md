@@ -15,14 +15,12 @@ resource:
       name: Example
       instance_arn: ${data.aws_ssoadmin_instances.example.arns[0]}
 
-resource:
   aws_iam_policy:
     example:
       name: TestPolicy
       description: My test policy
       policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": [ "ec2:Describe*", ] "Effect": "Allow" "Resource": "*" }, ] }'
 
-resource:
   aws_ssoadmin_permissions_boundary_attachment:
     example:
       instance_arn: ${aws_ssoadmin_permission_set.example.instance_arn}
@@ -30,8 +28,7 @@ resource:
       permissions_boundary:
         customer_managed_policy_reference:
           name: ${aws_iam_policy.example.name}
-          path: /
-```
+          path: /```
 
 ## Attaching an AWS-managed policy
 

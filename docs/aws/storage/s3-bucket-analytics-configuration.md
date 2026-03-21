@@ -16,16 +16,13 @@ resource:
             s3_bucket_destination:
               bucket_arn: ${aws_s3_bucket.analytics.arn}
 
-resource:
   aws_s3_bucket:
     example:
       bucket: example
 
-resource:
   aws_s3_bucket:
     analytics:
-      bucket: analytics-destination
-```
+      bucket: analytics-destination```
 
 ## Add analytics configuration with S3 object filter
 
@@ -41,11 +38,9 @@ resource:
           priority: high
           class: blue
 
-resource:
   aws_s3_bucket:
     example:
-      bucket: example
-```
+      bucket: example```
 
 ## Argument Reference
 

@@ -10,12 +10,10 @@ resource:
     order:
       name: orders
 
-resource:
   aws_cloudwatch_event_archive:
     order:
       name: order-archive
-      event_source_arn: ${aws_cloudwatch_event_bus.order.arn}
-```
+      event_source_arn: ${aws_cloudwatch_event_bus.order.arn}```
 
 ## Argument Reference
 

@@ -15,15 +15,13 @@ resource:
         - nodejs20.x
         - python3.12
 
-resource:
   aws_lambda_layer_version_permission:
     example:
       layer_name: ${aws_lambda_layer_version.example.layer_name}
       version_number: ${aws_lambda_layer_version.example.version}
       principal: "123456789012" # Target AWS account ID
       action: "lambda:GetLayerVersion"
-      statement_id: dev-account-access
-```
+      statement_id: dev-account-access```
 
 ## Share Layer with Organization
 
@@ -64,7 +62,6 @@ resource:
       action: "lambda:GetLayerVersion"
       statement_id: dev-account
 
-resource:
   aws_lambda_layer_version_permission:
     staging_account:
       layer_name: ${aws_lambda_layer_version.example.layer_name}
@@ -73,15 +70,13 @@ resource:
       action: "lambda:GetLayerVersion"
       statement_id: staging-account
 
-resource:
   aws_lambda_layer_version_permission:
     prod_account:
       layer_name: ${aws_lambda_layer_version.example.layer_name}
       version_number: ${aws_lambda_layer_version.example.version}
       principal: 333333333333
       action: "lambda:GetLayerVersion"
-      statement_id: prod-account
-```
+      statement_id: prod-account```
 
 ## Argument Reference
 

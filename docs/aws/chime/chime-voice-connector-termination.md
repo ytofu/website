@@ -11,7 +11,6 @@ resource:
       name: vc-name-test
       require_encryption: true
 
-resource:
   aws_chime_voice_connector_termination:
     default:
       disabled: false
@@ -21,8 +20,7 @@ resource:
       calling_regions: 
         - US
         - CA
-      voice_connector_id: ${aws_chime_voice_connector.default.id}
-```
+      voice_connector_id: ${aws_chime_voice_connector.default.id}```
 
 ## Argument Reference
 

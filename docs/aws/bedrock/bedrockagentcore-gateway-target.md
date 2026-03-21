@@ -17,13 +17,6 @@ data:
           identifiers: 
             - bedrock-agentcore.amazonaws.com
 
-resource:
-  aws_iam_role:
-    gateway_role:
-      name: bedrock-gateway-role
-      assume_role_policy: ${data.aws_iam_policy_document.gateway_assume.json}
-
-data:
   aws_iam_policy_document:
     lambda_assume:
       statement:
@@ -37,11 +30,15 @@ data:
 
 resource:
   aws_iam_role:
+    gateway_role:
+      name: bedrock-gateway-role
+      assume_role_policy: ${data.aws_iam_policy_document.gateway_assume.json}
+
+  aws_iam_role:
     lambda_role:
       name: example-lambda-role
       assume_role_policy: ${data.aws_iam_policy_document.lambda_assume.json}
 
-resource:
   aws_lambda_function:
     example:
       filename: example.zip
@@ -50,7 +47,6 @@ resource:
       handler: index.handler
       runtime: nodejs20.x
 
-resource:
   aws_bedrockagentcore_gateway:
     example:
       name: example-gateway
@@ -59,7 +55,6 @@ resource:
         custom_jwt_authorizer:
           discovery_url: "https://accounts.google.com/.well-known/openid-configuration"
 
-resource:
   aws_bedrockagentcore_gateway_target:
     example:
       name: example-target
@@ -102,8 +97,7 @@ resource:
                       required: true
                     property:
                       name: result
-                      type: string
-```
+                      type: string```
 
 ## Target with API Key Authentication
 

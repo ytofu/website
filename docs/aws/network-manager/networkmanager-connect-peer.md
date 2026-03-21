@@ -12,7 +12,6 @@ resource:
       core_network_id: ${awscc_networkmanager_core_network.example.id}
       vpc_arn: ${aws_vpc.example.arn}
 
-resource:
   aws_networkmanager_connect_attachment:
     example:
       core_network_id: ${awscc_networkmanager_core_network.example.id}
@@ -21,7 +20,6 @@ resource:
       options:
         protocol: GRE
 
-resource:
   aws_networkmanager_connect_peer:
     example:
       connect_attachment_id: ${aws_networkmanager_connect_attachment.example.id}
@@ -29,8 +27,7 @@ resource:
       bgp_options:
         peer_asn: 65000
       inside_cidr_blocks: 
-        - 172.16.0.0/16
-```
+        - 172.16.0.0/16```
 
 ## Usage with attachment accepter
 
@@ -42,13 +39,11 @@ resource:
       core_network_id: ${awscc_networkmanager_core_network.example.id}
       vpc_arn: ${aws_vpc.example.arn}
 
-resource:
   aws_networkmanager_attachment_accepter:
     example:
       attachment_id: ${aws_networkmanager_vpc_attachment.example.id}
       attachment_type: ${aws_networkmanager_vpc_attachment.example.attachment_type}
 
-resource:
   aws_networkmanager_connect_attachment:
     example:
       core_network_id: ${awscc_networkmanager_core_network.example.id}
@@ -59,13 +54,11 @@ resource:
       depends_on:
         - ${aws_networkmanager_attachment_accepter.example}
 
-resource:
   aws_networkmanager_attachment_accepter:
     example2:
       attachment_id: ${aws_networkmanager_connect_attachment.example.id}
       attachment_type: ${aws_networkmanager_connect_attachment.example.attachment_type}
 
-resource:
   aws_networkmanager_connect_peer:
     example:
       connect_attachment_id: ${aws_networkmanager_connect_attachment.example.id}
@@ -75,8 +68,7 @@ resource:
       inside_cidr_blocks: 
         - 172.16.0.0/16
       depends_on:
-        - ${aws_networkmanager_attachment_accepter.example2}
-```
+        - ${aws_networkmanager_attachment_accepter.example2}```
 
 ## Usage with a Tunnel-less Connect attachment
 
@@ -88,7 +80,6 @@ resource:
       core_network_id: ${awscc_networkmanager_core_network.example.id}
       vpc_arn: ${aws_vpc.example.arn}
 
-resource:
   aws_networkmanager_connect_attachment:
     example:
       core_network_id: ${awscc_networkmanager_core_network.example.id}
@@ -97,15 +88,13 @@ resource:
       options:
         protocol: NO_ENCAP
 
-resource:
   aws_networkmanager_connect_peer:
     example:
       connect_attachment_id: ${aws_networkmanager_connect_attachment.example.id}
       peer_address: 127.0.0.1
       bgp_options:
         peer_asn: 65000
-      subnet_arn: ${aws_subnet.example2.arn}
-```
+      subnet_arn: ${aws_subnet.example2.arn}```
 
 ## Argument Reference
 

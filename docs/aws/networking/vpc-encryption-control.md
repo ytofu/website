@@ -11,11 +11,9 @@ resource:
       vpc_id: ${aws_vpc.example.id}
       mode: monitor
 
-resource:
   aws_vpc:
     example:
-      cidr_block: 10.1.0.0/16
-```
+      cidr_block: 10.1.0.0/16```
 
 ## Argument Reference
 

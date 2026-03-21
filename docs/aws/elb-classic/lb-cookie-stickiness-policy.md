@@ -17,14 +17,12 @@ resource:
         lb_port: 80
         lb_protocol: http
 
-resource:
   aws_lb_cookie_stickiness_policy:
     foo:
       name: foo-policy
       load_balancer: ${aws_elb.lb.id}
       lb_port: 80
-      cookie_expiration_period: 600
-```
+      cookie_expiration_period: 600```
 
 ## Argument Reference
 

@@ -10,7 +10,6 @@ resource:
     example:
       email_identity: testing@example.com
 
-resource:
   aws_sesv2_email_identity_policy:
     example:
       email_identity: ${aws_sesv2_email_identity.example.email_identity}
@@ -36,8 +35,7 @@ resource:
         ]
         }
         ]
-        }
-```
+        }```
 
 ## Argument Reference
 

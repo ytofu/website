@@ -9,15 +9,12 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_partition:
     current:
 
-data:
   aws_region:
     current:
 
-data:
   aws_iam_policy_document:
     glue-example-policy:
       statement:
@@ -33,8 +30,7 @@ data:
 resource:
   aws_glue_resource_policy:
     example:
-      policy: ${data.aws_iam_policy_document.glue-example-policy.json}
-```
+      policy: ${data.aws_iam_policy_document.glue-example-policy.json}```
 
 ## Argument Reference
 

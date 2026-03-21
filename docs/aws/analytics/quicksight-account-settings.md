@@ -13,13 +13,11 @@ resource:
       edition: ENTERPRISE
       notification_email: notification@email.com
 
-resource:
   aws_quicksight_account_settings:
     example:
       termination_protection_enabled: false
       depends_on: 
-        - ${aws_quicksight_account_subscription.subscription}
-```
+        - ${aws_quicksight_account_subscription.subscription}```
 
 ## Argument Reference
 

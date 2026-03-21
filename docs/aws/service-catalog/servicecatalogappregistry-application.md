@@ -19,12 +19,10 @@ resource:
     example:
       name: example-app
 
-resource:
   aws_s3_bucket:
     bucket:
       bucket: example-bucket
-      tags: ${aws_servicecatalogappregistry_application.example.application_tag}
-```
+      tags: ${aws_servicecatalogappregistry_application.example.application_tag}```
 
 ## Argument Reference
 

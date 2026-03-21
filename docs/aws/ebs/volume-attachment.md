@@ -13,7 +13,6 @@ resource:
       volume_id: ${aws_ebs_volume.example.id}
       instance_id: ${aws_instance.web.id}
 
-resource:
   aws_instance:
     web:
       ami: ami-21f78e11
@@ -22,12 +21,10 @@ resource:
       tags:
         Name: HelloWorld
 
-resource:
   aws_ebs_volume:
     example:
       availability_zone: us-west-2a
-      size: 1
-```
+      size: 1```
 
 ## Argument Reference
 

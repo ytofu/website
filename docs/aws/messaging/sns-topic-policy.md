@@ -10,7 +10,6 @@ resource:
     test:
       name: my-topic-with-policy
 
-resource:
   aws_sns_topic_policy:
     default:
       arn: ${aws_sns_topic.test.arn}
@@ -42,8 +41,7 @@ data:
             - "*"
         resources:
           - ${aws_sns_topic.test.arn}
-        sid: __default_statement_ID
-```
+        sid: __default_statement_ID```
 
 ## Argument Reference
 

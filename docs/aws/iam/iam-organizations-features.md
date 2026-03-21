@@ -12,13 +12,11 @@ resource:
         - iam.amazonaws.com
       feature_set: ALL
 
-resource:
   aws_iam_organizations_features:
     example:
       enabled_features:
         - RootCredentialsManagement
-        - RootSessions
-```
+        - RootSessions```
 
 ## Argument Reference
 

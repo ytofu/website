@@ -22,7 +22,6 @@ resource:
         attribute_type: S
         key_type: HASH
 
-resource:
   aws_dynamodb_table:
     example:
       name: example
@@ -36,8 +35,7 @@ resource:
         type: S
       attribute:
         name: GameTitle
-        type: S
-```
+        type: S```
 
 ## Argument Reference
 

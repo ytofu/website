@@ -14,12 +14,10 @@ resource:
       handler: index.handler
       runtime: python3.12
 
-resource:
   aws_lambda_function_recursion_config:
     example:
       function_name: ${aws_lambda_function.example.function_name}
-      recursive_loop: Allow
-```
+      recursive_loop: Allow```
 
 ## Production Safety Configuration
 
@@ -36,12 +34,10 @@ resource:
         Environment: production
         Purpose: data-processing
 
-resource:
   aws_lambda_function_recursion_config:
     example:
       function_name: ${aws_lambda_function.production_processor.function_name}
-      recursive_loop: "Terminate" # Safety first in production
-```
+      recursive_loop: "Terminate" # Safety first in production```
 
 ## Argument Reference
 

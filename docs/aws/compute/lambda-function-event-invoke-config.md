@@ -13,7 +13,6 @@ resource:
         Environment: production
         Purpose: lambda-error-handling
 
-resource:
   aws_sns_topic:
     success:
       name: lambda-success-notifications
@@ -21,7 +20,6 @@ resource:
         Environment: production
         Purpose: lambda-success-notifications
 
-resource:
   aws_lambda_function_event_invoke_config:
     example:
       function_name: ${aws_lambda_function.example.function_name}
@@ -31,8 +29,7 @@ resource:
         on_failure:
           destination: ${aws_sqs_queue.dlq.arn}
         on_success:
-          destination: ${aws_sns_topic.success.arn}
-```
+          destination: ${aws_sns_topic.success.arn}```
 
 ## Error Handling Only
 
@@ -56,7 +53,6 @@ resource:
       function_name: ${aws_lambda_function.example.function_name}
       function_version: ${aws_lambda_function.example.version}
 
-resource:
   aws_lambda_function_event_invoke_config:
     example:
       function_name: ${aws_lambda_function.example.function_name}
@@ -65,8 +61,7 @@ resource:
       maximum_retry_attempts: 2
       destination_config:
         on_failure:
-          destination: ${aws_sqs_queue.production_dlq.arn}
-```
+          destination: ${aws_sqs_queue.production_dlq.arn}```
 
 ## Configuration for Published Version
 
@@ -108,12 +103,10 @@ resource:
     lambda_success_archive:
       bucket: "lambda-success-archive-${random_id.bucket_suffix.hex}"
 
-resource:
   aws_cloudwatch_event_bus:
     lambda_failures:
       name: lambda-failure-events
 
-resource:
   aws_lambda_function_event_invoke_config:
     example:
       function_name: ${aws_lambda_function.example.function_name}
@@ -121,8 +114,7 @@ resource:
         on_failure:
           destination: ${aws_cloudwatch_event_bus.lambda_failures.arn}
         on_success:
-          destination: ${aws_s3_bucket.lambda_success_archive.arn}
-```
+          destination: ${aws_s3_bucket.lambda_success_archive.arn}```
 
 ## Argument Reference
 

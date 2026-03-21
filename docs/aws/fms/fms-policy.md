@@ -18,12 +18,10 @@ resource:
       tags:
         Name: example-fms-policy
 
-resource:
   aws_wafregional_rule_group:
     example:
       metric_name: WAFRuleGroupExample
-      name: WAF-Rule-Group-Example
-```
+      name: WAF-Rule-Group-Example```
 
 ## Argument Reference
 

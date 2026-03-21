@@ -10,7 +10,6 @@ resource:
     example:
       enable: true
 
-resource:
   aws_guardduty_organization_configuration:
     example:
       auto_enable_organization_members: ALL
@@ -24,8 +23,7 @@ resource:
         malware_protection:
           scan_ec2_instance_with_findings:
             ebs_volumes:
-              auto_enable: true
-```
+              auto_enable: true```
 
 ## Argument Reference
 

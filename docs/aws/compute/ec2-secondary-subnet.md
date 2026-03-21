@@ -13,15 +13,13 @@ resource:
       tags:
         Name: example-secondary-network
 
-resource:
   aws_ec2_secondary_subnet:
     example:
       secondary_network_id: ${aws_ec2_secondary_network.example.id}
       ipv4_cidr_block: 10.0.1.0/24
       availability_zone: us-west-2a
       tags:
-        Name: example-secondary-subnet
-```
+        Name: example-secondary-subnet```
 
 ## Using Availability Zone ID
 
@@ -43,15 +41,13 @@ resource:
       tags:
         Name: example-secondary-network
 
-resource:
   aws_ec2_secondary_subnet:
     example:
       secondary_network_id: ${aws_ec2_secondary_network.example.id}
       ipv4_cidr_block: 10.0.1.0/24
       availability_zone_id: ${data.aws_availability_zones.available.zone_ids[0]}
       tags:
-        Name: example-secondary-subnet
-```
+        Name: example-secondary-subnet```
 
 ## Argument Reference
 

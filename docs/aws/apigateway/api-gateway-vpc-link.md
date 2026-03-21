@@ -14,14 +14,12 @@ resource:
       subnet_mapping:
         subnet_id: 12345
 
-resource:
   aws_api_gateway_vpc_link:
     example:
       name: example
       description: example description
       target_arns: 
-        - ${aws_lb.example.arn}
-```
+        - ${aws_lb.example.arn}```
 
 ## Argument Reference
 

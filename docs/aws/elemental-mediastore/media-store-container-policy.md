@@ -9,16 +9,9 @@ data:
   aws_region:
     current:
 
-data:
   aws_caller_identity:
     current:
 
-resource:
-  aws_media_store_container:
-    example:
-      name: example
-
-data:
   aws_iam_policy_document:
     example:
       statement:
@@ -38,11 +31,14 @@ data:
             - true
 
 resource:
+  aws_media_store_container:
+    example:
+      name: example
+
   aws_media_store_container_policy:
     example:
       container_name: ${aws_media_store_container.example.name}
-      policy: ${data.aws_iam_policy_document.example.json}
-```
+      policy: ${data.aws_iam_policy_document.example.json}```
 
 ## Argument Reference
 

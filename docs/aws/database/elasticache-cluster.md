@@ -74,7 +74,6 @@ data:
   aws_outposts_outposts:
     example:
 
-data:
   aws_outposts_outpost:
     example:
       id: ${data.aws_outposts_outposts.example.ids[0]}
@@ -84,7 +83,6 @@ resource:
     example:
       cidr_block: 10.0.0.0/16
 
-resource:
   aws_subnet:
     example:
       vpc_id: ${aws_vpc.example.id}
@@ -92,14 +90,12 @@ resource:
       tags:
         Name: my-subnet
 
-resource:
   aws_elasticache_subnet_group:
     example:
       name: my-cache-subnet
       subnet_ids: 
         - ${aws_subnet.example.id}
 
-resource:
   aws_elasticache_cluster:
     example:
       cluster_id: cluster-example
@@ -110,8 +106,7 @@ resource:
       num_cache_nodes: 2
       parameter_group_name: default.memcached1.4
       port: 11211
-      subnet_group_name: ${aws_elasticache_subnet_group.example.name}
-```
+      subnet_group_name: ${aws_elasticache_subnet_group.example.name}```
 
 ## Argument Reference
 

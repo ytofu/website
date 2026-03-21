@@ -13,7 +13,6 @@ resource:
         type: IPV4
         value: 192.0.7.0/24
 
-resource:
   aws_wafregional_rule:
     wafrule:
       name: tfWAFRule
@@ -23,7 +22,6 @@ resource:
         negated: false
         type: IPMatch
 
-resource:
   aws_wafregional_web_acl:
     wafacl:
       name: tfWebACL
@@ -35,8 +33,7 @@ resource:
           type: BLOCK
         priority: 1
         rule_id: ${aws_wafregional_rule.wafrule.id}
-        type: REGULAR
-```
+        type: REGULAR```
 
 ## Group Rule
 

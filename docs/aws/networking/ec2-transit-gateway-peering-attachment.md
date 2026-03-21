@@ -16,13 +16,11 @@ resource:
       tags:
         Name: Local TGW
 
-resource:
   aws_ec2_transit_gateway:
     peer:
       tags:
         Name: Peer TGW
 
-resource:
   aws_ec2_transit_gateway_peering_attachment:
     example:
       peer_account_id: ${aws_ec2_transit_gateway.peer.owner_id}
@@ -30,8 +28,7 @@ resource:
       peer_transit_gateway_id: ${aws_ec2_transit_gateway.peer.id}
       transit_gateway_id: ${aws_ec2_transit_gateway.local.id}
       tags:
-        Name: TGW Peering Requestor
-```
+        Name: TGW Peering Requestor```
 
 ## Argument Reference
 

@@ -11,13 +11,11 @@ resource:
     example:
       bucket: example
 
-resource:
   aws_s3_access_point:
     example:
       bucket: ${aws_s3_bucket.example.id}
       name: example
 
-resource:
   aws_s3control_object_lambda_access_point:
     example:
       name: example
@@ -28,8 +26,7 @@ resource:
             - GetObject
           content_transformation:
             aws_lambda:
-              function_arn: ${aws_lambda_function.example.arn}
-```
+              function_arn: ${aws_lambda_function.example.arn}```
 
 ## Argument Reference
 

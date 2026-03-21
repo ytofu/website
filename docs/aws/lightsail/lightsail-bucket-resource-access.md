@@ -11,7 +11,6 @@ resource:
       name: example-bucket
       bundle_id: small_1_0
 
-resource:
   aws_lightsail_instance:
     example:
       name: example-instance
@@ -19,12 +18,10 @@ resource:
       blueprint_id: amazon_linux_2
       bundle_id: nano_3_0
 
-resource:
   aws_lightsail_bucket_resource_access:
     example:
       bucket_name: ${aws_lightsail_bucket.example.id}
-      resource_name: ${aws_lightsail_instance.example.id}
-```
+      resource_name: ${aws_lightsail_instance.example.id}```
 
 ## Argument Reference
 

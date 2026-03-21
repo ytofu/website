@@ -20,7 +20,6 @@ resource:
       backup_retention_period: 5
       preferred_backup_window: "07:00-09:00"
 
-resource:
   aws_rds_cluster_instance:
     test1:
       apply_immediately: true
@@ -30,7 +29,6 @@ resource:
       engine: ${aws_rds_cluster.default.engine}
       engine_version: ${aws_rds_cluster.default.engine_version}
 
-resource:
   aws_rds_cluster_instance:
     test2:
       apply_immediately: true
@@ -40,7 +38,6 @@ resource:
       engine: ${aws_rds_cluster.default.engine}
       engine_version: ${aws_rds_cluster.default.engine_version}
 
-resource:
   aws_rds_cluster_instance:
     test3:
       apply_immediately: true
@@ -50,7 +47,6 @@ resource:
       engine: ${aws_rds_cluster.default.engine}
       engine_version: ${aws_rds_cluster.default.engine_version}
 
-resource:
   aws_rds_cluster_endpoint:
     eligible:
       cluster_identifier: ${aws_rds_cluster.default.id}
@@ -60,7 +56,6 @@ resource:
         - ${aws_rds_cluster_instance.test1.id}
         - ${aws_rds_cluster_instance.test2.id}
 
-resource:
   aws_rds_cluster_endpoint:
     static:
       cluster_identifier: ${aws_rds_cluster.default.id}
@@ -68,8 +63,7 @@ resource:
       custom_endpoint_type: READER
       static_members:
         - ${aws_rds_cluster_instance.test1.id}
-        - ${aws_rds_cluster_instance.test3.id}
-```
+        - ${aws_rds_cluster_instance.test3.id}```
 
 ## Argument Reference
 

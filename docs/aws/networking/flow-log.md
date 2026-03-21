@@ -14,10 +14,20 @@ resource:
       traffic_type: ALL
       vpc_id: ${aws_vpc.example.id}
 
-resource:
   aws_cloudwatch_log_group:
     example:
       name: example
+
+  aws_iam_role:
+    example:
+      name: example
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
+  aws_iam_role_policy:
+    example:
+      name: example
+      role: ${aws_iam_role.example.id}
+      policy: ${data.aws_iam_policy_document.example.json}
 
 data:
   aws_iam_policy_document:
@@ -31,13 +41,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    example:
-      name: example
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-data:
   aws_iam_policy_document:
     example:
       statement:
@@ -49,15 +52,7 @@ data:
           - "logs:DescribeLogGroups"
           - "logs:DescribeLogStreams"
         resources: 
-          - "*"
-
-resource:
-  aws_iam_role_policy:
-    example:
-      name: example
-      role: ${aws_iam_role.example.id}
-      policy: ${data.aws_iam_policy_document.example.json}
-```
+          - "*"```
 
 ## Amazon Data Firehose logging
 
@@ -70,7 +65,6 @@ resource:
       traffic_type: ALL
       vpc_id: ${aws_vpc.example.id}
 
-resource:
   aws_kinesis_firehose_delivery_stream:
     example:
       name: kinesis_firehose_test
@@ -80,16 +74,25 @@ resource:
         bucket_arn: ${aws_s3_bucket.example.arn}
       tags: 
 
-resource:
   aws_s3_bucket:
     example:
       bucket: example
 
-resource:
   aws_s3_bucket_acl:
     example:
       bucket: ${aws_s3_bucket.example.id}
       acl: private
+
+  aws_iam_role:
+    example:
+      name: firehose_test_role
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
+  aws_iam_role_policy:
+    example:
+      name: test
+      role: ${aws_iam_role.example.id}
+      policy: ${data.aws_iam_policy_document.example.json}
 
 data:
   aws_iam_policy_document:
@@ -103,13 +106,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    example:
-      name: firehose_test_role
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-data:
   aws_iam_policy_document:
     example:
       effect: Allow
@@ -120,15 +116,7 @@ data:
         - "logs:GetLogDelivery"
         - "firehose:TagDeliveryStream"
       resources: 
-        - "*"
-
-resource:
-  aws_iam_role_policy:
-    example:
-      name: test
-      role: ${aws_iam_role.example.id}
-      policy: ${data.aws_iam_policy_document.example.json}
-```
+        - "*"```
 
 ## S3 Logging
 
@@ -141,11 +129,9 @@ resource:
       traffic_type: ALL
       vpc_id: ${aws_vpc.example.id}
 
-resource:
   aws_s3_bucket:
     example:
-      bucket: example
-```
+      bucket: example```
 
 ## S3 Logging in Apache Parquet format with per-hour partitions
 
@@ -161,11 +147,9 @@ resource:
         file_format: parquet
         per_hour_partition: true
 
-resource:
   aws_s3_bucket:
     example:
-      bucket: example
-```
+      bucket: example```
 
 ## Cross-Account Amazon Data Firehose Logging
 
@@ -173,6 +157,42 @@ resource:
 resource:
   aws_vpc:
     src:
+
+  aws_iam_role:
+    src:
+      name: tf-example-mySourceRole
+      assume_role_policy: ${data.aws_iam_policy_document.src_assume_role_policy.json}
+
+  aws_iam_role_policy:
+    src_policy:
+      name: tf-example-mySourceRolePolicy
+      role: ${aws_iam_role.src.name}
+      policy: ${data.aws_iam_policy_document.src_role_policy.json}
+
+  aws_flow_log:
+    src:
+      log_destination_type: kinesis-data-firehose
+      log_destination: ${aws_kinesis_firehose_delivery_stream.dst.arn}
+      traffic_type: ALL
+      vpc_id: ${aws_vpc.src.id}
+      iam_role_arn: ${aws_iam_role.src.arn}
+      deliver_cross_account_role: ${aws_iam_role.dst.arn}
+
+  aws_iam_role:
+    dst:
+      name: "AWSLogDeliveryFirehoseCrossAccountRole" # must start with "AWSLogDeliveryFirehoseCrossAccountRolePolicy"
+      assume_role_policy: ${data.aws_iam_policy_document.dst_assume_role_policy.json}
+
+  aws_iam_role_policy:
+    dst:
+      name: AWSLogDeliveryFirehoseCrossAccountRolePolicy
+      role: ${aws_iam_role.dst.name}
+      policy: ${data.aws_iam_policy_document.dst_role_policy.json}
+
+  aws_kinesis_firehose_delivery_stream:
+    dst:
+      tags:
+        LogDeliveryEnabled: true
 
 data:
   aws_iam_policy_document:
@@ -186,13 +206,6 @@ data:
           identifiers: 
             - delivery.logs.amazonaws.com
 
-resource:
-  aws_iam_role:
-    src:
-      name: tf-example-mySourceRole
-      assume_role_policy: ${data.aws_iam_policy_document.src_assume_role_policy.json}
-
-data:
   aws_iam_policy_document:
     src_role_policy:
       statement:
@@ -225,24 +238,6 @@ data:
         resources: 
           - ${aws_iam_role.dst.arn}
 
-resource:
-  aws_iam_role_policy:
-    src_policy:
-      name: tf-example-mySourceRolePolicy
-      role: ${aws_iam_role.src.name}
-      policy: ${data.aws_iam_policy_document.src_role_policy.json}
-
-resource:
-  aws_flow_log:
-    src:
-      log_destination_type: kinesis-data-firehose
-      log_destination: ${aws_kinesis_firehose_delivery_stream.dst.arn}
-      traffic_type: ALL
-      vpc_id: ${aws_vpc.src.id}
-      iam_role_arn: ${aws_iam_role.src.arn}
-      deliver_cross_account_role: ${aws_iam_role.dst.arn}
-
-data:
   aws_iam_policy_document:
     dst_assume_role_policy:
       statement:
@@ -254,13 +249,6 @@ data:
           identifiers: 
             - ${aws_iam_role.src.arn}
 
-resource:
-  aws_iam_role:
-    dst:
-      name: "AWSLogDeliveryFirehoseCrossAccountRole" # must start with "AWSLogDeliveryFirehoseCrossAccountRolePolicy"
-      assume_role_policy: ${data.aws_iam_policy_document.dst_assume_role_policy.json}
-
-data:
   aws_iam_policy_document:
     dst_role_policy:
       statement:
@@ -269,21 +257,7 @@ data:
           - "iam:CreateServiceLinkedRole"
           - "firehose:TagDeliveryStream"
         resources: 
-          - "*"
-
-resource:
-  aws_iam_role_policy:
-    dst:
-      name: AWSLogDeliveryFirehoseCrossAccountRolePolicy
-      role: ${aws_iam_role.dst.name}
-      policy: ${data.aws_iam_policy_document.dst_role_policy.json}
-
-resource:
-  aws_kinesis_firehose_delivery_stream:
-    dst:
-      tags:
-        LogDeliveryEnabled: true
-```
+          - "*"```
 
 ## Argument Reference
 

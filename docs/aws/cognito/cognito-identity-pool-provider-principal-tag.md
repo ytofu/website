@@ -12,13 +12,12 @@ resource:
       auto_verified_attributes: 
         - email
 
-resource:
   aws_cognito_user_pool_client:
     example:
       name: client
       user_pool_id: ${aws_cognito_user_pool.example.id}
       supported_identity_providers: []
-resource:
+
   aws_cognito_identity_pool:
     example:
       identity_pool_name: identity pool
@@ -28,15 +27,13 @@ resource:
         provider_name: ${aws_cognito_user_pool.example.endpoint}
         server_side_token_check: false
 
-resource:
   aws_cognito_identity_pool_provider_principal_tag:
     example:
       identity_pool_id: ${aws_cognito_identity_pool.example.id}
       identity_provider_name: ${aws_cognito_user_pool.example.endpoint}
       use_defaults: false
       principal_tags:
-        test: value
-```
+        test: value```
 
 ## Argument Reference
 

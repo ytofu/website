@@ -10,16 +10,10 @@ resource:
     main:
       cidr_block: 10.0.0.0/16
 
-resource:
   aws_vpc:
     peer:
       cidr_block: 10.1.0.0/16
 
-data:
-  aws_caller_identity:
-    peer:
-
-resource:
   aws_vpc_peering_connection:
     peer:
       vpc_id: ${aws_vpc.main.id}
@@ -30,14 +24,16 @@ resource:
       tags:
         Side: Requester
 
-resource:
   aws_vpc_peering_connection_accepter:
     peer:
       vpc_peering_connection_id: ${aws_vpc_peering_connection.peer.id}
       auto_accept: true
       tags:
         Side: Accepter
-```
+
+data:
+  aws_caller_identity:
+    peer:```
 
 ## Cross-Region Peering (Same Account) Terraform AWS Provider v6 (and above)
 
@@ -47,13 +43,11 @@ resource:
     main:
       cidr_block: 10.0.0.0/16
 
-resource:
   aws_vpc:
     peer:
       region: us-west-2
       cidr_block: 10.1.0.0/16
 
-resource:
   aws_vpc_peering_connection:
     peer:
       vpc_id: ${aws_vpc.main.id}
@@ -63,15 +57,13 @@ resource:
       tags:
         Side: Requester
 
-resource:
   aws_vpc_peering_connection_accepter:
     peer:
       region: us-west-2
       vpc_peering_connection_id: ${aws_vpc_peering_connection.peer.id}
       auto_accept: true
       tags:
-        Side: Accepter
-```
+        Side: Accepter```
 
 ## Argument Reference
 

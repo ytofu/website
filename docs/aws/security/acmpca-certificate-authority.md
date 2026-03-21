@@ -39,30 +39,11 @@ resource:
       bucket: example
       force_destroy: true
 
-data:
-  aws_iam_policy_document:
-    acmpca_bucket_access:
-      statement:
-        actions:
-          - "s3:GetBucketAcl"
-          - "s3:GetBucketLocation"
-          - "s3:PutObject"
-          - "s3:PutObjectAcl"
-        resources:
-          - ${aws_s3_bucket.example.arn}
-          - "${aws_s3_bucket.example.arn}/*"
-        principals:
-          identifiers: 
-            - acm-pca.amazonaws.com
-          type: Service
-
-resource:
   aws_s3_bucket_policy:
     example:
       bucket: ${aws_s3_bucket.example.id}
       policy: ${data.aws_iam_policy_document.acmpca_bucket_access.json}
 
-resource:
   aws_acmpca_certificate_authority:
     example:
       certificate_authority_configuration:
@@ -79,7 +60,23 @@ resource:
           s3_object_acl: BUCKET_OWNER_FULL_CONTROL
       depends_on: 
         - ${aws_s3_bucket_policy.example}
-```
+
+data:
+  aws_iam_policy_document:
+    acmpca_bucket_access:
+      statement:
+        actions:
+          - "s3:GetBucketAcl"
+          - "s3:GetBucketLocation"
+          - "s3:PutObject"
+          - "s3:PutObjectAcl"
+        resources:
+          - ${aws_s3_bucket.example.arn}
+          - "${aws_s3_bucket.example.arn}/*"
+        principals:
+          identifiers: 
+            - acm-pca.amazonaws.com
+          type: Service```
 
 ## Argument Reference
 

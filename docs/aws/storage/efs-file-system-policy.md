@@ -10,6 +10,11 @@ resource:
     fs:
       creation_token: my-product
 
+  aws_efs_file_system_policy:
+    policy:
+      file_system_id: ${aws_efs_file_system.fs.id}
+      policy: ${data.aws_iam_policy_document.policy.json}
+
 data:
   aws_iam_policy_document:
     policy:
@@ -28,14 +33,7 @@ data:
         condition:
           test: Bool
           values: 
-            - true
-
-resource:
-  aws_efs_file_system_policy:
-    policy:
-      file_system_id: ${aws_efs_file_system.fs.id}
-      policy: ${data.aws_iam_policy_document.policy.json}
-```
+            - true```
 
 ## Argument Reference
 

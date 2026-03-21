@@ -26,13 +26,11 @@ resource:
       tags:
         Name: Test
 
-resource:
   aws_vpc_route_server_association:
     test:
       route_server_id: ${aws_vpc_route_server.test.route_server_id}
       vpc_id: ${aws_vpc.test.id}
 
-resource:
   aws_vpc_route_server_endpoint:
     test:
       route_server_id: ${aws_vpc_route_server.test.route_server_id}
@@ -42,7 +40,6 @@ resource:
       depends_on: 
         - ${aws_vpc_route_server_association.test}
 
-resource:
   aws_vpc_route_server_propagation:
     test:
       route_server_id: ${aws_vpc_route_server.test.route_server_id}
@@ -50,7 +47,6 @@ resource:
       depends_on: 
         - ${aws_vpc_route_server_association.test}
 
-resource:
   aws_vpc_route_server_peer:
     test:
       route_server_endpoint_id: ${aws_vpc_route_server_endpoint.test.route_server_endpoint_id}
@@ -59,8 +55,7 @@ resource:
         peer_asn: 65000
         peer_liveness_detection: bgp-keepalive
       tags:
-        Name: Test Appliance
-```
+        Name: Test Appliance```
 
 ## Argument Reference
 

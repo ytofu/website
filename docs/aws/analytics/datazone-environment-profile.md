@@ -14,18 +14,15 @@ resource:
         name: example-name
         policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": [ "datazone:*", "ram:*", "sso:*", "kms:*", ] "Effect": "Allow" "Resource": "*" }, ] }'
 
-resource:
   aws_datazone_domain:
     test:
       name: example-name
       domain_execution_role: ${aws_iam_role.domain_execution_role.arn}
 
-resource:
   aws_security_group:
     test:
       name: example-name
 
-resource:
   aws_datazone_project:
     test:
       domain_identifier: ${aws_datazone_domain.test.id}
@@ -35,22 +32,6 @@ resource:
       description: desc
       skip_deletion_check: true
 
-data:
-  aws_caller_identity:
-    test:
-
-data:
-  aws_region:
-    test:
-
-data:
-  aws_datazone_environment_blueprint:
-    test:
-      domain_id: ${aws_datazone_domain.test.id}
-      name: DefaultDataLake
-      managed: true
-
-resource:
   aws_datazone_environment_blueprint_configuration:
     test:
       domain_id: ${aws_datazone_domain.test.id}
@@ -59,7 +40,6 @@ resource:
       enabled_regions: 
         - ${data.aws_region.test.name}
 
-resource:
   aws_datazone_environment_profile:
     test:
       aws_account_id: ${data.aws_caller_identity.test.account_id}
@@ -72,7 +52,19 @@ resource:
       user_parameters:
         name: consumerGlueDbName
         value: value
-```
+
+data:
+  aws_caller_identity:
+    test:
+
+  aws_region:
+    test:
+
+  aws_datazone_environment_blueprint:
+    test:
+      domain_id: ${aws_datazone_domain.test.id}
+      name: DefaultDataLake
+      managed: true```
 
 ## Argument Reference
 

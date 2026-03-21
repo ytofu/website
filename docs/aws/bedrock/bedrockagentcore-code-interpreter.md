@@ -35,15 +35,13 @@ resource:
       name: bedrock-agentcore-code-interpreter-role
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
 
-resource:
   aws_bedrockagentcore_code_interpreter:
     example:
       name: example-code-interpreter
       description: Code interpreter with custom execution role
       execution_role_arn: ${aws_iam_role.example.arn}
       network_configuration:
-        network_mode: SANDBOX
-```
+        network_mode: SANDBOX```
 
 ## Argument Reference
 

@@ -14,13 +14,11 @@ resource:
       tags:
         Env: live
 
-resource:
   aws_ec2_managed_prefix_list_entry:
     entry_1:
       cidr: ${aws_vpc.example.cidr_block}
       description: Primary
-      prefix_list_id: ${aws_ec2_managed_prefix_list.example.id}
-```
+      prefix_list_id: ${aws_ec2_managed_prefix_list.example.id}```
 
 ## Argument Reference
 

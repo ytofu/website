@@ -9,13 +9,11 @@ resource:
   aws_securityhub_account:
     example:
 
-resource:
   aws_securityhub_finding_aggregator:
     example:
       linking_mode: ALL_REGIONS
       depends_on: 
-        - ${aws_securityhub_account.example}
-```
+        - ${aws_securityhub_account.example}```
 
 ## All Regions Except Specified Regions Usage
 
@@ -24,7 +22,6 @@ resource:
   aws_securityhub_account:
     example:
 
-resource:
   aws_securityhub_finding_aggregator:
     example:
       linking_mode: ALL_REGIONS_EXCEPT_SPECIFIED
@@ -32,8 +29,7 @@ resource:
         - eu-west-1
         - eu-west-2
       depends_on: 
-        - ${aws_securityhub_account.example}
-```
+        - ${aws_securityhub_account.example}```
 
 ## Specified Regions Usage
 
@@ -42,7 +38,6 @@ resource:
   aws_securityhub_account:
     example:
 
-resource:
   aws_securityhub_finding_aggregator:
     example:
       linking_mode: SPECIFIED_REGIONS
@@ -50,8 +45,7 @@ resource:
         - eu-west-1
         - eu-west-2
       depends_on: 
-        - ${aws_securityhub_account.example}
-```
+        - ${aws_securityhub_account.example}```
 
 ## No Regions Usage
 
@@ -60,13 +54,11 @@ resource:
   aws_securityhub_account:
     example:
 
-resource:
   aws_securityhub_finding_aggregator:
     example:
       linking_mode: NO_REGIONS
       depends_on: 
-        - ${aws_securityhub_account.example}
-```
+        - ${aws_securityhub_account.example}```
 
 ## Argument Reference
 

@@ -10,7 +10,6 @@ resource:
     example:
       linking_mode: ALL_REGIONS
 
-resource:
   aws_securityhub_organization_configuration:
     example:
       auto_enable: false
@@ -20,7 +19,6 @@ resource:
       depends_on: 
         - ${aws_securityhub_finding_aggregator.example}
 
-resource:
   aws_securityhub_configuration_policy:
     example:
       name: Example
@@ -35,24 +33,20 @@ resource:
       depends_on: 
         - ${aws_securityhub_organization_configuration.example}
 
-resource:
   aws_securityhub_configuration_policy_association:
     account_example:
       target_id: 123456789012
       policy_id: ${aws_securityhub_configuration_policy.example.id}
 
-resource:
   aws_securityhub_configuration_policy_association:
     root_example:
       target_id: r-abcd
       policy_id: ${aws_securityhub_configuration_policy.example.id}
 
-resource:
   aws_securityhub_configuration_policy_association:
     ou_example:
       target_id: ou-abcd-12345678
-      policy_id: ${aws_securityhub_configuration_policy.example.id}
-```
+      policy_id: ${aws_securityhub_configuration_policy.example.id}```
 
 ## Argument Reference
 

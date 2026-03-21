@@ -10,7 +10,6 @@ resource:
     example:
       length: 16
 
-resource:
   aws_memorydb_user:
     example:
       user_name: my-user
@@ -18,8 +17,7 @@ resource:
       authentication_mode:
         type: password
         passwords: 
-          - ${random_password.example.result}
-```
+          - ${random_password.example.result}```
 
 ## Argument Reference
 

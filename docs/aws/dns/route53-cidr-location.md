@@ -10,15 +10,13 @@ resource:
     example:
       name: collection-1
 
-resource:
   aws_route53_cidr_location:
     example:
       cidr_collection_id: ${aws_route53_cidr_collection.example.id}
       name: office
       cidr_blocks: 
         - 200.5.3.0/24
-        - 200.6.3.0/24
-```
+        - 200.6.3.0/24```
 
 ## Argument Reference
 

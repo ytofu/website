@@ -9,13 +9,11 @@ resource:
   aws_efs_file_system:
     example:
 
-resource:
   aws_efs_replication_configuration:
     example:
       source_file_system_id: ${aws_efs_file_system.example.id}
       destination:
-        region: us-west-2
-```
+        region: us-west-2```
 
 ## Argument Reference
 

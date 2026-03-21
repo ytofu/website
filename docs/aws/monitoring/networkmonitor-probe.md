@@ -11,7 +11,6 @@ resource:
       aggregation_period: 30
       monitor_name: example
 
-resource:
   aws_networkmonitor_probe:
     example:
       monitor_name: ${aws_networkmonitor_monitor.example.monitor_name}
@@ -19,8 +18,7 @@ resource:
       destination_port: 80
       protocol: TCP
       source_arn: ${aws_subnet.example.arn}
-      packet_size: 200
-```
+      packet_size: 200```
 
 ## Argument Reference
 

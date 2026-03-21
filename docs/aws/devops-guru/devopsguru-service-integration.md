@@ -24,7 +24,6 @@ resource:
   aws_kms_key:
     example:
 
-resource:
   aws_devopsguru_service_integration:
     example:
       kms_server_side_encryption:
@@ -34,8 +33,7 @@ resource:
       logs_anomaly_detection:
         opt_in_status: DISABLED
       ops_center:
-        opt_in_status: DISABLED
-```
+        opt_in_status: DISABLED```
 
 ## Argument Reference
 

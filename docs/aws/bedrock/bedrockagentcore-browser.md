@@ -53,12 +53,10 @@ resource:
       name: bedrock-agentcore-browser-role
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
 
-resource:
   aws_s3_bucket:
     recording:
       bucket: browser-recording-bucket
 
-resource:
   aws_bedrockagentcore_browser:
     example:
       name: example-browser
@@ -70,8 +68,7 @@ resource:
         enabled: true
         s3_location:
           bucket: ${aws_s3_bucket.recording.bucket}
-          prefix: browser-sessions/
-```
+          prefix: browser-sessions/```
 
 ## Argument Reference
 

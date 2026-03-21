@@ -71,7 +71,6 @@ resource:
       match_criteria: 
         - template-connection
 
-resource:
   aws_glue_connection:
     example2:
       name: example2
@@ -84,8 +83,7 @@ resource:
         SECRET_ID: ${data.aws_secretsmanager_secret.example.name}
       match_criteria: 
         - Connection
-        - ${aws_glue_connection.example1.name}
-```
+        - ${aws_glue_connection.example1.name}```
 
 ## Azure Cosmos Connection
 
@@ -95,20 +93,17 @@ resource:
     example:
       name: example-secret
 
-resource:
   aws_secretsmanager_secret_version:
     example:
       secret_id: ${aws_secretsmanager_secret.example.id}
       secret_string: '{ "username": "exampleusername" "password": "examplepassword" }'
 
-resource:
   aws_glue_connection:
     example:
       name: example
       connection_type: AZURECOSMOS
       connection_properties:
-        SparkProperties: '{ "secretId": aws_secretsmanager_secret.example.name "spark.cosmos.accountEndpoint" = "https://exampledbaccount.documents.azure.com:443/" }'
-```
+        SparkProperties: '{ "secretId": aws_secretsmanager_secret.example.name "spark.cosmos.accountEndpoint" = "https://exampledbaccount.documents.azure.com:443/" }'```
 
 ## Azure SQL Connection
 
@@ -118,20 +113,17 @@ resource:
     example:
       name: example-secret
 
-resource:
   aws_secretsmanager_secret_version:
     example:
       secret_id: ${aws_secretsmanager_secret.example.id}
       secret_string: '{ "username": "exampleusername" "password": "examplepassword" }'
 
-resource:
   aws_glue_connection:
     example:
       name: example
       connection_type: AZURECOSMOS
       connection_properties:
-        SparkProperties: '{ "secretId": aws_secretsmanager_secret.example.name "url": "jdbc:sqlserver:exampledbserver.database.windows.net:1433;"database": exampledatabase" }'
-```
+        SparkProperties: '{ "secretId": aws_secretsmanager_secret.example.name "url": "jdbc:sqlserver:exampledbserver.database.windows.net:1433;"database": exampledatabase" }'```
 
 ## Google BigQuery Connection
 
@@ -141,20 +133,17 @@ resource:
     example:
       name: example-secret
 
-resource:
   aws_secretsmanager_secret_version:
     example:
       secret_id: ${aws_secretsmanager_secret.example.id}
       secret_string: '{ "credentials": base64encode(<<-EOT { "type": "service_account", "project_id": "example-project", "private_key_id": "example-key", "private_key": "-----BEGIN RSA PRIVATE KEY-----\nREDACTED\n-----END RSA PRIVATE KEY-----", "client_email": "example-project@appspot.gserviceaccount.com", "client_id": example-client", "auth_uri": "https://accounts.google.com/o/oauth2/auth", "token_uri": "https://oauth2.googleapis.com/token", "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs", "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/example-project%%40appspot.gserviceaccount.com", "universe_domain": "googleapis.com" } EOT ) }'
 
-resource:
   aws_glue_connection:
     example:
       name: example
       connection_type: BIGQUERY
       connection_properties:
-        SparkProperties: example-json-policy
-```
+        SparkProperties: example-json-policy```
 
 ## OpenSearch Service Connection
 
@@ -164,20 +153,17 @@ resource:
     example:
       name: example-secret
 
-resource:
   aws_secretsmanager_secret_version:
     example:
       secret_id: ${aws_secretsmanager_secret.example.id}
       secret_string: '{ "opensearch.net.http.auth.user" = "exampleusername" "opensearch.net.http.auth.pass" = "examplepassword" }'
 
-resource:
   aws_glue_connection:
     example:
       name: example
       connection_type: OPENSEARCH
       connection_properties:
-        SparkProperties: '{ "secretId": aws_secretsmanager_secret.example.name "opensearch.nodes"             = "https://search-exampledomain-ixlmh4jieahrau3bfebcgp8cnm.us-east-1.es.amazonaws.com" "opensearch.port"              = "443" "opensearch.aws.sigv4.region"  = "us-east-1" "opensearch.nodes.wan.only"    = "true" "opensearch.aws.sigv4.enabled" = "true" }'
-```
+        SparkProperties: '{ "secretId": aws_secretsmanager_secret.example.name "opensearch.nodes"             = "https://search-exampledomain-ixlmh4jieahrau3bfebcgp8cnm.us-east-1.es.amazonaws.com" "opensearch.port"              = "443" "opensearch.aws.sigv4.region"  = "us-east-1" "opensearch.nodes.wan.only"    = "true" "opensearch.aws.sigv4.enabled" = "true" }'```
 
 ## Snowflake Connection
 
@@ -187,20 +173,17 @@ resource:
     example:
       name: example-secret
 
-resource:
   aws_secretsmanager_secret_version:
     example:
       secret_id: ${aws_secretsmanager_secret.example.id}
       secret_string: '{ "sfUser": "exampleusername" "sfPassword": "examplepassword" }'
 
-resource:
   aws_glue_connection:
     example:
       name: example
       connection_type: SNOWFLAKE
       connection_properties:
-        SparkProperties: '{ "secretId": aws_secretsmanager_secret.example.name "sfRole": "EXAMPLEETLROLE" "sfUrl": "exampleorg-exampleconnection.snowflakecomputing.com" }'
-```
+        SparkProperties: '{ "secretId": aws_secretsmanager_secret.example.name "sfRole": "EXAMPLEETLROLE" "sfUrl": "exampleorg-exampleconnection.snowflakecomputing.com" }'```
 
 ## DynamoDB Connection
 

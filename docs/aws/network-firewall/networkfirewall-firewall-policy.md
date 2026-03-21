@@ -9,11 +9,9 @@ data:
   aws_region:
     current:
 
-data:
   aws_partition:
     current:
 
-data:
   aws_caller_identity:
     current:
 
@@ -32,8 +30,7 @@ resource:
         tls_inspection_configuration_arn: "arn:${data.aws_partition.current.partition}:network-firewall:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:tls-configuration/example"
       tags:
         Tag1: Value1
-        Tag2: Value2
-```
+        Tag2: Value2```
 
 ## Argument Reference
 

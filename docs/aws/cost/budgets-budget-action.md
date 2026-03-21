@@ -28,6 +28,26 @@ resource:
         Tag1: Value1
         Tag2: Value2
 
+  aws_iam_policy:
+    example:
+      name: example
+      description: My example policy
+      policy: ${data.aws_iam_policy_document.example.json}
+
+  aws_iam_role:
+    example:
+      name: example
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
+  aws_budgets_budget:
+    example:
+      name: example
+      budget_type: USAGE
+      limit_amount: 10.0
+      limit_unit: dollars
+      time_period_start: "2006-01-02_15:04"
+      time_unit: MONTHLY
+
 data:
   aws_iam_policy_document:
     example:
@@ -38,18 +58,9 @@ data:
         resources: 
           - "*"
 
-resource:
-  aws_iam_policy:
-    example:
-      name: example
-      description: My example policy
-      policy: ${data.aws_iam_policy_document.example.json}
-
-data:
   aws_partition:
     current:
 
-data:
   aws_iam_policy_document:
     assume_role:
       statement:
@@ -59,24 +70,7 @@ data:
           identifiers: 
             - "budgets.${data.aws_partition.current.dns_suffix}"
         actions: 
-          - "sts:AssumeRole"
-
-resource:
-  aws_iam_role:
-    example:
-      name: example
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-resource:
-  aws_budgets_budget:
-    example:
-      name: example
-      budget_type: USAGE
-      limit_amount: 10.0
-      limit_unit: dollars
-      time_period_start: "2006-01-02_15:04"
-      time_unit: MONTHLY
-```
+          - "sts:AssumeRole"```
 
 ## Argument Reference
 

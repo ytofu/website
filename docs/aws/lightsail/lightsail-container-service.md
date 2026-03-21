@@ -41,6 +41,11 @@ resource:
         ecr_image_puller_role:
           is_active: true
 
+  aws_ecr_repository_policy:
+    example:
+      repository: ${aws_ecr_repository.example.name}
+      policy: ${data.aws_iam_policy_document.example.json}
+
 data:
   aws_iam_policy_document:
     example:
@@ -52,14 +57,7 @@ data:
             - ${aws_lightsail_container_service.example.private_registry_access[0].ecr_image_puller_role[0].principal_arn}
         actions:
           - "ecr:BatchGetImage"
-          - "ecr:GetDownloadUrlForLayer"
-
-resource:
-  aws_ecr_repository_policy:
-    example:
-      repository: ${aws_ecr_repository.example.name}
-      policy: ${data.aws_iam_policy_document.example.json}
-```
+          - "ecr:GetDownloadUrlForLayer"```
 
 ## Argument Reference
 

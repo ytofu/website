@@ -17,7 +17,6 @@ data:
           identifiers: 
             - bedrock-agentcore.amazonaws.com
 
-data:
   aws_iam_policy_document:
     ecr_permissions:
       statement:
@@ -40,13 +39,11 @@ resource:
       name: bedrock-agentcore-runtime-role
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
 
-resource:
   aws_iam_role_policy:
     example:
       role: ${aws_iam_role.example.id}
       policy: ${data.aws_iam_policy_document.ecr_permissions.json}
 
-resource:
   aws_bedrockagentcore_agent_runtime:
     example:
       agent_runtime_name: example_agent_runtime
@@ -55,8 +52,7 @@ resource:
         container_configuration:
           container_uri: "${aws_ecr_repository.example.repository_url}:latest"
       network_configuration:
-        network_mode: PUBLIC
-```
+        network_mode: PUBLIC```
 
 ## MCP Server With Custom JWT Authorizer
 

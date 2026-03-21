@@ -134,13 +134,11 @@ resource:
     bucket:
       bucket: my-bucket
 
-resource:
   aws_s3_bucket_acl:
     bucket_acl:
       bucket: ${aws_s3_bucket.bucket.bucket}
       acl: private
 
-resource:
   aws_s3_bucket_lifecycle_configuration:
     bucket-config:
       bucket: ${aws_s3_bucket.bucket.bucket}
@@ -169,25 +167,21 @@ resource:
           date: "2023-01-13T00:00:00Z"
         status: Enabled
 
-resource:
   aws_s3_bucket:
     versioning_bucket:
       bucket: my-versioning-bucket
 
-resource:
   aws_s3_bucket_acl:
     versioning_bucket_acl:
       bucket: ${aws_s3_bucket.versioning_bucket.bucket}
       acl: private
 
-resource:
   aws_s3_bucket_versioning:
     versioning:
       bucket: ${aws_s3_bucket.versioning_bucket.bucket}
       versioning_configuration:
         status: Enabled
 
-resource:
   aws_s3_bucket_lifecycle_configuration:
     versioning-bucket-config:
       depends_on: 
@@ -205,8 +199,7 @@ resource:
         noncurrent_version_transition:
           noncurrent_days: 60
           storage_class: GLACIER
-        status: Enabled
-```
+        status: Enabled```
 
 ## Argument Reference
 

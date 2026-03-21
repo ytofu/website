@@ -10,7 +10,6 @@ resource:
     example:
       display_name: example
 
-resource:
   aws_workspacesweb_user_settings:
     example:
       copy_allowed: Enabled
@@ -19,12 +18,10 @@ resource:
       print_allowed: Enabled
       upload_allowed: Enabled
 
-resource:
   aws_workspacesweb_user_settings_association:
     example:
       user_settings_arn: ${aws_workspacesweb_user_settings.example.user_settings_arn}
-      portal_arn: ${aws_workspacesweb_portal.example.portal_arn}
-```
+      portal_arn: ${aws_workspacesweb_portal.example.portal_arn}```
 
 ## Argument Reference
 

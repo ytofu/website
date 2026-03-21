@@ -13,7 +13,6 @@ resource:
         value: true
         propagate_at_launch: true
 
-resource:
   aws_ecs_capacity_provider:
     example:
       name: example
@@ -24,8 +23,7 @@ resource:
           maximum_scaling_step_size: 1000
           minimum_scaling_step_size: 1
           status: ENABLED
-          target_capacity: 10
-```
+          target_capacity: 10```
 
 ## Managed Instances Provider
 

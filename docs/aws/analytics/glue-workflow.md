@@ -12,7 +12,6 @@ resource:
     example:
       name: example
 
-resource:
   aws_glue_trigger:
     example-start:
       name: trigger-start
@@ -21,7 +20,6 @@ resource:
       actions:
         job_name: example-job
 
-resource:
   aws_glue_trigger:
     example-inner:
       name: trigger-inner
@@ -32,8 +30,7 @@ resource:
           job_name: example-job
           state: SUCCEEDED
       actions:
-        job_name: another-example-job
-```
+        job_name: another-example-job```
 
 ## Argument Reference
 

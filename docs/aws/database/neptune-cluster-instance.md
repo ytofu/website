@@ -16,14 +16,12 @@ resource:
       iam_database_authentication_enabled: true
       apply_immediately: true
 
-resource:
   aws_neptune_cluster_instance:
     example:
       cluster_identifier: ${aws_neptune_cluster.default.id}
       engine: neptune
       instance_class: db.r4.large
-      apply_immediately: true
-```
+      apply_immediately: true```
 
 ## Argument Reference
 

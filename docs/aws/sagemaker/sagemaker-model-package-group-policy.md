@@ -9,7 +9,6 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_iam_policy_document:
     example:
       statement:
@@ -29,12 +28,10 @@ resource:
     example:
       model_package_group_name: example
 
-resource:
   aws_sagemaker_model_package_group_policy:
     example:
       model_package_group_name: ${aws_sagemaker_model_package_group.example.model_package_group_name}
-      resource_policy: example-value
-```
+      resource_policy: example-value```
 
 ## Argument Reference
 

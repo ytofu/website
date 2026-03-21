@@ -22,7 +22,6 @@ resource:
       tags:
         - key: application
 
-resource:
   aws_autoscalingplans_scaling_plan:
     example:
       name: example-dynamic-cost-optimization
@@ -40,8 +39,7 @@ resource:
         target_tracking_configuration:
           predefined_scaling_metric_specification:
             predefined_scaling_metric_type: ASGAverageCPUUtilization
-          target_value: 70
-```
+          target_value: 70```
 
 ## Basic Predictive Scaling
 
@@ -62,7 +60,6 @@ resource:
       tags:
         - key: application
 
-resource:
   aws_autoscalingplans_scaling_plan:
     example:
       name: example-predictive-cost-optimization
@@ -85,8 +82,7 @@ resource:
         predictive_scaling_max_capacity_behavior: SetForecastCapacityToMaxCapacity
         predictive_scaling_mode: ForecastAndScale
         predefined_load_metric_specification:
-          predefined_load_metric_type: ASGTotalCPUUtilization
-```
+          predefined_load_metric_type: ASGTotalCPUUtilization```
 
 ## Argument Reference
 

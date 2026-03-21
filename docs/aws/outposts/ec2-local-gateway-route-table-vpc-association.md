@@ -15,12 +15,10 @@ resource:
     example:
       cidr_block: 10.0.0.0/16
 
-resource:
   aws_ec2_local_gateway_route_table_vpc_association:
     example:
       local_gateway_route_table_id: ${data.aws_ec2_local_gateway_route_table.example.id}
-      vpc_id: ${aws_vpc.example.id}
-```
+      vpc_id: ${aws_vpc.example.id}```
 
 ## Argument Reference
 

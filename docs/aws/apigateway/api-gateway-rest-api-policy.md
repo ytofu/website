@@ -10,6 +10,11 @@ resource:
     test:
       name: example-rest-api
 
+  aws_api_gateway_rest_api_policy:
+    test:
+      rest_api_id: ${aws_api_gateway_rest_api.test.id}
+      policy: ${data.aws_iam_policy_document.test.json}
+
 data:
   aws_iam_policy_document:
     test:
@@ -26,14 +31,7 @@ data:
         condition:
           test: IpAddress
           values: 
-            - 123.123.123.123/32
-
-resource:
-  aws_api_gateway_rest_api_policy:
-    test:
-      rest_api_id: ${aws_api_gateway_rest_api.test.id}
-      policy: ${data.aws_iam_policy_document.test.json}
-```
+            - 123.123.123.123/32```
 
 ## Argument Reference
 

@@ -12,7 +12,6 @@ resource:
       tags:
         Name: example
 
-resource:
   aws_networkflowmonitor_monitor:
     example:
       monitor_name: example-monitor
@@ -24,8 +23,7 @@ resource:
         type: "AWS::EC2::VPC"
         identifier: ${aws_vpc.example.arn}
       tags:
-        Name: example
-```
+        Name: example```
 
 ## Argument Reference
 

@@ -9,19 +9,15 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_region:
     current:
 
-data:
   aws_partition:
     current:
 
-data:
   aws_ssoadmin_instances:
     example:
 
-data:
   aws_iam_policy_document:
     assume_role_transfer:
       statement:
@@ -38,13 +34,6 @@ data:
           values: 
             - ${data.aws_caller_identity.current.account_id}
 
-resource:
-  aws_iam_role:
-    example:
-      name: example
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role_transfer.json}
-
-data:
   aws_iam_policy_document:
     example:
       statement:
@@ -70,12 +59,16 @@ data:
             - ${data.aws_caller_identity.current.account_id}
 
 resource:
+  aws_iam_role:
+    example:
+      name: example
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role_transfer.json}
+
   aws_iam_role_policy:
     example:
       policy: ${data.aws_iam_policy_document.example.json}
       role: ${aws_iam_role.example.name}
 
-resource:
   aws_transfer_web_app:
     example:
       identity_provider_details:
@@ -85,8 +78,7 @@ resource:
       web_app_units:
         provisioned: 1
       tags:
-        Name: test
-```
+        Name: test```
 
 ## Argument Reference
 

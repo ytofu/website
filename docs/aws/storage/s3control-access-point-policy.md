@@ -10,7 +10,6 @@ resource:
     example:
       bucket: example
 
-resource:
   aws_s3_access_point:
     example:
       bucket: ${aws_s3_bucket.example.id}
@@ -24,12 +23,10 @@ resource:
         ignore_changes: 
           - policy
 
-resource:
   aws_s3control_access_point_policy:
     example:
       access_point_arn: ${aws_s3_access_point.example.arn}
-      policy: '{ "Version": "2008-10-17" "Statement": [{ "Effect": "Allow" "Action": "s3:GetObjectTagging" "Principal": { "AWS": "*" } "Resource": "${aws_s3_access_point.example.arn}/object/*" }] }'
-```
+      policy: '{ "Version": "2008-10-17" "Statement": [{ "Effect": "Allow" "Action": "s3:GetObjectTagging" "Principal": { "AWS": "*" } "Resource": "${aws_s3_access_point.example.arn}/object/*" }] }'```
 
 ## Argument Reference
 

@@ -10,7 +10,6 @@ resource:
     example:
       description: KMS symmetric key for RDS Custom for Oracle
 
-resource:
   aws_rds_custom_db_engine_version:
     example:
       database_installation_files_s3_bucket_name: DOC-EXAMPLE-BUCKET
@@ -24,8 +23,7 @@ resource:
         }
       tags:
         Name: example
-        Key: value
-```
+        Key: value```
 
 ## RDS Custom for Oracle External Manifest Usage
 
@@ -35,7 +33,6 @@ resource:
     example:
       description: KMS symmetric key for RDS Custom for Oracle
 
-resource:
   aws_rds_custom_db_engine_version:
     example:
       database_installation_files_s3_bucket_name: DOC-EXAMPLE-BUCKET
@@ -47,8 +44,7 @@ resource:
       manifest_hash: ${filebase64sha256(manifest_1915_GI.json)}
       tags:
         Name: example
-        Key: value
-```
+        Key: value```
 
 ## RDS Custom for SQL Server Usage
 
@@ -72,13 +68,11 @@ resource:
       source_ami_id: ami-xxxxxxxx
       source_ami_region: us-east-1
 
-resource:
   aws_rds_custom_db_engine_version:
     test:
       engine: custom-sqlserver-se
       engine_version: 15.00.4249.2.cev-1
-      source_image_id: ${aws_ami_copy.example.id}
-```
+      source_image_id: ${aws_ami_copy.example.id}```
 
 ## Argument Reference
 

@@ -24,14 +24,12 @@ resource:
       name: parent
       tags: 
 
-resource:
   aws_connect_user_hierarchy_group:
     child:
       instance_id: aaaaaaaa-bbbb-cccc-dddd-111111111111
       name: child
       parent_group_id: ${aws_connect_user_hierarchy_group.parent.hierarchy_group_id}
-      tags: 
-```
+      tags: ```
 
 ## Argument Reference
 

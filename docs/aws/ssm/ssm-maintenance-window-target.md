@@ -13,7 +13,6 @@ resource:
       duration: 3
       cutoff: 1
 
-resource:
   aws_ssm_maintenance_window_target:
     target1:
       window_id: ${aws_ssm_maintenance_window.window.id}
@@ -23,8 +22,7 @@ resource:
       targets:
         key: "tag:Name"
         values: 
-          - acceptance_test
-```
+          - acceptance_test```
 
 ## Resource Group Target
 
@@ -37,7 +35,6 @@ resource:
       duration: 3
       cutoff: 1
 
-resource:
   aws_ssm_maintenance_window_target:
     target1:
       window_id: ${aws_ssm_maintenance_window.window.id}
@@ -47,8 +44,7 @@ resource:
       targets:
         key: "resource-groups:ResourceTypeFilters"
         values: 
-          - "AWS::EC2::Instance"
-```
+          - "AWS::EC2::Instance"```
 
 ## Argument Reference
 

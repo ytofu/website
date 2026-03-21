@@ -14,7 +14,6 @@ resource:
       depends_on: 
         - ${aws_secretsmanager_secret_version.example}
 
-resource:
   aws_msk_cluster:
     example:
       cluster_name: example
@@ -22,22 +21,24 @@ resource:
         sasl:
           scram: true
 
-resource:
   aws_secretsmanager_secret:
     example:
       name: AmazonMSK_example
       kms_key_id: ${aws_kms_key.example.key_id}
 
-resource:
   aws_kms_key:
     example:
       description: Example Key for MSK Cluster Scram Secret Association
 
-resource:
   aws_secretsmanager_secret_version:
     example:
       secret_id: ${aws_secretsmanager_secret.example.id}
       secret_string: example-json-policy
+
+  aws_secretsmanager_secret_policy:
+    example:
+      secret_arn: ${aws_secretsmanager_secret.example.arn}
+      policy: ${data.aws_iam_policy_document.example.json}
 
 data:
   aws_iam_policy_document:
@@ -52,14 +53,7 @@ data:
         actions: 
           - "secretsmanager:getSecretValue"
         resources: 
-          - ${aws_secretsmanager_secret.example.arn}
-
-resource:
-  aws_secretsmanager_secret_policy:
-    example:
-      secret_arn: ${aws_secretsmanager_secret.example.arn}
-      policy: ${data.aws_iam_policy_document.example.json}
-```
+          - ${aws_secretsmanager_secret.example.arn}```
 
 ## Argument Reference
 

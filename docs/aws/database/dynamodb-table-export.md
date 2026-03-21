@@ -11,7 +11,6 @@ resource:
       bucket_prefix: example
       force_destroy: true
 
-resource:
   aws_dynamodb_table:
     example:
       name: example-table-1
@@ -23,12 +22,10 @@ resource:
       point_in_time_recovery:
         enabled: true
 
-resource:
   aws_dynamodb_table_export:
     example:
       table_arn: ${aws_dynamodb_table.example.arn}
-      s3_bucket: ${aws_s3_bucket.example.id}
-```
+      s3_bucket: ${aws_s3_bucket.example.id}```
 
 ## Example with export time
 

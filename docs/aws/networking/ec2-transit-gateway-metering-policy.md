@@ -11,13 +11,11 @@ resource:
       tags:
         Name: example
 
-resource:
   aws_ec2_transit_gateway_metering_policy:
     example:
       transit_gateway_id: ${aws_ec2_transit_gateway.example.id}
       tags:
-        Name: example
-```
+        Name: example```
 
 ## With Middlebox Attachments
 

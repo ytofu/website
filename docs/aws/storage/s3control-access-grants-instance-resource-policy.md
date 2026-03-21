@@ -10,7 +10,6 @@ resource:
   aws_s3control_access_grants_instance:
     example:
 
-resource:
   aws_s3control_access_grants_instance_resource_policy:
     example:
       policy: |
@@ -30,8 +29,7 @@ resource:
         ],
         "Resource": "${aws_s3control_access_grants_instance.example.access_grants_instance_arn}"
         }]
-        }
-```
+        }```
 
 ## Argument Reference
 

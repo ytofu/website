@@ -10,27 +10,11 @@ resource:
     example:
       bucket: example-session-logs
 
-data:
-  aws_iam_policy_document:
-    example:
-      statement:
-        effect: Allow
-        principals:
-          type: Service
-          identifiers: 
-            - workspaces-web.amazonaws.com
-        actions:
-          - "s3:PutObject"
-        resources: 
-          - "${aws_s3_bucket.example.arn}/*"
-
-resource:
   aws_s3_bucket_policy:
     example:
       bucket: ${aws_s3_bucket.example.id}
       policy: ${data.aws_iam_policy_document.example.json}
 
-resource:
   aws_workspacesweb_session_logger:
     example:
       display_name: example-session-logger
@@ -43,16 +27,6 @@ resource:
             log_file_format: Json
         depends_on: 
           - ${aws_s3_bucket_policy.example}
-```
-
-## Complete Configuration with KMS Encryption
-
-```yaml
-resource:
-  aws_s3_bucket:
-    example:
-      bucket: example-session-logs
-      force_destroy: true
 
 data:
   aws_iam_policy_document:
@@ -65,56 +39,28 @@ data:
             - workspaces-web.amazonaws.com
         actions:
           - "s3:PutObject"
-        resources:
-          - ${aws_s3_bucket.example.arn}
-          - "${aws_s3_bucket.example.arn}/*"
+        resources: 
+          - "${aws_s3_bucket.example.arn}/*"```
 
+## Complete Configuration with KMS Encryption
+
+```yaml
 resource:
+  aws_s3_bucket:
+    example:
+      bucket: example-session-logs
+      force_destroy: true
+
   aws_s3_bucket_policy:
     example:
       bucket: ${aws_s3_bucket.example.id}
       policy: ${data.aws_iam_policy_document.example.json}
 
-data:
-  aws_partition:
-    current:
-
-data:
-  aws_caller_identity:
-    current:
-
-data:
-  aws_iam_policy_document:
-    kms_key_policy:
-      statement:
-        principals:
-          type: AWS
-          identifiers: 
-            - "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
-        actions: 
-          - "kms:*"
-        resources: 
-          - "*"
-      statement:
-        principals:
-          type: Service
-          identifiers: 
-            - workspaces-web.amazonaws.com
-        actions:
-          - "kms:Encrypt"
-          - "kms:GenerateDataKey*"
-          - "kms:ReEncrypt*"
-          - "kms:Decrypt"
-        resources: 
-          - "*"
-
-resource:
   aws_kms_key:
     example:
       description: KMS key for WorkSpaces Web Session Logger
       policy: ${data.aws_iam_policy_document.kms_key_policy.json}
 
-resource:
   aws_workspacesweb_session_logger:
     example:
       display_name: example-session-logger
@@ -139,7 +85,51 @@ resource:
       depends_on: 
         - ${aws_s3_bucket_policy.example}
         - ${aws_kms_key.example}
-```
+
+data:
+  aws_iam_policy_document:
+    example:
+      statement:
+        effect: Allow
+        principals:
+          type: Service
+          identifiers: 
+            - workspaces-web.amazonaws.com
+        actions:
+          - "s3:PutObject"
+        resources:
+          - ${aws_s3_bucket.example.arn}
+          - "${aws_s3_bucket.example.arn}/*"
+
+  aws_partition:
+    current:
+
+  aws_caller_identity:
+    current:
+
+  aws_iam_policy_document:
+    kms_key_policy:
+      statement:
+        principals:
+          type: AWS
+          identifiers: 
+            - "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+        actions: 
+          - "kms:*"
+        resources: 
+          - "*"
+      statement:
+        principals:
+          type: Service
+          identifiers: 
+            - workspaces-web.amazonaws.com
+        actions:
+          - "kms:Encrypt"
+          - "kms:GenerateDataKey*"
+          - "kms:ReEncrypt*"
+          - "kms:Decrypt"
+        resources: 
+          - "*"```
 
 ## Argument Reference
 

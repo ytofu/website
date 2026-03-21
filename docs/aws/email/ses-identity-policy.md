@@ -10,6 +10,12 @@ resource:
     example:
       domain: example.com
 
+  aws_ses_identity_policy:
+    example:
+      identity: ${aws_ses_domain_identity.example.arn}
+      name: example
+      policy: ${data.aws_iam_policy_document.example.json}
+
 data:
   aws_iam_policy_document:
     example:
@@ -22,15 +28,7 @@ data:
         principals:
           identifiers: 
             - "*"
-          type: AWS
-
-resource:
-  aws_ses_identity_policy:
-    example:
-      identity: ${aws_ses_domain_identity.example.arn}
-      name: example
-      policy: ${data.aws_iam_policy_document.example.json}
-```
+          type: AWS```
 
 ## Argument Reference
 

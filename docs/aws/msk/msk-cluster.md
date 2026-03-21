@@ -10,77 +10,50 @@ resource:
     vpc:
       cidr_block: 192.168.0.0/22
 
-data:
-  aws_availability_zones:
-    azs:
-      state: available
-
-resource:
   aws_subnet:
     subnet_az1:
       availability_zone: ${data.aws_availability_zones.azs.names[0]}
       cidr_block: 192.168.0.0/24
       vpc_id: ${aws_vpc.vpc.id}
 
-resource:
   aws_subnet:
     subnet_az2:
       availability_zone: ${data.aws_availability_zones.azs.names[1]}
       cidr_block: 192.168.1.0/24
       vpc_id: ${aws_vpc.vpc.id}
 
-resource:
   aws_subnet:
     subnet_az3:
       availability_zone: ${data.aws_availability_zones.azs.names[2]}
       cidr_block: 192.168.2.0/24
       vpc_id: ${aws_vpc.vpc.id}
 
-resource:
   aws_security_group:
     sg:
       vpc_id: ${aws_vpc.vpc.id}
 
-resource:
   aws_kms_key:
     kms:
       description: example
 
-resource:
   aws_cloudwatch_log_group:
     test:
       name: msk_broker_logs
 
-resource:
   aws_s3_bucket:
     bucket:
       bucket: msk-broker-logs-bucket
 
-resource:
   aws_s3_bucket_acl:
     bucket_acl:
       bucket: ${aws_s3_bucket.bucket.id}
       acl: private
 
-data:
-  aws_iam_policy_document:
-    assume_role:
-      statement:
-        effect: Allow
-        principals:
-          type: Service
-          identifiers: 
-            - firehose.amazonaws.com
-        actions: 
-          - "sts:AssumeRole"
-
-resource:
   aws_iam_role:
     firehose_role:
       name: firehose_test_role
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
 
-resource:
   aws_kinesis_firehose_delivery_stream:
     test_stream:
       name: terraform-kinesis-firehose-msk-broker-logs-stream
@@ -94,7 +67,6 @@ resource:
         ignore_changes:
           - tags["LogDeliveryEnabled"]
 
-resource:
   aws_msk_cluster:
     example:
       cluster_name: example
@@ -134,15 +106,29 @@ resource:
       tags:
         foo: bar
 
+data:
+  aws_availability_zones:
+    azs:
+      state: available
+
+  aws_iam_policy_document:
+    assume_role:
+      statement:
+        effect: Allow
+        principals:
+          type: Service
+          identifiers: 
+            - firehose.amazonaws.com
+        actions: 
+          - "sts:AssumeRole"
+
 output:
   zookeeper_connect_string:
     value: ${aws_msk_cluster.example.zookeeper_connect_string}
 
-output:
   bootstrap_brokers_tls:
     description: "TLS connection host:port pairs"
-    value: ${aws_msk_cluster.example.bootstrap_brokers_tls}
-```
+    value: ${aws_msk_cluster.example.bootstrap_brokers_tls}```
 
 ## With volume_throughput argument
 

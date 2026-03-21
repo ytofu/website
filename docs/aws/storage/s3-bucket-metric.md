@@ -10,12 +10,10 @@ resource:
     example:
       bucket: example
 
-resource:
   aws_s3_bucket_metric:
     example-entire-bucket:
       bucket: ${aws_s3_bucket.example.id}
-      name: EntireBucket
-```
+      name: EntireBucket```
 
 ## Add metrics configuration with S3 object filter
 
@@ -25,7 +23,6 @@ resource:
     example:
       bucket: example
 
-resource:
   aws_s3_bucket_metric:
     example-filtered:
       bucket: ${aws_s3_bucket.example.id}
@@ -34,8 +31,7 @@ resource:
         prefix: documents/
         tags:
           priority: high
-          class: blue
-```
+          class: blue```
 
 ## Add metrics configuration with S3 object filter for S3 Access Point
 
@@ -45,13 +41,11 @@ resource:
     example:
       bucket: example
 
-resource:
   aws_s3_access_point:
     example-access-point:
       bucket: ${aws_s3_bucket.example.id}
       name: example-access-point
 
-resource:
   aws_s3_bucket_metric:
     example-filtered:
       bucket: ${aws_s3_bucket.example.id}
@@ -60,8 +54,7 @@ resource:
         access_point: ${aws_s3_access_point.example-access-point.arn}
         tags:
           priority: high
-          class: blue
-```
+          class: blue```
 
 ## Argument Reference
 

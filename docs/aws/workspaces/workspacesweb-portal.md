@@ -21,7 +21,6 @@ resource:
       description: KMS key for WorkSpaces Web Portal
       deletion_window_in_days: 7
 
-resource:
   aws_workspacesweb_portal:
     example:
       display_name: example-portal
@@ -36,8 +35,7 @@ resource:
       timeouts:
         create: 10m
         update: 10m
-        delete: 10m
-```
+        delete: 10m```
 
 ## Argument Reference
 

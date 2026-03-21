@@ -9,7 +9,6 @@ resource:
   aws_prometheus_workspace:
     demo:
 
-resource:
   aws_prometheus_alert_manager_definition:
     demo:
       workspace_id: ${aws_prometheus_workspace.demo.id}
@@ -18,8 +17,7 @@ resource:
         route:
         receiver: 'default'
         receivers:
-        - name: 'default'
-```
+        - name: 'default'```
 
 ## Argument Reference
 

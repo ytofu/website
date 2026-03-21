@@ -11,7 +11,6 @@ resource:
       description: KMS Key for Voice Profile Domain
       deletion_window_in_days: 7
 
-resource:
   aws_chimesdkvoice_voice_profile_domain:
     example:
       name: ExampleVoiceProfileDomain
@@ -19,8 +18,7 @@ resource:
         kms_key_arn: ${aws_kms_key.example.arn}
       description: My Voice Profile Domain
       tags:
-        key1: value1
-```
+        key1: value1```
 
 ## Argument Reference
 

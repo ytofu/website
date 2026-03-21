@@ -22,7 +22,6 @@ data:
   aws_region:
     current:
 
-data:
   aws_caller_identity:
     current:
 
@@ -31,13 +30,11 @@ resource:
     example:
       domain: vpc
 
-resource:
   aws_shield_protection:
     example:
       name: example
       resource_arn: "arn:aws:ec2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:eip-allocation/${aws_eip.example.id}"
 
-resource:
   aws_shield_protection_group:
     example:
       depends_on: 
@@ -46,8 +43,7 @@ resource:
       aggregation: MEAN
       pattern: ARBITRARY
       members: 
-        - "arn:aws:ec2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:eip-allocation/${aws_eip.example.id}"
-```
+        - "arn:aws:ec2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:eip-allocation/${aws_eip.example.id}"```
 
 ## Create protection group for a type of resource
 

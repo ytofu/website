@@ -12,13 +12,11 @@ resource:
         - detective.amazonaws.com
       feature_set: ALL
 
-resource:
   aws_detective_organization_admin_account:
     example:
       depends_on: 
         - ${aws_organizations_organization.example}
-      account_id: 123456789012
-```
+      account_id: 123456789012```
 
 ## Argument Reference
 

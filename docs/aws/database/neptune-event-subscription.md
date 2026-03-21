@@ -16,7 +16,6 @@ resource:
       iam_database_authentication_enabled: true
       apply_immediately: true
 
-resource:
   aws_neptune_cluster_instance:
     example:
       cluster_identifier: ${aws_neptune_cluster.default.id}
@@ -24,12 +23,10 @@ resource:
       instance_class: db.r4.large
       apply_immediately: true
 
-resource:
   aws_sns_topic:
     default:
       name: neptune-events
 
-resource:
   aws_neptune_event_subscription:
     default:
       name: neptune-event-sub
@@ -51,8 +48,7 @@ resource:
         - configuration change
         - read replica
       tags:
-        env: test
-```
+        env: test```
 
 ## Argument Reference
 

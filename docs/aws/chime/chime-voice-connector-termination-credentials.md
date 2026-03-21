@@ -11,7 +11,6 @@ resource:
       name: test
       require_encryption: true
 
-resource:
   aws_chime_voice_connector_termination:
     default:
       disabled: true
@@ -23,7 +22,6 @@ resource:
         - CA
       voice_connector_id: ${aws_chime_voice_connector.default.id}
 
-resource:
   aws_chime_voice_connector_termination_credentials:
     default:
       voice_connector_id: ${aws_chime_voice_connector.default.id}
@@ -31,8 +29,7 @@ resource:
         username: test
         password: test!
       depends_on: 
-        - ${aws_chime_voice_connector_termination.default}
-```
+        - ${aws_chime_voice_connector_termination.default}```
 
 ## Argument Reference
 

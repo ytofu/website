@@ -47,7 +47,6 @@ resource:
     example:
       domain_name: example.com
 
-resource:
   aws_vpclattice_resource_configuration:
     example:
       name: Example
@@ -62,8 +61,7 @@ resource:
           domain_name: test.example.com
           ip_address_type: IPV4
       tags:
-        Environment: Example
-```
+        Environment: Example```
 
 ## ARN Example
 

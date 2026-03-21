@@ -18,7 +18,6 @@ resource:
         lb_protocol: https
         ssl_certificate_id: "arn:aws:iam::123456789012:server-certificate/certName"
 
-resource:
   aws_lb_ssl_negotiation_policy:
     foo:
       name: foo-policy
@@ -44,8 +43,7 @@ resource:
         value: true
       attribute:
         name: EDH-RSA-DES-CBC3-SHA
-        value: false
-```
+        value: false```
 
 ## Argument Reference
 

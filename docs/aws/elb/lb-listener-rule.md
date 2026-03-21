@@ -9,11 +9,9 @@ resource:
   aws_lb:
     front_end:
 
-resource:
   aws_lb_listener:
     front_end:
 
-resource:
   aws_lb_listener_rule:
     static:
       listener_arn: ${aws_lb_listener.front_end.arn}
@@ -30,7 +28,6 @@ resource:
           values: 
             - example.com
 
-resource:
   aws_lb_listener_rule:
     host_based_weighted_routing:
       listener_arn: ${aws_lb_listener.front_end.arn}
@@ -43,7 +40,6 @@ resource:
           values: 
             - "my-service.*.terraform.io"
 
-resource:
   aws_lb_listener_rule:
     host_based_routing:
       listener_arn: ${aws_lb_listener.front_end.arn}
@@ -65,7 +61,6 @@ resource:
           values: 
             - "my-service.*.terraform.io"
 
-resource:
   aws_lb_listener_rule:
     redirect_http_to_https:
       listener_arn: ${aws_lb_listener.front_end.arn}
@@ -81,7 +76,6 @@ resource:
           values: 
             - "192.168.1.*"
 
-resource:
   aws_lb_listener_rule:
     health_check:
       listener_arn: ${aws_lb_listener.front_end.arn}
@@ -98,19 +92,15 @@ resource:
         query_string:
           value: bar
 
-resource:
   aws_cognito_user_pool:
     pool:
 
-resource:
   aws_cognito_user_pool_client:
     client:
 
-resource:
   aws_cognito_user_pool_domain:
     domain:
 
-resource:
   aws_lb_listener_rule:
     admin:
       listener_arn: ${aws_lb_listener.front_end.arn}
@@ -124,7 +114,6 @@ resource:
         type: forward
         target_group_arn: ${aws_lb_target_group.static.arn}
 
-resource:
   aws_lb_listener_rule:
     oidc:
       listener_arn: ${aws_lb_listener.front_end.arn}
@@ -141,7 +130,6 @@ resource:
         type: forward
         target_group_arn: ${aws_lb_target_group.static.arn}
 
-resource:
   aws_lb_listener_rule:
     oidc:
       listener_arn: ${aws_lb_listener.front_end.arn}
@@ -165,7 +153,6 @@ resource:
         type: forward
         target_group_arn: ${aws_lb_target_group.static.arn}
 
-resource:
   aws_lb_listener_rule:
     transform:
       listener_arn: ${aws_lb_listener.front_end.arn}
@@ -187,8 +174,7 @@ resource:
         url_rewrite_config:
           rewrite:
             regex: ^/dp/([A-Za-z0-9]+)/?$
-            replace: /product.php?id=$1
-```
+            replace: /product.php?id=$1```
 
 ## Argument Reference
 

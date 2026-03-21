@@ -12,15 +12,23 @@ resource:
       destination_stream_arn: ${aws_kinesis_stream.test_stream.arn}
       role_arn: ${aws_iam_role.test_role.arn}
 
-resource:
   aws_pinpoint_app:
     app:
 
-resource:
   aws_kinesis_stream:
     test_stream:
       name: pinpoint-kinesis-test
       shard_count: 1
+
+  aws_iam_role:
+    test_role:
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
+  aws_iam_role_policy:
+    test_role_policy:
+      name: test_policy
+      role: ${aws_iam_role.test_role.id}
+      policy: ${data.aws_iam_policy_document.test_role_policy.json}
 
 data:
   aws_iam_policy_document:
@@ -34,12 +42,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    test_role:
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-data:
   aws_iam_policy_document:
     test_role_policy:
       statement:
@@ -48,15 +50,7 @@ data:
           - "kinesis:PutRecords"
           - "kinesis:DescribeStream"
         resources: 
-          - "arn:aws:kinesis:us-east-1:*:*/*"
-
-resource:
-  aws_iam_role_policy:
-    test_role_policy:
-      name: test_policy
-      role: ${aws_iam_role.test_role.id}
-      policy: ${data.aws_iam_policy_document.test_role_policy.json}
-```
+          - "arn:aws:kinesis:us-east-1:*:*/*"```
 
 ## Argument Reference
 

@@ -27,7 +27,6 @@ resource:
         Name: example
         Key: value
 
-resource:
   aws_db_proxy_default_target_group:
     example:
       db_proxy_name: ${aws_db_proxy.example.name}
@@ -40,8 +39,7 @@ resource:
           - EXCLUDE_VARIABLE_SETS
       lifecycle:
         replace_triggered_by: 
-          - ${aws_db_proxy.example.id}
-```
+          - ${aws_db_proxy.example.id}```
 
 ## Argument Reference
 

@@ -63,14 +63,12 @@ resource:
       threshold: 80
       alarm_description: This metric monitors ec2 cpu utilization
 
-resource:
   aws_route53_health_check:
     foo:
       type: CLOUDWATCH_METRIC
       cloudwatch_alarm_name: ${aws_cloudwatch_metric_alarm.foobar.alarm_name}
       cloudwatch_alarm_region: us-west-2
-      insufficient_data_health_status: Healthy
-```
+      insufficient_data_health_status: Healthy```
 
 ## CloudWatch Alarm Check With Triggers
 
@@ -88,7 +86,6 @@ resource:
       threshold: 80
       alarm_description: This metric monitors ec2 cpu utilization
 
-resource:
   aws_route53_health_check:
     example:
       type: CLOUDWATCH_METRIC
@@ -96,8 +93,7 @@ resource:
       cloudwatch_alarm_region: us-west-2
       insufficient_data_health_status: Healthy
       triggers:
-        threshold: ${aws_cloudwatch_metric_alarm.example.threshold}
-```
+        threshold: ${aws_cloudwatch_metric_alarm.example.threshold}```
 
 ## Argument Reference
 

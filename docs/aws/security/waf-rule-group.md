@@ -11,7 +11,6 @@ resource:
       name: example
       metric_name: example
 
-resource:
   aws_waf_rule_group:
     example:
       name: example
@@ -20,8 +19,7 @@ resource:
         action:
           type: COUNT
         priority: 50
-        rule_id: ${aws_waf_rule.example.id}
-```
+        rule_id: ${aws_waf_rule.example.id}```
 
 ## Argument Reference
 

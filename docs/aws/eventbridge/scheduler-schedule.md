@@ -25,7 +25,6 @@ resource:
   aws_sqs_queue:
     example:
 
-resource:
   aws_scheduler_schedule:
     example:
       name: my-schedule
@@ -35,8 +34,7 @@ resource:
       target:
         arn: "arn:aws:scheduler:::aws-sdk:sqs:sendMessage"
         role_arn: ${aws_iam_role.example.arn}
-        input: '{ "MessageBody": "Greetings, programs!" "QueueUrl": aws_sqs_queue.example.url }'
-```
+        input: '{ "MessageBody": "Greetings, programs!" "QueueUrl": aws_sqs_queue.example.url }'```
 
 ## Argument Reference
 

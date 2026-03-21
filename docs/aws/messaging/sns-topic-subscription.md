@@ -10,13 +10,11 @@ resource:
     user_updates:
       name: user-updates-topic
 
-resource:
   aws_sqs_queue:
     user_updates_queue:
       name: user-updates-queue
       policy: ${data.aws_iam_policy_document.sqs_queue_policy.json}
 
-resource:
   aws_sns_topic_subscription:
     user_updates_sqs_target:
       topic_arn: ${aws_sns_topic.user_updates.arn}
@@ -41,8 +39,7 @@ data:
         condition:
           test: ArnEquals
           values:
-            - ${aws_sns_topic.user_updates.arn}
-```
+            - ${aws_sns_topic.user_updates.arn}```
 
 ## Example Cross-account Subscription
 
@@ -90,7 +87,6 @@ data:
           - "arn:aws:sns:example-value:example-value:example-value"
         sid: __console_sub_0
 
-data:
   aws_iam_policy_document:
     sqs_queue_policy:
       policy_id: "arn:aws:sqs:example-value:example-value:example-value/SQSDefaultPolicy"
@@ -117,19 +113,16 @@ resource:
       display_name: example-value
       policy: ${data.aws_iam_policy_document.sns_topic_policy.json}
 
-resource:
   aws_sqs_queue:
     sqs_queue:
       name: example-value
       policy: ${data.aws_iam_policy_document.sqs_queue_policy.json}
 
-resource:
   aws_sns_topic_subscription:
     sns_topic:
       topic_arn: ${aws_sns_topic.sns_topic.arn}
       protocol: sqs
-      endpoint: ${aws_sqs_queue.sqs_queue.arn}
-```
+      endpoint: ${aws_sqs_queue.sqs_queue.arn}```
 
 ## Example with Delivery Policy
 

@@ -12,7 +12,6 @@ resource:
       network_load_balancer_arns: 
         - ${aws_lb.example.arn}
 
-resource:
   aws_vpc_endpoint:
     example:
       vpc_id: ${aws_vpc.test_alternate.id}
@@ -22,12 +21,10 @@ resource:
       security_group_ids:
         - ${aws_security_group.test.id}
 
-resource:
   aws_vpc_endpoint_connection_accepter:
     example:
       vpc_endpoint_service_id: ${aws_vpc_endpoint_service.example.id}
-      vpc_endpoint_id: ${aws_vpc_endpoint.example.id}
-```
+      vpc_endpoint_id: ${aws_vpc_endpoint.example.id}```
 
 ## Argument Reference
 

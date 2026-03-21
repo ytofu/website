@@ -38,7 +38,6 @@ resource:
     example:
       algorithm: RSA
 
-resource:
   tls_self_signed_cert:
     example:
       key_algorithm: RSA
@@ -52,12 +51,10 @@ resource:
         - digital_signature
         - server_auth
 
-resource:
   aws_acm_certificate:
     cert:
       private_key: ${tls_private_key.example.private_key_pem}
-      certificate_body: ${tls_self_signed_cert.example.cert_pem}
-```
+      certificate_body: ${tls_self_signed_cert.example.cert_pem}```
 
 ## DNS Validation with Route 53
 

@@ -10,12 +10,10 @@ resource:
     test:
       bucket: my-tf-test-bucket
 
-resource:
   aws_s3_bucket:
     inventory:
       bucket: my-tf-inventory-bucket
 
-resource:
   aws_s3_bucket_inventory:
     test:
       bucket: ${aws_s3_bucket.test.id}
@@ -26,8 +24,7 @@ resource:
       destination:
         bucket:
           format: ORC
-          bucket_arn: ${aws_s3_bucket.inventory.arn}
-```
+          bucket_arn: ${aws_s3_bucket.inventory.arn}```
 
 ## Add inventory configuration with S3 object prefix
 
@@ -37,12 +34,10 @@ resource:
     test:
       bucket: my-tf-test-bucket
 
-resource:
   aws_s3_bucket:
     inventory:
       bucket: my-tf-inventory-bucket
 
-resource:
   aws_s3_bucket_inventory:
     test-prefix:
       bucket: ${aws_s3_bucket.test.id}
@@ -56,8 +51,7 @@ resource:
         bucket:
           format: ORC
           bucket_arn: ${aws_s3_bucket.inventory.arn}
-          prefix: inventory
-```
+          prefix: inventory```
 
 ## Argument Reference
 

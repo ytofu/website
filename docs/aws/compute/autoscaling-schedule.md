@@ -19,7 +19,6 @@ resource:
       termination_policies: 
         - OldestInstance
 
-resource:
   aws_autoscaling_schedule:
     foobar:
       scheduled_action_name: foobar
@@ -28,8 +27,7 @@ resource:
       desired_capacity: 0
       start_time: "2016-12-11T18:00:00Z"
       end_time: "2016-12-12T06:00:00Z"
-      autoscaling_group_name: ${aws_autoscaling_group.foobar.name}
-```
+      autoscaling_group_name: ${aws_autoscaling_group.foobar.name}```
 
 ## Argument Reference
 

@@ -17,13 +17,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    example:
-      name: lambda_execution_role
-      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
-
-data:
   archive_file:
     example:
       type: zip
@@ -31,6 +24,11 @@ data:
       output_path: "${path.module}/lambda/function.zip"
 
 resource:
+  aws_iam_role:
+    example:
+      name: lambda_execution_role
+      assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
+
   aws_lambda_function:
     example:
       filename: ${data.archive_file.example.output_path}
@@ -45,8 +43,7 @@ resource:
           LOG_LEVEL: info
       tags:
         Environment: production
-        Application: example
-```
+        Application: example```
 
 ## Container Image Function
 
@@ -85,7 +82,6 @@ resource:
         - x86_64
         - arm64
 
-resource:
   aws_lambda_function:
     example:
       filename: function.zip
@@ -96,8 +92,7 @@ resource:
       layers: 
         - ${aws_lambda_layer_version.example.arn}
       tracing_config:
-        mode: "Active" # Enable X-Ray tracing
-```
+        mode: "Active" # Enable X-Ray tracing```
 
 ## VPC Function with Enhanced Networking
 
@@ -135,7 +130,6 @@ resource:
       tags:
         Name: lambda-efs
 
-resource:
   aws_efs_mount_target:
     example:
       file_system_id: ${aws_efs_file_system.example.id}
@@ -143,7 +137,6 @@ resource:
       security_groups: 
         - ${aws_security_group.efs.id}
 
-resource:
   aws_efs_access_point:
     example:
       file_system_id: ${aws_efs_file_system.example.id}
@@ -157,7 +150,6 @@ resource:
         gid: 1000
         uid: 1000
 
-resource:
   aws_lambda_function:
     example:
       filename: function.zip
@@ -173,8 +165,7 @@ resource:
         arn: ${aws_efs_access_point.example.arn}
         local_mount_path: /mnt/data
       depends_on: 
-        - ${aws_efs_mount_target.example}
-```
+        - ${aws_efs_mount_target.example}```
 
 ## Function with Advanced Logging
 
@@ -188,7 +179,6 @@ resource:
         Environment: production
         Application: example
 
-resource:
   aws_lambda_function:
     example:
       filename: function.zip
@@ -201,8 +191,7 @@ resource:
         application_log_level: INFO
         system_log_level: WARN
       depends_on: 
-        - ${aws_cloudwatch_log_group.example}
-```
+        - ${aws_cloudwatch_log_group.example}```
 
 ## Function with logging to S3 or Data Firehose
 
@@ -212,11 +201,41 @@ resource:
     lambda_log_export:
       bucket: "example-lambda_function_name-bucket"
 
-resource:
   aws_cloudwatch_log_group:
     export:
       name: "/aws/lambda/example-lambda_function_name"
       log_group_class: DELIVERY
+
+  aws_iam_role:
+    logs_log_export:
+      name: "example-lambda_function_name-lambda-log-export-role"
+      assume_role_policy: ${data.aws_iam_policy_document.logs_assume_role.json}
+
+  aws_iam_role_policy:
+    lambda_log_export:
+      policy: ${data.aws_iam_policy_document.lambda_log_export.json}
+      role: ${aws_iam_role.logs_log_export.name}
+
+  aws_cloudwatch_log_subscription_filter:
+    lambda_log_export:
+      name: "example-lambda_function_name-filter"
+      log_group_name: ${aws_cloudwatch_log_group.export.name}
+      filter_pattern: 
+      destination_arn: ${aws_s3_bucket.lambda_log_export.arn}
+      role_arn: ${aws_iam_role.logs_log_export.arn}
+
+  aws_lambda_function:
+    log_export:
+      function_name: example-lambda_function_name
+      handler: index.lambda_handler
+      runtime: python3.13
+      role: ${aws_iam_role.example.arn}
+      filename: function.zip
+      logging_config:
+        log_format: Text
+        log_group: ${aws_cloudwatch_log_group.export.name}
+      depends_on:
+        - ${aws_cloudwatch_log_group.export}
 
 data:
   aws_iam_policy_document:
@@ -230,13 +249,6 @@ data:
           identifiers: 
             - logs.amazonaws.com
 
-resource:
-  aws_iam_role:
-    logs_log_export:
-      name: "example-lambda_function_name-lambda-log-export-role"
-      assume_role_policy: ${data.aws_iam_policy_document.logs_assume_role.json}
-
-data:
   aws_iam_policy_document:
     lambda_log_export:
       statement:
@@ -244,37 +256,7 @@ data:
           - "s3:PutObject"
         effect: Allow
         resources:
-          - "${aws_s3_bucket.lambda_log_export.arn}/*"
-
-resource:
-  aws_iam_role_policy:
-    lambda_log_export:
-      policy: ${data.aws_iam_policy_document.lambda_log_export.json}
-      role: ${aws_iam_role.logs_log_export.name}
-
-resource:
-  aws_cloudwatch_log_subscription_filter:
-    lambda_log_export:
-      name: "example-lambda_function_name-filter"
-      log_group_name: ${aws_cloudwatch_log_group.export.name}
-      filter_pattern: 
-      destination_arn: ${aws_s3_bucket.lambda_log_export.arn}
-      role_arn: ${aws_iam_role.logs_log_export.arn}
-
-resource:
-  aws_lambda_function:
-    log_export:
-      function_name: example-lambda_function_name
-      handler: index.lambda_handler
-      runtime: python3.13
-      role: ${aws_iam_role.example.arn}
-      filename: function.zip
-      logging_config:
-        log_format: Text
-        log_group: ${aws_cloudwatch_log_group.export.name}
-      depends_on:
-        - ${aws_cloudwatch_log_group.export}
-```
+          - "${aws_s3_bucket.lambda_log_export.arn}/*"```
 
 ## Function with Error Handling
 
@@ -290,7 +272,6 @@ resource:
       dead_letter_config:
         target_arn: ${aws_sqs_queue.dlq.arn}
 
-resource:
   aws_lambda_function_event_invoke_config:
     example:
       function_name: ${aws_lambda_function.example.function_name}
@@ -300,8 +281,7 @@ resource:
         on_failure:
           destination: ${aws_sqs_queue.dlq.arn}
         on_success:
-          destination: ${aws_sns_topic.success.arn}
-```
+          destination: ${aws_sns_topic.success.arn}```
 
 ## CloudWatch Logging and Permissions
 
@@ -315,13 +295,11 @@ resource:
         Environment: production
         Function: example-function_name
 
-resource:
   aws_iam_role:
     example:
       name: lambda_execution_role
       assume_role_policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": "sts:AssumeRole" "Effect": "Allow" "Principal": { "Service": "lambda.amazonaws.com" } } ] }'
 
-resource:
   aws_iam_policy:
     lambda_logging:
       name: lambda_logging
@@ -329,13 +307,11 @@ resource:
       description: IAM policy for logging from Lambda
       policy: '{ "Version": "2012-10-17" "Statement": [ { "Effect": "Allow" "Action": [ "logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents" ] "Resource": ["arn:aws:logs:*:*:*"] } ] }'
 
-resource:
   aws_iam_role_policy_attachment:
     lambda_logs:
       role: ${aws_iam_role.example.name}
       policy_arn: ${aws_iam_policy.lambda_logging.arn}
 
-resource:
   aws_lambda_function:
     example:
       filename: function.zip
@@ -349,8 +325,7 @@ resource:
         system_log_level: WARN
       depends_on:
         - ${aws_iam_role_policy_attachment.lambda_logs}
-        - ${aws_cloudwatch_log_group.example}
-```
+        - ${aws_cloudwatch_log_group.example}```
 
 ## Function with Durable Configuration
 
@@ -395,7 +370,6 @@ resource:
         lambda_managed_instances_capacity_provider_config:
           capacity_provider_arn: ${aws_lambda_capacity_provider.example.arn}
 
-resource:
   aws_lambda_capacity_provider:
     example:
       name: example
@@ -405,8 +379,7 @@ resource:
         security_group_ids: 
           - ${aws_security_group.example.id}
       permissions_config:
-        capacity_provider_operator_role_arn: ${aws_iam_role.example.arn}
-```
+        capacity_provider_operator_role_arn: ${aws_iam_role.example.arn}```
 
 ## Argument Reference
 

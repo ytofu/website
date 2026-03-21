@@ -9,7 +9,6 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_organizations_organization:
     current:
 
@@ -30,8 +29,7 @@ resource:
             log_group_selection_criteria: "*"
       tags:
         Name: example-centralization-rule
-        Environment: production
-```
+        Environment: production```
 
 ## Advanced Configuration with Encryption, Backup and Log Group Name Configuration
 
@@ -40,7 +38,6 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_organizations_organization:
     current:
 
@@ -70,8 +67,7 @@ resource:
       tags:
         Name: advanced-centralization-rule
         Environment: production
-        Team: observability
-```
+        Team: observability```
 
 ## Selective Log Group Filtering
 
@@ -80,7 +76,6 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_organizations_organization:
     current:
 
@@ -102,8 +97,7 @@ resource:
             log_group_selection_criteria: "LogGroupName LIKE '/aws/lambda%'"
       tags:
         Name: filtered-centralization-rule
-        Filter: lambda-logs
-```
+        Filter: lambda-logs```
 
 ## Argument Reference
 

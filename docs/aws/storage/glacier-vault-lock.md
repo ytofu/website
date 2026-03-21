@@ -10,6 +10,12 @@ resource:
     example:
       name: example
 
+  aws_glacier_vault_lock:
+    example:
+      complete_lock: false
+      policy: ${data.aws_iam_policy_document.example.json}
+      vault_name: ${aws_glacier_vault.example.name}
+
 data:
   aws_iam_policy_document:
     example:
@@ -22,15 +28,7 @@ data:
         condition:
           test: NumericLessThanEquals
           values: 
-            - 365
-
-resource:
-  aws_glacier_vault_lock:
-    example:
-      complete_lock: false
-      policy: ${data.aws_iam_policy_document.example.json}
-      vault_name: ${aws_glacier_vault.example.name}
-```
+            - 365```
 
 ## Permanently Applying Glacier Vault Lock Policy
 

@@ -11,15 +11,12 @@ resource:
       internet_gateway_id: ${aws_internet_gateway.example.id}
       vpc_id: ${aws_vpc.example.id}
 
-resource:
   aws_vpc:
     example:
       cidr_block: 10.1.0.0/16
 
-resource:
   aws_internet_gateway:
-    example:
-```
+    example:```
 
 ## Argument Reference
 

@@ -19,7 +19,6 @@ resource:
         "four": {"N": "44444"}
         }
 
-resource:
   aws_dynamodb_table:
     example:
       name: example-name
@@ -28,8 +27,7 @@ resource:
       hash_key: exampleHashKey
       attribute:
         name: exampleHashKey
-        type: S
-```
+        type: S```
 
 ## Argument Reference
 

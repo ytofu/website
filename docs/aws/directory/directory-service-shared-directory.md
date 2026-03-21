@@ -16,14 +16,12 @@ resource:
         vpc_id: ${aws_vpc.example.id}
         subnet_ids: ${aws_subnet.example[*].id}
 
-resource:
   aws_directory_service_shared_directory:
     example:
       directory_id: ${aws_directory_service_directory.example.id}
       notes: You wanna have a catch?
       target:
-        id: ${data.aws_caller_identity.receiver.account_id}
-```
+        id: ${data.aws_caller_identity.receiver.account_id}```
 
 ## Argument Reference
 

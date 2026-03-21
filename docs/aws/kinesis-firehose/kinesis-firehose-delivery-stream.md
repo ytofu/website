@@ -21,16 +21,32 @@ resource:
               parameter_name: LambdaArn
               parameter_value: "${aws_lambda_function.lambda_processor.arn}:$LATEST"
 
-resource:
   aws_s3_bucket:
     bucket:
       bucket: tf-test-bucket
 
-resource:
   aws_s3_bucket_acl:
     bucket_acl:
       bucket: ${aws_s3_bucket.bucket.id}
       acl: private
+
+  aws_iam_role:
+    firehose_role:
+      name: firehose_test_role
+      assume_role_policy: ${data.aws_iam_policy_document.firehose_assume_role.json}
+
+  aws_iam_role:
+    lambda_iam:
+      name: lambda_iam
+      assume_role_policy: ${data.aws_iam_policy_document.lambda_assume_role.json}
+
+  aws_lambda_function:
+    lambda_processor:
+      filename: lambda.zip
+      function_name: firehose_lambda_processor
+      role: ${aws_iam_role.lambda_iam.arn}
+      handler: exports.handler
+      runtime: nodejs20.x
 
 data:
   aws_iam_policy_document:
@@ -44,13 +60,6 @@ data:
         actions: 
           - "sts:AssumeRole"
 
-resource:
-  aws_iam_role:
-    firehose_role:
-      name: firehose_test_role
-      assume_role_policy: ${data.aws_iam_policy_document.firehose_assume_role.json}
-
-data:
   aws_iam_policy_document:
     lambda_assume_role:
       statement:
@@ -60,23 +69,7 @@ data:
           identifiers: 
             - lambda.amazonaws.com
         actions: 
-          - "sts:AssumeRole"
-
-resource:
-  aws_iam_role:
-    lambda_iam:
-      name: lambda_iam
-      assume_role_policy: ${data.aws_iam_policy_document.lambda_assume_role.json}
-
-resource:
-  aws_lambda_function:
-    lambda_processor:
-      filename: lambda.zip
-      function_name: firehose_lambda_processor
-      role: ${aws_iam_role.lambda_iam.arn}
-      handler: exports.handler
-      runtime: nodejs20.x
-```
+          - "sts:AssumeRole"```
 
 ## Extended S3 Destination with dynamic partitioning
 
@@ -126,7 +119,6 @@ resource:
       node_type: dc1.large
       cluster_type: single-node
 
-resource:
   aws_kinesis_firehose_delivery_stream:
     test_stream:
       name: terraform-kinesis-firehose-test-stream
@@ -151,8 +143,7 @@ resource:
           bucket_arn: ${aws_s3_bucket.bucket.arn}
           buffering_size: 15
           buffering_interval: 300
-          compression_format: GZIP
-```
+          compression_format: GZIP```
 
 ## Elasticsearch Destination
 
@@ -162,7 +153,6 @@ resource:
     test_cluster:
       domain_name: firehose-es-test
 
-resource:
   aws_kinesis_firehose_delivery_stream:
     test_stream:
       name: terraform-kinesis-firehose-test-stream
@@ -184,8 +174,7 @@ resource:
             type: Lambda
             parameters:
               parameter_name: LambdaArn
-              parameter_value: "${aws_lambda_function.lambda_processor.arn}:$LATEST"
-```
+              parameter_value: "${aws_lambda_function.lambda_processor.arn}:$LATEST"```
 
 ## Elasticsearch Destination With VPC
 
@@ -207,6 +196,34 @@ resource:
         subnet_ids: 
           - ${aws_subnet.first.id}
           - ${aws_subnet.second.id}
+
+  aws_iam_role_policy:
+    firehose-elasticsearch:
+      name: elasticsearch
+      role: ${aws_iam_role.firehose.id}
+      policy: ${data.aws_iam_policy_document.firehose-elasticsearch.json}
+
+  aws_kinesis_firehose_delivery_stream:
+    test:
+      depends_on: 
+        - ${aws_iam_role_policy.firehose-elasticsearch}
+      name: terraform-kinesis-firehose-es
+      destination: elasticsearch
+      elasticsearch_configuration:
+        domain_arn: ${aws_elasticsearch_domain.test_cluster.arn}
+        role_arn: ${aws_iam_role.firehose.arn}
+        index_name: test
+        type_name: test
+        s3_configuration:
+          role_arn: ${aws_iam_role.firehose.arn}
+          bucket_arn: ${aws_s3_bucket.bucket.arn}
+        vpc_config:
+          subnet_ids: 
+            - ${aws_subnet.first.id}
+            - ${aws_subnet.second.id}
+          security_group_ids: 
+            - ${aws_security_group.first.id}
+          role_arn: ${aws_iam_role.firehose.arn}
 
 data:
   aws_iam_policy_document:
@@ -230,38 +247,7 @@ data:
           - "ec2:CreateNetworkInterfacePermission"
           - "ec2:DeleteNetworkInterface"
         resources: 
-          - "*"
-
-resource:
-  aws_iam_role_policy:
-    firehose-elasticsearch:
-      name: elasticsearch
-      role: ${aws_iam_role.firehose.id}
-      policy: ${data.aws_iam_policy_document.firehose-elasticsearch.json}
-
-resource:
-  aws_kinesis_firehose_delivery_stream:
-    test:
-      depends_on: 
-        - ${aws_iam_role_policy.firehose-elasticsearch}
-      name: terraform-kinesis-firehose-es
-      destination: elasticsearch
-      elasticsearch_configuration:
-        domain_arn: ${aws_elasticsearch_domain.test_cluster.arn}
-        role_arn: ${aws_iam_role.firehose.arn}
-        index_name: test
-        type_name: test
-        s3_configuration:
-          role_arn: ${aws_iam_role.firehose.arn}
-          bucket_arn: ${aws_s3_bucket.bucket.arn}
-        vpc_config:
-          subnet_ids: 
-            - ${aws_subnet.first.id}
-            - ${aws_subnet.second.id}
-          security_group_ids: 
-            - ${aws_security_group.first.id}
-          role_arn: ${aws_iam_role.firehose.arn}
-```
+          - "*"```
 
 ## OpenSearch Destination
 
@@ -271,7 +257,6 @@ resource:
     test_cluster:
       domain_name: firehose-os-test
 
-resource:
   aws_kinesis_firehose_delivery_stream:
     test_stream:
       name: terraform-kinesis-firehose-test-stream
@@ -292,8 +277,7 @@ resource:
             type: Lambda
             parameters:
               parameter_name: LambdaArn
-              parameter_value: "${aws_lambda_function.lambda_processor.arn}:$LATEST"
-```
+              parameter_value: "${aws_lambda_function.lambda_processor.arn}:$LATEST"```
 
 ## OpenSearch Destination With VPC
 
@@ -316,7 +300,6 @@ resource:
           - ${aws_subnet.first.id}
           - ${aws_subnet.second.id}
 
-resource:
   aws_iam_role_policy:
     firehose-opensearch:
       name: opensearch
@@ -354,7 +337,6 @@ resource:
         ]
         }
 
-resource:
   aws_kinesis_firehose_delivery_stream:
     test:
       depends_on: 
@@ -374,8 +356,7 @@ resource:
             - ${aws_subnet.second.id}
           security_group_ids: 
             - ${aws_security_group.first.id}
-          role_arn: ${aws_iam_role.firehose.arn}
-```
+          role_arn: ${aws_iam_role.firehose.arn}```
 
 ## OpenSearch Serverless Destination
 
@@ -385,7 +366,6 @@ resource:
     test_collection:
       name: firehose-osserverless-test
 
-resource:
   aws_kinesis_firehose_delivery_stream:
     test_stream:
       name: terraform-kinesis-firehose-test-stream
@@ -406,8 +386,7 @@ resource:
             type: Lambda
             parameters:
               parameter_name: LambdaArn
-              parameter_value: "${aws_lambda_function.lambda_processor.arn}:$LATEST"
-```
+              parameter_value: "${aws_lambda_function.lambda_processor.arn}:$LATEST"```
 
 ## Iceberg Destination
 
@@ -416,11 +395,9 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_partition:
     current:
 
-data:
   aws_region:
     current:
 
@@ -430,12 +407,10 @@ resource:
       bucket: test-bucket
       force_destroy: true
 
-resource:
   aws_glue_catalog_database:
     test:
       name: test
 
-resource:
   aws_glue_catalog_table:
     test:
       name: test
@@ -453,7 +428,6 @@ resource:
           name: my_column_1
           type: int
 
-resource:
   aws_kinesis_firehose_delivery_stream:
     test_stream:
       name: terraform-kinesis-firehose-test-stream
@@ -475,8 +449,7 @@ resource:
             type: Lambda
             parameters:
               parameter_name: LambdaArn
-              parameter_value: "${aws_lambda_function.lambda_processor.arn}:$LATEST"
-```
+              parameter_value: "${aws_lambda_function.lambda_processor.arn}:$LATEST"```
 
 ## Splunk Destination
 

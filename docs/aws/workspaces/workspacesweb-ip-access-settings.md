@@ -38,7 +38,6 @@ resource:
       description: KMS key for WorkSpaces Web IP Access Settings
       deletion_window_in_days: 7
 
-resource:
   aws_workspacesweb_ip_access_settings:
     example:
       display_name: example
@@ -53,8 +52,7 @@ resource:
         ip_range: 192.168.0.0/24
         description: Branch office
       tags:
-        Name: example-ip-access-settings
-```
+        Name: example-ip-access-settings```
 
 ## Argument Reference
 

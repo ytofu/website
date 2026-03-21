@@ -12,12 +12,10 @@ resource:
       enable_dns_support: true
       enable_dns_hostnames: true
 
-resource:
   aws_route53_resolver_firewall_config:
     example:
       resource_id: ${aws_vpc.example.id}
-      firewall_fail_open: ENABLED
-```
+      firewall_fail_open: ENABLED```
 
 ## Argument Reference
 

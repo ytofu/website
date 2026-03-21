@@ -23,11 +23,9 @@ data:
   aws_region:
     current:
 
-data:
   aws_caller_identity:
     current:
 
-data:
   aws_iam_policy_document:
     example:
       statement:
@@ -49,8 +47,7 @@ resource:
   aws_opensearch_domain:
     example:
       domain_name: example-domain
-      access_policies: ${data.aws_iam_policy_document.example.json}
-```
+      access_policies: ${data.aws_iam_policy_document.example.json}```
 
 ## Log publishing to CloudWatch Logs
 
@@ -59,6 +56,17 @@ resource:
   aws_cloudwatch_log_group:
     example:
       name: example
+
+  aws_cloudwatch_log_resource_policy:
+    example:
+      policy_name: example
+      policy_document: ${data.aws_iam_policy_document.example.json}
+
+  aws_opensearch_domain:
+    example:
+      log_publishing_options:
+        cloudwatch_log_group_arn: ${aws_cloudwatch_log_group.example.arn}
+        log_type: INDEX_SLOW_LOGS
 
 data:
   aws_iam_policy_document:
@@ -74,21 +82,7 @@ data:
           - "logs:PutLogEventsBatch"
           - "logs:CreateLogStream"
         resources: 
-          - "arn:aws:logs:*"
-
-resource:
-  aws_cloudwatch_log_resource_policy:
-    example:
-      policy_name: example
-      policy_document: ${data.aws_iam_policy_document.example.json}
-
-resource:
-  aws_opensearch_domain:
-    example:
-      log_publishing_options:
-        cloudwatch_log_group_arn: ${aws_cloudwatch_log_group.example.arn}
-        log_type: INDEX_SLOW_LOGS
-```
+          - "arn:aws:logs:*"```
 
 ## VPC based OpenSearch
 
@@ -99,7 +93,6 @@ data:
       tags:
         Name: example-vpc
 
-data:
   aws_subnets:
     example:
       filter:
@@ -109,33 +102,12 @@ data:
       tags:
         Tier: private
 
-data:
   aws_region:
     current:
 
-data:
   aws_caller_identity:
     current:
 
-resource:
-  aws_security_group:
-    example:
-      name: "example-vpc-opensearch-example-domain"
-      description: Managed by Terraform
-      vpc_id: ${data.aws_vpc.example.id}
-      ingress:
-        from_port: 443
-        to_port: 443
-        protocol: tcp
-        cidr_blocks:
-          - ${data.aws_vpc.example.cidr_block}
-
-resource:
-  aws_iam_service_linked_role:
-    example:
-      aws_service_name: opensearchservice.amazonaws.com
-
-data:
   aws_iam_policy_document:
     example:
       statement:
@@ -150,6 +122,22 @@ data:
           - "arn:aws:es:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:domain/example-domain/*"
 
 resource:
+  aws_security_group:
+    example:
+      name: "example-vpc-opensearch-example-domain"
+      description: Managed by Terraform
+      vpc_id: ${data.aws_vpc.example.id}
+      ingress:
+        from_port: 443
+        to_port: 443
+        protocol: tcp
+        cidr_blocks:
+          - ${data.aws_vpc.example.cidr_block}
+
+  aws_iam_service_linked_role:
+    example:
+      aws_service_name: opensearchservice.amazonaws.com
+
   aws_opensearch_domain:
     example:
       domain_name: example-domain
@@ -168,8 +156,7 @@ resource:
       tags:
         Domain: TestDomain
       depends_on: 
-        - ${aws_iam_service_linked_role.example}
-```
+        - ${aws_iam_service_linked_role.example}```
 
 ## Enabling fine-grained access control on an existing domain
 

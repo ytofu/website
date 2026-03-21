@@ -41,7 +41,6 @@ resource:
           configuration:
             ProjectName: test
 
-resource:
   aws_codepipeline_webhook:
     bar:
       name: test-webhook-github-bar
@@ -54,7 +53,6 @@ resource:
         json_path: $.ref
         match_equals: "refs/heads/{Branch}"
 
-resource:
   github_repository_webhook:
     bar:
       repository: ${github_repository.repo.name}
@@ -65,8 +63,7 @@ resource:
         insecure_ssl: true
         secret: example-webhook_secret
       events: 
-        - push
-```
+        - push```
 
 ## Argument Reference
 

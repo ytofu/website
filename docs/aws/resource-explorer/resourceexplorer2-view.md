@@ -10,7 +10,6 @@ resource:
     example:
       type: LOCAL
 
-resource:
   aws_resourceexplorer2_view:
     example:
       name: exampleview
@@ -19,8 +18,7 @@ resource:
       included_property:
         name: tags
       depends_on: 
-        - ${aws_resourceexplorer2_index.example}
-```
+        - ${aws_resourceexplorer2_index.example}```
 
 ## Argument Reference
 

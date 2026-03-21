@@ -98,14 +98,12 @@ resource:
         min_capacity: 0.0
         seconds_until_auto_pause: 3600
 
-resource:
   aws_rds_cluster_instance:
     example:
       cluster_identifier: ${aws_rds_cluster.example.id}
       instance_class: db.serverless
       engine: ${aws_rds_cluster.example.engine}
-      engine_version: ${aws_rds_cluster.example.engine_version}
-```
+      engine_version: ${aws_rds_cluster.example.engine_version}```
 
 ## RDS/Aurora Managed Master Passwords via Secrets Manager, default KMS Key
 
@@ -127,15 +125,13 @@ resource:
     example:
       description: Example KMS Key
 
-resource:
   aws_rds_cluster:
     test:
       cluster_identifier: example
       database_name: test
       manage_master_user_password: true
       master_username: test
-      master_user_secret_kms_key_id: ${aws_kms_key.example.key_id}
-```
+      master_user_secret_kms_key_id: ${aws_kms_key.example.key_id}```
 
 ## Global Cluster Restored From Snapshot
 
@@ -158,13 +154,11 @@ resource:
           - snapshot_identifier
           - global_cluster_identifier
 
-resource:
   aws_rds_global_cluster:
     example:
       global_cluster_identifier: example
       source_db_cluster_identifier: ${aws_rds_cluster.example.arn}
-      force_destroy: true
-```
+      force_destroy: true```
 
 ## Argument Reference
 

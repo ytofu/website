@@ -17,13 +17,11 @@ resource:
         instance: ${aws_instance.example.id}
         device_index: 1
 
-resource:
   aws_network_interface_permission:
     example:
       network_interface_id: ${aws_network_interface.example.id}
       aws_account_id: 123456789012
-      permission: INSTANCE-ATTACH
-```
+      permission: INSTANCE-ATTACH```
 
 ## Argument Reference
 

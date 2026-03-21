@@ -21,7 +21,6 @@ resource:
     example:
       name: Example API
 
-resource:
   aws_api_gateway_rest_api_put:
     examplev1:
       body: file-content
@@ -32,7 +31,6 @@ resource:
       lifecycle:
         create_before_destroy: true
 
-resource:
   aws_api_gateway_deployment:
     examplev1:
       rest_api_id: ${aws_api_gateway_rest_api.example.id}
@@ -41,14 +39,12 @@ resource:
       lifecycle:
         create_before_destroy: true
 
-resource:
   aws_api_gateway_stage:
     examplev1:
       stage_name: v1
       rest_api_id: ${aws_api_gateway_rest_api.example.id}
       deployment_id: ${aws_api_gateway_deployment.examplev1.id}
 
-resource:
   aws_api_gateway_rest_api_put:
     examplev2:
       depends_on:
@@ -61,7 +57,6 @@ resource:
       lifecycle:
         create_before_destroy: true
 
-resource:
   aws_api_gateway_deployment:
     examplev2:
       rest_api_id: ${aws_api_gateway_rest_api.example.id}
@@ -70,13 +65,11 @@ resource:
       lifecycle:
         create_before_destroy: true
 
-resource:
   aws_api_gateway_stage:
     examplev2:
       stage_name: v2
       rest_api_id: ${aws_api_gateway_rest_api.example.id}
-      deployment_id: ${aws_api_gateway_deployment.examplev2.id}
-```
+      deployment_id: ${aws_api_gateway_deployment.examplev2.id}```
 
 ## Argument Reference
 

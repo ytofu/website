@@ -11,12 +11,10 @@ resource:
       cluster_identifier: default
       database_name: default
 
-resource:
   aws_sns_topic:
     default:
       name: redshift-events
 
-resource:
   aws_redshift_event_subscription:
     default:
       name: redshift-event-sub
@@ -31,8 +29,7 @@ resource:
         - monitoring
         - security
       tags:
-        Name: default
-```
+        Name: default```
 
 ## Argument Reference
 

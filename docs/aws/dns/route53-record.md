@@ -32,7 +32,6 @@ resource:
       records: 
         - dev.example.com
 
-resource:
   aws_route53_record:
     www-live:
       zone_id: ${aws_route53_zone.primary.zone_id}
@@ -43,8 +42,7 @@ resource:
         weight: 90
       set_identifier: live
       records: 
-        - live.example.com
-```
+        - live.example.com```
 
 ## Geoproximity routing policy
 
@@ -80,7 +78,6 @@ resource:
         lb_port: 80
         lb_protocol: http
 
-resource:
   aws_route53_record:
     www:
       zone_id: ${aws_route53_zone.primary.zone_id}
@@ -89,8 +86,7 @@ resource:
       alias:
         name: ${aws_elb.main.dns_name}
         zone_id: ${aws_elb.main.zone_id}
-        evaluate_target_health: true
-```
+        evaluate_target_health: true```
 
 ## Alias record for AWS Global Accelerator
 
@@ -102,7 +98,6 @@ resource:
       enabled: true
       ip_address_type: IPV4
 
-resource:
   aws_route53_record:
     www:
       zone_id: ${aws_route53_zone.primary.zone_id}
@@ -111,8 +106,7 @@ resource:
       alias:
         name: ${aws_globalaccelerator_accelerator.main.dns_name}
         zone_id: ${aws_globalaccelerator_accelerator.main.hosted_zone_id}
-        evaluate_target_health: false
-```
+        evaluate_target_health: false```
 
 ## NS and SOA Record Management
 
@@ -122,7 +116,6 @@ resource:
     example:
       name: test.example.com
 
-resource:
   aws_route53_record:
     example:
       allow_overwrite: true
@@ -134,8 +127,7 @@ resource:
         - ${aws_route53_zone.example.name_servers[0]}
         - ${aws_route53_zone.example.name_servers[1]}
         - ${aws_route53_zone.example.name_servers[2]}
-        - ${aws_route53_zone.example.name_servers[3]}
-```
+        - ${aws_route53_zone.example.name_servers[3]}```
 
 ## Argument Reference
 

@@ -12,7 +12,6 @@ resource:
       name: terraform-kinesis-test
       shard_count: 1
 
-resource:
   aws_kinesis_analytics_application:
     test_application:
       name: kinesis-analytics-application-test
@@ -31,8 +30,7 @@ resource:
           record_format:
             mapping_parameters:
               json:
-                record_row_path: $
-```
+                record_row_path: $```
 
 ## Starting An Application
 
@@ -42,19 +40,16 @@ resource:
     example:
       name: analytics
 
-resource:
   aws_cloudwatch_log_stream:
     example:
       name: example-kinesis-application
       log_group_name: ${aws_cloudwatch_log_group.example.name}
 
-resource:
   aws_kinesis_stream:
     example:
       name: example-kinesis-stream
       shard_count: 1
 
-resource:
   aws_kinesis_firehose_delivery_stream:
     example:
       name: example-kinesis-delivery-stream
@@ -63,7 +58,6 @@ resource:
         bucket_arn: ${aws_s3_bucket.example.arn}
         role_arn: ${aws_iam_role.example.arn}
 
-resource:
   aws_kinesis_analytics_application:
     test:
       name: example-application
@@ -93,8 +87,7 @@ resource:
         kinesis_firehose:
           resource_arn: ${aws_kinesis_firehose_delivery_stream.example.arn}
           role_arn: ${aws_iam_role.example.arn}
-      start_application: true
-```
+      start_application: true```
 
 ## Argument Reference
 

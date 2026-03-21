@@ -30,19 +30,16 @@ resource:
         max_concurrent_runs: 1
       tags: 
 
-resource:
   aws_iam_role:
     glue_job_role:
       name: glue-job-role
       assume_role_policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": "sts:AssumeRole" "Effect": "Allow" "Principal": { "Service": "glue.amazonaws.com" } } ] }'
 
-resource:
   aws_s3_object:
     glue_etl_script:
       bucket: ${aws_s3_bucket.glue_scripts.id}
       key: jobs/etl_job.py
-      source: "jobs/etl_job.py" # Make sure this file exists locally
-```
+      source: "jobs/etl_job.py" # Make sure this file exists locally```
 
 ## Pythonshell Job
 
@@ -67,19 +64,16 @@ resource:
         max_concurrent_runs: 1
       tags: 
 
-resource:
   aws_iam_role:
     glue_job_role:
       name: glue-job-role
       assume_role_policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": "sts:AssumeRole" "Effect": "Allow" "Principal": { "Service": "glue.amazonaws.com" } } ] }'
 
-resource:
   aws_s3_object:
     python_shell_script:
       bucket: ${aws_s3_bucket.glue_scripts.id}
       key: jobs/shell_job.py
-      source: "jobs/shell_job.py" # Make sure this file exists locally
-```
+      source: "jobs/shell_job.py" # Make sure this file exists locally```
 
 ## Ray Job
 
@@ -133,11 +127,9 @@ resource:
       name: example
       retention_in_days: 14
 
-resource:
   aws_glue_job:
     example:
-      default_arguments: 
-```
+      default_arguments: ```
 
 ## Argument Reference
 

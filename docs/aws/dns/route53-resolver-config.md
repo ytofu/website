@@ -12,12 +12,10 @@ resource:
       enable_dns_support: true
       enable_dns_hostnames: true
 
-resource:
   aws_route53_resolver_config:
     example:
       resource_id: ${aws_vpc.example.id}
-      autodefined_reverse_flag: DISABLE
-```
+      autodefined_reverse_flag: DISABLE```
 
 ## Argument Reference
 

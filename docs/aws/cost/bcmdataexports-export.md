@@ -9,7 +9,6 @@ data:
   aws_caller_identity:
     current:
 
-data:
   aws_partition:
     current:
 
@@ -38,8 +37,7 @@ resource:
               compression: GZIP
               output_type: CUSTOM
         refresh_cadence:
-          frequency: SYNCHRONOUS
-```
+          frequency: SYNCHRONOUS```
 
 ## Argument Reference
 

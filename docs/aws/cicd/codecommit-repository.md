@@ -22,12 +22,10 @@ resource:
       description: This is the Sample App Repository
       kms_key_id: ${aws_kms_key.test.arn}
 
-resource:
   aws_kms_key:
     test:
       description: test
-      deletion_window_in_days: 7
-```
+      deletion_window_in_days: 7```
 
 ## Argument Reference
 

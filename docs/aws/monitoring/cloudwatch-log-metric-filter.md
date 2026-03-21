@@ -16,11 +16,9 @@ resource:
         namespace: YourNamespace
         value: 1
 
-resource:
   aws_cloudwatch_log_group:
     dada:
-      name: MyApp/access.log
-```
+      name: MyApp/access.log```
 
 ## Argument Reference
 

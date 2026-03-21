@@ -29,7 +29,6 @@ data:
   aws_partition:
     current:
 
-data:
   aws_iam_policy_document:
     assume_role:
       statement:
@@ -48,12 +47,10 @@ resource:
       assume_role_policy: ${data.aws_iam_policy_document.assume_role.json}
       name: gamelift-game-server-group-example
 
-resource:
   aws_iam_role_policy_attachment:
     example:
       policy_arn: "arn:${data.aws_partition.current.partition}:iam::aws:policy/GameLiftGameServerGroupPolicy"
-      role: ${aws_iam_role.example.name}
-```
+      role: ${aws_iam_role.example.name}```
 
 ## Argument Reference
 

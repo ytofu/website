@@ -11,13 +11,11 @@ resource:
       baseline_id: ${aws_ssm_patch_baseline.example.id}
       operating_system: ${aws_ssm_patch_baseline.example.operating_system}
 
-resource:
   aws_ssm_patch_baseline:
     example:
       name: example
       approved_patches: 
-        - KB123456
-```
+        - KB123456```
 
 ## Argument Reference
 

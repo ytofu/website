@@ -9,7 +9,6 @@ data:
   aws_region:
     replica:
 
-data:
   aws_region:
     current:
 
@@ -19,13 +18,11 @@ resource:
       replica:
         region_name: ${data.aws_region.replica.name}
 
-resource:
   aws_dynamodb_tag:
     test:
       resource_arn: replaced-value
       key: testkey
-      value: testvalue
-```
+      value: testvalue```
 
 ## Argument Reference
 

@@ -10,11 +10,9 @@ data:
   aws_region:
     current:
 
-data:
   aws_organizations_organization:
     example:
 
-data:
   aws_organizations_organizational_units:
     example:
       parent_id: ${data.aws_organizations_organization.example.roots[0].id}
@@ -26,8 +24,7 @@ resource:
       target_identifier: 'example-list'
       parameters:
         key: AllowedRegions
-        value: example-value
-```
+        value: example-value```
 
 ## Argument Reference
 

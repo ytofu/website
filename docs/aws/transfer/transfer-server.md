@@ -83,6 +83,22 @@ resource:
     transfer:
       name_prefix: transfer_test_
 
+  aws_iam_role:
+    iam_for_transfer:
+      name_prefix: iam_for_transfer_
+      assume_role_policy: ${data.aws_iam_policy_document.transfer_assume_role.json}
+      managed_policy_arns: 
+        - "arn:aws:iam::aws:policy/service-role/AWSTransferLoggingAccess"
+
+  aws_transfer_server:
+    transfer:
+      endpoint_type: PUBLIC
+      logging_role: ${aws_iam_role.iam_for_transfer.arn}
+      protocols: 
+        - SFTP
+      structured_log_destinations:
+        - "${aws_cloudwatch_log_group.transfer.arn}:*"
+
 data:
   aws_iam_policy_document:
     transfer_assume_role:
@@ -93,26 +109,7 @@ data:
           identifiers: 
             - transfer.amazonaws.com
         actions: 
-          - "sts:AssumeRole"
-
-resource:
-  aws_iam_role:
-    iam_for_transfer:
-      name_prefix: iam_for_transfer_
-      assume_role_policy: ${data.aws_iam_policy_document.transfer_assume_role.json}
-      managed_policy_arns: 
-        - "arn:aws:iam::aws:policy/service-role/AWSTransferLoggingAccess"
-
-resource:
-  aws_transfer_server:
-    transfer:
-      endpoint_type: PUBLIC
-      logging_role: ${aws_iam_role.iam_for_transfer.arn}
-      protocols: 
-        - SFTP
-      structured_log_destinations:
-        - "${aws_cloudwatch_log_group.transfer.arn}:*"
-```
+          - "sts:AssumeRole"```
 
 ## Argument Reference
 

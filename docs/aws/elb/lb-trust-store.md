@@ -12,7 +12,6 @@ resource:
       ca_certificates_bundle_s3_bucket: ...
       ca_certificates_bundle_s3_key: ...
 
-resource:
   aws_lb_listener:
     example:
       load_balancer_arn: ${aws_lb.example.id}
@@ -21,8 +20,7 @@ resource:
         type: forward
       mutual_authentication:
         mode: verify
-        trust_store_arn: ${aws_lb_trust_store.test.arn}
-```
+        trust_store_arn: ${aws_lb_trust_store.test.arn}```
 
 ## Argument Reference
 

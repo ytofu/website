@@ -44,7 +44,6 @@ resource:
         - 1.1.1.1/32
         - 2.2.2.2/32
 
-resource:
   aws_wafv2_regex_pattern_set:
     test:
       name: test
@@ -52,7 +51,6 @@ resource:
       regular_expression:
         regex_string: one
 
-resource:
   aws_wafv2_rule_group:
     example:
       name: complex-example
@@ -181,8 +179,7 @@ resource:
                         immunity_time: 120
                     tags:
                       Name: example-and-statement
-                      Code: 123456
-```
+                      Code: 123456```
 
 ## Using rules_json
 

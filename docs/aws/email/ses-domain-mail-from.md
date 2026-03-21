@@ -11,12 +11,10 @@ resource:
       domain: ${aws_ses_domain_identity.example.domain}
       mail_from_domain: "bounce.${aws_ses_domain_identity.example.domain}"
 
-resource:
   aws_ses_domain_identity:
     example:
       domain: example.com
 
-resource:
   aws_route53_record:
     example_ses_domain_mail_from_mx:
       zone_id: ${aws_route53_zone.example.id}
@@ -26,7 +24,6 @@ resource:
       records: 
         - 10 feedback-smtp.us-east-1.amazonses.com
 
-resource:
   aws_route53_record:
     example_ses_domain_mail_from_txt:
       zone_id: ${aws_route53_zone.example.id}
@@ -34,8 +31,7 @@ resource:
       type: TXT
       ttl: 600
       records: 
-        - "v=spf1 include:amazonses.com ~all"
-```
+        - "v=spf1 include:amazonses.com ~all"```
 
 ## Email Identity MAIL FROM
 
@@ -45,12 +41,10 @@ resource:
     example:
       email: user@example.com
 
-resource:
   aws_ses_domain_mail_from:
     example:
       domain: ${aws_ses_email_identity.example.email}
-      mail_from_domain: mail.example.com
-```
+      mail_from_domain: mail.example.com```
 
 ## Argument Reference
 

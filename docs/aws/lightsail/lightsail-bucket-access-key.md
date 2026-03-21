@@ -11,11 +11,9 @@ resource:
       name: example-bucket
       bundle_id: small_1_0
 
-resource:
   aws_lightsail_bucket_access_key:
     example:
-      bucket_name: ${aws_lightsail_bucket.example.id}
-```
+      bucket_name: ${aws_lightsail_bucket.example.id}```
 
 ## Argument Reference
 

@@ -17,7 +17,6 @@ resource:
         replace_triggered_by:
           - ${aws_imagebuilder_image_recipe.example}
 
-resource:
   aws_imagebuilder_image_recipe:
     example:
       block_device_mapping:
@@ -36,8 +35,7 @@ resource:
           value: Value2
       name: example
       parent_image: "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.region}:aws:image/amazon-linux-2-x86/x.x.x"
-      version: 1.0.0
-```
+      version: 1.0.0```
 
 ## Argument Reference
 

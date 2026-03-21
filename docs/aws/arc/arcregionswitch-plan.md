@@ -11,7 +11,6 @@ resource:
       name: arc-region-switch-role
       assume_role_policy: '{ "Version": "2012-10-17" "Statement": [ { "Action": "sts:AssumeRole" "Effect": "Allow" "Principal": { "Service": "arc-region-switch.amazonaws.com" } }, ] }'
 
-resource:
   aws_arcregionswitch_plan:
     example:
       name: example-plan
@@ -38,8 +37,7 @@ resource:
           execution_block_type: ManualApproval
           execution_approval_config:
             approval_role: ${aws_iam_role.example.arn}
-            timeout_minutes: 60
-```
+            timeout_minutes: 60```
 
 ## Complex Usage with Multiple Step Types
 
